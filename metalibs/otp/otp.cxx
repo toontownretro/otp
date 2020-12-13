@@ -14,4 +14,4 @@
 #if defined(_WIN32) && !defined(CPPPARSER) && !defined(LINK_ALL_STATIC)
 __declspec(dllexport)
 #endif
-int otp
+int otp;
