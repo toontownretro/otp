@@ -240,7 +240,7 @@ The importance of security for all personally identifiable information associate
 ""","""
 Q6 How can I access my account information?
 
-You can access the personally identifiable information you gave us during registration at our Account Options center available from (http://play.toontown.com).  Log-in with your account name and parent password. There are instructions on the start page to help you recover your password if you've forgotten it.
+You can access the personally identifiable information you gave us during registration at our Account Options center available from (http://play.toontown.com). Log-in with your account name and parent password. There are instructions on the start page to help you recover your password if you've forgotten it.
 You can also contact us by clicking "Contact Us" in the footer on any WDIG page and selecting "Registration/Personalization" in the drop down box, or send an e-mail directly to memberservices@help.go.com. Please include information in the e-mail that will help us identify your account so we can assist you with your inquiry or request.
 ""","""
 Q7 Whom do I contact with questions or concerns about this privacy policy?
@@ -2999,7 +2999,7 @@ SpeedChatStaticTextPirates = {
     60672 : "I just found the treasure I've been searching for.",
     60673 : "If you were a booger, I'd pick you first.",
     60674 : "Come to Tortuga often?",
-    60675 : "Do you have a map?  I just keep getting lost in your eyes.",
+    60675 : "Do you have a map? I just keep getting lost in your eyes.",
 
     65000 : "Yes",
     65001 : "No",
