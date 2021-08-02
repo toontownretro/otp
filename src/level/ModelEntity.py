@@ -75,7 +75,7 @@ class ModelEntity(BasicEntities.NodePathEntity):
             self.model.flattenLight()
             """
 
-            if self.goonHatType is not 'none':
+            if self.goonHatType != 'none':
                 self.goonType = {'hardhat':'pg','security':'sg'}[self.goonHatType]
                 self.hat = self.model
                 ### this was copied from Goon.createHead

@@ -93,13 +93,16 @@ class SCTerminal(SCElement):
     # should be invoked when the node is selected.
     def getLinkedEmote(self):
         return self.linkedEmote
+        
     def setLinkedEmote(self, linkedEmote):
         self.linkedEmote = linkedEmote
         # TODO: we should make sure we're listening for emote
         # enable state changes if this is set while we're visible
         self.invalidate()
+        
     def hasLinkedEmote(self):
         return (self.linkedEmote is not None)
+        
     def linkedEmoteEnabled(self):
         if Emote.globalEmote:
             return Emote.globalEmote.isEnabled(self.linkedEmote)
@@ -109,7 +112,7 @@ class SCTerminal(SCElement):
     
     def setCharges(self, nCharges):
         self.__numCharges = nCharges
-        if (nCharges is 0):
+        if (nCharges == 0):
             self.setDisabled(True)
     
     # support for disabled terminals
@@ -217,8 +220,6 @@ class SCTerminal(SCElement):
             self.ignore(Emote.globalEmote.EmoteEnableStateChanged)
 
     def getDisplayText(self):
-        if self.getCharges() is not -1:
+        if self.getCharges() != -1:
             return self.text + " (%s)" % self.getCharges()
-        else:
-            return self.text
-
+        return self.text

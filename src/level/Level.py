@@ -205,9 +205,9 @@ class Level:
         # it has all of its initial spec data; see 'initializeEntity'
         # below.
         announce = False
-        if entity is 'nonlocal':
+        if entity == 'nonlocal':
             self.nonlocalEntIds[entId] = None
-        elif entity is 'nothing':
+        elif entity == 'nothing':
             self.nothingEntIds[entId] = None
             announce = True
         else:
@@ -252,8 +252,7 @@ class Level:
     def getEntity(self, entId):
         if hasattr(self, 'entities'):
             return self.entities.get(entId)
-        else:
-            return None
+        return None
 
     def getEntityType(self, entId):
         return self.levelSpec.getEntityType(entId)
@@ -302,24 +301,29 @@ class Level:
         """This is the event that is thrown immediately before the level
         creates its entities."""
         return 'levelPreCreate-%s' % (self.levelId)
+        
     def getLevelPostCreateEvent(self):
         """This is the event that is thrown immediately after the level
         creates its entities."""
         return 'levelPostCreate-%s' % (self.levelId)
+        
     # ENTITY TYPE
     def getEntityTypePreCreateEvent(self, entType):
         """This is the event that is thrown immediately before the level
         creates the entities of the given type."""
         return 'entityTypePreCreate-%s-%s' % (self.levelId, entType)
+        
     def getEntityTypePostCreateEvent(self, entType):
         """This is the event that is thrown immediately after the level
         creates the entities of the given type."""
         return 'entityTypePostCreate-%s-%s' % (self.levelId, entType)
+        
     # ENTITY
     def getEntityCreateEvent(self, entId):
         """This is the event that is thrown immediately after a
         particular entity is initialized"""
         return 'entityCreate-%s-%s' % (self.levelId, entId)
+        
     def getEntityOfTypeCreateEvent(self, entType):
         """This event is thrown immediately after each instance of the
         given entity type is created; handlers must accept an entId"""
@@ -330,16 +334,20 @@ class Level:
     def onLevelPreCreate(self):
         """Level is about to create its entities"""
         messenger.send(self.getLevelPreCreateEvent())
+        
     def onLevelPostCreate(self):
         """Level is done creating its entities"""
         messenger.send(self.getLevelPostCreateEvent())
+        
     # ENTITY TYPE
     def onEntityTypePreCreate(self, entType):
         """Level is about to create these entities"""
         messenger.send(self.getEntityTypePreCreateEvent(entType))
+        
     def onEntityTypePostCreate(self, entType):
         """Level has just created these entities"""
         messenger.send(self.getEntityTypePostCreateEvent(entType))
+        
     # ENTITY
     def onEntityCreate(self, entId):
         """Level has just created this entity"""
@@ -380,6 +388,7 @@ class Level:
         """This is the event that is thrown immediately before an
         entity is destroyed"""
         return 'entityDestroy-%s-%s' % (self.levelId, entId)
+        
     def onEntityDestroy(self, entId):
         """Level is about to destroy this entity"""
         assert entId in self.entities

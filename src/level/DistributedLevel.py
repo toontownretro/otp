@@ -742,7 +742,7 @@ class DistributedLevel(DistributedObject.DistributedObject,
             titleSeq = None
             if self.lastCamZone not in self.zonesEnteredList:
                 self.zonesEnteredList.append(self.lastCamZone)
-                 titleSeq = Sequence(
+                titleSeq = Sequence(
                     Func(self.hideSmallTitleText),
                     Func(self.showTitleText),
                     Wait(6.1),
@@ -773,7 +773,7 @@ class DistributedLevel(DistributedObject.DistributedObject,
             # If we've already seen it, just show the small title
 
             titleSeq = None
-             titleSeq = Sequence(
+            titleSeq = Sequence(
                 Func(self.hideSmallTitleText),
                 Func(self.showTitleText),
                 Wait(3.1),
