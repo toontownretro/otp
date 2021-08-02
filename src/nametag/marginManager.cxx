@@ -14,6 +14,7 @@
 #include "indent.h"
 
 #include <algorithm>
+#include <random>
 
 TypeHandle MarginManager::_type_handle;
 
@@ -363,7 +364,7 @@ update() {
       // If the popup wants to hide itself, we can oblige it right
       // away.
       hide(info._cell_index);
-      
+
     } else if (info._wants_visible && !popup->is_visible()) {
       // This popup wants to reveal itself; we'll have to defer that
       // request for a bit until we've looked at all the popups.
@@ -402,7 +403,7 @@ update() {
 ////////////////////////////////////////////////////////////////////
 //     Function: MarginManager::write
 //       Access: Published, Virtual
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 write(ostream &out, int indent_level) const {
@@ -448,7 +449,8 @@ show_visible_no_conflict() {
   }
 
   // Randomize the list, so we'll pull the cells out in random order.
-  random_shuffle(empty_cells.begin(), empty_cells.end());
+  auto random = std::default_random_engine(std::random_device()());
+  std::shuffle(std::begin(empty_cells), std::end(empty_cells), random);
 
   // Now find a home for each popup that needs one.
   Popups::iterator pi;
@@ -518,8 +520,8 @@ show_visible_resolve_conflict() {
   }
 
   // Randomize the list, so we'll pull the cells out in random order.
-  random_shuffle(empty_cells.begin(), empty_cells.end());
-
+  auto random = std::default_random_engine(std::random_device()());
+  std::shuffle(std::begin(empty_cells), std::end(empty_cells), random);
 
   // And place all the cells from the head of the wants-visible list.
   // There should be an empty cell available for each of them.
