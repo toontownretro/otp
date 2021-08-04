@@ -1,6 +1,5 @@
 
 from otp.otpbase.OTPModules import *
-from otp.otpbase.OTPModules import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase.ShadowPlacer import ShadowPlacer
 from otp.otpbase import OTPGlobals
@@ -10,7 +9,7 @@ from otp.otpbase import OTPGlobals
 # TimeOfDayManager (which currently manages projected shadows).
 # Always change its state via this function, instead of monkeying with
 # it directly.
-globalDropShadowFlag = 0
+globalDropShadowFlag = 1
 def setGlobalDropShadowFlag(flag):
     global globalDropShadowFlag
     if flag != globalDropShadowFlag:

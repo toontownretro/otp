@@ -13,26 +13,26 @@ class AccountServerConstants(RemoteValueSet):
     def __init__(self, cr):
         """ might throw a TTAccountException """
         self.expectedConstants = [
-            'minNameLength',
-            'minPwLength',
-            'allowNewAccounts',
-            'freeTrialPeriodInDays',
-            'priceFirstMonth',
-            'pricePerMonth',
-            'customerServicePhoneNumber',
-            'creditCardUpFront',
+            b'minNameLength',
+            b'minPwLength',
+            b'allowNewAccounts',
+            b'freeTrialPeriodInDays',
+            b'priceFirstMonth',
+            b'pricePerMonth',
+            b'customerServicePhoneNumber',
+            b'creditCardUpFront',
             ]
         # if in dev env with no account server, constants will be set to
         # an arbitrary string. If a constant needs to be something more
         # specific, set it here
         # rurbino the minPw and minName used to be zero, that sounds bad and upped it to 1
         self.defaults = {
-            'minNameLength': '1',
-            'minPwLength': '1',
-            'allowNewAccounts': '1',
-            'creditCardUpFront': '0',
-            'priceFirstMonth': '9.95',
-            'pricePerMonth': '9.95',
+            b'minNameLength': '1',
+            b'minPwLength': '1',
+            b'allowNewAccounts': '1',
+            b'creditCardUpFront': '0',
+            b'priceFirstMonth': '9.95',
+            b'pricePerMonth': '9.95',
             }
 
         # do not query server for AccountConstants (US is no - will query)
@@ -69,16 +69,19 @@ class AccountServerConstants(RemoteValueSet):
                           url.cStr())
 
         RemoteValueSet.__init__(self, url, cr.http,
-                                expectedHeader='ACCOUNT SERVER CONSTANTS',
+                                expectedHeader=b'ACCOUNT SERVER CONSTANTS\n',
                                 expectedFields=self.expectedConstants,)
 
     # override the accessors so we can warn about undeclared constants
     def getBool(self, name):
         return self.__getConstant(name, RemoteValueSet.getBool)
+        
     def getInt(self, name):
         return self.__getConstant(name, RemoteValueSet.getInt)
+        
     def getFloat(self, name):
         return self.__getConstant(name, RemoteValueSet.getFloat)
+        
     def getString(self, name):
         return self.__getConstant(name, RemoteValueSet.getString)
 

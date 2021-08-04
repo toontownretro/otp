@@ -54,7 +54,7 @@ class RemoteValueSet:
             # separate the constant name and its value
             # '1' means only make one split (the first one, from the left)
             try:
-                name, value = line.split('=', 1)
+                name, value = line.split(b'=', 1)
             except ValueError as e:
                 errMsg = 'unexpected response: %s' % response
                 self.notify.warning(errMsg)

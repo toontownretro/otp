@@ -100,6 +100,7 @@ class AIDistrict(AIRepository):
 
     def incrementPopulation(self):
         self._population += 1
+ 
     def decrementPopulation(self):
         if __dev__:
             assert self._population > 0
@@ -124,8 +125,7 @@ class AIDistrict(AIRepository):
     #### Init ####
 
     def writeServerEvent(self, eventType, who, description):
-        AIRepository.writeServerEvent(self, eventType, who, description,
-                                      serverId=self.districtId)
+        AIRepository.writeServerEvent(self, eventType, who, description, serverId=self.districtId)
 
     #### DistrictReset ####
     def enterDistrictReset(self):
@@ -138,13 +138,13 @@ class AIDistrict(AIRepository):
     def handleDistrictReset(self, msgType, di):
         if msgType == STATESERVER_OBJECT_DELETE_RAM:
             doId = di.getUint32()
-            self.notify.info("Got request to delete doId: " +str(doId))
-            if(doId == self.districtId):
+            self.notify.info("Got request to delete doId: " + str(doId))
+            if (doId == self.districtId):
                 self.fsm.request("playGame")
         elif msgType == STATESERVER_OBJECT_NOTFOUND:
             doId = di.getUint32()
-            self.notify.info("Got Not Found For  doId: " +str(doId))
-            if(doId == self.districtId):
+            self.notify.info("Got Not Found For  doId: " + str(doId))
+            if (doId == self.districtId):
                 self.fsm.request("playGame")
         else:
             self.handleMessageType(msgType, di)
@@ -213,9 +213,7 @@ class AIDistrict(AIRepository):
         self.handler = self.handleConnect
         self.lastMessageTime = 0
 
-        self.connect([self.mdurl],
-                     successCallback = self._connected,
-                     failureCallback = self._failedToConnect)
+        self.connect([self.mdurl], successCallback = self._connected, failureCallback = self._failedToConnect)
 
     def _failedToConnect(self, statusCode, statusString):
         self.fsm.request("noConnection")
@@ -231,32 +229,22 @@ class AIDistrict(AIRepository):
     def _handleValidDistrictDown(self, msgType, di):
         downDistrictId = di.getUint32()
         if (downDistrictId != self.districtId):
-            self.notify.error("Tried to bring down " +
-                              str(self.districtId) +
-                              " but " +
-                              str(downDistrictId) +
-                              " came down instead!")
+            self.notify.error("Tried to bring down " + str(self.districtId) + " but " + str(downDistrictId) + " came down instead!")
         else:
             # We don't really need to do anything here.
             pass
 
     def _handleIgnorableObjectDelete(self, msgType, di):
         doId = di.getUint32()
-        self.notify.debug("Ignoring request to delete doId: " +
-                          str(doId))
+        self.notify.debug("Ignoring request to delete doId: " + str(doId))
 
     def _handleValidDistrictUp(self, msgType, di):
         if msgType == STATESERVER_DISTRICT_UP:
             upDistrictId = di.getUint32()
             if (upDistrictId != self.districtId):
-                self.notify.error("Tried to bring up " +
-                                  str(self.districtId) +
-                                  " but " +
-                                  str(downDistrictId) +
-                                  " came up instead!")
+                self.notify.error("Tried to bring up " + str(self.districtId) + " but " + str(downDistrictId) + " came up instead!")
             else:
-                self.notify.info("District %s %s is up. Creating objects..." %
-                                 (self.districtId, self.districtName))
+                self.notify.info("District %s %s is up. Creating objects..." % (self.districtId, self.districtName))
                 self.fsm.request("playGame")
 
     def exitConnect(self):
@@ -280,10 +268,10 @@ class AIDistrict(AIRepository):
             raise
 
     def handleReaderOverflow(self):
+        assert self.notify.debugStateCall(self)
         # may as well delete the shard at this point
         self.deleteDistrict(self.districtId)
-        raise Exception("incoming-datagram buffer overflowed, "
-                              "aborting AI process")
+        raise Exception("incoming-datagram buffer overflowed, aborting AI process")
 
     ##### General Purpose functions #####
 
@@ -332,33 +320,19 @@ class AIDistrict(AIRepository):
         # Get the district Id
         downDistrict = di.getUint32()
         if downDistrict == self.districtId:
-            self.notify.warning("Somebody brought my district(" +
-                                str(self.districtId) +
-                                ") down! I'm shutting down!")
+            self.notify.warning("Somebody brought my district(" + str(self.districtId) + ") down! I'm shutting down!")
             sys.exit()
         else:
-            self.notify.warning("Weird... My district is " +
-                                str(self.districtId) +
-                                " and I just got a message that district " +
-                                str(downDistrict) +
-                                " is going down. I'm ignoring it."
-                                )
+            self.notify.warning("Weird... My district is " + str(self.districtId) + " and I just got a message that district " + str(downDistrict) + " is going down. I'm ignoring it.")
 
     def _handleUnexpectedDistrictUp(self, di):
         # Get the district Id
         upDistrict = di.getUint32()
         if upDistrict == self.districtId:
-            self.notify.warning("Somebody brought my district(" +
-                                str(self.districtId) +
-                                ") up! I'm shutting down!")
+            self.notify.warning("Somebody brought my district(" + str(self.districtId) + ") up! I'm shutting down!")
             sys.exit()
         else:
-            self.notify.warning("Weird... My district is " +
-                                str(self.districtId) +
-                                " and I just got a message that district " +
-                                str(upDistrict) +
-                                " is coming up. I'm ignoring it."
-                                )
+            self.notify.warning("Weird... My district is " + str(self.districtId) + " and I just got a message that district " + str(upDistrict) + " is coming up. I'm ignoring it.")
 
     def _handleMakeFriendsReply(self, di):
         result = di.getUint8()
@@ -380,17 +354,16 @@ class AIDistrict(AIRepository):
         messenger.send("submitSecretReply", [result, secret, requesterId, avId])
 
     def registerShardDownMessage(self, stateserverid):
+        assert self.notify.debugStateCall(self)
         datagram = PyDatagram()
-        datagram.addServerHeader(
-            stateserverid, self.ourChannel, STATESERVER_SHARD_REST)
+        datagram.addServerHeader(stateserverid, self.ourChannel, STATESERVER_SHARD_REST)
         datagram.addChannel(self.ourChannel)
         # schedule for execution on socket close
         self.addPostSocketClose(datagram)
 
     def sendSetZone(self, distobj, zoneId):
         datagram = PyDatagram()
-        datagram.addServerHeader(
-            distobj.doId, self.ourChannel, STATESERVER_OBJECT_SET_ZONE)
+        datagram.addServerHeader(distobj.doId, self.ourChannel, STATESERVER_OBJECT_SET_ZONE)
         # Add the zone parent id
         # HACK:
         parentId = oldParentId = self.districtId
@@ -405,10 +378,10 @@ class AIDistrict(AIRepository):
         distobj.setLocation(parentId, zoneId) #, oldParentId, distobj.zoneId)
 
     def deleteDistrict(self, districtId):
+        assert self.notify.debugStateCall(self)
         # Create a message
         datagram = PyDatagram()
-        datagram.addServerHeader(
-            self.serverId, self.ourChannel, STATESERVER_OBJECT_DELETE_RAM)
+        datagram.addServerHeader(self.serverId, self.ourChannel, STATESERVER_OBJECT_DELETE_RAM)
         # The Id of the object in question
         datagram.addUint32(districtId)
         # Send the message
@@ -426,8 +399,7 @@ class AIDistrict(AIRepository):
         parameters: an integer result code, and the supplied context.
         """
         datagram = PyDatagram()
-        datagram.addServerHeader(
-            DBSERVER_ID, self.ourChannel, DBSERVER_MAKE_FRIENDS)
+        datagram.addServerHeader(DBSERVER_ID, self.ourChannel, DBSERVER_MAKE_FRIENDS)
 
         # Indicate the two avatars who are making friends
         datagram.addUint32(avatarAId)
@@ -449,8 +421,7 @@ class AIDistrict(AIRepository):
         requesterId again.
         """
         datagram = PyDatagram()
-        datagram.addServerHeader(
-            DBSERVER_ID,self.ourChannel,DBSERVER_REQUEST_SECRET)
+        datagram.addServerHeader(DBSERVER_ID,self.ourChannel,DBSERVER_REQUEST_SECRET)
 
         # Indicate the number we want to associate with the new secret.
         datagram.addUint32(requesterId)

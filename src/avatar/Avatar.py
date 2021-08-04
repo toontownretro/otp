@@ -395,7 +395,7 @@ class Avatar(Actor, ShadowCaster):
             if self.isDisguised:
                 return
 
-        self.name = name
+        self._name = name
         if hasattr(self, "nametag"):
             self.nametag.setName(name)
 

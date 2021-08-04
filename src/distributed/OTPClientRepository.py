@@ -1495,7 +1495,8 @@ class OTPClientRepository(ClientRepositoryBase):
         # Put in the new name and DNA
         # sdn: we no longer send the name
         #datagram.addString(avName)
-        datagram.addString(avDNA.makeNetString())
+        dna = avDNA.makeNetString()
+        datagram.addString(dna)
         datagram.addUint8(avPosition)
         self.newName = avName
         self.newDNA = avDNA

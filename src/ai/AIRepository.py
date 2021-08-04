@@ -46,10 +46,7 @@ class AIRepository(ConnectionRepository):
 
     InitialContext = 100000
 
-    def __init__(
-            self, mdip, mdport, esip, esport, dcFileNames,
-            serverId,
-            minChannel, maxChannel, dcSuffix = 'AI'):
+    def __init__(self, mdip, mdport, esip, esport, dcFileNames, serverId, minChannel, maxChannel, dcSuffix = 'AI'):
         assert self.notify.debugStateCall(self)
         self._channels={}
         self.AIRunningNetYield = simbase.config.GetBool('ai-running-net-yield', 0)
@@ -59,8 +56,7 @@ class AIRepository(ConnectionRepository):
         # doId->requestDeleted object
         self._requestDeletedDOs = {}
 
-        ConnectionRepository.__init__(
-                self, ConnectionRepository.CM_NATIVE, simbase.config)
+        ConnectionRepository.__init__(self, ConnectionRepository.CM_NATIVE, simbase.config)
         self.dcSuffix = dcSuffix
 
         simbase.setupCpuAffinities(minChannel)
@@ -102,8 +98,7 @@ class AIRepository(ConnectionRepository):
         # Save the ranges of channels that the AI controls
         self.minChannel = minChannel
         self.maxChannel = maxChannel
-        self.notify.info("dynamic doIds in range [%s, %s], total %s" % (
-            minChannel, maxChannel, maxChannel - minChannel + 1))
+        self.notify.info("dynamic doIds in range [%s, %s], total %s" % (minChannel, maxChannel, maxChannel - minChannel + 1))
         assert maxChannel >= minChannel
 
         # initialize the channel allocation
@@ -112,8 +107,7 @@ class AIRepository(ConnectionRepository):
         # Define the ranges of zones.
         self.minZone = self.getMinDynamicZone()
         self.maxZone = self.getMaxDynamicZone()
-        self.notify.info("dynamic zoneIds in range [%s, %s], total %s" % (
-            self.minZone, self.maxZone, self.maxZone - self.minZone + 1))
+        self.notify.info("dynamic zoneIds in range [%s, %s], total %s" % (self.minZone, self.maxZone, self.maxZone - self.minZone + 1))
         assert self.maxZone >= self.minZone
         self.zoneAllocator = UniqueIdAllocator(self.minZone, self.maxZone)
 
@@ -252,8 +246,7 @@ class AIRepository(ConnectionRepository):
             fastRepr(container, maxLen=1, strFactor=50)))
 
     def getPlayerAvatars(self):
-        return [i for i in list(self.doId2do.values())
-                  if isinstance(i, DistributedPlayerAI)]
+        return [i for i in list(self.doId2do.values()) if isinstance(i, DistributedPlayerAI)]
 
     def uniqueName(self, desc):
         return desc+"-"+str(self.serverId)
@@ -400,9 +393,7 @@ class AIRepository(ConnectionRepository):
         self.handler = self.handleConnect
         self.lastMessageTime = 0
 
-        self.connect([self.mdurl],
-                     successCallback = self._connected,
-                     failureCallback = self._failedToConnect)
+        self.connect([self.mdurl], successCallback = self._connected, failureCallback = self._failedToConnect)
 
     def _failedToConnect(self, statusCode, statusString):
         self.fsm.request("noConnection")
@@ -415,8 +406,7 @@ class AIRepository(ConnectionRepository):
 
     def _handleIgnorableObjectDelete(self, msgType, di):
         doId = di.getUint32()
-        self.notify.debug("Ignoring request to delete doId: " +
-                          str(doId))
+        self.notify.debug("Ignoring request to delete doId: " + str(doId))
 
     def exitConnect(self):
         self.handler = None
@@ -540,16 +530,13 @@ class AIRepository(ConnectionRepository):
         # Send ping back to state server
         datagram = PyDatagram()
         sender=self.getMsgSender()
-        datagram.addServerHeader(
-            sender, self.ourChannel, SERVER_PING)
+        datagram.addServerHeader(sender, self.ourChannel, SERVER_PING)
         # A context that can be used to index the response if needed
         datagram.addUint32(sec)
         datagram.addUint32(usec)
         datagram.addString(url)
         datagram.addUint32(channel)
         self.send(datagram)
-
-
 
     def handleMessageType(self, msgType, di):
         if msgType == CLIENT_GET_STATE_RESP:
@@ -802,8 +789,7 @@ class AIRepository(ConnectionRepository):
         if obj:
             self.deleteDistObject(obj)
         else:
-            self.notify.warning("DistObj " + str(doId) +
-                                " exited, but never entered.")
+            self.notify.warning("DistObj " + str(doId) + " exited, but never entered.")
 
         # announce delete event for this doId, even if obj doesn't exist
         # send it after we delete any existing object
@@ -923,8 +909,7 @@ class AIRepository(ConnectionRepository):
         if channelId is None:
             channelId=doId
         if dclass is not None:
-            dg = dclass.aiFormatUpdate(
-                    fieldName, doId, channelId, self.ourChannel, args)
+            dg = dclass.aiFormatUpdate(fieldName, doId, channelId, self.ourChannel, args)
             self.send(dg)
 
     def createDgUpdateToDoId(self, dclassName, fieldName, doId, args,
@@ -961,13 +946,11 @@ class AIRepository(ConnectionRepository):
         self.send(dg)
 
     def sendUpdateToChannel(self, do, channelId, fieldName, args):
-        dg = do.dclass.aiFormatUpdate(
-                fieldName, do.doId, channelId, self.ourChannel, args)
+        dg = do.dclass.aiFormatUpdate(fieldName, do.doId, channelId, self.ourChannel, args)
         self.sendDatagram(dg)
 
     def sendUpdateToChannelFrom(self, do, channelId, fieldName, fromid, args):
-        dg = do.dclass.aiFormatUpdate(fieldName, do.doId, channelId,
-                                      fromid, args)
+        dg = do.dclass.aiFormatUpdate(fieldName, do.doId, channelId, fromid, args)
         self.send(dg)
 
     def startMessageBundle(self, name):
@@ -977,6 +960,7 @@ class AIRepository(ConnectionRepository):
         # old position (relative to old location) on client generate of the object
         self._msgBundleNames.append(name)
         ConnectionRepository.startMessageBundle(self)
+
     def sendMessageBundle(self, senderChannel):
         # stop bundling messages and send the bundle
         # senderChannel is typically the doId of the object affected by the messages
@@ -994,6 +978,7 @@ class AIRepository(ConnectionRepository):
         return task.cont
 
     def registerForChannel(self, channelNumber):
+        assert self.notify.debugCall()
         if self._channels.get(channelNumber):
             # We are already registered for this channel.
             return
@@ -1016,7 +1001,7 @@ class AIRepository(ConnectionRepository):
         datagram.addChannel(CONTROL_MESSAGE)
         datagram.addUint16(CONTROL_ADD_POST_REMOVE)
 
-        datagram.addString(themessage.getMessage())
+        datagram.addString(str(themessage.getMessage()))
         self.send(datagram)
 
     def addPostSocketCloseUD(self, dclassName, fieldName, doId, args):
@@ -1081,17 +1066,14 @@ class AIRepository(ConnectionRepository):
             dg.addUint64(i)
         self.send(dg)
 
-    def addInterestToConnection(self, targetConnection, interestId,
-            contextId, parentDoId, zoneIdList):
+    def addInterestToConnection(self, targetConnection, interestId, contextId, parentDoId, zoneIdList):
         """
         Allows the AIRepository to initiate interest on the client.
         See otp.ai.AIInterestHandles for a list of interestId's to use.
         """
         assert self.notify.debugCall()
         dg = PyDatagram()
-        dg.addServerHeader(
-            (1<<32)+targetConnection, self.serverId,
-            CLIENT_AGENT_SET_INTEREST)
+        dg.addServerHeader((1<<32)+targetConnection, self.serverId, CLIENT_AGENT_SET_INTEREST)
 
         # Set the high bit to indicate that the interest is being governed by
         # the AI and not the client
@@ -1336,8 +1318,7 @@ class AIRepository(ConnectionRepository):
     def requestDelete(self, distobj):
         # Create a message
         datagram = PyDatagram()
-        datagram.addServerHeader(
-            distobj.doId, self.ourChannel, STATESERVER_OBJECT_DELETE_RAM)
+        datagram.addServerHeader(distobj.doId, self.ourChannel, STATESERVER_OBJECT_DELETE_RAM)
         # The Id of the object in question
         datagram.addUint32(distobj.doId)
         self.send(datagram)
@@ -1346,8 +1327,7 @@ class AIRepository(ConnectionRepository):
     def requestDeleteDoId(self, doId):
         # Create a message
         datagram = PyDatagram()
-        datagram.addServerHeader(
-            doId, self.ourChannel, STATESERVER_OBJECT_DELETE_RAM)
+        datagram.addServerHeader(doId, self.ourChannel, STATESERVER_OBJECT_DELETE_RAM)
         # The Id of the object in question
         datagram.addUint32(doId)
         self.send(datagram)
@@ -1355,8 +1335,7 @@ class AIRepository(ConnectionRepository):
     def requestDeleteDoIdFromDisk(self, doId):
         # Create a message
         datagram = PyDatagram()
-        datagram.addServerHeader(
-            doId, self.ourChannel, STATESERVER_OBJECT_DELETE_DISK)
+        datagram.addServerHeader(doId, self.ourChannel, STATESERVER_OBJECT_DELETE_DISK)
         # The Id of the object in question
         datagram.addUint32(doId)
         self.send(datagram)
@@ -1493,13 +1472,14 @@ class AIRepository(ConnectionRepository):
             self.send(dg)
 
     def lostConnection(self):
+        self.notify.debug("Lost connection!")
         ConnectionRepository.lostConnection(self)
         sys.exit()
 
     def handleDatagram(self, di):
-        if self.notify.getDebug():
-            print("AIRepository received datagram:")
-            di.getDatagram().dumpHex(ostream)
+        #if self.notify.getDebug():
+            #print("AIRepository received datagram:")
+            #di.getDatagram().dumpHex(ostream)
 
         channel=self.getMsgChannel()
         if channel in self.netMessenger.channels:

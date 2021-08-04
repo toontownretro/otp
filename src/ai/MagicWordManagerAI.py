@@ -6,7 +6,6 @@ from otp.otpbase import OTPGlobals
 from direct.showbase import PythonUtil, GarbageReport, ContainerReport, MessengerLeakDetector
 from direct.showbase import ContainerLeakDetector
 from direct.showbase.PythonUtil import Functor, DelayedCall, formatTimeCompact
-import fpformat
 import string
 import time
 import re
@@ -48,9 +47,9 @@ class MagicWordManagerAI(DistributedObjectAI.DistributedObjectAI):
             try:
                 self.doMagicWord(word, av, zoneId, senderId)
             except:
-                response = PythonUtil.describeException(backTrace = 1)
-                self.notify.warning("Ignoring error in magic word:\n%s" % response)
-                self.down_setMagicWordResponse(senderId, response)
+                import traceback
+                traceback.print_exc()
+                self.down_setMagicWordResponse(senderId, "An error has occurred when trying to perform the magic!")
         else:
             self.notify.info("Don't know avatar %d." % (avId))
 
