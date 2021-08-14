@@ -296,25 +296,25 @@ struct  TalkModification
  
 dclass  TalkPath_owner
 {
-  setTalk(uint32 fromAV, uint32 fromAC, string avatarName, string chat,  TalkModification mods[], uint8 flags ) broadcast ownsend; 
+  setTalk(uint32 fromAV, uint32 fromAC, string avatarName, string chat, TalkModification mods[], uint8 flags ) broadcast ownsend; 
 };
 
  
 dclass TalkPath_whisper
 {
-  setTalkWhisper(uint32 fromAV,uint32 fromAC,string avatarName, string chat,  TalkModification mods[], uint8 flags ) ownrecv clsend;
+  setTalkWhisper(uint32 fromAV, uint32 fromAC,string avatarName, string chat, TalkModification mods[], uint8 flags ) ownrecv clsend;
 };
 
  
 dclass TalkPath_group
 {
-  setTalkGroup(uint32 fromAV, uint32 fromAC,string avatarName,string chat,  TalkModification mods[], uint8 flags ) clsend airecv;
+  setTalkGroup(uint32 fromAV, uint32 fromAC,string avatarName,string chat, TalkModification mods[], uint8 flags ) clsend airecv;
 };
 
  
 dclass TalkPath_account
 {
-  setTalkAccount(uint32 toAc,  uint32 fromAC, string fromName, string chat,  TalkModification mods[], uint8 flags ) airecv clsend;
+  setTalkAccount(uint32 toAc, uint32 fromAC, string fromName, string chat, TalkModification mods[], uint8 flags ) airecv clsend;
 };
 
 
@@ -800,12 +800,12 @@ dclass SnapshotRenderer: DistributedObject {
 };
 
 dclass SpeedchatRelay : DistributedObject, TalkPath_account{
-    forwardSpeedchat(uint32 receiverDISLid, uint8 type, uint32 [] index, uint32 senderDISLId, string senderDISLName, uint8 flags)  clsend;
+  forwardSpeedchat(uint32 receiverDISLid, uint8 type, uint32 [] index, uint32 senderDISLId, string senderDISLName, uint8 flags)  clsend;
 };
 
 
 dclass CentralLogger : DistributedObject {
-   sendMessage(string category, string text, uint32 targetDISLId, uint32 targetAvatarID) clsend;
+  sendMessage(string category, string text, uint32 targetDISLId, uint32 targetAvatarID) clsend;
 };
 
 dclass SettingsMgr: DistributedObject {

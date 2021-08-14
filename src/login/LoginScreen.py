@@ -839,9 +839,9 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         # from the server, so we can compare our clock to the server's
         # clock.
         self.notify.debug('handleLoginToontownResponse')
-        if 1: #self.notify.getDebug():
-            dgram = di.getDatagram()
-            dgram.dumpHex(ostream)
+        #if self.notify.getDebug():
+            #dgram = di.getDatagram()
+            #dgram.dumpHex(ostream)
 
         now = time.time()
 
@@ -896,8 +896,7 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         self.cr.clientTimeUponLogin = now
         self.cr.globalClockRealTimeUponLogin = globalClock.getRealTime()
         if hasattr(self.cr, 'toontownTimeManager'):
-            self.cr.toontownTimeManager.updateLoginTimes(
-                serverTime, now, self.cr.globalClockRealTimeUponLogin)
+            self.cr.toontownTimeManager.updateLoginTimes(serverTime, now, self.cr.globalClockRealTimeUponLogin)
         serverDelta = serverTime - now
         self.cr.setServerDelta(serverDelta)
         self.notify.setServerDelta(serverDelta, 28800)
