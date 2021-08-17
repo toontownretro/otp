@@ -231,9 +231,6 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar,
 
         base.popCTrav()
 
-        # Precaution in-case the smart camera is being lerped.
-        taskMgr.remove('posCamera')
-
         self.disableAvatarControls()
         self.stopTrackAnimToSpeed()
         self.stopUpdateSmartCamera()
@@ -943,8 +940,7 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar,
         """
         if not lerp:
             # load in the target params
-            self.positionCameraWithPusher(
-                self.getCompromiseCameraPos(), self.getLookAtPoint())
+            self.positionCameraWithPusher(self.getCompromiseCameraPos(), self.getLookAtPoint())
         else:
             camPos = self.getCompromiseCameraPos()
 
@@ -970,8 +966,7 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar,
             camera.setPos(savePos)
             camera.setHpr(saveHpr)
 
-            taskMgr.remove("posCamera")
-            camera.lerpPosHpr(x, y, z, h, p, r, time, task="posCamera")
+            camera.posHprInterval(time, (x, y, z), (h, p, r), name="posCamera")
 
     def getClampedAvatarHeight(self):
         return max(self.getHeight(), 3.0)

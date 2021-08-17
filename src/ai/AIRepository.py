@@ -586,7 +586,7 @@ class AIRepository(ConnectionRepository):
         elif msgType == SERVER_PING:
             self.handleServerPing(di)
         else:
-            AIRepository.notify.warning(
+            self.notify.warning(
                 "Ignoring unexpected message type: %s in state: %s" %
                 (msgType, self.fsm.getCurrentState().getName()))
             if __dev__:
@@ -624,7 +624,7 @@ class AIRepository(ConnectionRepository):
     def enterNoConnection(self):
         self.handler = self.handleMessageType
 
-        AIRepository.notify.warning(
+        self.notify.warning(
             "Failed to connect to message director at %s." % (repr(self.mdurl)))
         # Wait five seconds, then try to reconnect
         taskMgr.doMethodLater(5, self.reconnect, self.uniqueName("waitToReconnect"))
@@ -696,11 +696,9 @@ class AIRepository(ConnectionRepository):
         dclass = self.dclassesByNumber[classId]
         # Is it in our dictionary?
         if doId in self.doId2do:
-            self.notify.warning("Object Entered " + str(doId) +
-                                " re-entered without exiting")
+            self.notify.warning("Object Entered " + str(doId) + " re-entered without exiting")
         # Create a new distributed object
-        distObj = self._generateFromDatagram(
-            parentId, zoneId, dclass, doId, di)
+        distObj = self._generateFromDatagram(parentId, zoneId, dclass, doId, di)
         self.postGenerate(context, distObj)
 
         # Put it in the dictionary - Is it already in our dictionary?  Not
@@ -878,7 +876,7 @@ class AIRepository(ConnectionRepository):
             self.deleteDistObject(obj)
         else:
             # Otherwise ignore it
-            AIRepository.notify.warning(
+            self.notify.warning(
                 "Asked to delete non-existent DistObjAI " + str(doId))
 
         # announce delete event for this doId, even if obj doesn't exist
@@ -1107,8 +1105,7 @@ class AIRepository(ConnectionRepository):
         dg.addUint32(contextId)
         self.send(dg)
 
-    def setAllowClientSend(self, avatarId,
-                           dObject, fieldNameList = []):
+    def setAllowClientSend(self, avatarId, dObject, fieldNameList = []):
         """
         Allow an AI to temporarily give a client 'clsend' privileges
         on a particular fields on a particular object.  This should
@@ -1118,9 +1115,7 @@ class AIRepository(ConnectionRepository):
         """
         assert self.notify.debugCall()
         dg = PyDatagram()
-        dg.addServerHeader(
-            (1<<32)+avatarId, self.serverId,
-            CLIENT_SET_FIELD_SENDABLE)
+        dg.addServerHeader((1 << 32) + avatarId, self.serverId, CLIENT_SET_FIELD_SENDABLE)
 
         # Set the high bit to indicate that the interest is being governed by
         # the AI and not the client
@@ -1130,8 +1125,7 @@ class AIRepository(ConnectionRepository):
         dclass = dObject.dclass
         # sort and remove repeated entries as we discover the field
         # ids for the specified names
-        fieldIdSet = set(dclass.getFieldByName(name).getNumber() \
-                         for name in fieldNameList)
+        fieldIdSet = set(dclass.getFieldByName(name).getNumber() for name in fieldNameList)
 
         # insert the fieldIds into the datagram
         for fieldId in sorted(fieldIdSet):
@@ -1382,7 +1376,7 @@ class AIRepository(ConnectionRepository):
         district, the object will be generated shortly after the
         above message is sent.
         """
-        AIRepository.notify.debugCall()
+        self.notify.debugCall()
         #self.notify.info('requestDatabaseGenerate, class=%s, context=%s' %
         #                 (classId, context))
         if ownerChannel == 0 and ownerAvId is not None:
@@ -1765,10 +1759,10 @@ class AIRepository(ConnectionRepository):
 
     # If you want to set the airecv you should set the location
     def setAIReceiver(self, objectId, aiChannel=None):
+        assert self.notify.debugCall()
         # Create a message
         datagram = PyDatagram()
-        datagram.addServerHeader(
-            self.ourChannel, self.ourChannel, STATESERVER_ADD_AI_RECV)
+        datagram.addServerHeader(self.ourChannel, self.ourChannel, STATESERVER_ADD_AI_RECV)
         # The Id of the object in question
         datagram.addUint32(objectId)
         if aiChannel is None:
@@ -1794,9 +1788,7 @@ class AIRepository(ConnectionRepository):
             del self.dbObjMap[context]
             dbObj.getFieldsResponse(di)
         else:
-            AIRepository.notify.warning(
-                "Ignoring unexpected context %d for DBSERVER_GET_STORED_VALUES" %
-                context)
+            self.notify.warning("Ignoring unexpected context %d for DBSERVER_GET_STORED_VALUES" % context)
 
     def _handleDatabaseCreateStoredObjectResp(self, di):
         context = di.getUint32()
@@ -1805,9 +1797,7 @@ class AIRepository(ConnectionRepository):
             del self.dbObjMap[context]
             dbObj.handleCreateObjectResponse(di)
         else:
-            AIRepository.notify.warning(
-                "Ignoring unexpected context %d for DBSERVER_CREATE_STORED_OBJECT" %
-                 context)
+            self.notify.warning("Ignoring unexpected context %d for DBSERVER_CREATE_STORED_OBJECT" % context)
 
     # LEADERBOARD
     def setLeaderboardValue(self, category, whoId, whoName, value, senderId=None):
