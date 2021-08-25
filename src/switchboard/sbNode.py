@@ -1,17 +1,17 @@
-import Pyro.core
-import Pyro.naming
-import Pyro.errors
+#import Pyro.core
+#import Pyro.naming
+#import Pyro.errors
 import sys
 import time
 
 from .sbLog import sbLog
 from . import sbConfig
 
-from Pyro.errors import ConnectionClosedError
-from Pyro.errors import ProtocolError
+#from Pyro.errors import ConnectionClosedError
+#from Pyro.errors import ProtocolError
 
-from otp.switchboard.xd.ChannelManager import ChannelListener
-from otp.switchboard.xd.ChannelManager import ChannelMessage
+#from otp.switchboard.xd.ChannelManager import ChannelListener
+#from otp.switchboard.xd.ChannelManager import ChannelMessage
 
 if sbConfig.scrubMessages:
     import badwordpy

@@ -1,11 +1,11 @@
-import Pyro.core
-import Pyro.naming
-import Pyro.errors
+#import Pyro.core
+#import Pyro.naming
+#import Pyro.errors
 import time
 import sys
 
-from Pyro.errors import ConnectionClosedError
-from Pyro.errors import ProtocolError
+#from Pyro.errors import ConnectionClosedError
+#from Pyro.errors import ProtocolError
 
 from .sbNode import sbNode
 from .sbLog import sbLog

@@ -167,8 +167,6 @@ class UberDog(AIRepository):
         if newAccount:
             # Set up the new guy
             self.accountOnline(newAccount, accountDetailRecord)
-            pass
-        pass
 
     @report(types = ['args'], dConfigParam = 'avatarmgr')
     def handleAvatarUsage(self, di):
@@ -216,17 +214,12 @@ class UberDog(AIRepository):
                               openChatEnabled,
                               createFriendsWithChat,
                               chatCodeCreation)
-            pass
-        pass
-
-
 
     @report(types = ['args'], dConfigParam = 'avatarmgr')
     def accountOnline(self, accountId, accountDetailRecord):
         self.writeServerEvent('accountOnline', accountId, '')
         self.onlineAccountDetails[accountId] = accountDetailRecord
         messenger.send('accountOnline', [accountId])
-        pass
 
     @report(types = ['args'], dConfigParam = 'avatarmgr')
     def accountOffline(self, accountId):
@@ -234,7 +227,6 @@ class UberDog(AIRepository):
         self.onlineAccountDetails.pop(accountId, None)
         self.onlinePlayers.pop(accountId, None)
         messenger.send('accountOffline', [accountId])
-        pass
 
     @report(types = ['args'], dConfigParam = 'avatarmgr')
     def getAccountDetails(self, accountId):

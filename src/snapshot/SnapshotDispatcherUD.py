@@ -1,9 +1,8 @@
 import direct
-from libdirect import HttpRequest
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from otp.ai import AIMsgTypes
 from direct.directnotify.DirectNotifyGlobal import directNotify
-from direct.http.WebRequest import WebRequestDispatcher
+#from direct.http.WebRequest import WebRequestDispatcher
 
 from direct.task import Task
 import queue
@@ -61,7 +60,8 @@ class SnapshotDispatcherUD(DistributedObjectGlobalUD):
 
         # Jobs we completed recently (so we can avoid doing them again)
         self.recentlyDeletedAvatars = {}
-
+        
+        '''
         self.webDispatcher = WebRequestDispatcher()
         self.webDispatcher.landingPage.setTitle("SnapshotDispatcher")
         self.webDispatcher.landingPage.setDescription("SnapshotDispatcher routes render jobs to any number of SnapshotRenderers.")
@@ -69,6 +69,7 @@ class SnapshotDispatcherUD(DistributedObjectGlobalUD):
         self.webDispatcher.registerGETHandler("getSnapshot",self.handleHTTPGetSnapshot)
         self.webDispatcher.registerGETHandler("queueSnapshot",self.handleHTTPQueueSnapshot)
         self.webDispatcher.listenOnPort(self.HTTPListenPort)
+        '''
 
         self.air.setConnectionName("SnapshotDispatcherUD")
         self.air.setConnectionURL("http://%s:%s/" % (socket.gethostbyname(socket.gethostname()),self.HTTPListenPort))

@@ -117,13 +117,10 @@ generate(const string &text, TextFont *font, float wordwrap,
   LMatrix4f parent_mat = LMatrix4f::scale_mat(_hscale, 1.0f, 1.0f);
 
   // Scale the middle part of the balloon to be as tall as the text.
-  LMatrix4f middle_mat =
-    LMatrix4f::scale_mat(1.0f, 1.0f, _text_height) *
-    _middle_mat;
+  LMatrix4f middle_mat = LMatrix4f::scale_mat(1.0f, 1.0f, _text_height) * _middle_mat;
 
   // Translate the top part to match the middle.
-  LMatrix4f top_mat =
-    LMatrix4f::translate_mat(0.0f, 0.0f, _text_height - 1.0f) * _top_mat;
+  LMatrix4f top_mat = LMatrix4f::translate_mat(0.0f, 0.0f, _text_height - 1.0f) * _top_mat;
 
   // Position the text within the balloon.
   LVector3f text_trans(xoffset * _hscale, 0.0f,

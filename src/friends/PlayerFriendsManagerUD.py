@@ -7,7 +7,7 @@ from otp.uberdog.RejectCode import RejectCode
 from direct.directnotify.DirectNotifyGlobal import directNotify
 
 from otp.friends.FriendInfo import FriendInfo
-from otp.switchboard.sbWedge import sbWedge
+#from otp.switchboard.sbWedge import sbWedge
 
 from otp.otpbase import OTPLocalizerEnglish as localizer
 
@@ -17,7 +17,7 @@ import random
 #--------------------------------------------------
 
 
-class PlayerFriendsManagerUD(DistributedObjectGlobalUD,sbWedge):
+class PlayerFriendsManagerUD(DistributedObjectGlobalUD): #sbWedge
     """
     The Player Friends Manager is a global object.
     This object handles client requests on player-level (as opposed to avatar-level) friends.
@@ -67,6 +67,7 @@ class PlayerFriendsManagerUD(DistributedObjectGlobalUD,sbWedge):
         self.accept("avatarOnlinePlusAccountInfo", self.avatarOnlinePlusAccountInfo, [])
         self.accept("avatarOffline", self.avatarOffline, [])
 
+        '''
         sbWedge.__init__(self,wedgeName=self.sbName,
                          nsHost=self.sbHost,
                          nsPort=self.sbPort,
@@ -75,6 +76,7 @@ class PlayerFriendsManagerUD(DistributedObjectGlobalUD,sbWedge):
                          clPort=self.clPort,
                          allowUnfilteredChat=self.allowUnfilteredChat,
                          bwDictPath=self.bwDictPath)
+        '''
 
         def CheckSBWedge(task):
             self.handleRequests(0)

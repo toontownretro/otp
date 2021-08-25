@@ -1,5 +1,4 @@
 import MySQLdb
-import _mysql_exceptions
 
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from direct.directnotify.DirectNotifyGlobal import directNotify
@@ -42,7 +41,7 @@ class StatusDatabaseUD(DistributedObjectGlobalUD,DBInterface):
         try:
             cursor.execute("CREATE DATABASE `%s`"%self.DBname)
             self.notify.info("Database '%s' did not exist, created a new one!"%self.DBname)
-        except _mysql_exceptions.ProgrammingError as e:
+        except MySQLdb.ProgrammingError as e:
             pass
 
         cursor.execute("USE `%s`"%self.DBname)
@@ -57,7 +56,7 @@ class StatusDatabaseUD(DistributedObjectGlobalUD,DBInterface):
             ) ENGINE=InnoDB
             """)
             self.notify.info("Table offlineAvatarStatus did not exist, created a new one!")
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             pass
 
         if __dev__:
