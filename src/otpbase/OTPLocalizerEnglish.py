@@ -3704,13 +3704,13 @@ AprilToonsMenuSections = [
 ]
 
 SillyHolidayMenuSections = [
--1,
-"WORLD",
-"BATTLE",
+ -1,
+ "WORLD",
+ "BATTLE",
 ]
 
 CarolMenuSections = [
--1,
+ -1,
 ]
 
 VictoryPartiesMenuSections = [
@@ -3727,10 +3727,36 @@ GolfMenuSections = [
 ]
 
 BoardingMenuSections = [
-"GROUP",
-"Let's go to...",
-"We're going to...",
--1,
+ "GROUP",
+ "Let's go to...",
+ "We're going to...",
+ -1,
+]
+
+SellbotNerfMenuSections = [
+ -1, 
+ 'GROUPING', 
+ 'SELLBOT TOWERS/VP',
+]
+
+LawbotNerfMenuSections = [
+ -1, 
+ 'GROUPING', 
+ 'CJ',
+]
+
+JellybeanJamMenuSections = [
+ 'GET JELLYBEANS', 
+ 'SPEND JELLYBEANS',
+]
+
+WinterMenuSections = [
+ 'CAROLING', 
+ -1,
+]
+ 
+HalloweenMenuSections = [
+ -1
 ]
 
 SellbotNerfMenuSections = [
@@ -3760,12 +3786,25 @@ HalloweenMenuSections = [
 ]
 
 SingingMenuSections = [
--1
+ -1
 ]
 
 WhiteListMenu = [
--1,
-"WHITELIST"
+ -1,
+ "WHITELIST"
+]
+
+SellbotInvasionMenuSections = [
+ -1,
+]
+
+SellbotFieldOfficeMenuSections = [
+ -1,
+ 'STRATEGY',
+]
+
+IdesOfMarchMenuSections = [
+ -1,
 ]
 
 SellbotInvasionMenuSections = [
