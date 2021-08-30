@@ -3741,8 +3741,8 @@ SellbotNerfMenuSections = [
 
 LawbotNerfMenuSections = [
  -1, 
- 'GROUPING', 
- 'CJ',
+ 'GROUPING',
+ 'COURTHOUSE/CJ',
 ]
 
 JellybeanJamMenuSections = [
@@ -3757,32 +3757,6 @@ WinterMenuSections = [
  
 HalloweenMenuSections = [
  -1
-]
-
-SellbotNerfMenuSections = [
--1,
-"GROUPING",
-"SELLBOT TOWERS/VP",
-]
-
-LawbotNerfMenuSections = [
--1,
-"GROUPING",
-"COURTHOUSE/CJ",
-]
-
-JellybeanJamMenuSections = [
-"GET JELLYBEANS",
-"SPEND JELLYBEANS",
-]
-
-WinterMenuSections = [
-"CAROLING",
--1
-]
-
-HalloweenMenuSections = [
--1
 ]
 
 SingingMenuSections = [
@@ -3805,19 +3779,6 @@ SellbotFieldOfficeMenuSections = [
 
 IdesOfMarchMenuSections = [
  -1,
-]
-
-SellbotInvasionMenuSections = [
--1
-]
-
-SellbotFieldOfficeMenuSections = [
--1,
-"STRATEGY"
-]
-
-IdesOfMarchMenuSections = [
--1
 ]
 
 # TTAccount.py
