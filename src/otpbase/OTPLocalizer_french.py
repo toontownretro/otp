@@ -1,4 +1,4 @@
-﻿import string
+import string
 from otp.otpbase.OTPLocalizer_french_Property import *
 
 # common locations
@@ -9,6 +9,8 @@ lDonaldsDreamland = "Le Pays des Rêves de Donald"
 lMinniesMelodyland = "Le Pays Musical de Minnie"
 lToontownCentral = 'Toontown Centre'
 lGoofySpeedway = "Circuit Dingo"
+lOutdoorZone = "Forêt de glands de Tic et Tac"
+lGolfZone = "Minigolf de Tic et Tac"
 
 # common strings
 lCancel = 'Annuler'
@@ -27,6 +29,7 @@ DialogOK = lOK
 DialogCancel = lCancel
 DialogYes = lYes
 DialogNo = lNo
+DialogDoNotShowAgain = "Ne pas\nMontrer à nouveau"
 
 # DistributedAvatar.py
 WhisperNoLongerFriend = "%s a quitté ta liste d'amis."
@@ -39,6 +42,13 @@ WhisperIgnored = "%s t'ignore !"
 TeleportGreeting = "Salut, %s."
 WhisperFriendComingOnline = "%s se connecte !"
 WhisperFriendLoggedOut = "%s s'est déconnecté."
+WhisperPlayerOnline = "%s connecté à %s"
+WhisperPlayerOffline = "%s est déconnecté."
+WhisperUnavailable = "Ce joueur n'est plus disponible pour chuchoter."
+
+DialogSpecial = "ooo"
+DialogExclamation = "!"
+DialogQuestion = "?"
 
 # ChatInputNormal.py
 ChatInputNormalSayIt = "Dis-le"
@@ -48,25 +58,27 @@ ChatInputWhisperLabel = "À %s"
 
 # ChatInputSpeedChat.py
 SCEmoteNoAccessMsg = "Tu n'as pas encore accès\nà cette émotion."
-SCEmoteNoAccessOK = "OK"
+SCEmoteNoAccessOK = lOK
 
+ParentPassword = "Mot de passe parent"
 ParentPassword = "Mot de passe parent"
 
 # ChatGarbler.py
-ChatGarblerDefault = ["blah"]
+ChatGarblerDefault = ["bla"]
 
 # ChatManager.py
 ChatManagerChat = "Chat"
 ChatManagerWhisperTo = "Chuchoter à :"
 ChatManagerWhisperToName = "Chuchoter à :\n%s"
-ChatManagerCancel = "Annuler"
+ChatManagerCancel = lCancel
 ChatManagerWhisperOffline = "%s est déconnecté(e)."
 OpenChatWarning = "Tu n'as pas encore d' \"amis secrets\" ! Tu ne peux pas discuter avec les autres Toons s'ils ne sont pas tes amis secrets.\n\nPour devenir ami(e) secret(e) avec quelqu'un, clique sur lui ou sur elle, et sélectionne \"Secrets\" dans le panneau d'informations. Bien entendu, tu peux toujours parler à n'importe qui avec le Chat rapide."
-OpenChatWarningOK = "OK"
+OpenChatWarningOK = lOK
 UnpaidChatWarning = "Une fois que tu es inscrit(e), tu peux utiliser ce bouton pour discuter avec tes amis à l'aide du clavier. Avant cela, tu dois discuter avec les autres Toons à l'aide du Chat rapide."
 UnpaidChatWarningPay = "S'inscrire maintenant !"
 UnpaidChatWarningContinue = "Continuer l'essai gratuit"
 PaidNoParentPasswordWarning = "Une fois que tu as choisi un mot de passe \"parent\", tu peux utiliser ce bouton pour discuter avec tes amis à l'aide du clavier. Avant cela, tu dois discuter avec les autres Toons à l'aide du Chat rapide."
+UnpaidNoParentPasswordWarning = 'Once you have set your parent password, you can enable this button to chat with your friends using the keyboard. To set your parent password, exit Toontown and then click on "Preferences" under Member Services on the Toontown web page. Until then, you should chat with other Toons using SpeedChat.'
 PaidNoParentPasswordWarningSet = "Établir le mot de passe \"parent\" !"
 PaidNoParentPasswordWarningContinue = "Continuer à jouer"
 PaidParentPasswordUKWarning = "Une fois le Chat activé vous pourrez discuter avec vos amis en utilisant le clavier. Si vous décidez de ne pas activer le Chat vous pourrez continuer à utiliser le Chat Rapide pour discuter avec les autres Toons."
@@ -75,16 +87,23 @@ PaidParentPasswordUKWarningContinue = "Continuer à jouer"
 NoSecretChatWarningTitle = "Contrôle parental"
 NoSecretChatWarning = "Pour discuter avec un ami, la fonction \"amis secrets\" doit être activée. Les enfants doivent demander à leurs parents de s'identifier avec leur mot de passe \"parent\" pour en savoir plus sur la fonction \"amis secrets\" et avoir accès au contrôle parental."
 RestrictedSecretChatWarning = 'Pour obtenir ou entrer un secret, vous devez entrer votre mot de passe \"parent\". Vous pouvez désactiver ceci par une simple modification de vos options.'
-NoSecretChatWarningOK = "OK"
-NoSecretChatWarningCancel = "Annuler"
+NoSecretChatWarningOK = lOK
+NoSecretChatWarningCancel = lCancel
 NoSecretChatWarningWrongPassword = "Le mot de passe n'est pas correct. Veuillez entrer le mot de passe \"parent\" créé lorsque vous avez acheté ce compte. Ce mot de passe n'est pas celui utilisé pour jouer."
 NoSecretChatAtAllTitle = "Chat \"amis secrets\"."
 # not sure what this should do in the new world order
 NoSecretChatAtAll = "Pour discuter avec un(e) ami(e), la fonction \"amis secrets\" doit être activée. La fonction \"amis secrets\" permet à un membre de discuter avec un autre membre uniquement à l'aide d'un code secret qui doit être communiqué en dehors du jeu.\n\nPour activer cette fonction ou pour en savoir plus à propos de son fonctionnement, sortez du jeu Toontown et cliquez \"Options de compte\" sur la page Internet de Toontown."
-NoSecretChatAtAllOK = "OK"
+NoSecretChatAtAllAndNoWhitelistTitle = "Chat button"
+# not sure what this should do in the new world order
+NoSecretChatAtAllAndNoWhitelist = 'You can use the blue Chat button to communicate with other Toons by using Speechat Plus or Open Chat with True Friends.\n\nSpeedchat Plus is a form of type chat that allows users to communicate by using the Disney SpeedChat Plus dictionary.\n\nOpen Chat with True Friends is a form of type chat that allows real-life friends to communicate openly with each other by means of a True Friend Code that must be communicated outside of the game.\n\nTo activate either of thse features, or to learn more about them, exit Toontown and then click on "Preferences" under Member Services on the Toontown Web site.'
+NoSecretChatAtAllOK = lOK
 ChangeSecretFriendsOptions = "Changer les options d' amis secrets"
 ChangeSecretFriendsOptionsWarning = "\nMerci d'entrer le mot de passe \"parent\" pour changer les options d' \"amis secrets\"."
 ActivateChatTitle = "Options amis secrets"
+
+WhisperToFormat = "To %s %s"
+WhisperToFormatName = "To %s"
+WhisperFromFormatName = "%s chuchote"
 
 from otp.otpbase.OTPModules import TextProperties
 from otp.otpbase.OTPModules import TextPropertiesManager
@@ -98,7 +117,37 @@ red = TextProperties()
 red.setTextColor(1,0,0,1)
 TextPropertiesManager.getGlobalPtr().setProperties('rouge', red)
 
+green = TextProperties()
+green.setTextColor(0,1,0,1)
+TextPropertiesManager.getGlobalPtr().setProperties('green', green)
+
+yellow = TextProperties()
+yellow.setTextColor(1,1,0,1)
+TextPropertiesManager.getGlobalPtr().setProperties('jaune', yellow)
+
+midgreen = TextProperties()
+midgreen.setTextColor(0.2,1,0.2,1)
+TextPropertiesManager.getGlobalPtr().setProperties('midgreen', midgreen)
+
+blue = TextProperties()
+blue.setTextColor(0,0,1,1)
+TextPropertiesManager.getGlobalPtr().setProperties('blue', blue)
+
+white = TextProperties()
+white.setTextColor(1,1,1,1)
+TextPropertiesManager.getGlobalPtr().setProperties('white', white)
+
+black = TextProperties()
+black.setTextColor(0,0,0,1)
+TextPropertiesManager.getGlobalPtr().setProperties('black', black)
+
+grey = TextProperties()
+grey.setTextColor(0.5, 0.5, 0.5, 1)
+TextPropertiesManager.getGlobalPtr().setProperties('grey', grey)
+
 ActivateChat = """La fonction "amis secrets" permet à un membre de discuter avec un autre membre uniquement à l'aide d'un code secret qui doit être communiqué en dehors du jeu. Pour une description complète, cliquez ici : La fonction "amis secrets" n'est ni modérée ni surveillée. Si les parents autorisent leurs enfants à utiliser leur compte avec la fonction "amis secrets" activée, nous les encourageons à surveiller leurs enfants lorsqu'ils jouent. Une fois activée, la fonction "amis secrets" est disponible jusqu'à ce qu'elle soit désactivée. En activant la fonction "amis secrets", vous reconnaissez qu'elle comporte des risques inhérents, que vous avez été informés de ceux-ci, et que vous acceptez lesdits risques."""
+
+
 
 
 
@@ -118,9 +167,10 @@ ActivateChat = """La fonction "amis secrets" permet à un membre de discuter ave
 ActivateChatYes = "Activer"
 ActivateChatNo = lCancel
 ActivateChatMoreInfo = "Plus d'infos"
+ActivateChatPrivacyPolicy = "Politique de confidentialité"
 
 # SecretFriendsInfoPanel.py
-SecretFriendsInfoPanelOk = "Ok"
+SecretFriendsInfoPanelOk = lOK
 SecretFriendsInfoPanelClose = lClose
 SecretFriendsInfoPanelText = ["""Caractéristiques de la fonction "amis secrets"."""
 ]
@@ -147,7 +197,7 @@ ProblemActivatingChat = "Désolé ! Nous n'avons pas pu activer la fonction de c
 ProblemActivatingChatOK = lOK
 
 # MultiPageTextFrame.py
-MultiPageTextFrameNext = 'Suivant'
+MultiPageTextFrameNext = lNext
 MultiPageTextFramePrev = 'Précédent'
 MultiPageTextFramePage = 'Page %s/%s'
 
@@ -160,7 +210,7 @@ GuiScreenCancel = lCancel
 CreateAccountScreenUserName = "Nom du compte"
 CreateAccountScreenPassword = "Mot de passe"
 CreateAccountScreenConfirmPassword = "Confirmation du mot de passe"
-CreateAccountScreenCancel = "Annuler"
+CreateAccountScreenCancel = lCancel
 CreateAccountScreenSubmit = "Suivant"
 CreateAccountScreenConnectionErrorSuffix = ".\n\nRessayez plus tard."
 CreateAccountScreenNoAccountName = "Choisissez un nom de compte."
@@ -174,7 +224,7 @@ CreateAccountScreenUserNameNotFound = "Nom d'utilisateur introuvable.\nRessayez 
 # ToontownClientRepository.py
 CRConnecting = "En cours de connexion..."
 # host, port
-CRNoConnectTryAgain = "Impossible de se connecter à %s:%s. Ressayer?"
+CRNoConnectTryAgain = "Impossible de se connecter à %s:%s. Ressayer ?"
 CRNoConnectProxyNoPort = "Impossible de se connecter à %s:%s.\n\nVous êtes connecté(e) à Internet par un proxy, mais ce proxy ne permet pas les connexions par le port %s.\n\nVous devez ouvrir ce port ou désactiver votre proxy pour pouvoir jouer à Toontown. Si votre proxy vous est fourni par votre fournisseur d'accès, contactez ce dernier et demandez-lui d'ouvrir ce port."
 CRMissingGameRootObject = "Certains objets de la racine du jeu n'ont pu être trouvés. (Il s'agit peut-être d'un échec de connexion au réseau). Sortie du jeu."
 CRNoDistrictsTryAgain = "Aucun district de Toontown n'est disponible. Ressayer ?"
@@ -188,6 +238,7 @@ CRBootedReasons = {
     125: "Vos fichiers Toontown installés ne sont pas valides. Utilisez le bouton \"Jouer\" sur le site officiel de Toontown pour lancer Toontown.",
     126: "Vous n'êtes pas autorisé(e) à utiliser les fonctions réservées aux administrateurs.",
     151: "Vous avez été déconnecté(e) par un administrateur travaillant sur les serveurs de Toontown.",
+    152: "Une violation de nos Conditions d'utilisation par '%(name)s' a été signalée. Pour des raisons de sécurité, nous avons provisoirement bloqué le compte. Pour de plus amples informations, veuillez vous référer au message envoyé à l'adresse e-mail associée à '%(name)s'.",
     153: "Le district de Toontown sur lequel vous étiez en train de jouer a été réinitialisé. Toutes les personnes jouant dans ce district ont été déconnectées. Vous devriez toutefois pouvoir vous reconnecter et revenir directement dans le jeu.",
     288: "Désolé, vous avez utilisé toutes vos minutes disponibles dans Toontown pour ce mois-ci.",
     349: "Désolé, vous avez utilisé toutes vos minutes disponibles dans Toontown pour ce mois-ci.",
@@ -196,7 +247,7 @@ CRBootedReasonUnknownCode = "Un problème inattendu s'est produit (code d'erreur
 CRTryConnectAgain = "\n\nEssayer de se reconnecter ?"
 # avName
 CRToontownUnavailable = "Toontown est momentanément indisponible, nouvelle tentative..."
-CRToontownUnavailableCancel = "Annuler"
+CRToontownUnavailableCancel = lCancel
 CRNameCongratulations = "FÉLICITATIONS !!"
 CRNameAccepted = "Ton nom a été\napprouvé par le Conseil de Toontown.\n\nÀ partir de ce jour\ntu t'appelleras\n\"%s\""
 CRServerConstantsProxyNoPort = "Impossible de contacter %s.\n\nVous êtes connecté à Internet par un proxy, mais ce proxy ne permet pas les connexions par le port %s.\n\nVous devez ouvrir ce port ou désactiver votre proxy pour pouvoir jouer à Toontown. Si votre proxy vous est fourni par votre fournisseur d'accès, contactez ce dernier et demandez-lui d'ouvrir ce port."
@@ -208,12 +259,17 @@ PeriodTimerWarning = "Ta limite de temps dans Toontown pour ce mois-ci est presq
 PeriodForceAcknowledgeMessage = "Tu as utilisé toutes tes minutes disponibles dans Toontown pour ce mois-ci. Reviens jouer de nouveau le mois prochain !"
 CREnteringToontown = "Accès à Toontown..."
 
+# DownloadWatcher.py
+# phase, percent
+DownloadWatcherUpdate = "Téléchargement %s"
+DownloadWatcherInitializing = "Le téléchargement va commencer..."
+
 # LoginScreen.py
 LoginScreenUserName = "Nom du compte"
 LoginScreenPassword = "Mot de passe"
 LoginScreenLogin = "Ouvrir une session"
 LoginScreenCreateAccount = "Créer un compte"
-LoginScreenQuit = "Quitter"
+LoginScreenQuit = lQuit
 LoginScreenLoginPrompt = "Entrez un nom d'utilisateur et un mot de passe."
 LoginScreenBadPassword = "Mot de passe erroné.\nRessayez."
 LoginScreenInvalidUserName = "Nom d'utilisateur incorrect.\nRessayez."
@@ -264,7 +320,10 @@ SCMenuFactoryMeet = "RENCONTRE"
 SCMenuCFOBattle = "Directeur Financier"
 SCMenuCFOBattleCranes = "GRUES"
 SCMenuCFOBattleGoons = "GOONS"
-SCMenuCJBattle = "CHIEF JUSTICE"
+SCMenuCJBattle = "JUGE"
+SCMenuCEOBattle = "Directeur"
+SCMenuGolf   = "GOLF"
+SCMenuWhiteList = "LISTEBLANCHE"
 SCMenuPlacesPlayground           = "TERRAIN DE JEUX"
 SCMenuPlacesEstate               = "PROPRIÉTÉ"
 SCMenuPlacesCogs                 = "COGS"
@@ -274,20 +333,37 @@ SCMenuFriendlyILike              = "J'aime..."
 SCMenuPlacesLetsGo               = "Allons..."
 SCMenuToontasksMyTasks           = "MES DÉFITOONS"
 SCMenuToontasksYouShouldChoose   = "Je crois que tu devrais choisir..."
+SCMenuToontasksINeedMore         = "Il me faut plus de..."
 SCMenuBattleGags                 = "GAGS"
 SCMenuBattleTaunts               = "MOQUERIES"
 SCMenuBattleStrategy             = "STRATÉGIE"
+SCMenuBoardingGroup              = "BOARDING"
+SCMenuParties                    = "PARTIES"
+SCMenuAprilToons                 = "APRIL TOONS'"
+SCMenuSingingGroup               = "SINGING"
+SCMenuSillyHoliday                   = "SILLY METER"
+SCMenuVictoryParties             = "VICTORY PARTIES"
+SCMenuSellbotNerf                = "STORM SELLBOT"
+SCMenuJellybeanJam               = "JELLYBEAN WEEK"
+SCMenuHalloween                  = "HALLOWEEN"
+SCMenuWinter                     = "L'HIVER"
+SCMenuSellbotInvasion            = "INVASION DE VENDIBOT"
+SCMenuFieldOffice                = "FIELD OFFICES"
+SCMenuIdesOfMarch                = "GREEN"
+SCMenuLawbotNerf                 = "LAWBOTS LOSE"
 
 # FriendSecret.py
 FriendSecretNeedsPasswordWarningTitle = "Contrôles parentaux"
+FriendSecretNeedsParentLoginWarning = """Pour obtenir ou saisir un Code Amis Secrets, ton parent doit se connecter. Tu peux désactiver cette invite en changeant tes options Amis Secrets."""
 FriendSecretNeedsPasswordWarning = """Pour obtenir ou saisir un secret, tu dois entrer le mot de passe parent. Tu peux désactiver cet avertissement dans la zone "Member Services (Services aux membres)" du site Internet de Toontown."""
 FriendSecretNeedsPasswordWarningOK = lOK
 FriendSecretNeedsPasswordWarningCancel = lCancel
+FriendSecretNeedsPasswordWarningWrongUsername = """Le nom d'utilisateur est incorrect. Prière de saisir le nom d'utilisateur du compte parent. Ce n'est pas le même nom d'utilisateur que celui utilisé pour jouer au jeu."""
 FriendSecretNeedsPasswordWarningWrongPassword = """Ce mot de passe est incorrect. Saisis le mot de passe "parent" créé lorsque tu as acheté ce compte. Ce n'est pas le même mot de passe que celui utilisé pour jouer."""
 FriendSecretIntro = "Si tu joues à Toontown en ligne de Disney avec quelqu'un que tu connais réellement, vous pouvez devenir amis secrets. Tu peux communiquer avec tes amis secrets à l'aide du clavier. Les autres Toons ne comprendront pas ce que vous êtes en train de dire.\n\nPour cela, il faut échanger un secret. Dis le secret à ton ami(e), mais à personne d'autre. Lorsque ton ami(e) écrit ton secret sur son écran, vous pourrez être amis secrets dans Toontown !"
 FriendSecretGetSecret = "Obtenir un secret"
 FriendSecretEnterSecret = "Si quelqu'un t'a donné un secret, écris-le ici."
-FriendSecretOK = "OK"
+FriendSecretOK = lOK
 FriendSecretEnter = "Entrer Secret"
 FriendSecretCancel = "Annuler"
 FriendSecretGettingSecret = "Recherche du secret..."
@@ -295,30 +371,85 @@ FriendSecretGotSecret = "Voilà ton nouveau secret. N'oublie pas de l'écrire !\
 FriendSecretTooMany = "Désolé, tu ne peux plus avoir de secrets aujourd'hui. Tu en as déjà eu assez !n\nEssaie encore demain."
 FriendSecretTryingSecret = "Recherche du secret..."
 FriendSecretEnteredSecretSuccess = "Tu es maintenant ami(e) secret(e) avec %s !"
+FriendSecretTimeOut = "Désolé. Les secrets ne fonctionnent pas pour l'instant."
 FriendSecretEnteredSecretUnknown = "Ce n'est le secret de personne. Es-tu certain(e) de l'avoir épelé correctement ?\n\nSi tu l'as épelé correctement, il peut être périmé. Demande un nouveau secret à ton ami(e), ou prends-en un nouveau toi-même et donne-le à ton ami(e)."
 FriendSecretEnteredSecretFull = "Tu ne peux pas être ami(e) avec %s parce que l'un(e) de vous a déjà trop d'amis sur sa liste."
 FriendSecretEnteredSecretFullNoName = "Vous ne pouvez pas être amis parce que l'un de vous a déjà trop d'amis sur sa liste."
 FriendSecretEnteredSecretSelf = "Tu viens juste d'écrire ton propre secret ! Maintenant, personne d'autre ne peut plus utiliser ce secret."
+FriendSecretEnteredSecretWrongProduct = "Tu n'as pas saisi le bon type de Code Amis Secrets.\nCe jeu utilise des codes commençant par '%s'."
 FriendSecretNowFriends = "Tu es maintenant ami(e) secret(e) avec %s !"
 FriendSecretNowFriendsNoName = "Vous êtes maintenant amis secrets !"
+FriendSecretDetermineSecret = "Quel type d'Ami Secret aimerais-tu te faire ?"
+FriendSecretDetermineSecretAvatar = "Avatar"
+FriendSecretDetermineSecretAvatarRollover = "Un ami seulement dans ce jeu"
+FriendSecretDetermineSecretAccount = "Compte"
+FriendSecretDetermineSecretAccountRollover = "Un ami à travers le réseau Disney.com"
+
+# GuildMember.py
+GuildMemberTitle = "Options de membre"
+GuildMemberPromote = "Faire Officier"
+GuildMemberGM = "Faire Maître de la Guilde"
+GuildMemberDemote = "Rétrograder"
+GuildMemberKick = "Éjecter membre"
+GuildMemberCancel = lCancel
+GuildMemberOnline = "%s vient de se connecter."
+GuildMemberOffline = "%s vient de se déconnecter."
+GuildPrefix = "(G):"
+GuildNewMember = "Nouveau Maître de la Guilde"
+
+# GuildInvitee.py
+GuildInviteeOK = lOK
+GuildInviteeNo = lNo
+GuildInviteeInvitation = "%s t'invite à rejoindre %s."
+
+GuildRedeemErrorInvalidToken = "Sorry, that code is invalid. Please try again."
+GuildRedeemErrorGuildFull = "Sorry, this guild has too many members already."
 
 # FriendInvitee.py
 FriendInviteeTooManyFriends = "%s voudrait être ton ami(e) mais tu as déjà trop d'amis sur ta liste !"
 FriendInviteeInvitation = "%s voudrait être ton ami(e)."
-FriendInviteeOK = "OK"
-FriendInviteeNo = "Non"
+FriendNotifictation = "%s est maintenant ton ami."
+FriendInviteeOK = lOK
+FriendInviteeNo = lNo
+GuildInviterWentAway = "%s n'est plus présent."
+GuildInviterAlready = "%s est déjà dans la guilde."
+GuildInviterBusy = "%s est occupé pour l'instant."
+GuildInviterNotYet = "Inviter %s à rejoindre ta guilde&nbsp;?"
+GuildInviterCheckAvailability = "Invite %s à rejoindre ta guilde."
+GuildInviterOK = lOK
+GuildInviterNo = lNo
+GuildInviterCancel = lCancel
+GuildInviterYes = lYes
+GuildInviterTooFull = "La guilde a atteint la taille maximum."
+GuildInviterNo = lNo
+GuildInviterClickToon = "Clique sur le pirate que tu souhaites inviter."
+GuildInviterTooMany = "Ceci est un bogue"
+GuildInviterNotAvailable = "%s est occupé pour l'instant. Réessaie plus tard."
+GuildInviterGuildSaidNo = "%s a refusé ton invitation à rejoindre la guilde."
+GuildInviterAlreadyInvited = "%s a déjà été invité."
+GuildInviterEndGuildship = "Éjecter %s de la guilde ?"
+GuildInviterFriendsNoMore = "%s a quitté la guilde."
+GuildInviterSelf = "Tu fais déjà partie de la guilde !"
+GuildInviterIgnored = "%s t'ignore."
+GuildInviterAsking = "Demander à %s de rejoindre la guilde."
+GuildInviterGuildSaidYes = "%s a rejoint la guilde !"
 
 # FriendInviter.py
-FriendInviterOK = "OK"
-FriendInviterCancel = "Annuler"
+FriendOnline = "%s s'est connecté(e)."
+FriendOffline = "%s s'est déconnecté(e)."
+FriendInviterOK = lOK
+FriendInviterCancel = lCancel
 FriendInviterStopBeingFriends = "Arrêter d'être ami(e)."
-FriendInviterYes = "Oui"
-FriendInviterNo = "Non"
+FriendInviterYes = lYes
+FriendInviterNo = lNo
 FriendInviterClickToon = "Clique sur le Toon avec lequel tu voudrais devenir ami(e)."
 FriendInviterTooMany = "Tu as trop d'amis sur ta liste pour pouvoir en ajouter un de plus maintenant. Tu vas devoir retirer des amis de ta liste si tu veux devenir ami(e) avec %s."
+FriendInviterToonTooMany = "Tu as trop d'amis Toon pour pouvoir en ajouter un nouveau. Tu devras supprimer des amis Toon si tu veux devenir ami avec %s."
+FriendInviterPlayerTooMany = "Tu as trop d'amis de jeu pour pouvoir en ajouter un nouveau. Tu devras supprimer des amis de jeu si tu veux devenir ami avec %s."
 FriendInviterNotYet = "Veux-tu devenir ami(e) avec %s ?"
 FriendInviterCheckAvailability = "Recherche de la disponibilité de %s."
 FriendInviterNotAvailable = "%s est occupé(e) en ce moment, ressaie plus tard."
+FriendInviterNotOpen = "%s does not have open chat, use secrets to make friends"
 FriendInviterWentAway = "%s est parti(e)."
 FriendInviterAlready = "%s est déjà ton ami(e)."
 FriendInviterAlreadyInvited = "%s a déjà été invité."
@@ -331,11 +462,34 @@ FriendInviterSelf = "Tu es déjà \"ami(e)\" avec toi-même !"
 FriendInviterIgnored = "%s t'ignore."
 FriendInviterAsking = "Demande à %s d'être ton ami(e)."
 FriendInviterFriendSaidYes = "%s a dit oui !"
+FriendInviterPlayerFriendSaidYes = "Tu es maintenant ami avec le joueur %s, %s!"
 FriendInviterFriendSaidNo = "%s a dit non, merci."
 FriendInviterFriendSaidNoNewFriends = "%s ne cherche pas de nouveaux amis pour l'instant."
 FriendInviterTooMany = "%s a déjà trop d'amis !"
+FriendInviterOtherTooMany = "%s a déjà trop d'amis !"
 FriendInviterMaybe = "%s n'a pas pu répondre."
 FriendInviterDown = "Ne peut pas se faire d'amis pour l'instant."
+
+
+#Talk Path Labels
+TalkGuild = "G"
+TalkParty = "P"
+TalkPVP = "PVP"
+
+#Spam Blocked Message
+AntiSpamInChat = "***Spamming***"
+
+#IgnoreConfirm.py
+IgnoreConfirmOK = lOK
+IgnoreConfirmCancel = lCancel
+IgnoreConfirmYes = lYes
+IgnoreConfirmNo = lNo
+IgnoreConfirmNotYet = "Veux-tu ignorer %s? "
+IgnoreConfirmAlready = "Tu ignores déjà %s."
+IgnoreConfirmSelf = "Tu ne peux pas t'ignorer toi-même !"
+IgnoreConfirmNewIgnore = "Tu ignores %s."
+IgnoreConfirmEndIgnore = "Tu n'ignores plus %s."
+IgnoreConfirmRemoveIgnore = "Cesser d'ignorer %s ?"
 
 # Emote.py
 # List of emotes in the order they should appear in the SpeedChat.
@@ -358,9 +512,14 @@ EmoteList = [
     "Peau de banane",
     "Salut de la Résistance",
     "Rire",
-    "Oui",
-    "Non",
-    "OK",
+    lYes,
+    lNo,
+    lOK,
+    "Surprise",
+    "Cri",
+    "Content",
+    "Furieux",
+    "Rire"
     ]
 
 EmoteWhispers = [
@@ -384,6 +543,11 @@ EmoteWhispers = [
     "%s dit \"oui\".",
     "%s dit \"non\".",
     "%s dit \"OK\".",
+    "%s est surpris.",
+    "%s crie.",
+    "%s est content.",
+    "%s est furieux.",
+    "%s rit.",
     ]
 
 # Reverse lookup:  get the index from the name.
@@ -405,9 +569,14 @@ EmoteFuncDict = {
     "Peau de banane" : 14,
     "Salut de la Résistance" : 15,
     "Rire" : 16,
-    "Oui"    : 17,
-    "Non"     : 18,
-    "OK"     : 19,
+    lYes    : 17,
+    lNo     : 18,
+    lOK     : 19,
+    "Surprise" : 20,
+    "Cri" : 21,
+    "Content" : 22,
+    "Furieux" : 23,
+    "Rire" : 24,
     }
 
 # SuitDialog.py
@@ -808,12 +977,15 @@ SuitFaceoffTaunts = {
 
 # These are all the standard SpeedChat phrases.
 # The indices must fit into 16 bits (0..65535)
-SpeedChatStaticText = {
+SpeedChatStaticTextCommon = {
     # top-level
-    1 : 'Oui',
-    2 : 'Non',
-    3 : 'OK',
+    1 : lYes,
+    2 : lNo,
+    3 : lOK,
+    4 : "CHAT RAPIDE PLUS",
+    }
 
+SpeedChatStaticTextToontown = {
     # Hello
     100 : "Salut !",
     101 : "Bonjour !",
@@ -918,6 +1090,9 @@ SpeedChatStaticText = {
     813 : "Désolé, j'aide un(e) ami(e) !",
     814 : "Désolé, je suis en pleine course de kart !",
     815 : "Désolé, je suis en train de jardiner !",
+    816 : "Je ne peux pas monter dans l'ascenseur maintenant.",
+    817 : "Désolé. Je suis en train de jouer au golf !",
+    818 : "Désolé. Ma Liste d'amis est complète.",
 
     # Stinky
     900 : "Hé !",
@@ -946,7 +1121,8 @@ SpeedChatStaticText = {
     1013 : "Veux-tu venir chez moi ?",
     1014 : "Ne m'attends pas.",
     1015 : "Attends !",
-    1016 : "Come check out my garden.",
+    1016 : "Viens jeter un œil à mon jardin.",
+    1017 : "Nous prendrons le prochain.",
 
     # Places "Allons-y..."
     1100 : "Allons faire un tour de tramway !",
@@ -974,6 +1150,12 @@ SpeedChatStaticText = {
     1122 : "Allons au QG des Loibots !",
     1123 : "Allons combattre le juge !",
     1124 : "Allons au bureau du Procureur !",
+    1125 : "Allons chez %s !" % lOutdoorZone,
+    1126 : "Allons chez %s !" % lGolfZone,
+    1127 : "Allons dans le QG des Chefbots !",
+    1128 : "Allons combattre le directeur !",
+    1129 : "Allons sur les parcours de golf Cog !",
+    1130 : "Let's go take over a Field Office!",
 
     # Toontasks
     1200 : "Quel défitoon dois-tu accomplir ?",
@@ -988,8 +1170,10 @@ SpeedChatStaticText = {
     1209 : "J'ai trouvé ce dont tu as besoin.",
     1210 : "J'ai besoin de plus d'euros Cog.",
     1211 : "J'ai besoin de plus de convocations du jury.",
+    1212 : "Il me faut des actions en plus.",
     1213 : "J'ai besoin de plus de pièces de costume de Caissbot.",
     1214 : "J'ai besoin de plus de pièces de costume de Loibot.",
+    1215 : "J'ai besoin de plus de pièces de costume de Chefbot.",
 
     1299 : "Je dois avoir un défitoon.",
 
@@ -1196,17 +1380,38 @@ SpeedChatStaticText = {
     2210 : "Je vais nous faire des tooniques.",
     2211 : "Je n'ai pas de bonus de poids.",
     2212 : "Mon bonus de poids est de 1.",
-    2213 : " Mon bonus de poids est de 2.",
-    2214 : " Mon bonus de poids est de 3.",
-    2215 : " Mon bonus de poids est de 4.",
-    2216 : " Mon bonus de poids est de 5.",
-    2217 : " Mon bonus de poids est de 6.",
-    2218 : " Mon bonus de poids est de 7.",
-    2219 : " Mon bonus de poids est de 8.",
-    2220 : " Mon bonus de poids est de 9.",
-    2221 : " Mon bonus de poids est de 10.",
-    2222 : " Mon bonus de poids est de 11.",
-    2223 : " Mon bonus de poids est de 12.",
+    2213 : "Mon bonus de poids est de 2.",
+    2214 : "Mon bonus de poids est de 3.",
+    2215 : "Mon bonus de poids est de 4.",
+    2216 : "Mon bonus de poids est de 5.",
+    2217 : "Mon bonus de poids est de 6.",
+    2218 : "Mon bonus de poids est de 7.",
+    2219 : "Mon bonus de poids est de 8.",
+    2220 : "Mon bonus de poids est de 9.",
+    2221 : "Mon bonus de poids est de 10.",
+    2222 : "Mon bonus de poids est de 11.",
+    2223 : "Mon bonus de poids est de 12.",
+
+    # CEO battle
+    2300 : "Donne à manger aux Cogs à gauche.",
+    2301 : "Je vais donner à manger aux Cogs à gauche.",
+    2302 : "Donne à manger aux Cogs à droite.",
+    2303 : "Je vais donner à manger aux Cogs à droite.",
+    2304 : "Donne à manger aux Cogs de devant.",
+    2305 : "Je vais donner à manger aux Cogs de devant.",
+    2306 : "Donne à manger aux Cogs de derrière.",
+    2307 : "Je vais donner à manger aux Cogs de derrière.",
+    2308 : "Utilise la bouteille d'eau gazeuse.",
+    2309 : "Je vais utiliser la bouteille d'eau gazeuse.",
+    2310 : "Utilise le tee de golf.",
+    2311 : "Je vais utiliser le tee de golf.",
+    2312 : "Je vais servir cette table.",
+    2313 : "Peux-tu servir cette table ?",
+    2314 : "Redonne à manger au même Cog.",
+    2315 : "Dépêche-toi. Ton Cog a faim !",
+    2316 : "S'il te plaît, garde les en-cas pour les Toons plus tristes.",
+    2317 : "Attrape les en-cas avant qu'ils ne tombent.",
+
 
     #Kart Racing Phrases
     #IMPORTANT: if you change numbers or add/subtract lines here than be
@@ -1219,7 +1424,6 @@ SpeedChatStaticText = {
     3050 : "Je n'ai pas assez de tickets.",
     3060 : "Faisons encore une course !",
     3061 : "Tu veux faire une autre course ?",
-
 
     #Places
     3150 : "Je dois aller au magasin des karts.",
@@ -1238,9 +1442,9 @@ SpeedChatStaticText = {
     3220 : "J'aime la course du stade Cinglette !",
     3221 : "J'aime la course de la piste Champêtre !",
     3222 : "J'aime la course du circuit de la Ville !",
-    3223 : " J'aime la course du Colisée Tortillé !",
-    3224 : " J'aime la course des Landes légères !",
-    3225 : " J'aime la course du Boulevard du Blizzard !",
+    3223 : "J'aime la course du Colisée Tortillé !",
+    3224 : "J'aime la course des Landes légères !",
+    3225 : "J'aime la course du Boulevard du Blizzard !",
     3230 : "Faisons la course au stade Cinglette !",
     3231 : "Faisons la course sur la piste Champêtre !",
     3232 : "Faisons la course sur le circuit de la Ville !",
@@ -1294,6 +1498,114 @@ SpeedChatStaticText = {
     #3600 : "I'm the fastest of the fast!",
 
 
+    # Golf phrases
+
+    # Play
+    4000 : "Jouons au minigolf !",
+    4001 : "Rejouons !",
+    4002 : "Envie de jouer au golf ?",
+
+    # Courses
+    4100 : "Jouons une partie d'échauffement.",
+    4101 : "Jouons une partie d'entraînement.",
+    4102 : "Jouons au parcours des Pros.",
+    4103 : "Ce parcours est trop facile.",
+    4104 : "Ce parcours est trop difficile.",
+    4105 : "Ce parcours est parfait.",
+
+    # Tips
+    4200 : "Essaie de te placer plus à gauche.",
+    4201 : "Essaie de te placer plus à droite.",
+    4202 : "Essaie de te placer plus au milieu.",
+    4203 : "Essaie de tirer plus fort.",
+    4204 : "Essaie de tirer plus doucement.",
+    4205 : "Essaie de viser plus à gauche.",
+    4206 : "Essaie de viser plus à droite.",
+    4207 : "Essaie de viser en plein centre.",
+
+    # Comments
+    4300 : "C'est passé si près !",
+    4301 : "Quel joli tir !",
+    4302 : "C'était un tir chanceux.",
+    4303 : "Je vais prendre un mulligan...",
+    4304 : "C'est un gimme.",
+    4305 : "Attention !",
+    4306 : "Shhhh !",
+    4307 : "Belle partie !",
+
+    # Boarding Group phrases
+    5000 : "Let's form a Boarding Group.",
+    5001 : "Join my Boarding Group.",
+    5002 : "Can you invite me to your Boarding Group?",
+    5003 : "I'm already in a Boarding Group.",
+    5004 : "Leave your Boarding Group.",
+    5005 : "We are boarding now.",
+    5006 : "Where are we going?",
+    5007 : "Are we ready?",
+    5008 : "Let's Go!",
+    5009 : "Don't leave this area or you will leave the Boarding Group.",
+
+    # Let's Go to...
+    5100 : "Let's go to the Front Three.",
+    5101 : "Let's go to the Middle Six.",
+    5102 : "Let's go to the Back Nine.",
+    5103 : "Let's go to the C.E.O. Battle.",
+    5104 : "Let's go to the Sellbot Battle.",
+    5105 : "Let's go to the Front Entrance.",
+    5106 : "Let's go to the Back Entrance.",
+    5107 : "Let's go to the Coin Mint.",
+    5108 : "Let's go to the Dollar Mint.",
+    5109 : "Let's go to the Bullion Mint.",
+    5110 : "Let's go to the C.F.O. Battle.",
+    5111 : "Let's go to the Chief Justice Battle.",
+    5112 : "Let's go to the Lawbot A Office.",
+    5113 : "Let's go to the Lawbot B Office.",
+    5114 : "Let's go to the Lawbot C Office.",
+    5115 : "Let's go to the Lawbot D Office.",
+
+    # We're going to...
+    5200 : "We're going to the Front Three.",
+    5201 : "We're going to the Middle Six.",
+    5202 : "We're going to the Back Nine.",
+    5203 : "We're going to the C.E.O. Battle.",
+    5204 : "We're going to the Sellbot Battle.",
+    5205 : "We're going to the Front Entrance.",
+    5206 : "We're going to the Back Entrance.",
+    5207 : "We're going to the Coin Mint.",
+    5208 : "We're going to the Dollar Mint.",
+    5209 : "We're going to the Bullion Mint.",
+    5210 : "We're going to the C.F.O. Battle.",
+    5211 : "We're going to the Chief Justice Battle.",
+    5212 : "We're going to the Lawbot A Office.",
+    5213 : "We're going to the Lawbot B Office.",
+    5214 : "We're going to the Lawbot C Office.",
+    5215 : "We're going to the Lawbot D Office.",
+
+    # Parties General Phrases
+    5300 : "Let's go to a party.",
+    5301 : "See you at the party!",
+    5302 : "My party has started!",
+    5303 : "Come to my party!",
+    # Parties Phrases when inside a party
+    5304 : "Welcome to my party!",
+    5305 : "This party rules!",
+    5306 : "Your party is fun!",
+    5307 : "It's party time!",
+    5308 : "Time is running out!",
+    5309 : "No cogs allowed!",
+    5310 : "I like this song!",
+    5311 : "This music is great!",
+    5312 : "Cannons are a blast!",
+    5313 : "Watch me jump!",
+    5314 : "Trampolines are fun!",
+    5315 : "Let's play Catch!",
+    5316 : "Let's dance!",
+    5317 : "To the dance floor!",
+    5318 : "Let's play Tug of War!",
+    5319 : "Start the fireworks!",
+    5320 : "These fireworks are beautiful!",
+    5321 : "Nice decorations.",
+    5322 : "I wish I could eat this cake!",
 
     # Promotional Considerations
     10000 : "A toi de choisir !",
@@ -1695,12 +2007,13 @@ SpeedChatStaticText = {
     20350: SuitFaceoffTaunts['sd'][9],
 
     # Pets/Doodles
-    21000: 'Par ici mon petit gars !',
-    21001: 'Par ici ma fifille !',
-    21002: 'Reste là.',
-    21003: 'Un bon petit gars !',
-    21004: 'Une bonne fifille !',
-    21005: 'Gentil Doudou.',
+    21000: "Par ici mon petit gars !",
+    21001: "Par ici ma fifille !",
+    21002: "Reste là.",
+    21003: "Un bon petit gars !",
+    21004: "Une bonne fifille !",
+    21005: "Gentil Doudou.",
+    21006: "S'il te plaît, laisse-moi tranquille.",
 
     # Pet/Doodle Tricks
     21200: 'Saute !',
@@ -1711,11 +2024,224 @@ SpeedChatStaticText = {
     21205: 'Danse !',
     21206: 'Parle !',
 
+    # Phrases for April Toon's week
+    30100 : "Happy April Toons' Week!",
+    30101 : "Welcome to my April Toons' Week party!",
+    30110 : "Mickey is in Daisy Gardens.",
+    30111 : "Daisy is in Toontown Central.",
+    30112 : "Minnie is in The Brrrgh.",
+    30113 : "Pluto is in Melodyland.",
+    30114 : "Donald is sleepwalking at the Speedway.",
+    30115 : "Goofy is in Dreamland.",
+    
+    30120 : "Mickey is acting like Daisy!",
+    30121 : "Daisy is acting like Mickey!",
+    30122 : "Minnie is acting like Pluto!",
+    30123 : "Pluto is acting like Minnie!",
+    30124 : "Pluto is talking!",
+    30125 : "Goofy is acting like Donald!",
+    30126 : "Donald is dreaming he is Goofy!",
+    
+    30130 : "Watch how far I can jump.",
+    30131 : "Wow, you jumped really far!",
+    30132 : "Hey, Doodles can talk!",
+    30133 : "Did your Doodle just talk?",
+    30140 : "Things sure are silly around here!",
+    30141 : "How sillier could things get?",
+
+    # Phrases for Sellbot Nerf Event
+    30150 : "Operation: Storm Sellbot is here!",
+    30151 : "Sellbot Towers had its power drained by Doodles!",
+    30152 : "The VP had his power drained by Doodles!",
+    30153 : "Everyone can fight the VP right now!",
+    30154 : "You don't need a Sellbot Disguise to fight the VP!",
+    30155 : "You get a Rental Suit when you go into Sellbot Towers.",
+    30156 : "Do you like my Rental Suit? Sorry about the safety pins!",
+    30157 : "It's best to have eight Toons to fight the VP.",
+    30158 : "Will you help me fight the VP?",
+    30159 : "Do you want to fight the VP with me?",
+    30160 : "Would you like to join my Sellbot VP group?",
+    30161 : "I am looking for a Toon with a Rental Suit to fight the VP.",
+    30162 : "I have a Rental Suit, and am looking to fight the VP.",
+    30163 : "Just walk through the doors to get your Rental Suit.",
+    30164 : "Save your gags for the Cogs inside!",
+    30165 : "We have to defeat these Cogs first!",
+    30166 : "Bump the barrels to gag up.",
+    30167 : "Bump the barrel to get a Toon-up.",
+    30168 : "Now we have to fight some Skelecogs!",
+    30169 : "Jump up and touch the Toon's cage for pies!",
+    30170 : "Now we fight the VP!",
+    30171 : "Aim your pies by pressing the Delete button.",
+    30172 : "Two Toons should throw pies through the VP's open doors!",
+    30173 : "I'll stun the VP from the front.",
+    30174 : "I'll stun the VP from the back.",
+    30175 : "Jump when the VP jumps!",
+
+    # Phrases for Jellybean Jam
+    30180 : "I got double jellybeans on the Trolley!",
+    30181 : "I got double jellybeans from fishing!",
+    30182 : "I got double jellybeans at a party!",
+    30183 : "Jellybeans jellybeans jellybeans!",
+    30184 : "I'm really keen to earn a bean!",
+    30185 : "Don't be smelly, get beans of jelly!",
+    30186 : "I'm gonna adopt a Doodle with all these jellybeans!",
+    30187 : "What am I gonna spend all these jellybeans on?",
+    30188 : "I'm gonna throw a huge party!",
+    30189 : "I'm gonna decorate my whole Estate!",
+    30190 : "I'm gonna buy a whole new wardrobe!",
+    30191 : "Jellybeans, please!",
+    30192 : "Don't be mean, give a bean!",
+    
+    # Phrases for caroling
+    30200 : "Deck the halls... ",
+    30201 : "Load some pies...",
+    30202 : "Joyful toons...",
+    30203 : "Snowman heads...",
+    30204 : "Toontown's merry...",
+    30205 : "Lure good cheer...",
+    
+    30220 : "Deck the halls with seltzer spray!\nHappy Winter Holiday!",
+    30221 : "Load some pies into your sleigh!\nHappy Winter Holiday!",
+    30222 : "Joyful toons bring Cogs dismay!\nHappy Winter Holiday!",
+    30223 : "Snowman heads are hot today!\nHappy Winter Holiday!",
+    30224 : "Toontown's merry, come what may!\nHappy Winter Holiday!",
+    30225 : "Lure good cheer the Toontown way!\nHappy Winter Holiday!",
+
+    # Phrases for Halloween
+    30250: "Boo!",
+    30251: "Happy Halloween!",
+    30252: "Spooky!",
+
+    # Phrases for Christmas
+    30275: "Happy holidays!",
+    30276: "Season's greetings!",
+    30277: "Have a Wonderful Winter!",    
+    
+    # Phrases for Silly Story
+    30301 : "Have you seen the Silly Meter?",
+    30302 : "The Silly Meter is in Toon Hall.",
+    30303 : "Things sure are getting silly around here!",
+    30304 : "I saw a fire hydrant moving!",
+    30305 : "Toontown is coming to life!",
+    30306 : "Have you been to Flippy's new office?",
+    30307 : "I caused a Silly Surge in battle!",
+    30308 : "Let's defeat some Cogs to make Toontown sillier!",
+    
+    30309 : "The Silly Meter is bigger and crazier than ever!",
+    30310 : "Lots of hydrants have come alive!",
+    30311 : "I saw a mail box moving!",
+    30312 : "I watched a trash can wake up!",
+    30313 : "How silly can it get?",
+    30314 : "What\'s going to happen next?",
+    30315 : "Something silly, I bet!",
+    30316 : "Have you caused a Silly Surge yet?",
+    30317 : "Let's defeat some Cogs to make Toontown sillier!",
+    
+    30318 : "Cog Invasion!",
+    30319 : "Incoming!",
+    30320 : "Let\'s stop those Cogs!",
+    30321 : "I miss the Silly Surges!",
+    30322 : "Let\'s go stop an Invasion!",
+    30323 : "Toontown is sillier than ever now!",
+    30324 : "Have you seen something come alive?",
+    30325 : "My favorites are the fire hydrants!",
+    30326 : "My favorites are the mailboxes!",
+    30327 : "My favorites are the trash cans!",
+    
+    30328 : "Hooray! We stopped the Cog invasions!",
+    30329 : "A hydrant helped me in battle!",
+    30330 : "A hydrant boosted my Squirt Gags!",
+    30331 : "A trash can boosted my Toon-Up Gags!",
+    30332 : "A mailbox helped my Throw Gags!",
+    
+    # Phrases for Victory Parties (warning 60400 is in use)
+    30350: "Welcome to my Victory Party!",
+    30351: "This is a great Victory Party!",
+    30352: "We showed those Cogs who's boss!",
+    30353: "Good job helping end the Cog invasions!",
+    30354: "I bet this is driving the Cogs crazy!",
+    
+    30355: "Let's play Cog-O-War!",
+    30356: "My team won at Cog-O-War!",
+    30357: "It's nice to have fire hydrants, trash cans, and mailboxes here!",
+    30358: "I like the balloon of the Doodle biting the Cog!",
+    30359: "I like the balloon of the Cog covered in ice cream!",
+    30360: "I like the wavy Cog that flaps his arms!",
+    30361: "I jumped on a Cog's face!",
+
+    # Phrases for Sellbot Field Offices
+    30400 : "The Sellbots are invading!",
+    30401 : "The V.P. was hopping mad about Operation: Storm Sellbot ...",
+    30402 : "He's sending the Sellbots in to invade Toontown!",
+    30403 : "Let's go fight some Sellbots!",
+    30404 : "There's a new kind of building in Toontown!",
+    30405 : "Have you seen the Mover & Shaker Field Offices?",
+    30406 : "The V.P. created them as a reward for the Movers & Shakers.",
+    30407 : "Let's go defeat a Field Office!",
+    30408 : "I got an SOS Card for defeating a Field Office!",
+    30409 : "Clear the map by exploring the maze.",
+    30410 : "Destroy the Cogs by hitting them with water balloons!",
+    30411 : "Movers & Shakers take two balloons to destroy.",
+    30412 : "Look out for falling objects!",
+    30413 : "Watch out for the Cogs!",
+    30414 : "Collect Jokes to get a Toon-up at the end!",
+    30415 : "When the room shakes, a Mover & Shaker is nearby.",
+    30416 : "Defeat all four Movers & Shakers to open the exit!",
+    30417 : "The exit is open!",
+    30418 : "It's the Boss!",
+
+    # Phrases for Ides Of March
+    30450 : "It's easy to be green!",
+    30451 : "Visit Green Bean Jeans and you can be green too!",
+    30452 : "It's on Oak Street in Daisy Gardens.",
+
+    # Phrases for Lawbot Nerf Event
+    30460 : "Operation: Lawbots Lose is here!",
+    30461 : "The Doodles have done it again!",
+    30462 : "The Chief Justice had his power drained by Doodles!",
+    30463 : "Everyone can fight the Chief Justice right now!",
+    30464 : "You don't need a Lawbot Disguise to fight the CJ!",
+    30465 : "You get a Rental Suit when you go into the Courtroom in Lawbot HQ.",
+    30466 : "Do you like my Rental Suit? The safety pins are so stylish!",
+    30467 : "It's best to have eight Toons to fight the CJ.",
+    30468 : "Will you help me fight the CJ?",
+    30469 : "Would you like to join my Lawbot CJ group?",
+    30470 : "I am looking for a Toon with a Rental Suit to fight the CJ.",
+    30471 : "I have a Rental Suit, and want to fight the CJ!",
+    30472 : "Just walk through the doors to get your Rental Suit.",
+    30473 : "Save your gags for the Cogs inside!",
+    30474 : "We have to defeat these Cogs first!",
+    30475 : "Bump the barrels to get a Toon-up.",
+    30476 : "Use the Chief Justice SpeedChatMenu!",
+    30477 : "Now we have to fill the jury chairs with Toons!",
+    30478 : "The more Toons we get in, the easier it will be to defeat the CJ!",
+    30479 : "Now we fight the Chief Justice!",
+    30480 : "Touch the witness stand to collect evidence.",
+    30481 : "Watch out for the gavels!",
+    30482 : "When you hit the scale, the CJ turns red!",
+    30483 : "When the Cogs get evidence in the scale, the CJ turns green!",
+    30484 : "Something cool happens if we stun all the Cogs at once!",
+    30485 : "Throw evidence at Toons to give them a Toon-up!",
+    
+    # Phrases for Singing
+##    9000 : 'Middle ' + 'G1',
+##    9001 : 'Middle ' + 'A',
+##    9002 : 'Middle ' + 'B',
+##    9003 : 'Middle ' + 'C',
+##    9004 : 'Middle ' + 'D',
+##    9005 : 'Middle ' + 'E',
+##    9006 : 'Middle ' + 'F',
+##    9007 : 'Middle ' + 'G2'
+
+    }
+
+SpeedChatStaticTextPirates = {
     # PIRATES
     50001 : 'Ouais',
     50002 : 'Nan',
     50003 : 'Grrr !',
     50004 : "Aye, aye Captain!",
+    50005 : 'Ok',
 
     # Common Expressions
     50100 : "Ohé !",
@@ -1730,104 +2256,383 @@ SpeedChatStaticText = {
     50109 : "Viens par là !",
     50110 : "Les morts ne mentent pas...",
 
+
+    # EXPRESSIONS
+    50100 : "Gangway!",
+    50101 : "Blimey!",
+    50102 : "Well blow me down!",
+    50103 : "Walk the plank!",
+    50104 : "Dead men tell no tales....",
+    50105 : "Shiver me timbers!",
+    50106 : "Salty as a Kraken's kiss.",
+    50107 : "Treasure be the measure of our pleasure!",
+    50108 : "I don't fear death - I attune it.",
+
+
+    # EXPRESSIONS - GREETINGS
+    50700 : "Ahoy!",
+    50701 : "Ahoy, mate!",
+    50702 : "Yo-Ho-Ho",
+    50703 : "Avast!",
+    50704 : "Hey Bucko.",
+
+    # EXPRESSIONS - GOODBYES
+    50800 : "Until next time.",
+    50801 : "May fair winds find ye.",
+    50802 : "Godspeed.",
+
+
+    # EXPRESSIONS - FRIENDLY
+    50900 : "How are ye, mate?",
+    50901 : "",
+
+    # EXPRESSIONS - HAPPY
+    51000 : "It's like the sky is raining gold doubloons!",
+    51001 : "May a stiff wind be at our backs, the sun on our faces and our cannons fire true!",
+
+    # EXPRESSIONS - SAD
+    51100 : "I be sailing some rough waters today.",
+
+    # EXPRESSIONS - SORRY
+    51200 : "Me apologies, mate.",
+    51201 : "Sorry.",
+    51202 : "Sorry, I was busy before.",
+    51203 : "Sorry, I already have plans.",
+    51204 : "Sorry, I don't need to do that.",
+
+    # COMBAT
+    51300 : "Attack the weakest one!",
+    51301 : "Attack the strongest one!",
+    51302 : "Attack me target!",
+    51303 : "I be needing help!",
+    51304 : "I can't do any damage!",
+    51305 : "I think we be in trouble.",
+    51306 : "Surround the most powerful one.",
+    51307 : "We should retreat.",
+    51308 : "Run for it!",
+
+    # SEA COMBAT
+    51400 : "Fire a Broadside!",
+    51401 : "Port Side! (left)",
+    51402 : "Starboard Side! (right)",
+    51403 : "Incoming!",
+    51404 : "Come about!",
+    51405 : "Broadside! Take Cover!",
+    51406 : "To the Cannons!",
+    51407 : "Open fire!",
+    51408 : "Hold yer fire!",
+    51409 : "Aim for the masts!",
+    51410 : "Aim for the hull!",
+    51411 : "Prepare to board!",
+    51412 : "She's coming about.",
+    51413 : "Ramming speed!",
+    51414 : "We've got her on the run.",
+    51415 : "We be taking on water!",
+    51416 : "We can't take anymore!",
+    51417 : "I don't have a shot!",
+    51418 : "Let's find port for repair.",
+    51419 : "Man overboard!",
+    51420 : "Enemy spotted.",
+    51421 : "Handsomely now, mates!",
+
+    # PLACES
+    50400 : "Let's set sail.",
+    50401 : "Let's get out of here.",
+
+
+    # PLACES - LETS SAIL...
+    51500 : "Let's sail to Port Royal.",
+    51501 : "Let's sail to Tortuga.",
+    51502 : "Let's sail to Padres Del Fuego.",
+    51503 : "Let's sail to Devil's Anvil.",
+    51504 : "Let's sail to Kingshead.",
+    51505 : "Let's sail to Isla Perdida.",
+    51506 : "Let's sail to Cuba.",
+    51507 : "Let's sail to Tormenta.",
+    51508 : "Let's sail to Outcast Isle.",
+    51509 : "Let's sail to Driftwood.",
+    51510 : "Let's sail to Cutthroat.",
+    51511 : "Let's sail to Rumrunner's Isle.",
+    51512 : "Let's sail to Isla Cangrejos.",
+
+    # PLACES - LETS HEAD TO...
+    51600 : "Let's head into town.",
+    51601 : "Let's go to the docks.",
+    51602 : "Let's head to the tavern.",
+
+    # PLACES - LETS HEAD TO... - PORT ROYAL
+    51800 : "Let's go to Fort Charles.",
+    51801 : "Let's go to the Governor's Mansion.",
+
+    # PLACES - WHERE IS ..?
+    52500 : "Where be I, mate?",
+
+    # DIRECTIONS
+    51700 : "Yer already there.",
+    51701 : "I don't know.",
+    51702 : "Yer on the wrong island.",
+    51703 : "That's in town.",
+    51704 : "Look just outside of town.",
+    51705 : "Ye will have to search through the jungle.",
+    51706 : "Deeper inland.",
+    51707 : "Oh, that be by the coast.",
+
     # Insults
-    50200 : "Rat de cale !",
-    50201 : "Espèce de fripon !",
-    50202 : "On te retrouvera au fond de l'océan !",
-    50203 : "Vaurien !",
-    50204 : "Espèce de terrien !",
+    50200 : "Bilge rat!",
+    50201 : "Scurvy dog!",
+    50202 : "See ye in Davy Jones locker!",
+    50203 : "Scoundrel!",
+    50204 : "Landlubber!",
+    50205 : "Addle-minded fool!",
+    50206 : "You need a sharp sword and sharper wits.",
+    50207 : "Ye be one doubloon short of a full hull mate!",
+    50208 : "Watch yer tongue or I'll pickle it with sea salt!",
+    50209 : "Touch me loot and you get the boot!",
+    50210 : "The horizon be as empty as yer head.",
+    50211 : "You're a canvas shy of a full sail, aren't ye mate?",
 
     # Compliments
-    50300 : "Bien joué, matelot !",
-    50301 : "Et voilà un coup bien placé !",
-    50302 : "Joli coup !",
-    50303 : "Bien fait !",
-    50304 : "On leur a donné une bonne leçon !",
-    50305 : "T'es pas si mal non plus !",
-    50306 : "Une bien belle prise !",
+    50300 : "Fine shooting mate!",
+    50301 : "A well placed blow!",
+    50302 : "Nice shot!",
+    50303 : "Well met!",
+    50304 : "We showed them!",
+    50305 : "Yer not so bad yerself!",
+    50306 : "A fine plunder haul!",
 
-    # Places
-    50400 : "T'es où ?",
-    50401 : "Allons faire une virée en ville.",
-    50402 : "Allons vers les quais !",
-    50403 : "Mettons les voiles.",
-    50404 : "Allons au bar !",
+    # Card Games
+    52400  : "May luck be my lady.",
+    52401 : "I think these cards be marked!",
+    52402 : "Blimey cheater!",
 
-    # Adventures
-    50500 : "On met les voiles !",
-    50501 : "Tous à bord ! On quitte le port !",
-    50502 : "À l'abordaaage !",
-    50503 : "On file vers l'île du Caïman !",
-    50504 : "Filons vers la rade de la Tortue !",
-    50505 : "Utilisons une carte au trésor !",
-    50506 : "On retourne au port !",
+    # Card Games - Poker
+    51900 : "That's a terrible flop!",
+    51901 : "Trying to buy the hand, are ye?",
+    51902 : "Ye be bluffing.",
+    51903 : "I don't think ye had it.",
+    51904 : "Saved by the river.",
 
-    # Ships
-    50600 : "Bâbord ! (gauche)",
-    50601 : "Tribord ! (droite)",
-    50602 : "Feu ennemi !",
-    50603 : "Feu de batterie ! Tous à couvert !",
-    50604 : "Chargez vos canons !",
-    50605 : "Ouvrez le feu !",
-    50606 : "Cessez le feu !",
-    50607 : "Visez les mâts !",
-    50608 : "Visez la coque !",
-    50609 : "Préparez-vous à l'abordage !",
-    50610 : "Elle arrive !",
-    50611 : "Lâchez une bordée !",
-    50612 : "On charge vite les canons !",
-    50613 : "Grrr ! On y va !",
-    50614 : "On les rattrape !",
-    50615 : "Voie d'eau !",
-    50616 : "On n'en peut plus !",
-    50617 : "Il faut qu'on répare !",
-    50618 : "Retraite !",
-    50619 : "Un homme à la mer !",
-    50620 : "Halte-là ! Une mauvaise barcasse !",
+    # Card Games - Blackjack
+    52600 : "Hit me.",
+    52601 : "Can I get another dealer?",
+
+    # Minigames
+    # Minigames - Fishing
+    53101 : "I caught a fish!",
+    53102 : "I saw a Legendary Fish!",
+    53103 : "What did you catch?",
+    53104 : "This will make a whale of a tale!",
+    53105 : "That was a beauty!",
+    53106 : "Arr, the sea is treacherous today.",
+    53107 : "What a bountiful haul of fish!",
+    53110 : "Do you have the Legendary Lure?",
+    53111 : "Have you ever caught a Legendary Fish?",
+    53112 : "Can you sail on a fishing boat?",
+    53113 : "Where is the Fishing Master?",
+    53114 : "Have you completed your fish collection?",
+    # Minigames - Cannon Defense
+    53120 : "Fire at my target!",
+    53121 : "Fire at the ship closest to the shore!",
+    53122 : "There's a ship getting away!",
+    53123 : "Fire at the big ships!",
+    53124 : "Fire at the small ships!",
+    53125 : "More are coming!",
+    53126 : "We're not going to last much longer!",
+    53127 : "Shoot the barrels!",
+    53128 : "We've got new ammo!",
+    53129 : "Sturdy defense, mates!",
+    # Minigames - Potion Brewing
+    53141 : "Look at the potion I made!",
+    53142 : "Have you completed your potion collection?",
+    53143 : "Where is the Gypsy?",
+    53144 : "What potion is that?",
+    53145 : "This potion was easy enough.",
+    53146 : "This potion was hard brewin', I tell ye!",
+    # Minigames - Repair
+    53160 : "We need someone to bilge pump!",
+    53161 : "We need someone to scrub!",
+    53162 : "We need someone to saw!",
+    53163 : "We need someone to brace!",
+    53164 : "We need someone to hammer!",
+    53165 : "We need someone to patch!",
+    53166 : "I'll do it!",
+    53167 : "Keep it up, this ship won't repair itself!",
+    53168 : "Great job repairing the ship!",
+
+    # Invitations
+    52100 : "Want to group up?",
+    52101 : "Join me crew?",
+
+    # Invitations - Hunting
+    52200 : "Fight some skeletons?",
+    52201 : "Fight some crabs?",
+
+    # Invitations - Versus
+    52300 : "How 'bout a game of Mayhem?",
+    52301 : "Join me Mayhem game.",
+    52302 : "Want to start a Mayhem game?",
+    52303 : "Want to start a team battle game?",
+    52304 : "Join me team battle game.",
+
+    # Invitations - Minigames
+    52350 : "Join my Cannon Defense.",
+    52351 : "Want to start a Cannon Defense?",
+    52352 : "Can you lend me a hand with Repair?",
+    52353 : "We need to Repair the ship now!",
+    52354 : "Care to catch some fish?",
+    52355 : "Want to go fishing with me?",
+    52356 : "Join me crew for some fishin'?",
+    52357 : "Time to brew some potions!",
+    52358 : "You should try your hand at brewing potions.",
+
+    # PLACES - WHERE IS..? - PORT ROYAL (LEGACY)
+    52000 : "",
+
+    # PLACES - WHERE IS..? - PORT ROYAL (Legacy)
+    52000 : "",
+
+    # PLACES - WHERE IS..? - TORTUGA (Legacy)
+    52700 : "",
+
+    # PLACES - WHERE IS..? - PADRES DEL FUEGO (Legacy)
+    53000 : "",
+
+    # PLACES - WHERE IS..? - PADRES DEL FUEGO - LOS PADRES (Legacy)
+    52800 : "",
+
+    # PLACES  - WHERE IS..? - PADRES DEL FUEGO - LAS PULGAS (Legacy)
+    52900 : "",
+
+    # Adventures (LEGACY)
+    50500 : "",
+
+    # Ships (LEGACY)
+    50600 : "",
 
     # Greetings
-    60100 : "Salut !",
-    60101 : "Bonjour !",
-    60102 : "Hé !",
-    60103 : "Youhou !",
-    60104 : "Salut tout le monde !",
-    60105 : "Comment ça va ?",
-    60106 : "Quoi de neuf ?",
+    60100 : "Hi!",
+    60101 : "Hello!",
+    60102 : "Hey!",
+    60103 : "Yo!",
+    60104 : "Hi everybody!",
+    60105 : "How are you doing?",
+    60106 : "What's Up?",
 
     # Bye
-    60200 : "Salut !",
-    60201 : "A plus !",
-    60202 : "A la prochaine !",
-    60203 : "Je reviens tout de suite.",
-    60204 : "Je dois y aller.",
+    60200 : "Bye!",
+    60201 : "Later!",
+    60202 : "See ya!",
+    60203 : "I'll be right back.",
+    60204 : "I need to go.",
 
     # Happy
     60300 : ":-)",
-    60301 : "Ça, c'est super !",
-    60302 : "Ouais !",
-    60303 : "Hé hé !",
-    60304 : "Génial !",
-    60305 : "Ouais !",
-    60306 : "Ça le fait !",
-    60307 : "Cool !",
-    60308 : "Génial !",
-    60309 : "Oh la la !",
+    60301 : "Cool!",
+    60302 : "Yeah!",
+    60303 : "Ha ha!",
+    60304 : "Sweet!",
+    60305 : "Yeah!",
+    60306 : "That rocks!",
+    60307 : "Funky!",
+    60308 : "Awesome!",
+    60309 : "Wow!",
 
     # Sad
     60400 : ":-(",
-    60401 : "Bouh !",
-    60402 : "Oh, ben !",
-    60403 : "Aïe !",
-    60404 : "Poisse !",
+    60401 : "Doh!",
+    60402 : "Aw man!",
+    60403 : "Ouch!",
+    60404 : "Bummer!",
 
     # Places
-    60500 : "Où es-tu ?",
-    60501 : "Allons à la boutique du passage !",
-    60502 : "Allons à la salle Disco !",
-    60503 : "Allons à Toontown.",
-    60504 : "Allons aux Pirates des Caraïbes.",
+    60500 : "Where are you?",
+    60501 : "Let's go to the Gateway Store.",
+    60502 : "Let's go to the Disco Hall.",
+    60503 : "Let's go to Toontown.",
+    60504 : "Let's go to Pirates of the Carribean.",
+
+    # Animated Emotes
+    60505 : "Flip coin",
+    60506 : "Dance",
+    60507 : "Chant 1",
+    60508 : "Chant 2",
+    60509 : "Dance a jig",
+    60510 : "Sleep",
+    60511 : "Flex",
+    60512 : "Play Lute",
+    60513 : "Play Flute",
+    60514 : "Frustrated",
+    60515 : "Searching",
+    60516 : "Yawn",
+    60517 : "Kneel",
+    60518 : "Sweep",
+    60519 : "Primp",
+    60520 : "Yawn",
+    60521 : "Dance",
+    60522 : "No",
+    60523 : "Yes",
+    60524 : "Laugh",
+    60525 : "Clap",
+    60526 : "Smile",
+    60527 : "Anger",
+    60528 : "Fear",
+    60529 : "Sad",
+    60530 : "Celebrate",
+    60668 : "Celebrate",
+    60669 : "Sleep",
+    60602 : "Angry",
+    60614 : "Clap",
+    60622 : "Scared",
+    60640 : "Laugh",
+    60652 : "Sad",
+    60657 : "Smile",
+    60664 : "Wave",
+    60665 : "Wink",
+    60666 : "Yawn",
+    60669 : "Sleep",
+    60670 : "Dance",
+    60676 : "Flirt",
+    60677 : "Zombie dance",
+    60678 : "Noisemaker",
+
+    # Valentines day emote string options
+    60671 : "Hello, I'm a Pirate, and I'm here to steal your heart.",
+    60672 : "I just found the treasure I've been searching for.",
+    60673 : "If you were a booger, I'd pick you first.",
+    60674 : "Come to Tortuga often?",
+    60675 : "Do you have a map? I just keep getting lost in your eyes.",
+
+    65000 : "Yes",
+    65001 : "No",
+
     }
 
+SpeedChatStaticText = SpeedChatStaticTextCommon
+
+# Emote IDs - These are used in SC to determine if a msg is a animated emote
+Emotes_Root = "EMOTES"
+Emotes_Dances = "Dances"
+Emotes_General = "General"
+Emotes_Music = "Music"
+Emotes_Expressions = "Emotions"
+Emote_ShipDenied = "Cannot emote while sailing."
+Emote_MoveDenied = "Cannot emote while moving."
+Emote_CombatDenied = "Cannot emote while in combat."
+Emote_CannonDenied = "Cannot emote while using a cannon."
+Emote_SwimDenied = "Cannot emote while swimming."
+Emote_ParlorGameDenied = "Cannot emote while playing a parlor game."
+Emotes = (60505, 60506, 60509, 60510, 60511, 60516, 60519, 60520, 60521, 60522, 60523, 60524, 60525, 60526, 60527, 60528, 60529, 60530, 60602, 60668, 60614, 60622, 60640, 60644, 60652, 60657, 60664, 60665, 60666, 60669, 60612, 60661, 60645, 60629, 60641, 60654, 60630, 60670, 60633,
+          # Valentines Day Emote
+          60676,
+          # Halloween Emote
+          60677,
+          # Yes/No
+          65000, 65001,
+          # Kneel
+          60517,
+          # New Years Emote
+          60678,
+          )
 
 # These indexes, defined above, will construct a submenu in the FACTORY menu
 # to allow the user to describe all the places he might want to meet
@@ -2062,7 +2867,7 @@ CustomSCStrings = {
     3230 : "Je suis occupé(e).",
     3240 : "Je ne blague pas !",
     3250 : "J'en suis baba.",
-    #3260 : "Garde le sourire.",
+    3260 : "Garde le sourire.",
     3270 : "Tiens-moi au courant !",
     3280 : "Laisse faire !",
     3290 : "De même, certainement.",
@@ -2253,6 +3058,11 @@ CustomSCStrings = {
     12014 : "Mignonne allons voir si la rose...",
     12015 : "Qui ce matin était éclose...",
     12016 : "C'est mignon !",
+    12050 : "I LOVE busting Cogs!",
+    12051 : "You're dynamite!",
+    12052 : "I only have hypno-eyes for you!",
+    12053 : "You're sweeter than a jellybean!",
+    12054 : "I'd LOVE for you to come to my ValenToon's party!",
 
     # St. Patricks Day
     13000 : "Mes salutations fleuries !",
@@ -2263,6 +3073,24 @@ CustomSCStrings = {
     13005 : "Sacré veinard !",
     13006 : "Tu es mon trèfle à quatre feuilles !",
     13007 : "Tu es mon porte-bonheur !",
+
+    # Summer Estate Party phrases (seasonal catalog)
+    14000 : "Organisons une fête !",
+    14001 : "Il est temps de s’amuser !",
+    14002 : "Le dernier dans la mare n’est qu’un Cog !",
+    14003 : "Entraînons nos Doudous ensemble !",
+    14004 : "Il est temps d’exercer les Doudous !",
+    14005 : "Ton Doudou est cool !",
+    14006 : "Quels tours peut faire ton Doudou ?",
+    14007 : "Il est temps de tirer au canon !",
+    14008 : "C’est super de tirer au canon !",
+    14009 : "Ta propriété est super !",
+    14010 : "Ton jardin est cool !",
+    14011 : "Ta propriété est cool !",
+
+
+
+
     #Potential racing phrases for purchase
 
     }
@@ -2300,18 +3128,48 @@ SCMenuCustomCogIndices = {
     'bw' : (20299, 20308),
     'ls' : (20309, 20319),
     'rb' : (20320, 20329),
-    'sc' : (20330, 20331),
+    'sc' : (20330, 20340),
     'sd' : (20341, 20350),
     }
 
 
 # Pirates Speedchat
 PSCMenuExpressions  = "EXPRESSIONS"
+PSCMenuGreetings = "GREETINGS"
+PSCMenuGoodbyes = "GOODBYES"
+PSCMenuFriendly = "FRIENDLY"
+PSCMenuHappy = "HAPPY"
+PSCMenuSad = "SAD"
+PSCMenuSorry = "SORRY"
+PSCMenuCombat = "COMBAT"
+PSCMenuSeaCombat     = "SEA COMBAT"
+PSCMenuPlaces     = "ENDROITS"
+PSCMenuLetsSail = "LET\'S SAIL..."
+PSCMenuLetsHeadTo = "LET\'S HEAD TO..."
+PSCMenuHeadToPortRoyal = "PORT ROYAL"
+PSCMenuWhereIs = "WHERE IS ..?"
+PSCMenuWhereIsPortRoyal = "PORT ROYAL"
+PSCMenuWhereIsTortuga = "TORTUGA"
+PSCMenuWhereIsPadresDelFuego = "PADRES DEL FUEGO"
+PSCMenuWhereIsLasPulgas = "LAS PULGAS"
+PSCMenuWhereIsLosPadres = "LOS PADRES"
+PSCMenuDirections = "DIRECTIONS"
 PSCMenuInsults    = "INSULTES"
 PSCMenuCompliments = "COMPLIMENTS"
-PSCMenuPlaces     = "ENDROITS"
-PSCMenuAdventures = "ADVENTURE"
-PSCMenuShips      = "SHIPS"
+PSCMenuCardGames  = "CARD GAMES"
+PSCMenuPoker = "POKER"
+PSCMenuBlackjack = "BLACKJACK"
+PSCMenuInvitations = "INVITATIONS"
+PSCMenuVersusPlayer = "VERSUS"
+PSCMenuHunting = "HUNTING"
+PSCMenuQuests = "QUESTS"
+PSCMenuGM = "GM"
+
+
+
+# Grandfathered Speedchat Headers
+PSCMenuShips      = "NAVIRES"
+PSCMenuAdventures = "AVENTURE"
 
 # Gateway Speedchat
 GWSCMenuHello     = "SALUTATIONS"
@@ -2367,6 +3225,7 @@ NCNeedVowels = 'Chaque mot de ton nom doit contenir des voyelles.'
 NCAllCaps = 'Ton nom ne peut pas être entièrement en majuscules.'
 NCMixedCase = 'Ton nom a trop de majuscules.'
 NCBadCharacter = "Ton nom ne peut pas contenir le caractère \"%s\""
+NCRepeatedChar = "Your name has too many of the character '%s'"
 NCGeneric = 'Désolé, ce nom ne pourra pas convenir.'
 NCTooManyWords = 'Ton nom ne peut pas comporter plus de quatre mots.'
 NCDashUsage = ("Les tirets ne peuvent être utilisés que pour relier deux mots ensemble."
@@ -2386,6 +3245,7 @@ AvatarDetailPanelCancel = lCancel
 AvatarDetailPanelClose = lClose
 AvatarDetailPanelLookup = "Change les informations sur %s."
 AvatarDetailPanelFailedLookup = "Impossible d'obtenir les informations pour %s."
+AvatarDetailPanelPlayer = "Player: %(player)s\nWorld: %(world)s\nLocation: %(location)s"
 AvatarDetailPanelOnline = "District: %(district)s\nEmplacement: %(location)s"
 AvatarDetailPanelOffline = "District: offline\nEmplacement: offline"
 
@@ -2394,16 +3254,19 @@ AvatarPanelFriends = "Amis"
 AvatarPanelWhisper = "Murmmurer"
 AvatarPanelSecrets = "Secrets"
 AvatarPanelGoTo = "Vas à"
-AvatarPanelIgnore = "Ignore"
+AvatarPanelIgnore = "Ignorer"
+AvatarPanelStopIgnore = "Cesser d'ignorer"
+AvatarPanelEndIgnore = "Cesser d'ignorer"
+AvatarPanelTrade = "Échanger"
 #AvatarPanelCogDetail = "Dept: %s\nLevel: %s\n"
 AvatarPanelCogLevel = "Niveau : %s"
 AvatarPanelCogDetailClose = lClose
 
 # TeleportPanel.py
-TeleportPanelOK = "OK"
-TeleportPanelCancel = "Annuler"
-TeleportPanelYes = "Oui"
-TeleportPanelNo = "Non"
+TeleportPanelOK = lOK
+TeleportPanelCancel = lCancel
+TeleportPanelYes = lYes
+TeleportPanelNo = lNo
 TeleportPanelCheckAvailability = "Essaie d'aller à %s."
 TeleportPanelNotAvailable = "%s est occupé(e) en ce moment, ressaie plus tard."
 TeleportPanelIgnored = "%s t'ignore"
@@ -2421,7 +3284,92 @@ KartRacingMenuSections = [
  "PISTES",
  "COMPLIMENTS",
  "MOQUERIE"
+]
 
+AprilToonsMenuSections = [
+ -1,
+ "GREETINGS",
+ "PLAYGROUNDS",
+ "CHARACTERS",
+ "ESTATES"
+]
+
+SillyHolidayMenuSections = [
+-1,
+"WORLD",
+"BATTLE",
+]
+
+CarolMenuSections = [
+-1,
+]
+
+VictoryPartiesMenuSections = [
+ -1,
+ "PARTY",
+ "ITEMS",
+]
+
+GolfMenuSections = [
+ -1,
+ "COURSES",
+ "ASTUCES",
+ "COMMENTAIRES",
+]
+
+BoardingMenuSections = [
+"GROUP",
+"Let's go to...",
+"We're going to...",
+-1,
+]
+
+SellbotNerfMenuSections = [
+-1,
+"GROUPING",
+"SELLBOT TOWERS/VP",
+]
+
+LawbotNerfMenuSections = [
+-1,
+"GROUPING",
+"COURTHOUSE/CJ",
+]
+
+JellybeanJamMenuSections = [
+"GET JELLYBEANS",
+"SPEND JELLYBEANS",
+]
+
+WinterMenuSections = [
+"CAROLING",
+-1
+]
+
+HalloweenMenuSections = [
+-1
+]
+
+SingingMenuSections = [
+-1
+]
+
+WhiteListMenu = [
+-1,
+"LISTEBLANCHE"
+]
+
+SellbotInvasionMenuSections = [
+-1
+]
+
+SellbotFieldOfficeMenuSections = [
+-1,
+"STRATEGY"
+]
+
+IdesOfMarchMenuSections = [
+-1
 ]
 
 # TTAccount.py
@@ -2430,6 +3378,27 @@ TTAccountCallCustomerService = "Appelez le Service clients au %s."
 # Fill in %s with phone number from account server
 TTAccountCustomerServiceHelp = "Si vous avez besoin d'aide, vous pouvez contacter par email le service clients à %s."
 TTAccountIntractibleError = "Une erreur s'est produite."
+
+
+def timeElapsedString(timeDelta):
+    timeDelta = abs(timeDelta)
+    if timeDelta.days > 0:
+        if timeDelta.days == 1:
+            return "1 day ago"
+        else:
+            return "%s days ago" % timeDelta.days
+
+    elif timeDelta.seconds / 3600 > 0:
+        if timeDelta.seconds / 3600 == 1:
+            return "1 hour ago"
+        else:
+            return "%s hours ago" % (timeDelta.seconds / 3600)
+
+    else:
+        if timeDelta.seconds / 60 < 2:
+            return "1 minute ago"
+        else:
+            return "%s minutes ago" % (timeDelta.seconds / 60)
 
 # OTPGLobals stuff
 def getSignFontLocale():
