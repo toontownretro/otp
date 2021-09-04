@@ -104,6 +104,45 @@ add_grid_cell(float x, float y,
 }
 
 ////////////////////////////////////////////////////////////////////
+//     Function: MarginManager::add_grid_cell
+//       Access: Published
+//  Description: This variant on add_cell() adds a new cell based on
+//               its coordinates within an imaginary grid, where (0,
+//               0) is the bottom left corner and
+//               (NametagGlobals::grid_count_horizontal - 1,
+//               NametagGlobals::grid_count_vertical - 1) is the upper
+//               right corner.  The dimensions of the entire screen
+//               are given.
+//
+//               The return value is the index number associated with
+//               this cell, which may be passed to get_cell_available()
+//               or set_cell_available().
+////////////////////////////////////////////////////////////////////
+int MarginManager::
+add_grid_cell(float x, float y,
+              float screen_left, float screen_right,
+              float screen_bottom, float screen_top,
+              NodePath &parent) {
+  float screen_width = (screen_right - screen_left);
+  float screen_height = (screen_top - screen_bottom);
+
+  float cell_width = screen_width / NametagGlobals::grid_count_horizontal;
+  float cell_height = screen_height / NametagGlobals::grid_count_vertical;
+
+  float left = screen_left + x * cell_width;
+  float right = left + cell_width;
+  float bottom = screen_bottom + y * cell_height;
+  float top = bottom + cell_height;
+
+  float horz_margin = NametagGlobals::grid_spacing_horizontal * 0.5f;
+  float vert_margin = NametagGlobals::grid_spacing_vertical * 0.5f;
+
+  return add_cell(left + horz_margin, right - horz_margin,
+                  bottom + vert_margin, top - vert_margin,
+                  parent);
+}
+
+////////////////////////////////////////////////////////////////////
 //     Function: MarginManager::add_cell
 //       Access: Published
 //  Description: Adds a new cell to the list of available cells for
@@ -144,6 +183,57 @@ add_cell(float left, float right, float bottom, float top) {
   cell._popup_code = 0;
   cell._np = NodePath();
   cell._hide_time = 0.0f;
+
+  _num_available_cells++;
+
+  return cell_index;
+}
+
+////////////////////////////////////////////////////////////////////
+//     Function: MarginManager::add_cell
+//       Access: Published
+//  Description: Adds a new cell to the list of available cells for
+//               popups.  The coordinates given define the rectangular
+//               region that defines the cell; the cell will be set up
+//               in a coordinate space that maps -1 .. 1 in the y
+//               dimension and -width .. width in the x dimension to
+//               the rectangle defined.
+//
+//               The return value is the index number associated with
+//               this cell, which may be passed to get_cell_available()
+//               or set_cell_available().
+////////////////////////////////////////////////////////////////////
+int MarginManager::
+add_cell(float left, float right, float bottom, float top, NodePath &parent) {
+  // We choose the appropriate scale such that -1 .. 1 maps to the top
+  // and bottom of the rectangle, and the appropriate translation such
+  // that (0, 0) is in the center of the rectangle.
+  float vert_scale = (top - bottom) * 0.5f;
+  LVecBase3f scale(vert_scale, vert_scale, vert_scale);
+  LVecBase3f hpr(0.0f, 0.0f, 0.0f);
+  LVecBase3f trans((left + right) * 0.5f,
+                   0.0f,
+                   (bottom + top) * 0.5f);
+
+  int cell_index = _cells.size();
+  _cells.push_back(Cell());
+  Cell &cell = _cells.back();
+  cell._is_available = true;
+  compose_matrix(cell._mat, scale, hpr, trans);
+
+  // Now we compute the width such that -width .. width represents the
+  // left-to-right extents of the rectangle.
+  float horz_scale = (right - left) * 0.5f;
+  cell._width = horz_scale / vert_scale;
+
+  cell._popup = (MarginPopup *)NULL;
+  cell._popup_code = 0;
+  cell._np = NodePath();
+  cell._hide_time = 0.0f;
+  // If we have a parent specified, Set our cells parent.
+  if (!parent.is_empty()) {
+    cell._parent = parent;
+  }
 
   _num_available_cells++;
 
@@ -629,6 +719,9 @@ show(MarginPopup *popup, int cell_index) {
 
   const LMatrix4f &mat = _cells[cell_index]._mat;
   _cells[cell_index]._np.set_mat(mat);
+  if (!_cells[cell_index]._parent.is_empty()) {
+    _cells[cell_index]._np.reparent_to(_cells[cell_index]._parent);
+  }
 
   _popups[popup]._cell_index = cell_index;
   popup->_cell_width = _cells[cell_index]._width;

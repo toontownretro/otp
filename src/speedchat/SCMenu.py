@@ -1,13 +1,14 @@
 """SCMenu.py: contains the SCMenu class"""
 
-from otp.otpbase.OTPModules import *
-from direct.gui.DirectGui import *
-from direct.task import Task
-from .SCConstants import *
-from direct.interval.IntervalGlobal import *
-from .SCObject import SCObject
-from direct.showbase.PythonUtil import makeTuple
 import types
+from direct.gui.DirectGui import *
+from direct.interval.IntervalGlobal import *
+from direct.showbase.PythonUtil import makeTuple
+from direct.task import Task
+from otp.otpbase import OTPLocalizer
+from otp.otpbase.OTPModules import *
+from otp.speedchat.SCConstants import *
+from otp.speedchat.SCObject import SCObject
 
 class SCMenu(SCObject, NodePath):
     """ SCMenu is a menu of SCElements """
@@ -46,8 +47,7 @@ class SCMenu(SCObject, NodePath):
         self.setHolder(holder)
 
         self.FinalizeTaskName = 'SCMenu%s_Finalize' % self.SerialNum
-        self.ActiveMemberSwitchTaskName = (
-            'SCMenu%s_SwitchActiveMember' % self.SerialNum)
+        self.ActiveMemberSwitchTaskName = ('SCMenu%s_SwitchActiveMember' % self.SerialNum)
 
         self.bg = loader.loadModel(self.BackgroundModelName)
         def findNodes(names, model=self.bg):
@@ -161,7 +161,6 @@ class SCMenu(SCObject, NodePath):
          {terminal:emoteId}
         """
         from .SpeedChatTypes import SCMenuHolder, SCStaticTextTerminal, SCGMTextTerminal
-        from otp.otpbase import OTPLocalizer
 
         def addChildren(menu, childList):
             """ this recursive function adds children to an SCMenu
@@ -205,8 +204,7 @@ class SCMenu(SCObject, NodePath):
                         subMenu = menuType()
                         subMenuChildren = child[2:]
                     if emote:
-                        print(('warning: tried to link emote %s '
-                               'to a menu holder' % emote))
+                        print(('warning: tried to link emote %s to a menu holder' % emote))
                     holder = SCMenuHolder(holderTitle, menu=subMenu)
                     menu.append(holder)
                     addChildren(subMenu, subMenuChildren)
@@ -214,8 +212,7 @@ class SCMenu(SCObject, NodePath):
                     terminal = SCGMTextTerminal(child)
                     menu.append(terminal)
                 else:
-                    raise('error parsing speedchat structure. '
-                           'invalid child: %s')
+                    raise('error parsing speedchat structure. invalid child: %s')
 
         addChildren(self, structure)
         # clean up memory leak

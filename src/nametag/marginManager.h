@@ -32,7 +32,12 @@ PUBLISHED:
   int add_grid_cell(float x, float y,
                      float screen_left, float screen_right,
                      float screen_bottom, float screen_top);
+  int add_grid_cell(float x, float y,
+                     float screen_left, float screen_right,
+                     float screen_bottom, float screen_top,
+                     NodePath &parent);
   int add_cell(float left, float right, float bottom, float top);
+  int add_cell(float left, float right, float bottom, float top, NodePath &parent);
 
   void set_cell_available(int cell_index, bool available);
   bool get_cell_available(int cell_index) const;
@@ -87,6 +92,9 @@ private:
 
     // If the cell is vacant, _np is empty; otherwise, it is non-empty.
     NodePath _np;
+    
+    // This is can be used to parent cells to regions and more.
+    NodePath _parent = NodePath();
 
     // The popup pointer serves to indicate both the current popup in
     // the cell, if the cell is occupied, and the last popup to occupy
