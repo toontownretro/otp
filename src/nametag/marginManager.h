@@ -41,16 +41,14 @@ PUBLISHED:
   void hide_cells();
 #endif
 
-public:
-  void manage_popup(MarginPopup *popup);
-  void unmanage_popup(MarginPopup *popup);
   void update();
 
 public:
-  // From base class PandaNode.
-  virtual bool cull_callback(CullTraverser *trav, CullTraverserData &data);
-  virtual bool is_renderable() const;
+  void manage_popup(MarginPopup *popup);
+  void unmanage_popup(MarginPopup *popup);
 
+public:
+  // From base class PandaNode.
   virtual void write(ostream &out, int indent_level) const;
 
 private:

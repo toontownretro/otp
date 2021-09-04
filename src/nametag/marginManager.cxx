@@ -24,8 +24,6 @@ TypeHandle MarginManager::_type_handle;
 ////////////////////////////////////////////////////////////////////
 MarginManager::
 MarginManager() : PandaNode("popups") {
-  set_cull_callback();
-
   _num_available_cells = 0;
 
   // A MarginManager has an infinite bounding volume, so it never gets
@@ -399,55 +397,6 @@ update() {
     mouse_watcher->update_regions();
   }
 #endif
-}
-
-////////////////////////////////////////////////////////////////////
-//     Function: MarginManager::cull_callback
-//       Access: Public, Virtual
-//  Description: This function will be called during the cull
-//               traversal to perform any additional operations that
-//               should be performed at cull time.  This may include
-//               additional manipulation of render state or additional
-//               visible/invisible decisions, or any other arbitrary
-//               operation.
-//
-//               Note that this function will *not* be called unless
-//               set_cull_callback() is called in the constructor of
-//               the derived class.  It is necessary to call
-//               set_cull_callback() to indicated that we require
-//               cull_callback() to be called.
-//
-//               By the time this function is called, the node has
-//               already passed the bounding-volume test for the
-//               viewing frustum, and the node's transform and state
-//               have already been applied to the indicated
-//               CullTraverserData object.
-//
-//               The return value is true if this node should be
-//               visible, or false if it should be culled.
-////////////////////////////////////////////////////////////////////
-bool MarginManager::
-cull_callback(CullTraverser *, CullTraverserData &) {
-  update();
-  return true;
-}
-
-////////////////////////////////////////////////////////////////////
-//     Function: MarginManager::is_renderable
-//       Access: Public, Virtual
-//  Description: Returns true if there is some value to visiting this
-//               particular node during the cull traversal for any
-//               camera, false otherwise.  This will be used to
-//               optimize the result of get_net_draw_show_mask(), so
-//               that any subtrees that contain only nodes for which
-//               is_renderable() is false need not be visited.
-////////////////////////////////////////////////////////////////////
-bool MarginManager::
-is_renderable() const {
-  // We flag the MarginManager as renderable, even though it
-  // technically doesn't have anything to render, but we do need the
-  // traverser to visit it every frame.
-  return true;
 }
 
 ////////////////////////////////////////////////////////////////////
