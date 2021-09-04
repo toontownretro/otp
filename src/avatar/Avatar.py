@@ -907,10 +907,8 @@ class Avatar(Actor, ShadowCaster):
         # means we grab the appropriate CharacterJoint object for each
         # LOD and point it at this node (instead of wherever it was
         # pointed before).
-        for cJoint in self.getNametagJoints():
-            cJoint.clearNetTransforms()
-            cJoint.addNetTransform(nametagNode)
-
+        for attach, bundle in self.getNametagJoints():
+            bundle.setAttachmentNode(attach, nametagNode)
 
     def nametagAmbientLightChanged(self,newlight):
         """
