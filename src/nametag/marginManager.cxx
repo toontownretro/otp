@@ -12,6 +12,7 @@
 #include "clockObject.h"
 #include "omniBoundingVolume.h"
 #include "indent.h"
+#include "asyncTaskManager.h"
 
 #include <algorithm>
 #include <random>
@@ -32,6 +33,13 @@ MarginManager() : PandaNode("popups") {
   OmniBoundingVolume volume;
   set_bounds(&volume);
   set_final(true);
+
+  // Spawn a task to automatically update the MarginManager each frame.
+  _update_task = new GenericAsyncTask("MarginManagerUpdate", &MarginManager::update_task, this);
+  // Make sure the tasks runs right before we render.
+  _update_task->set_sort(49);
+  AsyncTaskManager *task_mgr = AsyncTaskManager::get_global_ptr();
+  task_mgr->add(_update_task);
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -41,6 +49,21 @@ MarginManager() : PandaNode("popups") {
 ////////////////////////////////////////////////////////////////////
 MarginManager::
 ~MarginManager() {
+  if (_update_task != nullptr) {
+    _update_task->remove();
+  }
+}
+
+////////////////////////////////////////////////////////////////////
+//     Function: MarginManager::update_task
+//       Access: Private
+//  Description: This is the task callback to update the MarginManager
+//               each frame.
+////////////////////////////////////////////////////////////////////
+AsyncTask::DoneStatus MarginManager::
+update_task(GenericAsyncTask *task, void *data) {
+  ((MarginManager *)data)->update();
+  return AsyncTask::DS_cont;
 }
 
 ////////////////////////////////////////////////////////////////////

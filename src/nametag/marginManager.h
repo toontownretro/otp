@@ -15,6 +15,7 @@
 #include "pvector.h"
 #include "vector_int.h"
 #include "nodePath.h"
+#include "genericAsyncTask.h"
 
 ////////////////////////////////////////////////////////////////////
 //       Class : MarginManager
@@ -58,6 +59,8 @@ private:
 
   void show(MarginPopup *popup, int cell_index);
   void hide(int cell_index);
+
+  static AsyncTask::DoneStatus update_task(GenericAsyncTask *task, void *data);
 
 private:
   class PopupInfo {
@@ -103,6 +106,8 @@ private:
 #ifndef NDEBUG
   NodePath _show_cells;
 #endif
+
+  PT(GenericAsyncTask) _update_task;
 
   // This STL function object is used to sort a vector of Popups
   // iterators in descending order by the score, for placing just the
