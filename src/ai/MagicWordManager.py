@@ -295,11 +295,11 @@ class MagicWordManager(DistributedObject.DistributedObject):
             args = word.split()
             fEnableLight = 0
             if len(args) > 1:
-                if direct and (args[1] == 'CAM'):
-                    direct.enable()
+                if base.direct and (args[1] == 'CAM'):
+                    base.direct.enable()
                     taskMgr.removeTasksMatching('updateSmartCamera*')
                     camera.wrtReparentTo(render)
-                    direct.cameraControl.enableMouseFly()
+                    base.direct.cameraControl.enableMouseFly()
                     self.setMagicWordResponse("Enabled DIRECT camera")
                     return
                 elif args[1] == 'LIGHT':
@@ -308,9 +308,9 @@ class MagicWordManager(DistributedObject.DistributedObject):
             base.startTk()
             from direct.directtools import DirectSession
             if fEnableLight:
-                direct.enableLight()
+                base.direct.enableLight()
             else:
-                direct.enable()
+                base.direct.enable()
             self.setMagicWordResponse("Enabled DIRECT")
 
         elif wordIs("~TT"):
@@ -716,6 +716,12 @@ class MagicWordManager(DistributedObject.DistributedObject):
                     '~gptcn', args[1], Functor(self._handleGPTCNfinished, args[1]))
             else:
                 self.setMagicWordResponse('error')
+
+        elif wordIs('~ls'):
+            base.render.ls()
+
+        elif wordIs('~lsLocalAvatar'):
+            base.localAvatar.ls()
 
         else:
             # Not a magic word I know!
