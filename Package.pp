@@ -40,7 +40,7 @@
 #if $[OTP_INSTALL]
   #define OTP_INSTALL $[unixfilename $[OTP_INSTALL]]
 #elif $[CTPROJS]
-  #set OTP $[unixfilename $[OTP]]
+  #define OTP $[unixfilename $[OTP]]
   #define OTP_INSTALL $[OTP]/built
   #if $[eq $[OTP],]
     #error You seem to be attached to some trees, but not OTP!
