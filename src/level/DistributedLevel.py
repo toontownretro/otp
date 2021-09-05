@@ -786,30 +786,26 @@ class DistributedLevel(DistributedObject.DistributedObject,
                 self.titleSeq = Sequence(titleSeq)
             self.titleSeq.start()
 
-    def showTitleTextTask(self):
+    def showTitleText(self):
         assert DistributedLevel.notify.debug("hideTitleTextTask()")
         self.titleText.show()
-        return Task.done
 
-    def hideTitleTextTask(self):
+    def hideTitleText(self):
         assert DistributedLevel.notify.debug("hideTitleTextTask()")
         if self.titleText:
             self.titleText.hide()
-        return Task.done
 
-    def showSmallTitleTask(self):
+    def showSmallTitle(self):
         # make sure large title is hidden
         if self.titleText:
             self.titleText.hide()
         # show the small title
         self.smallTitleText.show()
-        return Task.done
 
-    def hideSmallTitleTextTask(self):
+    def hideSmallTitleText(self):
         assert DistributedLevel.notify.debug("hideTitleTextTask()")
         if self.smallTitleText:
             self.smallTitleText.hide()
-        return Task.done
 
     # Ouch!
     def startOuch(self, ouchLevel, period=2):
