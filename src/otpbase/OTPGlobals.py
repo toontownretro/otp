@@ -297,10 +297,11 @@ STRAFE_RIGHT_INDEX = 5
 
 ToonStandableGround = 0.707 # if ToonStandableGround > angle: toon is on ground.
 
-ToonForwardSpeed = 16.0 # feet per second
+ToonSpeedFactor = 1.25
+ToonForwardSpeed = 16.0 * ToonSpeedFactor # feet per second
 ToonJumpForce = 24.0 # feet per second
-ToonReverseSpeed = 8.0 # feet per second
-ToonRotateSpeed = 80.0
+ToonReverseSpeed = 8.0 * ToonSpeedFactor # feet per second
+ToonRotateSpeed = 80.0 * ToonSpeedFactor
 
 # When you are "dead"
 ToonForwardSlowSpeed = 6.0
