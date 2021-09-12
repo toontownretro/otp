@@ -7,8 +7,8 @@
     interrogatedb \
     dtoolutil:c dtoolbase:c dtool:m \
     express:c prc event:c pgraph:c pgraphnodes:c linmath:c gobj:c \
-    char:c putil:c mathutil:c downloader:c mathutil:c chan:c \
-    pandabase:c recorder:c grutil:c chan:c collide:c device:c \
+    anim:c putil:c mathutil:c downloader:c mathutil:c \
+    pandabase:c recorder:c grutil:c collide:c device:c \
     dgraph:c display:c gsgbase:c parametrics:c text:c pnmimage:c \
     pipeline:c pstatclient:c cull:c pnmimagetypes:c tform:c \
     audio:c pgui:c directbase:c movies:c \

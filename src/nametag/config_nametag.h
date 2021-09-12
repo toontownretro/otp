@@ -10,6 +10,7 @@
 #include "notifyCategoryProxy.h"
 #include "configVariableString.h"
 #include "configVariableBool.h"
+#include "dconfig.h"
 
 ConfigureDecl(config_nametag, EXPCL_OTP, EXPTP_OTP);
 NotifyCategoryDeclNoExport(nametag);
