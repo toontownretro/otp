@@ -5,11 +5,17 @@ from otp.otpbase import OTPGlobals
 from otp.otpbase import OTPLocalizer
 from direct.actor.Actor import Actor
 #import AvatarDNA
+from direct.directnotify import DirectNotifyGlobal
 from direct.distributed import ClockDelta
 from otp.avatar.ShadowCaster import ShadowCaster
 import random
 from otp.otpbase import OTPRender
 from direct.showbase.PythonUtil import recordCreationStack
+
+teleportNotify = DirectNotifyGlobal.directNotify.newCategory('Teleport')
+teleportNotify.showTime = True
+if config.GetBool('want-teleport-debug', 1):
+    teleportNotify.setDebug(1)
 
 def reconsiderAllUnderstandable():
     """
