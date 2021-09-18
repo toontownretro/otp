@@ -337,6 +337,9 @@ generate_name() {
   if (_for_3d && !decal_node.is_empty()) {
     _name = group->copy_name_to(decal_node);
     _name.set_depth_offset(1);
+    
+    // Fix for modern Panda's text rendering
+    _name.set_y(-0.01);
 
     //decal_node.node()->set_effect(DecalEffect::make());
 

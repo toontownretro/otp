@@ -188,6 +188,9 @@ generate(const string &text, TextFont *font, float wordwrap,
   nassertr(text_parent_node != (PandaNode *)NULL, root);
   NodePath text_parent(text_parent_node);
   NodePath text_geom = text_parent.attach_new_node(text_geom_node);
+  
+  // Fix for modern Panda's text rendering
+  text_trans[1] -= 0.01;
 
   text_geom.set_pos(text_trans);
   text_geom.set_color(text_color);
@@ -210,6 +213,9 @@ generate(const string &text, TextFont *font, float wordwrap,
       button.set_pos(balloon_width, 0.0f, 1.8f);
     }
     button.set_scale(8.0f);
+    
+    // Fix for modern Panda's text rendering
+    button.set_y(-0.01);
   }
 
   // Apply the transforms to the text vertices too, and flatten once more.
