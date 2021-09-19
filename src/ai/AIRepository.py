@@ -883,7 +883,7 @@ class AIRepository(ConnectionRepository):
         messenger.send(self.getDeleteDoIdEvent(doId))
 
     def sendUpdate(self, do, fieldName, args):
-        #print "---------------sendUpdate--"
+        #print("---------------sendUpdate--")
         #print do
         #print do.doId
         #print fieldName

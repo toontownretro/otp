@@ -136,7 +136,7 @@ class GuildManager(DistributedObjectGlobal):
         self.sendUpdate("sendTokenRequest", [])
 
     def sendTokenForJoinRequest(self, token):
-        # print "GuildManager.sendTOkenForJoinRequest() Called : %s" % token
+        # print("GuildManager.sendTOkenForJoinRequest() Called : %s" % token)
         name = base.localAvatar.getName()
         self.sendUpdate("sendTokenForJoinRequest", [token, name])
 
@@ -191,7 +191,7 @@ class GuildManager(DistributedObjectGlobal):
         # The token in tokenString will be assigned the rValue
         # Just to be sure we're sending the right thing, cast rValue to an int
         rValue = int(rValue)
-        # print 'Sending following values: %s, %s' % (tokenString, rValue)
+        # print('Sending following values: %s, %s' % (tokenString, rValue))
         self.sendUpdate("sendTokenRValue", [tokenString, rValue])
         if rValue == -1:
             base.localAvatar.guiMgr.guildPage.receivePermTokenValue(tokenString)
@@ -302,7 +302,7 @@ class GuildManager(DistributedObjectGlobal):
         messenger.send(OTPGlobals.GuildRejectInviteEvent,[avatarId,reason])
 
     def rejectInvite(self,avatarId,reason):
-        # print "GM rejectInvite to %d because of %d" % (avatarId,reason)
+        # print("GM rejectInvite to %d because of %d" % (avatarId,reason))
         pass
     
 
@@ -393,22 +393,22 @@ class GuildManager(DistributedObjectGlobal):
         messenger.send('guildMemberUpdated', sentArgs = [avatarId])
         
     def recvTokenInviteValue(self, tokenValue, preExistPerm):
-        # print "Token Received from server: %s" % (tokenValue)
+        # print("Token Received from server: %s" % (tokenValue))
         # if tokenValue == 'TOO_MANY_TOKENS':
-            # print "WARNING: This Avatar has too many tokens pending"
+            # print("WARNING: This Avatar has too many tokens pending")
         if hasattr(base, 'localAvatar') and base.localAvatar.guiMgr:
             base.localAvatar.guiMgr.guildPage.displayInviteGuild(tokenValue, preExistPerm)
 
     def recvTokenRedeemMessage(self, guildName):
-        # print "Guild (join) message received from server: %s" % (guildName)
+        # print("Guild (join) message received from server: %s" % (guildName))
         if hasattr(base, 'localAvatar') and base.localAvatar.guiMgr:
             if guildName == '***ERROR - GUILD CODE INVALID***':
-                # print "Warning: The guild name is false, request doesn't exist"
+                # print("Warning: The guild name is false, request doesn't exist")
                 base.localAvatar.guiMgr.guildPage.displayRedeemErrorMessage(OTPLocalizer.GuildRedeemErrorInvalidToken)
             elif guildName == '***ERROR - GUILD FULL***':
                 base.localAvatar.guiMgr.guildPage.displayRedeemErrorMessage(OTPLocalizer.GuildRedeemErrorGuildFull)
             else:
-                # print "You have joined guild %s" % guildName
+                # print("You have joined guild %s" % guildName)
                 base.localAvatar.guiMgr.guildPage.displayRedeemConfirmMessage(guildName)
 
     def recvTokenRedeemedByPlayerMessage(self, redeemerName):

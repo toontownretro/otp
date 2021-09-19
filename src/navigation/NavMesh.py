@@ -314,7 +314,7 @@ class NavMesh(object):
         while self._growEachPolyOnce():
             print "%s -> " % (len(self.polyToVerts)),
             numPasses += 1
-        print "Done!\nPoly count reduced to %0.1f%% of original." % (len(self.polyToVerts)/float(orig)*100.0)'''
+        print("Done!\nPoly count reduced to %0.1f%% of original." % (len(self.polyToVerts)/float(orig)*100.0))'''
 
         self._pruneExtraVerts()
 

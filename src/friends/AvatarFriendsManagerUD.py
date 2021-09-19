@@ -123,7 +123,7 @@ class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
                             "doFieldResponse-%s"%context,setName,[friendId,self.avatarId2Info,[avatarId,]])
                         self.air.queryObjectField(dclassName,"setName",friendId,context)
                     else:
-                        #print "AFMUD warning: info entry found for offline friend"
+                        #print("AFMUD warning: info entry found for offline friend")
                         self.sendUpdateToAvatarId(avatarId,"updateAvatarFriend",[friendId,self.getFriendView(avatarId,friendId)])
                         self.sendExtraUpdates(avatarId,friendId)
                 else:

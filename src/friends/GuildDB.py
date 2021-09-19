@@ -498,7 +498,7 @@ class GuildDB(DBInterface):
         # Lets first check to make sure the entry is in the guildtokens table
         cursor = self.db.cursor()
         try:
-            # print 'Executing Query for %s' % token
+            # print('Executing Query for %s' % token)
             cursor.execute("SELECT * FROM `guildtokens` where `tokenid` = %s", token)
             entries = cursor.fetchall()
             # print len(entries)
@@ -615,7 +615,7 @@ class GuildDB(DBInterface):
         # Step One:
 
         ourToken = self.genToken()
-        # print 'Token Generated %s.' % ourToken
+        # print('Token Generated %s.' % ourToken)
         # Step Two:
 
         if self.bwDictPath:
@@ -843,11 +843,11 @@ class GuildDB(DBInterface):
 ##             self.db.commit()
 ##         except MySQLdb.OperationalError,e:
 ##             self.reconnect()
-##             print "GuildDB::setEmailNotificationPref - reconnect"
+##             print("GuildDB::setEmailNotificationPref - reconnect")
 ##             self.setEmailNotificationPref(avId, notify, emailAddress)
 ##             return
 ##         except MySQLdb.IntegrityError,e:
-##             print "DEBUG - error is ", e
+##             print("DEBUG - error is ", e)
 
 ##     def updateNotificationPref(self, avId, notify, emailAddress):
 ##         # Update the notification rec in the DB

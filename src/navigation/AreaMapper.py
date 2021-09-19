@@ -242,7 +242,7 @@ class AreaMapper(object):
 
 ##             numVerts += 4
 
-##         print "NUMVERTS: ", numVerts
+##         print("NUMVERTS: ", numVerts)
 
 ##         self.pointVis = GeomLinestrips(Geom.UHStatic)
 
@@ -455,7 +455,7 @@ class AreaMapper(object):
 
 
 ##     def _fixZValues(self):
-##         print "Fixing Z values..."
+##         print("Fixing Z values...")
 ##         for k in self.vertexIdToXYZ.keys():
 ##             v = self.vertexIdToXYZ[k]
 

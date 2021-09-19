@@ -558,7 +558,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
                 self.sendUpdateToAvatarId(otherAvatarId, "invitationFrom", [avatarId,name,guildid,guildname])
 
     def updateLeaderboardRep(self, avatarId, name, rep):
-        #print "updateLeaderboardRep: ", avatarId, ", ", name, ", ", rep
+        #print("updateLeaderboardRep: ", avatarId, ", ", name, ", ", rep)
         # using the notifier now
         self.notify.info("updateLeaderboardRep: %d, %s, %d" % (avatarId,name,rep))
         self.air.setLeaderboardValue('reputation', avatarId, name, rep, self.getDoId())
@@ -633,7 +633,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
 
     def sendSC(self,msgIndex):
         self.tallyFunction("sendSC")
-        #print "GuildManagerUD.sendSC() called"
+        #print("GuildManagerUD.sendSC() called")
         avatarId = self.air.getAvatarIdFromSender()
         if avatarId:
 
@@ -692,7 +692,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         self.sendUpdateToAvatarId(self.requestId2AvatarId[requestId],
                                   'recvTokenInviteValue',
                                   [tokenValue, preExistPerm])
-        # print "Token for request %s: %s" % (requestId,tokenValue)
+        # print("Token for request %s: %s" % (requestId,tokenValue))
         self.air.writeServerEvent('recvTokenGenerated', self.requestId2AvatarId[requestId], '%s' % (tokenValue))
 
     def sendTokenForJoinRequest(self, token, name):
@@ -753,7 +753,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         guildName = str(self.db.getName(guildId))
         if guildName == '0':
             guildName = "Pirate Guild %s" % guildId
-        # print 'About to send message with %d, %s' % (requestId, guildName)
+        # print('About to send message with %d, %s' % (requestId, guildName))
         self.sendTokenRedeemMessage(requestId, guildName)
         self.sendTokenRedeemedToTokenCreator(creatorAvId, name)
 
@@ -774,11 +774,11 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         del self.redeemTokenTimeStamps[self.redeemTokenRequestId2AvatarId[requestId]]
 
     def sendTokenRedeemMessage(self, requestId, guildName):
-        # print 'guildName passed is: ' + str(guildName)
+        # print('guildName passed is: ' + str(guildName))
         self.sendUpdateToAvatarId(self.redeemTokenRequestId2AvatarId[requestId],
                                   'recvTokenRedeemMessage',
                                   [guildName])
-        # print "recvTokenRedeemMessage sent ID: %d : Gname %s" % (requestId, guildName)
+        # print("recvTokenRedeemMessage sent ID: %d : Gname %s" % (requestId, guildName))
 
     def sendTokenRedeemedToTokenCreator(self, avIdOfCreator, redeemerName):
         # Send a message to avIdOfCreator, letting them know that
@@ -885,7 +885,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         self.air.send(dg)
 
     def getTopTenResponce(self, category, info):
-        print 'TOP 10 RESPONSE (%s): %s' % (category, info)
+        print('TOP 10 RESPONSE (%s): %s' % (category, info))
 
     """
 

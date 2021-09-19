@@ -24,10 +24,10 @@ class SCObject(DirectObject):
     respectively. Derived classes can override these functions and
     perform the appropriate actions """
     def enterVisible(self):
-        #print 'enterVisible: %s' % self
+        #print('enterVisible: %s' % self)
         self.__visible = 1
     def exitVisible(self):
-        #print 'exitVisible: %s' % self
+        #print('exitVisible: %s' % self)
         self.__visible = 0
     def isVisible(self):
         return self.__visible

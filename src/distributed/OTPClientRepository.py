@@ -1401,7 +1401,7 @@ class OTPClientRepository(ClientRepositoryBase):
                 avPosition = di.getUint8()
                 # We have to get info about the name here
                 aname = di.getUint8()
-                # print "aname = " + str(aname)
+                # print("aname = " + str(aname))
                 # Assemble the data
                 potAv = PotentialAvatar(
                     avNum, avNames, avDNA, avPosition, aname)

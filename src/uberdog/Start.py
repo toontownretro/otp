@@ -26,7 +26,7 @@ import sys
 import ihooks
 ihooks.install()
 
-print "Initializing the UberDog (Uber Distributed Object Globals server)..."
+print("Initializing the UberDog (Uber Distributed Object Globals server)...")
 
 from otp.uberdog.UberDogGlobal import *
 from otp.uberdog.UberDog import UberDog

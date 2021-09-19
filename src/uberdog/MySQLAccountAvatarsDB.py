@@ -258,7 +258,7 @@ class MySQLAccountAvatarsDB(DBInterface):
     # subscriptionBase = 712104
     # for subscriptionId in range(subscriptionBase, 1000001):
     #     if 0 == (subscriptionId % 10):
-    #         print "subscriptionId=%d" % subscriptionId
+    #         print("subscriptionId=%d" % subscriptionId)
     #     for i in xrange(10):
     #         fdb.addAvatarToSubscription((subscriptionId * 10) + i, 1234, subscriptionId, 1)
     #
@@ -276,6 +276,6 @@ class MySQLAccountAvatarsDB(DBInterface):
     # fdb.setSharedFlag(3300000002, 1023, 1)
     # t = fdb.getAvatarIdsForSubscription(1023)
     # print t
-    # print "break and execute: UPDATE account_to_avatars SET datemadeinactive = NULL WHERE avatar_id = 3300000005"
+    # print("break and execute: UPDATE account_to_avatars SET datemadeinactive = NULL WHERE avatar_id = 3300000005")
     # t = fdb.getAvatarIdsForSubscription(1023)
     # print t

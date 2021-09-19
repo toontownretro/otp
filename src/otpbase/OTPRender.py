@@ -51,7 +51,7 @@ def setCameraBitmask (default, node_path, camera_bitmask, tag = None, tag_functi
             node_path.show (camera_bitmask)
         else:
             node_path.hide (camera_bitmask)
-#    print "setCameraBitmask", tag
+#    print("setCameraBitmask", tag)
 
 # shortcut function just for reflections
 def renderReflection (default, node_path, tag = None, tag_function = None, context = None):

@@ -2906,7 +2906,7 @@ class LauncherBase(DirectObject):
                 for key in knownHacksRegistryKeys[prog]:
                     try:
                         h = winreg.OpenKey(key[0], key[1])
-                        #print 'found %s in registry %s' % (prog,key[1])
+                        #print('found %s in registry %s' % (prog,key[1]))
                         hacksInstalled[prog] = 1
                         winreg.CloseKey(h)
                         break                       # next program when any registry entry found
@@ -2934,12 +2934,12 @@ class LauncherBase(DirectObject):
                     val = value.lower()
                     for hackprog in knownHacksMUI:
                         if val.find(hackprog) != -1:
-                            #print "found %s in MUICache:%s" % (knownHacksMUI[hackprog], val.encode('utf-8'))
+                            #print("found %s in MUICache:%s" % (knownHacksMUI[hackprog], val.encode('utf-8')))
                             hacksInstalled[knownHacksMUI[hackprog]] = 1
                             break
             winreg.CloseKey(rh)
         except:
-            #print "%s: stopped at %d" % (sys.exc_info()[0], i)
+            #print("%s: stopped at %d" % (sys.exc_info()[0], i))
             pass
 
         # Fallback #2

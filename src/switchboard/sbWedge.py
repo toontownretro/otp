@@ -92,7 +92,7 @@ class sbWedge(Pyro.core.SynchronizedObjBase):
         
     #def log(self,message):
     #    #pass
-    #    print ":sb.wedge.%s: %s" % (self.wedgeName,message)
+    #    print(":sb.wedge.%s: %s" % (self.wedgeName,message))
     #    sys.stdout.flush()
 
 
