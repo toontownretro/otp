@@ -6,9 +6,11 @@ lTheBrrrgh = 'ブルブルランド'
 lDaisyGardens = 'デイジーガーデン'
 lDonaldsDock = "ドナルドのハトバ"
 lDonaldsDreamland = "ドナルドのドリームランド"
-lGoofySpeedway = "グーフィーサーキット"
 lMinniesMelodyland = "ミニーのメロディーランド"
 lToontownCentral = 'トゥーンタウンセントラル'
+lGoofySpeedway = "グーフィーサーキット"
+lOutdoorZone = "チップとデールのドングリひろば"
+lGolfZone = "チップとデールのミニゴルフ"
 
 # common strings
 lCancel = 'キャンセル'
@@ -27,6 +29,7 @@ DialogOK = lOK
 DialogCancel = lCancel
 DialogYes = lYes
 DialogNo = lNo
+DialogDoNotShowAgain = "次から\n表示しない"
 
 # DistributedAvatar.py
 WhisperNoLongerFriend = "%sが ともだちリストから抜けました。"
@@ -39,6 +42,13 @@ WhisperIgnored = "%sが キミをむししています！"
 TeleportGreeting = "やあ、%s"
 WhisperFriendComingOnline = "%sが オンラインにやってきます。"
 WhisperFriendLoggedOut = "%sが ログアウトしました。"
+WhisperPlayerOnline = "%sが%sにログインしました"
+WhisperPlayerOffline = "%sはオフラインです"
+WhisperUnavailable = "このプレイヤーにはもうひそひそ話が使えません。"
+
+DialogSpecial = "おお～"
+DialogExclamation = "!"
+DialogQuestion = "?"
 
 # ChatInputNormal.py
 ChatInputNormalSayIt = "しゃべる"
@@ -50,6 +60,7 @@ ChatInputWhisperLabel = "%sに"
 SCEmoteNoAccessMsg = "この表現にはまだアクセスできないよ。"
 SCEmoteNoAccessOK = lOK
 
+ParentLogin = "保護者のログイン"
 ParentPassword = "保護者パスワード"
 
 # ChatGarbler.py
@@ -67,6 +78,7 @@ UnpaidChatWarning = '購読を申し込んだ後は、このボタンを押せ�
 UnpaidChatWarningPay = "購読を申し込む"
 UnpaidChatWarningContinue = "無料お試し版で続ける"
 PaidNoParentPasswordWarning = '保護者パスワードをセットすると、このボタンでキミの友達とチャットすることができるようになるよ。それまではスピードチャットでお話をしてね。'
+UnpaidNoParentPasswordWarning = 'Once you have set your parent password, you can enable this button to chat with your friends using the keyboard. To set your parent password, exit Toontown and then click on "Preferences" under Member Services on the Toontown web page. Until then, you should chat with other Toons using SpeedChat.'
 PaidNoParentPasswordWarningSet = "保護者パスワードを設定しましょう！"
 PaidNoParentPasswordWarningContinue = "ゲームを続ける"
 PaidParentPasswordUKWarning = 'チャットを有効にすると、キーボードでともだちとチャットするボタンが使えるようになります。それまではスピードチャットを使ってともだちと話そう！'
@@ -81,10 +93,20 @@ NoSecretChatWarningWrongPassword = 'パスワードが正しくありません�
 NoSecretChatAtAllTitle = "ひみつのともだちチャット"
 # not sure what this should do in the new world order
 NoSecretChatAtAll = 'ともだちとチャットしたい場合は、「ひみつのともだち」をオンにしてね。  「ひみつのともだち」にはゲームの外の世界でひみつのパスワードをお互いに知らせることが出来ないとダメなんだ。これが出来なければ「ひみつのともだち」チャットはできないよ。\n\nこの機能をオンにしたい場合、またはもっと知りたい場合はトゥーンタウンを一度終了して、トゥーンタウンのホームページにある「アカウントオプション」をクリックしてね。'
+NoSecretChatAtAllAndNoWhitelistTitle = "Chat button"
+# not sure what this should do in the new world order
+NoSecretChatAtAllAndNoWhitelist = 'You can use the blue Chat button to communicate with other Toons by using Speechat Plus or Open Chat with True Friends.\n\nSpeedchat Plus is a form of type chat that allows users to communicate by using the Disney SpeedChat Plus dictionary.\n\nOpen Chat with True Friends is a form of type chat that allows real-life friends to communicate openly with each other by means of a True Friend Code that must be communicated outside of the game.\n\nTo activate either of thse features, or to learn more about them, exit Toontown and then click on "Preferences" under Member Services on the Toontown Web site.'
 NoSecretChatAtAllOK = lOK
 ChangeSecretFriendsOptions = "「ひみつのともだち」オプションを変更する"
 ChangeSecretFriendsOptionsWarning = '\n「保護者パスワード」を入力して「ひみつのともだち」オプションを変更してください。'
 ActivateChatTitle = "「ひみつのともだち」オプション" #▲
+
+WhisperToFormat = "To %s %s"
+WhisperToFormatName = "To %s"
+WhisperFromFormatName = "%sからのひそひそ話"
+
+ThoughtOtherFormatName = "%s thinks"
+ThoughtSelfFormatName = "You think"
 
 from otp.otpbase.OTPModules import TextProperties
 from otp.otpbase.OTPModules import TextPropertiesManager
@@ -98,59 +120,68 @@ red = TextProperties()
 red.setTextColor(1,0,0,1)
 TextPropertiesManager.getGlobalPtr().setProperties('red', red)
 
+green = TextProperties()
+green.setTextColor(0,1,0,1)
+TextPropertiesManager.getGlobalPtr().setProperties('green', green)
+
+yellow = TextProperties()
+yellow.setTextColor(1,1,0,1)
+TextPropertiesManager.getGlobalPtr().setProperties('yellow', yellow)
+
+midgreen = TextProperties()
+midgreen.setTextColor(0.2,1,0.2,1)
+TextPropertiesManager.getGlobalPtr().setProperties('midgreen', midgreen)
+
+blue = TextProperties()
+blue.setTextColor(0,0,1,1)
+TextPropertiesManager.getGlobalPtr().setProperties('blue', blue)
+
+white = TextProperties()
+white.setTextColor(1,1,1,1)
+TextPropertiesManager.getGlobalPtr().setProperties('white', white)
+
+black = TextProperties()
+black.setTextColor(0,0,0,1)
+TextPropertiesManager.getGlobalPtr().setProperties('black', black)
+
+grey = TextProperties()
+grey.setTextColor(0.5, 0.5, 0.5, 1)
+TextPropertiesManager.getGlobalPtr().setProperties('grey', grey)
+
 ActivateChat = """自由にチャットするには、ゲームの外の世界で友達と秘密のパスワードを交換しなくてはなりません。
 
 「ひみつのともだち」はプレイヤーに自由なやりとりをさせるものであり、監視されるものではありません。保護者がユーザーであるお子様が「ひみつのともだち」機能を付加させたゲームをプレイする際は、保護者監視を推奨します。この機能は、解除されるまで有効であるとします。
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 「ひみつのともだち」機能が有効に設定されているゲームプレイに伴うリスクが存在すること、有効に設定することによりこのようなリスクの存在とそれに関する情報をあらかじめ了承していることに同意します。"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ActivateChatYes = "有効にする"
 ActivateChatNo = lCancel
 ActivateChatMoreInfo = "詳細"
 ActivateChatPrivacyPolicy = "プライバシーポリシー"
 
-### ★★★★★★★★★★We have privacy policy description on the web★★★★★★★★★★
-
-PrivacyPolicyClose = lClose
-PrivacyPolicyText_Intro = [
-"""
-There are four different Privacy Policies.
-
-The Privacy Policy that applies to each person will depend on when they agreed to the Privacy Policy and their age.
-
-Version 1 is for persons who agreed before 11/06/2003.
-Version 2 is for persons who agreed after that date.
-
-The "for children" versions are for children under the age of 13; while the "for non-children" version is for everyone else.
-"""
-]
-
-ActivateChatPrivacyPolicy_Button1A = "Version 1 for non-children"
-ActivateChatPrivacyPolicy_Button1K = "Version 1 for children"
-ActivateChatPrivacyPolicy_Button2A = "Version 2 for non-children"
-ActivateChatPrivacyPolicy_Button2K = "Version 2 for children"
+#ActivateChatPrivacyPolicy_Button1A = "Version 1 for non-children"
+#ActivateChatPrivacyPolicy_Button1K = "Version 1 for children"
+#ActivateChatPrivacyPolicy_Button2A = "Version 2 for non-children"
+#ActivateChatPrivacyPolicy_Button2K = "Version 2 for children"
+ActivateChatPrivacyPolicy_Button1A = "Version 1"
+ActivateChatPrivacyPolicy_Button1K = "Version 1"
+ActivateChatPrivacyPolicy_Button2A = "Version 2"
+ActivateChatPrivacyPolicy_Button2K = "Version 2"
 
 PrivacyPolicyText_1A = [
 """
@@ -208,7 +239,7 @@ The importance of security for all personally identifiable information associate
 ""","""
 Q6 How can I access my account information?
 
-You can access the personally identifiable information you gave us during registration at our Account Options center available from (http://play.toontown.com).  Log-in with your account name and parent password. There are instructions on the start page to help you recover your password if you've forgotten it.
+You can access the personally identifiable information you gave us during registration at our Account Options center available from (http://play.toontown.com). Log-in with your account name and parent password. There are instructions on the start page to help you recover your password if you've forgotten it.
 You can also contact us by clicking "Contact Us" in the footer on any WDIG page and selecting "Registration/Personalization" in the drop down box, or send an e-mail directly to memberservices@help.go.com. Please include information in the e-mail that will help us identify your account so we can assist you with your inquiry or request.
 ""","""
 Q7 Whom do I contact with questions or concerns about this privacy policy?
@@ -476,6 +507,21 @@ The Walt Disney Internet Group is a licensee of the TRUSTe Privacy Program. If y
 """,
 ]
 
+PrivacyPolicyText_Intro = [
+"""
+There are four different Privacy Policies.
+
+The Privacy Policy that applies to each person will depend on when they agreed to the Privacy Policy and their age.
+
+Version 1 is for persons who agreed before 11/06/2003.
+Version 2 is for persons who agreed after that date.
+
+The \"for children\" versions are for children under the age of 13; while the \"for non-children\" version is for everyone else.
+"""
+]
+
+PrivacyPolicyClose = lClose
+
 # SecretFriendsInfoPanel.py
 SecretFriendsInfoPanelOk = lOK
 SecretFriendsInfoPanelClose = lClose
@@ -556,7 +602,7 @@ CRNoConnectTryAgain = "%s:%sに接続できませんでした。\n再試行し�
 CRNoConnectProxyNoPort = "%s:%sに接続できませんでした。\n\nあなたのインターネット接続はプロキシ経由で行われていますが、プロキシが%sポートへの接続を拒否しています。\n\nトゥーンタウンをプレイする場合は、このポートをオープンにするか、プロキシの設定をはずしてください。プロキシがＩＳＰによって供給されている場合は、プロキシが使用できるようにＩＳＰに申し出てください。"
 CRMissingGameRootObject = "（ネットワーク回線の不具合により）いくつかのゲームファイルが足りません。ゲームを終了します。"
 CRNoDistrictsTryAgain = "現在、トゥーンタウンに空いているロビーがありません。\n再試行しますか？"
-CRRejectRemoveAvatar = "The avatar was not able to be deleted, try again another time."
+CRRejectRemoveAvatar = "このトゥーンは削除できませんでした。また後で試してね。"
 CRLostConnection = "トゥーンタウンへの接続が切れました。"
 CRBootedReasons = {
     1: "予想外の問題が発生しました。接続が切断されましたが、すぐにゲームに戻ることが出来ます。",
@@ -565,7 +611,9 @@ CRBootedReasons = {
     122: "トゥーンタウンへのログインに際し問題が発生しました。ディズニー・インターネット・グループ・カスタマーセンターにご連絡ください。",
     125: "インストールされたトゥーンタウンのファイルが有効ではありません。トゥーンタウンで遊ぶためにはオフィシャルウェブサイト上のプレイボタンを押してください。",
     126: "管理者の権限を行使する資格がありません。",
+    127: "A problem has occurred with your Toon. Please contact Member Services via phone, email or live chat and reference Error Code 127. Thank you.",
     151: "トゥーンタウンのサーバー管理者により、ログアウトされました。",
+    152: "There has been a reported violation of our Terms of Use connected to '%(name)s'が関わる使用条件、またはハウスルールの違反が報告されています。ねんのため、このアカウントを一時的に無効にしました。詳しくは'%(name)s'の登録時に入力したEmailアドレスに送られたメッセージをご確認下さい。",
     153: "あなたがプレイしていたトゥーンタウンのロビーがリセットされました。同じロビーの参加者は全員接続が切られましたが、接続を再試行後ゲームに戻ることが可能です。",
     288: "今月分のトゥーンタウンプレイ時間いっぱいになりましたので、接続を切断いたしました。",
     349: "今月分のトゥーンタウンプレイ時間いっぱいになりましたので、接続を切断いたしました。",
@@ -585,6 +633,11 @@ AfkForceAcknowledgeMessage = "あなたのトゥーンは、 眠くなったの�
 PeriodTimerWarning = "今月分のトゥーンタウンプレイ時間がもうすぐいっぱいです！"
 PeriodForceAcknowledgeMessage = "今月分のトゥーンタウンプレイ時間がいっぱいになりました。また来月遊びに来てね！"
 CREnteringToontown = "トゥーンタウンに入ります…"
+
+# DownloadWatcher.py
+# phase, percent
+DownloadWatcherUpdate = "ダウンロード中 %s"
+DownloadWatcherInitializing = "準備中…"
 
 # LoginScreen.py
 LoginScreenUserName = "アカウント名"
@@ -643,6 +696,9 @@ SCMenuCFOBattle = "マネーマネー"
 SCMenuCFOBattleCranes = "クレーン"
 SCMenuCFOBattleGoons = "グーン"
 SCMenuCJBattle = "ﾁｰﾌ ｼﾞｬｽﾃｨｽ"
+SCMenuCEOBattle = "コグゼキュティブ"
+SCMenuGolf   = "ゴルフ"
+SCMenuWhiteList = "ホワイトリスト"
 SCMenuPlacesPlayground           = "プレイグラウンド"
 SCMenuPlacesEstate               = "おうち"
 SCMenuPlacesCogs                 = "コグ"
@@ -652,15 +708,32 @@ SCMenuFriendlyILike              = "…が好きだよ"
 SCMenuPlacesLetsGo               = "…へ行こうよ"
 SCMenuToontasksMyTasks           = "自分のタスク"
 SCMenuToontasksYouShouldChoose   = "…を選んだ方がいいよ"
+SCMenuToontasksINeedMore         = "…もっと必要…"
 SCMenuBattleGags                 = "ギャグ"
 SCMenuBattleTaunts               = "コグへのセリフ" #★
 SCMenuBattleStrategy             = "作戦" #★
+SCMenuBoardingGroup              = "ボーディング"
+SCMenuParties                    = "パーティー"
+SCMenuAprilToons                 = "エイプリルトゥーン'"
+SCMenuSingingGroup               = "SINGING"
+SCMenuSillyHoliday                   = "SILLY METER"
+SCMenuVictoryParties             = "VICTORY PARTIES"
+SCMenuSellbotNerf                = "STORM SELLBOT"
+SCMenuJellybeanJam               = "JELLYBEAN WEEK"
+SCMenuHalloween                  = "HALLOWEEN"
+SCMenuWinter                     = "WINTER"
+SCMenuSellbotInvasion            = "SELLBOT INVASION"
+SCMenuFieldOffice                = "FIELD OFFICES"
+SCMenuIdesOfMarch                = "GREEN"
+SCMenuLawbotNerf                 = "LAWBOTS LOSE"
 
 # FriendSecret.py
 FriendSecretNeedsPasswordWarningTitle = "保護者管理画面"
+FriendSecretNeedsParentLoginWarning = """ひみつのことばを手に入れるには、保護者の方の承認が必要です。ひみつのともだちの設定は、トゥーンタウン・オンラインのWebサイトにあるメンバー向けサービスページにあります。"""
 FriendSecretNeedsPasswordWarning = """「ひみつ」機能を利用するには、保護者パスワードを入力してください。解除するにはトゥーンタウン・オンラインのウェブサイトにアクセスして設定をしてください。"""
 FriendSecretNeedsPasswordWarningOK = lOK
 FriendSecretNeedsPasswordWarningCancel = lCancel
+FriendSecretNeedsPasswordWarningWrongUsername = """That's not the correct username.  Please enter the username of the parental account.  This is not the same username used to play the game."""
 FriendSecretNeedsPasswordWarningWrongPassword = """入力されたパスワードが正しくありません。ゲームを遊ぶためのパスワードではなく、トゥーンタウン・オンラインを購入した際に作成された「保護者パスワード」を入力してください。"""
 FriendSecretIntro = "現実世界で知っている人とディズニーのトゥーンタウン・オンラインをプレイしているなら、「ひみつのともだち」になる事ができます。「ひみつのともだち」になると、キーボードを使ったチャットが出来るようになり、他のトゥーンにチャット内容が知られることはありません。\n\n「ひみつのともだち」になりたい人だけに「ひみつ」を知らせ、その人がスクリーンでその内容を入力すると、トゥーンタウンで「ひみつのともだち」になる事が出来ます。"
 FriendSecretGetSecret = "「ひみつ」ゲット"
@@ -672,31 +745,90 @@ FriendSecretGettingSecret = "「ひみつ」を入手しています…"
 FriendSecretGotSecret = "「ひみつのことば」をゲットしたよ！\nともだちに伝えられるように\nかならず書きとめておいてね！\n\n※まんなかにスペースがあるからちゅういしてね。\n\nこのことばは１人のともだちにだけ知らせてね。\nそのともだちが入力したあとは、他の誰も使えないよ。\n別のともだちと話をしたかったら、\n別の「ひみつのことば」をゲットしよう。\n\nこの「ひみつ」は２日間だけ使えます。この間にともだちが画面に入力しなかった場合は使えなくなるよ。\n\n「ひみつのことば」は："
 FriendSecretTooMany = "今日はこれ以上「ひみつのことば」を持つことができません！\n\nまた明日試してみてね。"
 FriendSecretTryingSecret = "「ひみつのことば」を確認中…"
+FriendSecretTimeOut = "もうしわけありません。現在ひみつのともだちが設定できません。"
 FriendSecretEnteredSecretSuccess = "%sと「ひみつのともだち」になりました！"
 FriendSecretEnteredSecretUnknown = "これは誰の「ひみつ」でもないようです。つづりが間違っていないか確認してね。\n\n正しいつづりであれば、有効期限が切れたかもしれないよ。ともだちに新しい「ひみつ」を作ってもらうか、キミが「ひみつ」を作ってともだちに教えてあげてね。"
 FriendSecretEnteredSecretFull = "%sとともだちになれません！どちらかのともだちリストがいっぱいすぎるみたいだよ。"
 FriendSecretEnteredSecretFullNoName = "どちらかのともだちリストがいっぱいすぎて、ともだちになれません。"
 FriendSecretEnteredSecretSelf = "キミ自身の「ひみつ」を入力してしまったみたいだよ。他の人が入力することが出来なくなってしまいました！"
+FriendSecretEnteredSecretWrongProduct = "You have entered the wrong type of True Friend Code.\nThis game uses codes that begin with '%s'."
 FriendSecretNowFriends = "%sと「ひみつのともだち」になりました！"
 FriendSecretNowFriendsNoName = "「ひみつのともだち」になりました！"
+FriendSecretDetermineSecret = "どのしゅるいのひみつのともだちになりたい？"
+FriendSecretDetermineSecretAvatar = "トゥーンの時だけ"
+FriendSecretDetermineSecretAvatarRollover = "ゲームの中だけ"
+FriendSecretDetermineSecretAccount = "アカウントレベルで"
+FriendSecretDetermineSecretAccountRollover = "Disney.jpのサービス全般を通して"
+
+# GuildMember.py
+GuildMemberTitle = "Member Options"
+GuildMemberPromote = "Make Officer"
+GuildMemberGM = "Make Guildmaster"
+GuildMemberDemote = "Demote"
+GuildMemberKick = "Remove Member"
+GuildMemberCancel = lCancel
+GuildMemberOnline = "has come online."
+GuildMemberOffline = "has gone offline."
+GuildPrefix = "(G):"
+GuildNewMember = "New Guild Member"
+
+# GuildInvitee.py
+GuildInviteeOK = lOK
+GuildInviteeNo = lNo
+GuildInviteeInvitation = "%s is inviting you to join %s."
+
+GuildRedeemErrorInvalidToken = "Sorry, that code is invalid. Please try again."
+GuildRedeemErrorGuildFull = "Sorry, this guild has too many members already."
 
 # FriendInvitee.py
 FriendInviteeTooManyFriends = "%sが キミとともだちになりたいみたいだよ。 でもキミのともだちリストはもういっぱいです！"
 FriendInviteeInvitation = "%sが キミとともだちになりたいみたいだよ。"
+FriendInviteeInvitationPlayer = "%s\'s player would like to be your friend."
+FriendNotifictation = "%s is now your friend."
 FriendInviteeOK = lYes
 FriendInviteeNo = lNo
+GuildInviterWentAway = "%s is no longer present."
+GuildInviterAlready = "%s is already in a guild."
+GuildInviterBusy = "%s is busy right now."
+GuildInviterNotYet = "Invite %s to join your guild?"
+GuildInviterCheckAvailability = "Inviting %s to join your guild."
+GuildInviterOK = lOK
+GuildInviterNo = lNo
+GuildInviterCancel = lCancel
+GuildInviterYes = lYes
+GuildInviterTooFull = "Guild has reached maximum size."
+GuildInviterNo = lNo
+GuildInviterClickToon = "Click on the pirate you would like to invite."
+GuildInviterTooMany = "This is a bug"
+GuildInviterNotAvailable = "%s is busy right now; try again later."
+GuildInviterGuildSaidNo = "%s has declined your guild invitation."
+GuildInviterAlreadyInvited = "%s has already been invited."
+GuildInviterEndGuildship = "Remove %s from the guild?"
+GuildInviterFriendsNoMore = "%s has left the guild."
+GuildInviterSelf = "You are already in the guild!"
+GuildInviterIgnored = "%s is ignoring you."
+GuildInviterAsking = "Asking %s to join the guild."
+GuildInviterGuildSaidYes = "%s has joined the guild!"
 
 # FriendInviter.py
+FriendOnline = "%s has come online."
+FriendOffline = "%s has gone offline."
 FriendInviterOK = lOK
 FriendInviterCancel = lCancel
 FriendInviterStopBeingFriends = "ともだちをやめる"
+FriendInviterConfirmRemove = "Remove"
 FriendInviterYes = lYes
 FriendInviterNo = lNo
 FriendInviterClickToon = "ともだちになりたい トゥーンをクリックしてね。"
 FriendInviterTooMany = "ともだちリストがいっぱいで、新しいともだちを作れないよ。 %sと ともだちになりたいのなら、だれかをリストから削除しないといけないよ。"
+FriendInviterToonTooMany = "You have too many toon friends on your list to add another one now. You will have to remove some toon friends if you want to make friends with %s."
+FriendInviterPlayerTooMany = "You have too many player friends on your list to add another one now. You will have to remove some player friends if you want to make friends with %s."
 FriendInviterNotYet = "%sと ともだちになりますか？"
 FriendInviterCheckAvailability = "%sと ともだちになれるか、調べています。"
 FriendInviterNotAvailable = "%sは いそがしいようです：また後でトライしてみてね。"
+FriendInviterCantSee = "This only works if you can see %s."
+FriendInviterNotOnline = "This only works if %s is online"
+FriendInviterNotOpen = "%s does not have open chat, use secrets to make friends"
 FriendInviterWentAway = "%sは 行ってしまいました。"
 FriendInviterAlready = "%sは ともだちです。"
 FriendInviterAlreadyInvited = "%s has already been invited."
@@ -709,11 +841,32 @@ FriendInviterSelf = "キミはもうキミ自身の「ともだち」だよ！"
 FriendInviterIgnored = "%sが キミをむししています。"
 FriendInviterAsking = "%sに ともだちになってくれるよう聞いています。"
 FriendInviterFriendSaidYes = "%sが ともだちになってくれるそうです！"
+FriendInviterPlayerFriendSaidYes = "You are now friends with %s's player, %s!"
 FriendInviterFriendSaidNo = "%sが 「ごめんね」と言っています。"
 FriendInviterFriendSaidNoNewFriends = "%sは 今、あたらしいともだちを作っていないそうです。"
 FriendInviterTooMany = "%sは もうともだちがいっぱいいるそうです！"
 FriendInviterMaybe = "%s のコメントは得られませんでした。"
 FriendInviterDown = "今、ともだちをつくることは出来ません"
+
+#Talk Path Labels
+TalkGuild = "G"
+TalkParty = "P"
+TalkPVP = "PVP"
+
+#Spam Blocked Message
+AntiSpamInChat = "***Spamming***"
+
+#IgnoreConfirm.py
+IgnoreConfirmOK = lOK
+IgnoreConfirmCancel = lCancel
+IgnoreConfirmYes = lYes
+IgnoreConfirmNo = lNo
+IgnoreConfirmNotYet = "%sをむしする？"
+IgnoreConfirmAlready = "すでに%sをむししているよ。"
+IgnoreConfirmSelf = "じぶんはむしできないよ。"
+IgnoreConfirmNewIgnore = "%sをむししています。"
+IgnoreConfirmEndIgnore = "%sをむしするのをやめたよ。"
+IgnoreConfirmRemoveIgnore = "%sをむしするのをやめる？"
 
 # Emote.py
 # List of emotes in the order they should appear in the SpeedChat.
@@ -739,6 +892,20 @@ EmoteList = [
     lYes,
     lNo,
     lOK,
+    "おどろく",
+    "なく",
+    "よろこぶ",
+    "どうようする",
+    "わらう"
+##    "Sing Note G1",
+##    "Sing Note A",
+##    "Sing Note B",
+##    "Sing Note C",
+##    "Sing Note D",
+##    "Sing Note E",
+##    "Sing Note F",
+##    "Sing Note G2",
+##    "Sing Note Rest",
     ]
 
 EmoteWhispers = [
@@ -762,6 +929,19 @@ EmoteWhispers = [
     "%sが、「はい」って言ってるよ。",
     "%sが、「いいえ」って言ってるよ。",
     "%sが、「ＯＫ」って言ってるよ。",
+    "%sがおどろいているよ。",
+    "%sがないているよ。",
+    "%sがよろこんでるよ。",
+    "%sがどうようしているよ。",
+    "%sがわらっているよ。",
+    "is singing note G1",
+    "is singing note A",
+    "is singing note B",
+    "is singing note C",
+    "is singing note D",
+    "is singing note E",
+    "is singing note F",
+    "is singing note G2"
     ]
 
 # Reverse lookup:  get the index from the name.
@@ -786,6 +966,19 @@ EmoteFuncDict = {
     lYes    : 17,
     lNo     : 18,
     lOK     : 19,
+    "Surprise" : 20,
+    "Cry" : 21,
+    "Delighted" : 22,
+    "Furious" : 23,
+    "Laugh" : 24,
+    "Sing Note G1" : 25,
+    "Sing Note A" : 26,
+    "Sing Note B" : 27,
+    "Sing Note C" : 28,
+    "Sing Note D" : 29,
+    "Sing Note E" : 30,
+    "Sing Note F" : 31,
+    "Sing Note G2" : 32,
     }
 
 # SuitDialog.py
@@ -1186,12 +1379,15 @@ SuitFaceoffTaunts = {
 
 # These are all the standard SpeedChat phrases.
 # The indices must fit into 16 bits (0..65535)
-SpeedChatStaticText = {
+SpeedChatStaticTextCommon = {
     # top-level
     1 : lYes,
     2 : lNo,
     3 : lOK,
+    4 : "SPEEDCHAT PLUS",
+    }
 
+SpeedChatStaticTextToontown = {
     # Hello
     100 : "やあ！",
     101 : "こんにちは！",
@@ -1230,15 +1426,15 @@ SpeedChatStaticText = {
     310 : "うわーい！",
     311 : "やったね！",
     312 : "やったー！",
-    313 : "きゃー!",
-    314 : "こんなもんだ!",
+    313 : "きゃー！",
+    314 : "サイコー！",
     315 : "くろねこトゥーン！",
 
     # Sad
     400 : "(--;)",
     401 : "しまった！",
     402 : "ああっ！",
-    403 : "ちぇっ!",
+    403 : "ちぇっ！",
     404 : "まったく～…",
     405 : "いたっ！",
     406 : "ゲフッ。",
@@ -1248,7 +1444,7 @@ SpeedChatStaticText = {
     410 : "もっとゲラゲラポイントが必要かも",
 
     # Friendly
-    500 : "ありがとう!",
+    500 : "ありがとう！",
     501 : "なんてことないよ。",
     502 : "どういたしまして！",
     503 : "いつでもどーぞ！",
@@ -1257,7 +1453,7 @@ SpeedChatStaticText = {
     506 : "おもしろーい！",
     507 : "友だちになって！",
     508 : "いっしょにやろうよ！",
-    509 : "すごいね！",
+    509 : "いつもありがとう。",
     510 : "今来たばっかり？",
     511 : "勝ったの？",
     512 : "これはキミにとって危険すぎるよ。",
@@ -1282,8 +1478,8 @@ SpeedChatStaticText = {
     # Sorry
     800 : "ごめん！",
     801 : "おっと！",
-    802 : "ごめん、今バトル中でいそがしいんだ！",
-    803 : "ごめん、ジェリービーンをとるのにいそがしいんだ!",
+    802 : "ごめん、今バトルでいそがしいんだ。",
+    803 : "ごめんね、今ちょっといそがしいんだ。",
     804 : "ごめん、トゥーンタスクを終わらせるのにいそがしいんだ！",
     805 : "ごめん、急に行かなくちゃいけなくなっちゃった。",
     806 : "ごめん、手間取っちゃった。",
@@ -1296,12 +1492,15 @@ SpeedChatStaticText = {
     813 : "ごめん、今ちょっとともだちをたすけているんだ。",
     814 : "ごめん、今カートレース中なんだ。",
     815 : "ごめん、今ガーデニングをしてるんだ。",
+    816 : "ごめん、エレベーターに乗れないみたい。",
+    817 : "ごめん、今ゴルフ中なんだ。",
+    818 : "ごめんね、ともだちリストがいっぱいなんだ。",
 
     # Stinky
     900 : "ちょっと！",
     901 : "コグはあっちへいってよ！",
     902 : "やめてよ！",
-    903 : "そんなことしないで！",
+    903 : "そんなことしちゃだめ！",
     904 : "いじわるしないで！",
     905 : "やさしくしてよ！",
     906 : "バグレポートを送って",
@@ -1325,8 +1524,9 @@ SpeedChatStaticText = {
     1014 : "待たないでいいからね。",
     1015 : "ねぇ、待って！",
     1016 : "マイガーデンに遊びに来てよ！",
+    1017 : "次のをまとうね。",
 
-    # Places "Let's go…"
+    # Places "Let's go..."
     1100 : "トロリーに乗ろう！",
     1101 : "プレイグラウンドに戻ろう！",
     1102 : "%sと戦おう！" % Cogs,
@@ -1352,6 +1552,13 @@ SpeedChatStaticText = {
     1122 : "ロウボットＨＱへ行こう！",
     1123 : "サイバンチョーと戦いに行こう！",
     1124 : "ケンサツキョクに行こう！",
+    1125 : "%sに行こう！" % lOutdoorZone,
+    1126 : "%sに行こう！" % lGolfZone,
+    1127 : "ボスボット本部に行こう！",
+    1128 : "ボスゼキュティブとたたかおう！",
+    1129 : "コグ・ゴルフをやろう！",
+    #1130 : "Let's go take over a Cogdominium!",    
+    1130 : "Let's go take over a Field Office!",
 
     # Toontasks
     1200 : "どのトゥーンタスクをやってるの？",
@@ -1366,8 +1573,10 @@ SpeedChatStaticText = {
     1209 : "キミが必要なものを見つけたよ。",
     1210 : "コグドルをもっと集めないと。",
     1211 : "ショウカンジョーが必要なんだ。",
+    1212 : "もっとストック・オプションが必要なんだ。",
     1213 : "マネーボットスーツの部品が必要なんだ。",
     1214 : "ロウボットスーツの部品が必要なんだ。",
+    1215 : "ボスボットスーツの部品が必要なんだ。",
 
     1299 : "トゥーンタスクをゲットしなくちゃ。",
 
@@ -1404,14 +1613,14 @@ SpeedChatStaticText = {
     1503 : "サウンドを使おう！",
     1504 : "投げを使おう！",
     1505 : "みずでっぽうを使おう！",
-    1506 : "ドロップを使おう!",
+    1506 : "ドロップを使おう！",
 
     # Battle TAUNTS
     1520 : "ロックンロール♪",
     1521 : "きっと痛いんだろうね。",
     1522 : "そうれっ！",
     1523 : "お届けもので～す！",
-    1524 : "まだここにいたんだ！",
+    1524 : "まだだいじょうぶなの？！",
     1525 : "おー、こわいこわい。",
     1526 : "へぇー、そうくるんだ。",
 
@@ -1586,6 +1795,27 @@ SpeedChatStaticText = {
     2222 : "１１ボーナスウエイトを持ってるよ。",
     2223 : "１２ボーナスウエイトを持ってるよ。",
 
+    # CEO battle
+    2300 : "左側のコグたちにはこんでくれる？",
+    2301 : "左側のコグたちにはこぶね。",
+    2302 : "右側のコグたちにはこんでくれる？",
+    2303 : "左側のコグたちにはこぶね。",
+    2304 : "前の方のコグたちにはこんでくれる？",
+    2305 : "前の方のコグたちにはこぶね。",
+    2306 : "後の方のコグたちにはこんでくれる？",
+    2307 : "後の方のコグたちにはこぶね。",
+    2308 : "ボトルでこうげきしてくれる？",
+    2309 : "ボトルでこうげきするよ。",
+    2310 : "ゴルフでこうげきしてくれる？",
+    2311 : "ゴルフでこうげきするよ。",
+    2312 : "このテーブルはまかせて！",
+    2313 : "このテーブルをお願い！",
+    2314 : "いつも同じコグにはこんでみよう。",
+    2315 : "いそごう、コグがハラペコだ～！",
+    2316 : "ゲラがひくいナカマにスナックをとっておこう。",
+    2317 : "落っこちちゃう前にスナックをとっておこう。",
+
+
     #Kart Racing Phrases
     #IMPORTANT: if you change numbers or add/subtract lines here than be
     # sure to adjust the kart racing menu guid dict below
@@ -1615,15 +1845,15 @@ SpeedChatStaticText = {
     3220 : "スクリュースタジアムのレースがいいなぁ。",
     3221 : "さびさびレースウェイのレースがいいなぁ。",
     3222 : "やっぱシティーサーキットでレースでしょ。",
-    3223 : "きりもみコロシアムが好き!",
-    3224 : "エアボーン・エーカースが好き!",
-    3225 : "ブリザード・ブルバードが好き!",
+    3223 : "きりもみコロシアムが好き！",
+    3224 : "エアボーン・エーカースが好き！",
+    3225 : "ブリザード・ブルバードが好き！",
     3230 : "スクリュースタジアムでレースしよう！",
     3231 : "さびさびレースウェイでレースしよう！",
     3232 : "シティーサーキットでレースしよう！",
-    3233 : "きりもみコロシアムでレースしよう!",
-    3234 : "エアボーン・エーカースでレースしよう!",
-    3235 : "ブリザード・ブルバードでレースしよう!",
+    3233 : "きりもみコロシアムでレースしよう！",
+    3234 : "エアボーン・エーカースでレースしよう！",
+    3235 : "ブリザード・ブルバードでレースしよう！",
 
     #Tracks
     3600 : "どのトラックでレースしたい？",
@@ -1671,8 +1901,117 @@ SpeedChatStaticText = {
     #3600 : "わーい、一番早いぞ！",
 
 
+    # Golf phrases
 
-    # Promotional Considerations #★★★★★★★★
+    # Play
+    4000 : "ミニゴルフをやろうよ！",
+    4001 : "もうワン・ラウンドどう？",
+    4002 : "ゴルフは好き？",
+
+    # Courses
+    4100 : "『ウォーク・イン・パー』でプレイしよう。",
+    4101 : "『ホール・サム・ファン』でプレイしよう。",
+    4102 : "『ザ・ホール・カブードル』でプレイしよう。",
+    4103 : "このコースはかんたんすぎるかも。",
+    4104 : "このコースはむずかしすぎるかも。",
+    4105 : "うん、このコースはちょうどいいね。",
+
+    # Tips
+    4200 : "もっと左側に立ってごらん。",
+    4201 : "もっと右側に立ってごらん。",
+    4202 : "まんなかに立つとイイみたいだよ。",
+    4203 : "強めに打ってごらん。",
+    4204 : "軽めに打ってごらん。",
+    4205 : "もうちょっと左だよ。",
+    4206 : "もうちょっと右だよ。",
+    4207 : "そのまま正面に向けて打てばイイかも。",
+
+    # Comments
+    4300 : "うぁ～、おしい！",
+    4301 : "ナイスショット！",
+    4302 : "今のはラッキーだったね☆",
+    4303 : "やりなおしたいよ・・・",
+    4304 : "オッケーだよね？",
+    4305 : "ふぁ～～～っ！！",
+    4306 : "お静かにねがいます。",
+    4307 : "いい試合だったね☆",
+
+    # Boarding Group phrases
+    
+    5000 : "ボーディング・グループで行こうか。",
+    5001 : "ボーディング・グループに参加してくれる？",
+    5002 : "キミのボーディング・グループに招待してくれる？",
+    5003 : "もう別のグループに参加してるんだ。",
+    5004 : "こっちのグループに参加してくれる？",
+    5005 : "このグループで今から乗り込むよ。",
+    5006 : "このグループでどこに乗り込もうか？",
+    5007 : "みんな、準備はいい？",
+    5008 : "よし、乗り込もう！",
+    5009 : "このエリアから出るとグループから外れちゃうよ。",
+
+    # Let's Go to...
+    5100 : 'フロント・スリーに行こうよ。',
+    5101 : 'ミドル・シックスに行こうよ。',
+    5102 : 'バック・ナインに行こうよ。',
+    5103 : 'コグゼキュティブ戦に行こうよ。',
+    5104 : 'マネーマネー戦に行こうよ。',
+    5105 : '正面入り口に行こうよ。',
+    5106 : '裏口に行こうよ。',
+    5107 : 'コイン工場に行こうよ。',
+    5108 : 'ドル工場に行こうよ。',
+    5109 : 'ゴールド工場に行こうよ。',
+    5110 : 'ボスゼキュティブ戦に行こうよ。',
+    5111 : 'チーフ・ジャスティス戦に行こうよ。',
+    5112 : 'オフィスAに行こうよ。',
+    5113 : 'オフィスBに行こうよ。',
+    5114 : 'オフィスCに行こうよ。',
+    5115 : 'オフィスDに行こうよ。',
+
+    # We're going to...
+    5200 : "フロント・スリーに行くよ！",
+    5201 : "ミドル・シックスに行くよ！",
+    5202 : "バック・ナインに行くよ！",
+    5203 : "コグゼキュティブ戦に行くよ！",
+    5204 : "マネーマネー戦に行くよ！",
+    5205 : "正面入り口に行くよ！",
+    5206 : "裏口に行くよ！",
+    5207 : "コイン工場に行くよ！",
+    5208 : "ドル工場に行くよ！",
+    5209 : "ゴールド工場に行くよ！",
+    5210 : "ボスゼキュティブ戦に行くよ！",
+    5211 : "チーフ・ジャスティス戦に行くよ！",
+    5212 : "オフィスAに行くよ！",
+    5213 : "オフィスBに行くよ！",
+    5214 : "オフィスCに行くよ！",
+    5215 : "オフィスDに行くよ！",
+
+    # Parties General Phrases
+    5300 : "パーティーに行こうよ♪",
+    5301 : "パーティーで会おうね！",
+    5302 : "パーティーが始まったよ！",
+    5303 : "パーティーに来られる？",
+    # Parties Phrases when inside a party
+    5304 : "パーティーにようこそ！",
+    5305 : "このパーティー、サイコー！",
+    5306 : "キミのパーティー、すごい！！",
+    5307 : "パーティータ～イム♪",
+    5308 : "時間がすぎるのが早いね",
+    5309 : "コグはおことわり。",
+    5310 : "この曲、好き～♪",
+    5311 : "この曲、いいよね☆",
+    5312 : "キャノンでドッカーン♪",
+    5313 : "このジャンプ、見てみて！",
+    5314 : "トランポリンって楽しいね♪",
+    5315 : "キャッチ、オーラーイ！",
+    5316 : "レッツ・ダンス♪",
+    5317 : "ダンスフロアではじけよう！",
+    5318 : "つなひき大会をしようよ♪",
+    5319 : "花火大会の始まり～♪",
+    5320 : "花火、キレイだね☆",
+    5321 : "デコレーション、すごーい！",
+    5322 : "このケーキ、食べた～い！！",
+
+    # Promotional Considerations
     10000 : "キミの一票が大事さ！",
     10001 : "だれに投票しているの？",
     10002 : "そりゃあ、ニワトリ！",
@@ -2078,6 +2417,7 @@ SpeedChatStaticText = {
     21003: 'いいぞ！',
     21004: 'いいこだね！',
     21005: 'よくやった！',
+    21006: 'ちょっと待ってね・・・',
 
     # Pet/Doodle Tricks
     21200: 'ジャンプ！',
@@ -2088,13 +2428,226 @@ SpeedChatStaticText = {
     21205: 'ダンス！',
     21206: 'おしゃべり！',
 
+    # Phrases for April Toon's week
+    30100 : "Happy April Toons' Week!",
+    30101 : "Welcome to my April Toons' Week party!",
+    30102 : "The Silly Meter is back in Toon Hall!",
+    30110 : "Mickey is in Daisy Gardens.",
+    30111 : "Daisy is in Toontown Central.",
+    30112 : "Minnie is in The Brrrgh.",
+    30113 : "Pluto is in Melodyland.",
+    30114 : "Donald is sleepwalking at the Speedway.",
+    30115 : "Goofy is in Dreamland.",
+    
+    30120 : "Mickey is acting like Daisy!",
+    30121 : "Daisy is acting like Mickey!",
+    30122 : "Minnie is acting like Pluto!",
+    30123 : "Pluto is acting like Minnie!",
+    30124 : "Pluto is talking!",
+    30125 : "Goofy is acting like Donald!",
+    30126 : "Donald is dreaming he is Goofy!",
+    
+    30130 : "Watch how far I can jump.",
+    30131 : "Wow, you jumped really far!",
+    30132 : "Hey, Doodles can talk!",
+    30133 : "Did your Doodle just talk?",
+    30140 : "Things sure are silly around here!",
+    30141 : "How sillier could things get?",
+
+    # Phrases for Sellbot Nerf Event
+    30150: "Operation: Storm Sellbot is here!",
+    30151: "Sellbot Towers had its power drained by Doodles!",
+    30152: "The VP had his power drained by Doodles!",
+    30153: "Everyone can fight the VP right now!",
+    30154: "You don't need a Sellbot Disguise to fight the VP!",
+    30155: "You get a Rental Suit when you go into Sellbot Towers.",
+    30156: "Do you like my Rental Suit? Sorry about the safety pins!",
+    30157: "It's best to have eight Toons to fight the VP.",
+    30158: "Will you help me fight the VP?",
+    30159: "Do you want to fight the VP with me?",
+    30160: "Would you like to join my Sellbot VP group?",
+    30161: "I am looking for a Toon with a Rental Suit to fight the VP.",
+    30162: "I have a Rental Suit, and am looking to fight the VP.",
+    30163: "Just walk through the doors to get your Rental Suit.",
+    30164: "Save your gags for the Cogs inside!",
+    30165: "We have to defeat these Cogs first!",
+    30166: "Bump the barrels to gag up.",
+    30167: "Bump the barrel to get a Toon-up.",
+    30168: "Now we have to fight some Skelecogs!",
+    30169: "Jump up and touch the Toon's cage for pies!",
+    30170: "Now we fight the VP!",
+    30171: "Aim your pies by pressing the Delete button.",
+    30172: "Two Toons should throw pies through the VP's open doors!",
+    30173: "I'll stun the VP from the front.",
+    30174: "I'll stun the VP from the back.",
+    30175: "Jump when the VP jumps!",
+
+    # Phrases for Jellybean Jam
+    30180: "I got double jellybeans on the Trolley!",
+    30181: "I got double jellybeans from fishing!",
+    30182: "I got double jellybeans at a party!",
+    30183: "Jellybeans jellybeans jellybeans!",
+    30184: "I'm really keen to earn a bean!",
+    30185: "Don't be smelly, get beans of jelly!",
+    30186: "I'm gonna adopt a Doodle with all these jellybeans!",
+    30187: "What am I gonna spend all these jellybeans on?",
+    30188: "I'm gonna throw a huge party!",
+    30189: "I'm gonna decorate my whole Estate!",
+    30190: "I'm gonna buy a whole new wardrobe!",
+    30191: "Jellybeans, please!",
+    30192: "Don't be mean, give a bean!",
+    
+    # Phrases for caroling
+    30200 : "Deck the halls... ",
+    30201 : "Load some pies...",
+    30202 : "Joyful toons...",
+    30203 : "Snowman heads...",
+    30204 : "Toontown's merry...",
+    30205 : "Lure good cheer...",
+    
+    30220 : "Deck the halls with seltzer spray!\nHappy Winter Holiday!",
+    30221 : "Load some pies into your sleigh!\nHappy Winter Holiday!",
+    30222 : "Joyful toons bring Cogs dismay!\nHappy Winter Holiday!",
+    30223 : "Snowman heads are hot today!\nHappy Winter Holiday!",
+    30224 : "Toontown's merry, come what may!\nHappy Winter Holiday!",
+    30225 : "Lure good cheer the Toontown way!\nHappy Winter Holiday!",
+
+    # Phrases for Halloween
+    30250: "Boo!",
+    30251: "Happy Halloween!",
+    30252: "Spooky!",
+
+    # Phrases for Christmas
+    30275: "Happy holidays!",
+    30276: "Season's greetings!",
+    30277: "Have a Wonderful Winter!",    
+    
+    # Phrases for Silly Story
+    30301 : "Have you seen the Silly Meter?",
+    30302 : "The Silly Meter is in Toon Hall.",
+    30303 : "Things sure are getting silly around here!",
+    30304 : "I saw a fire hydrant moving!",
+    30305 : "Toontown is coming to life!",
+    30306 : "Have you been to Flippy's new office?",
+    30307 : "I caused a Silly Surge in battle!",
+    30308 : "Let's defeat some Cogs to make Toontown sillier!",
+    
+    30309 : "The Silly Meter is bigger and crazier than ever!",
+    30310 : "Lots of hydrants have come alive!",
+    30311 : "I saw a mail box moving!",
+    30312 : "I watched a trash can wake up!",
+    30313 : "How silly can it get?",
+    30314 : "What\'s going to happen next?",
+    30315 : "Something silly, I bet!",
+    30316 : "Have you caused a Silly Surge yet?",
+    30317 : "Let's defeat some Cogs to make Toontown sillier!",
+    
+    30318 : "Cog Invasion!",
+    30319 : "Incoming!",
+    30320 : "Let\'s stop those Cogs!",
+    30321 : "I miss the Silly Surges!",
+    30322 : "Let\'s go stop an Invasion!",
+    30323 : "Toontown is sillier than ever now!",
+    30324 : "Have you seen something come alive?",
+    30325 : "My favorites are the fire hydrants!",
+    30326 : "My favorites are the mailboxes!",
+    30327 : "My favorites are the trash cans!",
+    
+    30328 : "Hooray! We stopped the Cog invasions!",
+    30329 : "A hydrant helped me in battle!",
+    30330 : "A hydrant boosted my Squirt Gags!",
+    30331 : "A trash can boosted my Toon-Up Gags!",
+    30332 : "A mailbox helped my Throw Gags!",
+    
+    # Phrases for Victory Parties (warning 30400 is in use)
+    30350 : "Welcome to my Victory Party!",
+    30351 : "This is a great Victory Party!",
+    30352 : "We showed those Cogs who's boss!",
+    30353 : "Good job helping end the Cog invasions!",
+    30354 : "I bet this is driving the Cogs crazy!",
+    
+    30355 : "Let's play Cog-O-War!",
+    30356 : "My team won at Cog-O-War!",
+    30357 : "It's nice to have fire hydrants, trash cans, and mailboxes here!",
+    30358 : "I like the balloon of the Doodle biting the Cog!",
+    30359 : "I like the balloon of the Cog covered in ice cream!",
+    30360 : "I like the wavy Cog that flaps his arms!",
+    30361 : "I jumped on a Cog's face!",
+
+    # Phrases for Sellbot Field Offices
+    30400: "The Sellbots are invading!",
+    30401: "The V.P. was hopping mad about Operation: Storm Sellbot ...",
+    30402: "He's sending the Sellbots in to invade Toontown!",
+    30403: "Let's go fight some Sellbots!",
+    30404: "There's a new kind of building in Toontown!",
+    30405: "Have you seen the Mover & Shaker Field Offices?",
+    30406: "The V.P. created them as a reward for the Movers & Shakers.",
+    30407: "Let's go defeat a Field Office!",
+    30408: "I got an SOS Card for defeating a Field Office!",
+    30409: "Clear the map by exploring the maze.",
+    30410: "Destroy the Cogs by hitting them with water balloons!",
+    30411: "Movers & Shakers take two balloons to destroy.",
+    30412: "Look out for falling objects!",
+    30413: "Watch out for the Cogs!",
+    30414: "Collect Jokes to get a Toon-up at the end!",
+    30415: "When the room shakes, a Mover & Shaker is nearby.",
+    30416: "Defeat all four Movers & Shakers to open the exit!",
+    30417: "The exit is open!",
+    30418: "It's the Boss!",
+
+    # Phrases for Ides Of March
+    30450: "It's easy to be green!",
+    30451: "Visit Green Bean Jeans and you can be green too!",
+    30452: "It's on Oak Street in Daisy Gardens.",
+
+    # Phrases for Lawbot Nerf Event
+    30460 : "Operation: Lawbots Lose is here!",
+    30461 : "The Doodles have done it again!",
+    30462 : "The Chief Justice had his power drained by Doodles!",
+    30463 : "Everyone can fight the Chief Justice right now!",
+    30464 : "You don't need a Lawbot Disguise to fight the CJ!",
+    30465 : "You get a Rental Suit when you go into the Courtroom in Lawbot HQ.",
+    30466 : "Do you like my Rental Suit? The safety pins are so stylish!",
+    30467 : "It's best to have eight Toons to fight the CJ.",
+    30468 : "Will you help me fight the CJ?",
+    30469 : "Would you like to join my Lawbot CJ group?",
+    30470 : "I am looking for a Toon with a Rental Suit to fight the CJ.",
+    30471 : "I have a Rental Suit, and want to fight the CJ!",
+    30472 : "Just walk through the doors to get your Rental Suit.",
+    30473 : "Save your gags for the Cogs inside!",
+    30474 : "We have to defeat these Cogs first!",
+    30475 : "Bump the barrels to get a Toon-up.",
+    30476 : "Use the Chief Justice SpeedChatMenu!",
+    30477 : "Now we have to fill the jury chairs with Toons!",
+    30478 : "The more Toons we get in, the easier it will be to defeat the CJ!",
+    30479 : "Now we fight the Chief Justice!",
+    30480 : "Touch the witness stand to collect evidence.",
+    30481 : "Watch out for the gavels!",
+    30482 : "When you hit the scale, the CJ turns red!",
+    30483 : "When the Cogs get evidence in the scale, the CJ turns green!",
+    30484 : "Something cool happens if we stun all the Cogs at once!",
+    30485 : "Throw evidence at Toons to give them a Toon-up!",
+    
+    # Phrases for Singing
+##    9000 : 'Middle ' + 'G1',
+##    9001 : 'Middle ' + 'A',
+##    9002 : 'Middle ' + 'B',
+##    9003 : 'Middle ' + 'C',
+##    9004 : 'Middle ' + 'D',
+##    9005 : 'Middle ' + 'E',
+##    9006 : 'Middle ' + 'F',
+##    9007 : 'Middle ' + 'G2'
+    }
+
+SpeedChatStaticTextPirates = {
     # PIRATES
     50001 : 'オウ！',
     50002 : 'ンヤ！',
     50003 : 'アーッ！',#★Arr
     50004 : "アイ、アイ、キャプテン！",
+    50005 : 'Ok',
 
-    # Common Expressions
+    # EXPRESSIONS
     50100 : "アホイ！",
     50101 : "お～い！",
     50102 : "待て！",
@@ -2107,12 +2660,128 @@ SpeedChatStaticText = {
     50109 : "かかってこい！",#Come about!
     50110 : "死人に口なし…",
 
+
+    # EXPRESSIONS - GREETINGS
+    50700 : "Ahoy!",
+    50701 : "Ahoy, mate!",
+    50702 : "Yo-Ho-Ho",
+    50703 : "Avast!",
+    50704 : "Hey Bucko.",
+
+    # EXPRESSIONS - GOODBYES
+    50800 : "Until next time.",
+    50801 : "May fair winds find ye.",
+    50802 : "Godspeed.",
+
+
+    # EXPRESSIONS - FRIENDLY
+    50900 : "How are ye, mate?",
+    50901 : "",
+
+    # EXPRESSIONS - HAPPY
+    51000 : "It's like the sky is raining gold doubloons!",
+    51001 : "May a stiff wind be at our backs, the sun on our faces and our cannons fire true!",
+
+    # EXPRESSIONS - SAD
+    51100 : "I be sailing some rough waters today.",
+
+    # EXPRESSIONS - SORRY
+    51200 : "Me apologies, mate.",
+    51201 : "Sorry.",
+    51202 : "Sorry, I was busy before.",
+    51203 : "Sorry, I already have plans.",
+    51204 : "Sorry, I don't need to do that.",
+
+    # COMBAT
+    51300 : "Attack the weakest one!",
+    51301 : "Attack the strongest one!",
+    51302 : "Attack me target!",
+    51303 : "I be needing help!",
+    51304 : "I can't do any damage!",
+    51305 : "I think we be in trouble.",
+    51306 : "Surround the most powerful one.",
+    51307 : "We should retreat.",
+    51308 : "Run for it!",
+
+    # SEA COMBAT
+    51400 : "Fire a Broadside!",
+    51401 : "Port Side! (left)",
+    51402 : "Starboard Side! (right)",
+    51403 : "Incoming!",
+    51404 : "Come about!",
+    51405 : "Broadside! Take Cover!",
+    51406 : "To the Cannons!",
+    51407 : "Open fire!",
+    51408 : "Hold yer fire!",
+    51409 : "Aim for the masts!",
+    51410 : "Aim for the hull!",
+    51411 : "Prepare to board!",
+    51412 : "She's coming about.",
+    51413 : "Ramming speed!",
+    51414 : "We've got her on the run.",
+    51415 : "We be taking on water!",
+    51416 : "We can't take anymore!",
+    51417 : "I don't have a shot!",
+    51418 : "Let's find port for repair.",
+    51419 : "Man overboard!",
+    51420 : "Enemy spotted.",
+    51421 : "Handsomely now, mates!",
+
+    # PLACES
+    50400 : "Let's set sail.",
+    50401 : "Let's get out of here.",
+
+
+    # PLACES - LETS SAIL...
+    51500 : "Let's sail to Port Royal.",
+    51501 : "Let's sail to Tortuga.",
+    51502 : "Let's sail to Padres Del Fuego.",
+    51503 : "Let's sail to Devil's Anvil.",
+    51504 : "Let's sail to Kingshead.",
+    51505 : "Let's sail to Isla Perdida.",
+    51506 : "Let's sail to Cuba.",
+    51507 : "Let's sail to Tormenta.",
+    51508 : "Let's sail to Outcast Isle.",
+    51509 : "Let's sail to Driftwood.",
+    51510 : "Let's sail to Cutthroat.",
+    51511 : "Let's sail to Rumrunner's Isle.",
+    51512 : "Let's sail to Isla Cangrejos.",
+
+    # PLACES - LETS HEAD TO...
+    51600 : "Let's head into town.",
+    51601 : "Let's go to the docks.",
+    51602 : "Let's head to the tavern.",
+
+    # PLACES - LETS HEAD TO... - PORT ROYAL
+    51800 : "Let's go to Fort Charles.",
+    51801 : "Let's go to the Governor's Mansion.",
+
+    # PLACES - WHERE IS ..?
+    52500 : "Where be I, mate?",
+
+    # DIRECTIONS
+    51700 : "Yer already there.",
+    51701 : "I don't know.",
+    51702 : "Yer on the wrong island.",
+    51703 : "That's in town.",
+    51704 : "Look just outside of town.",
+    51705 : "Ye will have to search through the jungle.",
+    51706 : "Deeper inland.",
+    51707 : "Oh, that be by the coast.",
+
     # Insults
     50200 : "このドブネズミ！",
     50201 : "落ち着きねえな！",
     50202 : "カンオケで会おう！",
     50203 : "ふらちな奴め！",
     50204 : "この「ぬすっと」が！", #Land lubber
+    50205 : "Addle-minded fool!",
+    50206 : "You need a sharp sword and sharper wits.",
+    50207 : "Ye be one doubloon short of a full hull mate!",
+    50208 : "Watch yer tongue or I'll pickle it with sea salt!",
+    50209 : "Touch me loot and you get the boot!",
+    50210 : "The horizon be as empty as yer head.",
+    50211 : "You're a canvas shy of a full sail, aren't ye mate?",
 
     # Compliments
     50300 : "Nice shootin' matie!",
@@ -2124,11 +2793,11 @@ SpeedChatStaticText = {
     50306 : "A fine plunder haul!",
 
     # Places
-    50300 : "ここはどこだ？！",
-    50301 : "町に向かおう！",
-    50302 : "港に出向こう！",
-    50303 : "出港の準備をしよう！",
-    50304 : "バーに行こう！",
+    50400 : "ここはどこだ？！",
+    50401 : "町に向かおう！",
+    50402 : "港に出向こう！",
+    50403 : "出港の準備をしよう！",
+    50404 : "バーに行こう！",
 
     # Adventures
     50500 : "Let's set sail!",
@@ -2161,6 +2830,99 @@ SpeedChatStaticText = {
     50618 : "Retreat!",
     50619 : "Man overboard!",
     50620 : "Avast! A dirty Navy Clipper!",
+
+    # Minigames
+    # Minigames - Fishing
+    53101 : "I caught a fish!",
+    53102 : "I saw a Legendary Fish!",
+    53103 : "What did you catch?",
+    53104 : "This will make a whale of a tale!",
+    53105 : "That was a beauty!",
+    53106 : "Arr, the sea is treacherous today.",
+    53107 : "What a bountiful haul of fish!",
+    53110 : "Do you have the Legendary Lure?",
+    53111 : "Have you ever caught a Legendary Fish?",
+    53112 : "Can you sail on a fishing boat?",
+    53113 : "Where is the Fishing Master?",
+    53114 : "Have you completed your fish collection?",
+    # Minigames - Cannon Defense
+    53120 : "Fire at my target!",
+    53121 : "Fire at the ship closest to the shore!",
+    53122 : "There's a ship getting away!",
+    53123 : "Fire at the big ships!",
+    53124 : "Fire at the small ships!",
+    53125 : "More are coming!",
+    53126 : "We're not going to last much longer!",
+    53127 : "Shoot the barrels!",
+    53128 : "We've got new ammo!",
+    53129 : "Sturdy defense, mates!",
+    # Minigames - Potion Brewing
+    53141 : "Look at the potion I made!",
+    53142 : "Have you completed your potion collection?",
+    53143 : "Where is the Gypsy?",
+    53144 : "What potion is that?",
+    53145 : "This potion was easy enough.",
+    53146 : "This potion was hard brewin', I tell ye!",
+    # Minigames - Repair
+    53160 : "We need someone to bilge pump!",
+    53161 : "We need someone to scrub!",
+    53162 : "We need someone to saw!",
+    53163 : "We need someone to brace!",
+    53164 : "We need someone to hammer!",
+    53165 : "We need someone to patch!",
+    53166 : "I'll do it!",
+    53167 : "Keep it up, this ship won't repair itself!",
+    53168 : "Great job repairing the ship!",
+    
+    # Invitations
+    52100 : "Want to group up?",
+    52101 : "Join me crew?",
+
+    # Invitations - Hunting
+    52200 : "Fight some skeletons?",
+    52201 : "Fight some crabs?",
+
+    # Invitations - Versus
+    52300 : "How 'bout a game of Mayhem?",
+    52301 : "Join me Mayhem game.",
+    52302 : "Want to start a Mayhem game?",
+    52303 : "Want to start a team battle game?",
+    52304 : "Join me team battle game.",
+
+    # Invitations - Minigames
+    52350 : "Join my Cannon Defense.",
+    52351 : "Want to start a Cannon Defense?",
+    52352 : "Can you lend me a hand with Repair?",
+    52353 : "We need to Repair the ship now!",
+    52354 : "Care to catch some fish?",
+    52355 : "Want to go fishing with me?",
+    52356 : "Join me crew for some fishin'?",
+    52357 : "Time to brew some potions!",
+    52358 : "You should try your hand at brewing potions.",
+
+    # PLACES - WHERE IS..? - PORT ROYAL (LEGACY)
+    52000 : "",
+
+    # PLACES - WHERE IS..? - PORT ROYAL (Legacy)
+    52000 : "",
+
+    # PLACES - WHERE IS..? - TORTUGA (Legacy)
+    52700 : "",
+
+    # PLACES - WHERE IS..? - PADRES DEL FUEGO (Legacy)
+    53000 : "",
+
+    # PLACES - WHERE IS..? - PADRES DEL FUEGO - LOS PADRES (Legacy)
+    52800 : "",
+
+    # PLACES  - WHERE IS..? - PADRES DEL FUEGO - LAS PULGAS (Legacy)
+    52900 : "",
+
+    # Adventures (LEGACY)
+    50500 : "",
+
+    # Ships (LEGACY)
+    50600 : "",
 
     # Greetings
     60100 : "ハーイ！",
@@ -2203,8 +2965,90 @@ SpeedChatStaticText = {
     60502 : "ディスコホールに行くぞ！",
     60503 : "トゥーンタウンに行くぞ！",
     60504 : "カリブの海賊に行くぞ！", #★
+
+    # Animated Emotes
+    60505 : "Flip coin",
+    60506 : "Dance",
+    60507 : "Chant 1",
+    60508 : "Chant 2",
+    60509 : "Dance a jig",
+    60510 : "Sleep",
+    60511 : "Flex",
+    60512 : "Play Lute",
+    60513 : "Play Flute",
+    60514 : "Frustrated",
+    60515 : "Searching",
+    60516 : "Yawn",
+    60517 : "Kneel",
+    60518 : "Sweep",
+    60519 : "Primp",
+    60520 : "Yawn",
+    60521 : "Dance",
+    60522 : "No",
+    60523 : "Yes",
+    60524 : "Laugh",
+    60525 : "Clap",
+    60526 : "Smile",
+    60527 : "Anger",
+    60528 : "Fear",
+    60529 : "Sad",
+    60530 : "Celebrate",
+    60668 : "Celebrate",
+    60669 : "Sleep",
+    60602 : "Angry",
+    60614 : "Clap",
+    60622 : "Scared",
+    60640 : "Laugh",
+    60652 : "Sad",
+    60657 : "Smile",
+    60664 : "Wave",
+    60665 : "Wink",
+    60666 : "Yawn",
+    60669 : "Sleep",
+    60670 : "Dance",
+    60676 : "Flirt",
+    60677 : "Zombie dance",
+    60678 : "Noisemaker",
+
+    # Valentines day emote string options
+    60671 : "Hello, I'm a Pirate, and I'm here to steal your heart.",
+    60672 : "I just found the treasure I've been searching for.",
+    60673 : "If you were a booger, I'd pick you first.",
+    60674 : "Come to Tortuga often?",
+    60675 : "Do you have a map? I just keep getting lost in your eyes.",
+
+    65000 : "Yes",
+    65001 : "No",
+
+    65009 : "Check hand",
     }
 
+SpeedChatStaticText = SpeedChatStaticTextCommon
+
+# Emote IDs - These are used in SC to determine if a msg is a animated emote
+Emotes_Root = "EMOTES"
+Emotes_Dances = "Dances"
+Emotes_General = "General"
+Emotes_Music = "Music"
+Emotes_Expressions = "Emotions"
+Emote_ShipDenied = "Cannot emote while sailing."
+Emote_MoveDenied = "Cannot emote while moving."
+Emote_CombatDenied = "Cannot emote while in combat."
+Emote_CannonDenied = "Cannot emote while using a cannon."
+Emote_SwimDenied = "Cannot emote while swimming."
+Emote_ParlorGameDenied = "Cannot emote while playing a parlor game."
+Emotes = (60505, 60506, 60509, 60510, 60511, 60516, 60519, 60520, 60521, 60522, 60523, 60524, 60525, 60526, 60527, 60528, 60529, 60530, 60602, 60607, 60611, 60614, 60615, 60622, 60627, 60629, 60632, 60636, 60638, 60640, 60644, 60652, 60654, 60657, 60658, 60663, 60664, 60665, 60666, 60668, 60669, 60612, 60661, 60645, 60629, 60641, 60654, 60630, 60670, 60633,
+          # Valentines Day Emote
+          60676,
+          # Halloween Emote
+          60677,
+          # Yes/No
+          65000, 65001,
+          # Kneel
+          60517,
+          # New Years Emote
+          60678,
+          )
 
 # These indexes, defined above, will construct a submenu in the FACTORY menu
 # to allow the user to describe all the places he might want to meet
@@ -2232,10 +3076,10 @@ CustomSCStrings = {
     90 : "うっそぉ！",
     100 : "いいんじゃない？",
     110 : "へんなの！",
-    120 : "すごい!",
+    120 : "すごい！",
     130 : "マジで～！？",
     140 : "心配ないよ。",
-    150 : "グルルルルル～!",
+    150 : "グルルルルル～！",
     160 : "なんか新しいものない？",
     170 : "おおっとお！",
     180 : "またあしたね。",
@@ -2280,7 +3124,7 @@ CustomSCStrings = {
     570 : "たいくつだよ～",
     580 : "これ好き！",
     590 : "面白ろかったね！",
-    600 : "ジャンプ！",
+    600 : "'さっきはごめんね。",
     610 : "ギャグある？",
     620 : "どうかしたの？",
     630 : "ゆっくりやろうね。",
@@ -2304,9 +3148,9 @@ CustomSCStrings = {
     810 : "まさに必要としてるものだよ。",
     820 : "よーし、おっぱじめちゃうぞ～！",
     830 : "こっちだよ、みんな！",
-    840 : "はぁ？",
+    840 : "ねぇ、聞いてきいて☆",
     850 : "行きますよ～",
-    860 : "聞こえたよ！",
+    860 : "りょうか～い☆",
     870 : "え、私に話してるの？",
     880 : "ありがとう。今週はずっとここにいるよ。",
     890 : "う～む",
@@ -2323,25 +3167,25 @@ CustomSCStrings = {
     1000 : "かっちょいーね！",
     1010 : "しないほうがいいんじゃない？",
     # Series 2
-    2000 : "いい年して!",
+    2000 : "いい年して！",
     2010 : "会えてうれしいよ！",
     2020 : "どうぞごえんりょなく。",
     2030 : "トラブルをさけてるの？",
-    2040 : "おそくなっても、来てくれたらうれしいな!",
-    2050 : "ブラボー!",
-    2060 : "でもみんな、マジでさ...",
+    2040 : "おそくなっても、来てくれたらうれしいな！",
+    2050 : "ブラボー！",
+    2060 : "でもみんな、マジでさ…",
     2070 : "仲間に入る？",
-    2080 : "またあとでね!",
-    2090 : "気が変わっちゃったの?",
-    2100 : "さあ、来い!",
-    2110 : "わあ、大変だ!",
+    2080 : "またあとでね！",
+    2090 : "気が変わっちゃったの？",
+    2100 : "さあ、来い！",
+    2110 : "わあ、大変だ！",
     2120 : "お知り合いになれて、光栄です。",
     2130 : "やりたくないから、やらないよ！",
     2140 : "そうはさせないよ！",
     2150 : "見捨てないで！",
     2160 : "あまり期待しないでね。",
     2170 : "知らないよ！",
-    2180 : "簡単に言うね。",
+    2180 : "むずかしいんだよね。",
     2190 : "いいかげんにして！",
     2200 : "すばらしい！",
     2210 : "こんなところで会うなんて！",
@@ -2367,12 +3211,12 @@ CustomSCStrings = {
     2410 : "たぶんね。",
     2420 : "やめたほうが、いいんじゃない？",
     2430 : "そのセリフ、いいねー。",
-    2440 : "やめとけば？",
+    2440 : "やめとく？",
     2450 : "よろこんで！",
     2460 : "友達を助けてるの。",
     2470 : "ずっと待ってるんだ。",
     2480 : "想像してみて！",
-    2490 : "間一髪...",
+    2490 : "間一髪…",
     2500 : "まだまだ続くよ。",
     2510 : "ガンガンいこうよ！",
     2520 : "仲良くしようね。",
@@ -2478,7 +3322,7 @@ CustomSCStrings = {
     4060 : "おひるね、するよ！",
     4070 : "ちょっとイライラしてたんだ…",
     4080 : "このマチはふたりには小さいかも！",
-    4090 : "気を引きしめて！",
+    4090 : "しまってゆこーう！",
     4100 : "引き分け！",
     4110 : "ひょっとしたらイイことあるかも。",
     4120 : "シアワセがつづきますように！",
@@ -2586,7 +3430,7 @@ CustomSCStrings = {
     10014 : "びっくりした～！",
     10015 : "不気味だね！",
     10016 : "こわいよ～！",
-    10017 : "何か、変な....。",
+    10017 : "何か、変な…。",
     10018 : "ガイコツがいるの？",
     10019 : "おどかしちゃった？",
 
@@ -2611,6 +3455,7 @@ CustomSCStrings = {
     11017 : "まちがいない！",
     11018 : "順調、順調！",
     11019 : "びっくりしないでね。",
+    11020 : "Have a Wonderful Winter!", 
 
     # Valentines
     12000 : "好きです！",
@@ -2620,7 +3465,7 @@ CustomSCStrings = {
     12004 : "きみに首ったけさ！",
     12005 : "ラブラブ！",
     12006 : "好きだよ！",
-    12007 : "つきあってくれる？",
+    12007 : "バレントゥーンを一緒に過ごしたかったなぁ♪",
     12008 : "仲良しだよね。",
     12009 : "キミはやさしいね。",
     12010 : "かわいいね。",
@@ -2630,6 +3475,11 @@ CustomSCStrings = {
     12014 : "バラは赤いのさ…",
     12015 : "きみはすみれのようだね。",
     12016 : "うれしい！",
+    12050 : "すぐにこわれるコグは大好き！",
+    12051 : "キミ、ツヨカワイイね！",
+    12052 : "かわいくてみとれちゃう！",
+    12053 : "ジェリービーンよりスウィートだよ！",
+    12054 : "バレン“トゥーン”パーティーにきてくれるかな？",
 
     # St. Patricks Day
     13000 : "すがすがしい朝だね！",
@@ -2640,7 +3490,28 @@ CustomSCStrings = {
     13005 : "ラッキーだね！",
     13006 : "ヨツバのクローバーだね！",
     13007 : "キミは幸運の女神だ！",
+
+    # Summer Estate Party phrases (seasonal catalog)
+    14000 : "おうちでサマー・パーティーをやろう！",
+    14001 : "レッツ・パーティー！",
+    14002 : "一番最後まで池にいるのはだ～れだ♪",
+    14003 : "みんなでドゥードゥルのトレーニングをしよう！",
+    14004 : "ドゥードゥル トレーニング開始～！",
+    14005 : "キミのドゥードゥルかわいいね！",
+    14006 : "キミのドゥードゥルどんなトリックができるの？",
+    14007 : "キャノン・ピンボールの時間で～す♪",
+    14008 : "キャノン・ピンボールは楽しいね！",
+    14009 : "キミのおうち、とてもイイね！",
+    14010 : "キミの庭、とてもイイね！",
+    14011 : "おうちも庭もすごくイイね！",
+
+
+
+
+    #Potential racing phrases for purchase
+
     }
+
 
 # indices into cog phrase arrays
 SCMenuCommonCogIndices = (20000, 20004)
@@ -2675,18 +3546,54 @@ SCMenuCustomCogIndices = {
     'bw' : (20299, 20308),
     'ls' : (20309, 20319),
     'rb' : (20320, 20329),
-    'sc' : (20330, 20331),
+    'sc' : (20330, 20340),
     'sd' : (20341, 20350),
     }
 
 
 # Pirates Speedchat
 PSCMenuExpressions  = "きもち"
+PSCMenuGreetings = "GREETINGS"
+PSCMenuGoodbyes = "GOODBYES"
+PSCMenuFriendly = "FRIENDLY"
+PSCMenuHappy = "HAPPY"
+PSCMenuSad = "SAD"
+PSCMenuSorry = "SORRY"
+PSCMenuCombat = "COMBAT"
+PSCMenuSeaCombat     = "SEA COMBAT"
+PSCMenuPlaces     = "場所"
+PSCMenuLetsSail = "LET\'S SAIL..."
+PSCMenuLetsHeadTo = "LET\'S HEAD TO..."
+PSCMenuHeadToPortRoyal = "PORT ROYAL"
+PSCMenuWhereIs = "WHERE IS ..?"
+PSCMenuWhereIsPortRoyal = "PORT ROYAL"
+PSCMenuWhereIsTortuga = "TORTUGA"
+PSCMenuWhereIsPadresDelFuego = "PADRES DEL FUEGO"
+PSCMenuWhereIsLasPulgas = "LAS PULGAS"
+PSCMenuWhereIsLosPadres = "LOS PADRES"
+PSCMenuDirections = "DIRECTIONS"
 PSCMenuInsults    = "いばる"
 PSCMenuCompliments = "COMPLIMENTS" # TODO
-PSCMenuPlaces     = "場所"
-PSCMenuAdventures = "ADVENTURE"
+PSCMenuCardGames  = "CARD GAMES"
+PSCMenuPoker = "POKER"
+PSCMenuBlackjack = "BLACKJACK"
+PSCMenuMinigames = "MINIGAMES"
+PSCMenuFishing = "FISHING"
+PSCMenuCannonDefense = "CANNON DEFENSE"
+PSCMenuPotions = "POTION BREWING"
+PSCMenuRepair = "REPAIR"
+PSCMenuInvitations = "INVITATIONS"
+PSCMenuVersusPlayer = "VERSUS"
+PSCMenuHunting = "HUNTING"
+PSCMenuQuests = "QUESTS"
+PSCMenuGM = "GM"
+
+
+
+# Grandfathered Speedchat Headers
 PSCMenuShips      = "SHIPS"
+PSCMenuAdventures = "ADVENTURE"
+
 
 # Gateway Speedchat
 GWSCMenuHello     = "あいさつ"
@@ -2704,14 +3611,15 @@ RejectNameText = "この名前は使えないよ。もう一度トライして�
 WaitingForNameSubmission = "キミの名前を提出しています。"
 
 NameShopNameMaster = "NameMaster_japanese.txt"
-NameShopPay = "今すぐお申しこみを!"
+NameShopPay = "今すぐお申しこみを！"
 NameShopPlay = "無料体験"
-NameShopOnlyPaid = "オフィシャルメンバーだけが、\nトゥーンのなまえを変えることができるんだ。\nキミが申しこみするまで\nキミのなまえは\nだよ。"
+NameShopOnlyPaid = "フルアクセスメンバーだけが、\nトゥーンのなまえを変えることができるんだ。\nキミが申しこみするまで\nキミのなまえは\nだよ。"
 NameShopContinueSubmission = "なまえを申込む"
 NameShopChooseAnother = "なまえをえらぶ"
 NameShopToonCouncil = "キミのなまえが\n使えるかどうか調べるんだ\n" + \
                       "調べるのには数日かかるよ。\nそれまでのキミのなまえは：\n"
 PleaseTypeName = "キミのなまえを入力してね:"
+ToonAlreadyExists = "%s already exists"
 AllNewNames = "全ての新しいなまえは、\nトゥーン評議会のＯＫが\n必要なんだよ。"
 NameShopNameRejected = "申込んだ\nなまえは\nだめだって。"
 NameShopNameAccepted = "おめでとう！\n申込んだ\nなまえが\n使えるよ。"
@@ -2735,25 +3643,22 @@ CopyrightedNames = (
     )
 
 # NameCheck.py
-NCTooShort = 'そのなまえはみじかすぎるよ。'
+NCTooShort = 'なまえは全角2文字以上にしてね'
 NCNoDigits = 'なまえには数字をいれないでね。'
 NCNeedLetters = 'なまえのそれぞれの言葉には、文字をいれてね。'
 NCNeedVowels = 'なまえのそれぞれの言葉には、母音をいれてね。'
 NCAllCaps = 'なまえは全部大文字にしないでね。'
 NCMixedCase = 'なまえに大文字がおおすぎるね。'
-NCBadCharacter = "なまえには'%s'をいれないでね。"
-NCGeneric = 'ごめん、このなまえじゃだめみたい。'
-NCTooManyWords = 'なまえは、４つの言葉以下にしてね。'
-NCDashUsage = ("ハイフンは、２つの言葉をつなぐためだけに使ってね、"
-               "('Boo-Boo'のように)。")
-NCCommaEdge = "コンマ(,)でなまえを始めたり終わらせたりしないでね。"
-NCCommaAfterWord = "コンマで言葉を始めないでね。"
-NCCommaUsage = ('このなまえはコンマを正しく使っていないよ。 コンマは、'
-                '"Dr. Quack, MD"のように、２つの言葉をつなぐものなんだ。'
-                'そしてコンマのあとはスペースだよ。')
-NCPeriodUsage = ('このなまえはピリオドを正しく使っていないよ。 ピリオドは、'
-                 '"Mr.", "Mrs.", "J.T."などの言葉だけでつかわれるものなんだ。')
-NCApostrophes = 'なまえにアポストロフィーがおおすぎるね。'
+NCBadCharacter = "なまえには'%s'をいれないでね。\n\n漢字・記号・ABC…は使わないでね。"
+NCRepeatedChar = "Your name has too many of the character '%s'"
+NCGeneric = 'ごめん、このなまえじゃだめみたい。\n\nなまえは全角8文字以下にしてね。'
+NCTooManyWords = '半角スペースは三つまでにしてね。'
+NCDashUsage = "なまえにハイフン(-)は使えないよ。"
+NCCommaEdge = "なまえにコンマ(,)は使えないよ。"
+NCCommaAfterWord = "なまえにコンマ(,)は使えないよ。"
+NCCommaUsage = 'なまえにコンマ(,)は使えないよ。'
+NCPeriodUsage = 'なまえにピリオド(.)は使えないよ。'
+NCApostrophes = "なまえにアポストロフィー(')は使えないよ。"
 
 # AvatarDetailPanel.py
 AvatarDetailPanelOK = lOK
@@ -2761,6 +3666,7 @@ AvatarDetailPanelCancel = lCancel
 AvatarDetailPanelClose = lClose
 AvatarDetailPanelLookup = "%s の状態を調べています…"
 AvatarDetailPanelFailedLookup = "%s の状態を調べられませんでした。"
+AvatarDetailPanelPlayer = "Player: %(player)s\nWorld: %(world)s\nLocation: %(location)s"
 AvatarDetailPanelOnline = "ﾛﾋﾞｰ: %(district)s\nｴﾘｱ: %(location)s"
 AvatarDetailPanelOffline = "ﾛﾋﾞｰ: オフライン\nｴﾘｱ: オフライン"
 
@@ -2770,6 +3676,9 @@ AvatarPanelWhisper = "ささやく"
 AvatarPanelSecrets = "ひみつ"
 AvatarPanelGoTo = "ワープ"
 AvatarPanelIgnore = "むくち"
+AvatarPanelStopIgnore = "むしをやめる"
+AvatarPanelEndIgnore = "むしおわり"
+AvatarPanelTrade = "こうかん"
 #AvatarPanelCogDetail = "部署: %s\nレベル: %s\n"
 AvatarPanelCogLevel = "レベル：%s"
 AvatarPanelCogDetailClose = lClose
@@ -2796,7 +3705,92 @@ KartRacingMenuSections = [
  "トラック",
  "おせじ",
  "やじ"
+]
 
+AprilToonsMenuSections = [
+ -1,
+ "GREETINGS",
+ "PLAYGROUNDS",
+ "CHARACTERS",
+ "ESTATES"
+]
+
+SillyHolidayMenuSections = [
+ -1,
+ "WORLD",
+ "BATTLE",
+]
+
+CarolMenuSections = [
+-1,
+]
+
+VictoryPartiesMenuSections = [
+ -1,
+ "PARTY",
+ "ITEMS",
+]
+
+GolfMenuSections = [
+ -1,
+ "コース",
+ "ヒント",
+ "コメント",
+]
+
+BoardingMenuSections = [
+"グループ",
+"…に行こう",
+"…に行くよ",
+-1,
+]
+
+SellbotNerfMenuSections = [
+ -1, 
+ 'GROUPING', 
+ 'SELLBOT TOWERS/VP',
+]
+
+LawbotNerfMenuSections = [
+ -1, 
+ 'GROUPING',
+ 'COURTHOUSE/CJ',
+]
+
+JellybeanJamMenuSections = [
+ 'GET JELLYBEANS', 
+ 'SPEND JELLYBEANS',
+]
+
+WinterMenuSections = [
+ 'CAROLING', 
+ -1,
+]
+
+HalloweenMenuSections = [
+ -1
+]
+
+SingingMenuSections = [
+ -1
+]
+
+WhiteListMenu = [
+-1,
+"WHITELIST"
+]
+
+SellbotInvasionMenuSections = [
+ -1,
+]
+
+SellbotFieldOfficeMenuSections = [
+ -1,
+ 'STRATEGY',
+]
+
+IdesOfMarchMenuSections = [
+ -1,
 ]
 
 # TTAccount.py
@@ -2805,6 +3799,27 @@ TTAccountCallCustomerService = "ディズニー・インターネット・グル
 # Fill in %s with phone number from account server
 TTAccountCustomerServiceHelp = "\nお問い合わせ等は、ディズニー・インターネット・グループ・カスタマーセンター（%s）にお電話ください。"
 TTAccountIntractibleError = "エラーが発生しました。"
+
+
+def timeElapsedString(timeDelta):
+    timeDelta = abs(timeDelta)
+    if timeDelta.days > 0:
+        if timeDelta.days == 1:
+            return "1 day ago"
+        else:
+            return "%s days ago" % timeDelta.days
+
+    elif timeDelta.seconds / 3600 > 0:
+        if timeDelta.seconds / 3600 == 1:
+            return "1 hour ago"
+        else:
+            return "%s hours ago" % (timeDelta.seconds / 3600)
+
+    else:
+        if timeDelta.seconds / 60 < 2:
+            return "1 minute ago"
+        else:
+            return "%s minutes ago" % (timeDelta.seconds / 60)
 
 # OTPGLobals stuff
 def getSignFontLocale():

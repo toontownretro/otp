@@ -771,14 +771,19 @@ FriendSecretDetermineSecretAccountRollover = "A friend across the Disney.com net
 # GuildMember.py
 GuildMemberTitle = "Member Options"
 GuildMemberPromote = "Make Officer"
+GuildMemberPromoteInvite = "Make Veteran"
+GuildMemberDemoteInvite = "Demote to Veteran"
 GuildMemberGM = "Make Guildmaster"
-GuildMemberDemote = "Demote"
+GuildMemberGMConfirm = "Confirm"
+GuildMemberDemote = "Demote to Member"
 GuildMemberKick = "Remove Member"
 GuildMemberCancel = lCancel
 GuildMemberOnline = "has come online."
 GuildMemberOffline = "has gone offline."
 GuildPrefix = "(G):"
 GuildNewMember = "New Guild Member"
+GuildMemberUnknown = "Unknown"
+GuildMemberGMMessage = "Warning! Would you like to give up leadership of your guild and make %s your guild master?\n\nYou will become an officer"
 
 # GuildInvitee.py
 GuildInviteeOK = lOK
@@ -817,6 +822,18 @@ GuildInviterSelf = "You are already in the guild!"
 GuildInviterIgnored = "%s is ignoring you."
 GuildInviterAsking = "Asking %s to join the guild."
 GuildInviterGuildSaidYes = "%s has joined the guild!"
+GuildInviterFriendKickedOut = "%s has kicked out %s from the Guild."
+GuildInviterFriendKickedOutP = "%s have kicked out %s from the Guild."
+GuildInviterFriendInvited = "%s has invited %s to the Guild."
+GuildInviterFriendInvitedP = "%s have invited %s to the Guild."
+GuildInviterFriendPromoted = "%s has promoted %s to the rank of %s."
+GuildInviterFriendPromotedP = "%s have promoted %s to the rank of %s."
+GuildInviterFriendDemoted = "%s has demoted %s to the rank of %s."
+GuildInviterFriendDemotedP = "%s have demoted %s to the rank of %s."
+GuildInviterFriendPromotedGM = "%s has named %s as the new %s"
+GuildInviterFriendPromotedGMP = "%s have named %s as the new %s"
+GuildInviterFriendDemotedGM = "%s has been named by %s as the new GuildMaster who became the rank of %s"
+GuildInviterFriendDemotedGMP = "%s have been named by %s as the new GuildMaster who beaome the rank of %s"
 
 # FriendInviter.py
 FriendOnline = "has come online."
@@ -2464,47 +2481,49 @@ SpeedChatStaticTextToontown = {
     30141 : "How sillier could things get?",
 
     # Phrases for Sellbot Nerf Event
-    30150: "Operation: Storm Sellbot is here!",
-    30151: "Sellbot Towers had its power drained by Doodles!",
-    30152: "The VP had his power drained by Doodles!",
-    30153: "Everyone can fight the VP right now!",
-    30154: "You don't need a Sellbot Disguise to fight the VP!",
-    30155: "You get a Rental Suit when you go into Sellbot Towers.",
-    30156: "Do you like my Rental Suit? Sorry about the safety pins!",
-    30157: "It's best to have eight Toons to fight the VP.",
-    30158: "Will you help me fight the VP?",
-    30159: "Do you want to fight the VP with me?",
-    30160: "Would you like to join my Sellbot VP group?",
-    30161: "I am looking for a Toon with a Rental Suit to fight the VP.",
-    30162: "I have a Rental Suit, and am looking to fight the VP.",
-    30163: "Just walk through the doors to get your Rental Suit.",
-    30164: "Save your gags for the Cogs inside!",
-    30165: "We have to defeat these Cogs first!",
-    30166: "Bump the barrels to gag up.",
-    30167: "Bump the barrel to get a Toon-up.",
-    30168: "Now we have to fight some Skelecogs!",
-    30169: "Jump up and touch the Toon's cage for pies!",
-    30170: "Now we fight the VP!",
-    30171: "Aim your pies by pressing the Delete button.",
-    30172: "Two Toons should throw pies through the VP's open doors!",
-    30173: "I'll stun the VP from the front.",
-    30174: "I'll stun the VP from the back.",
-    30175: "Jump when the VP jumps!",
+    30150 : "Operation: Storm Sellbot is here!",
+    30151 : "Sellbot Towers had its power drained by Doodles!",
+    30152 : "The VP had his power drained by Doodles!",
+    30153 : "Everyone can fight the VP right now!",
+    30154 : "You don't need a Sellbot Disguise to fight the VP!",
+    30155 : "You get a Rental Suit when you go into Sellbot Towers.",
+    30156 : "Do you like my Rental Suit? Sorry about the safety pins!",
+    30157 : "It's best to have eight Toons to fight the VP.",
+    30158 : "Will you help me fight the VP?",
+    30159 : "Do you want to fight the VP with me?",
+    30160 : "Would you like to join my Sellbot VP group?",
+    30161 : "I am looking for a Toon with a Rental Suit to fight the VP.",
+    30162 : "I have a Rental Suit, and am looking to fight the VP.",
+    30163 : "Just walk through the doors to get your Rental Suit.",
+    30164 : "Save your gags for the Cogs inside!",
+    30165 : "We have to defeat these Cogs first!",
+    30166 : "Bump the barrels to gag up.",
+    30167 : "Bump the barrel to get a Toon-up.",
+    30168 : "Now we have to fight some Skelecogs!",
+    30169 : "Jump up and touch the Toon's cage for pies!",
+    30170 : "Now we fight the VP!",
+    30171 : "Aim your pies by pressing the Delete button.",
+    30172 : "Two Toons should throw pies through the VP's open doors!",
+    30173 : "I'll stun the VP from the front.",
+    30174 : "I'll stun the VP from the back.",
+    30175 : "Jump when the VP jumps!",
 
     # Phrases for Jellybean Jam
-    30180: "I got double jellybeans on the Trolley!",
-    30181: "I got double jellybeans from fishing!",
-    30182: "I got double jellybeans at a party!",
-    30183: "Jellybeans jellybeans jellybeans!",
-    30184: "I'm really keen to earn a bean!",
-    30185: "Don't be smelly, get beans of jelly!",
-    30186: "I'm gonna adopt a Doodle with all these jellybeans!",
-    30187: "What am I gonna spend all these jellybeans on?",
-    30188: "I'm gonna throw a huge party!",
-    30189: "I'm gonna decorate my whole Estate!",
-    30190: "I'm gonna buy a whole new wardrobe!",
-    30191: "Jellybeans, please!",
-    30192: "Don't be mean, give a bean!",
+    30180 : "I got double jellybeans on the Trolley!",
+    30181 : "I got double jellybeans from fishing!",
+    30182 : "I got double jellybeans at a party!",
+    30183 : "Jellybeans jellybeans jellybeans!",
+    30184 : "I'm really keen to earn a bean!",
+    30185 : "Don't be smelly, get beans of jelly!",
+    30186 : "I'm gonna adopt a Doodle with all these jellybeans!",
+    30187 : "What am I gonna spend all these jellybeans on?",
+    30188 : "I'm gonna throw a huge party!",
+    30189 : "I'm gonna decorate my whole Estate!",
+    30190 : "I'm gonna buy a whole new wardrobe!",
+    30191 : "Jellybeans, please!",
+    30192 : "Don't be mean, give a bean!",
+    30193 :"Who wants jellybeans?",
+    30194 : "Dance for jellybeans!",
     
     # Phrases for caroling
     30200 : "Deck the halls... ",
