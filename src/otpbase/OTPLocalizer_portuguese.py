@@ -234,8 +234,8 @@ CRBootedReasons = {
     151: "O administrador responsável pelos servidores de Toontown fez logout na sua conta.",
     152: "Foi relatada uma violação dos nossos termos de uso, com relação a '%(name)s'. Por segurança, colocamos uma restrição temporária na conta. Para obter mais detalhes, leia a mensagem enviada ao endereço de e-mail associado a '%(name)s'.",
     153: "A região de Toontown onde você estava jogando foi reiniciada. Todas as pessoas que estavam jogando nessa região foram desconectadas. Entretanto, você poderá conectar-se novamente e voltar direto ao jogo.",
-    288: "Sinto muito, mas você usou todos os seus minutos disponíveis deste mês em Toontown.',
-    349: "Sinto muito, mas você usou todos os seus minutos disponíveis deste mês em Toontown.' }
+    288: "Sinto muito, mas você usou todos os seus minutos disponíveis deste mês em Toontown.",
+    349: "Sinto muito, mas você usou todos os seus minutos disponíveis deste mês em Toontown.",
     }
 CRBootedReasonUnknownCode = "Houve um problema inesperado (código de erro %s). A conexão falhou, mas você ainda deve conseguir conectar-se novamente para voltar ao jogo."
 CRTryConnectAgain = "\n\nTentar conectar-se novamente?"
@@ -3413,6 +3413,18 @@ WhiteListMenu = [
 "LISTA DE PERMISSÕES"
 ]
 
+SellbotInvasionMenuSections = [
+ -1,
+]
+
+SellbotFieldOfficeMenuSections = [
+ -1,
+ 'STRATEGY',
+]
+
+IdesOfMarchMenuSections = [
+ -1,
+]
 
 # TTAccount.py
 # Fill in %s with phone number from account server
