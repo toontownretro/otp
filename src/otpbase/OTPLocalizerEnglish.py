@@ -724,6 +724,7 @@ SCMenuBoardingGroup              = "BOARDING"
 SCMenuParties                    = "PARTIES"
 SCMenuAprilToons                 = "APRIL TOONS'"
 SCMenuSingingGroup               = "SINGING"
+SCMenuCarol                      = "CAROLING"
 SCMenuSillyHoliday                   = "SILLY METER"
 SCMenuVictoryParties             = "VICTORY PARTIES"
 SCMenuSellbotNerf                = "STORM SELLBOT"
@@ -2522,7 +2523,7 @@ SpeedChatStaticTextToontown = {
     30190 : "I'm gonna buy a whole new wardrobe!",
     30191 : "Jellybeans, please!",
     30192 : "Don't be mean, give a bean!",
-    30193 :"Who wants jellybeans?",
+    30193 : "Who wants jellybeans?",
     30194 : "Dance for jellybeans!",
     
     # Phrases for caroling
@@ -2680,12 +2681,17 @@ SpeedChatStaticTextPirates = {
     50101 : "Blimey!",
     50102 : "Well blow me down!",
     50103 : "Walk the plank!",
-    50104 : "Dead men tell no tales....",
+    50104 : "Dead men tell no tales...",
     50105 : "Shiver me timbers!",
     50106 : "Salty as a Kraken's kiss.",
     50107 : "Treasure be the measure of our pleasure!",
     50108 : "I don't fear death - I attune it.",
-    
+    50109 : "Ah well, some days you win, some days you swim.",
+    50110 : "Shooting like that, ye may as well have two eye-patches on!",
+    50111 : "A finer bunch of Scoundrels yarrr eyes have never seen!",
+    50112 : "Fool me once, shame on me. Fool me twice, good luck in Davy Jones' Locker.",
+    50113 : "Ready your bravery, hoist the sails, a Caribbean Pirate never fails!",
+
 
     # EXPRESSIONS - GREETINGS
     50700 : "Ahoy!",
@@ -2967,7 +2973,7 @@ SpeedChatStaticTextPirates = {
     60501 : "Let's go to the Gateway Store.",
     60502 : "Let's go to the Disco Hall.",
     60503 : "Let's go to Toontown.",
-    60504 : "Let's go to Pirates of the Carribean.",
+    60504 : "Let's go to Pirates of the Caribbean.",
 
     # Animated Emotes
     60505 : "Flip coin",
