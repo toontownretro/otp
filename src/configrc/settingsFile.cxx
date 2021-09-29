@@ -148,6 +148,7 @@ Settings::Settings(void) {
     _custom_mousecursor_enabled = true;
     _accepting_new_friends = true;
     _embedded_mode=false;
+    _accepting_non_friend_whispers = true;
   }
 }
 
@@ -299,6 +300,7 @@ void Settings::ns_write_settings(void) {
   ofs << (unsigned char)_toon_chat_sounds;
   ofs << (unsigned char)_accepting_new_friends;
   ofs << (unsigned char)_embedded_mode;
+  ofs << (unsigned char)_accepting_non_friend_whispers;
 }
 
 
@@ -513,6 +515,12 @@ void Settings::read_file(Filename fname) {
       } else _embedded_mode = false;
       ofs << "_embedded_mode: " << _embedded_mode << std::endl;
 
+      if(minor>=8) {
+          ifs >> b;
+          _accepting_non_friend_whispers = (b!=false);
+      } else _accepting_non_friend_whispers = true;
+      ofs << "_accepting_non_friend_whispers: " << _accepting_non_friend_whispers << std::endl;
+
       break;
     default:
       ofs << "default" << std::endl;
@@ -529,6 +537,7 @@ void Settings::read_file(Filename fname) {
       _toon_chat_sounds = true;
       _accepting_new_friends = true;
       _embedded_mode = false;
+	  _accepting_non_friend_whispers = true;
     }
     ifs.close();
   }
@@ -540,7 +549,7 @@ void Settings::read_file(Filename fname) {
 // it harder to crash with a bad resolution
 
 // this array must match:  enum Resolution { R640x480, R800x600, R1024x768, R1280x1024, R1600x1200, R_NONE };
-const unsigned int resolution_dimensions[Settings::R_NONE][2] = {{640,480}, {800,600}, {1024,768}, {1280,1024}, {1600,1200}};
+const unsigned int resolution_dimensions[Settings::R_NONE][2] = {{640,480}, {800,600}, {1024,768}, {1280,1024}, {1600,1200}, {1920,1080}, {3840,2160}};
 
 void Settings::
 get_resolution_sizes(Resolution r, unsigned int &xsize, unsigned int &ysize) {

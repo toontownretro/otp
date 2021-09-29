@@ -49,6 +49,8 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar,
 
     acceptingNewFriends = base.config.GetBool('accepting-new-friends', 1)
 
+    acceptingNonFriendWhispers = base.config.GetBool('accepting-non-friend-whispers', 0)
+
     # special methods
     def __init__(self, cr, chatMgr, talkAssistant = None, passMessagesThrough = False):
         """

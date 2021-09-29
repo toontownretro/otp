@@ -11,6 +11,7 @@ from otp.avatar.ShadowCaster import ShadowCaster
 import random
 from otp.otpbase import OTPRender
 from direct.showbase.PythonUtil import recordCreationStack
+from direct.directnotify.DirectNotifyGlobal import directNotify
 
 teleportNotify = DirectNotifyGlobal.directNotify.newCategory('Teleport')
 teleportNotify.showTime = True

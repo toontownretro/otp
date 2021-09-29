@@ -48,7 +48,7 @@ PUBLISHED:
 
 // it would be simpler to just store the actual res sizes, but abstracting them makes
 // it harder to crash with a bad resolution
-  enum Resolution { R640x480, R800x600, R1024x768, R1280x1024, R1600x1200, R_NONE };
+  enum Resolution { R640x480, R800x600, R1024x768, R1280x1024, R1600x1200, R1920x1080, R3840x2160, R_NONE };
 
   virtual ~Settings(void);
 
@@ -67,6 +67,7 @@ PUBLISHED:
   static INLINE ServerType server_type(void);
   static INLINE bool get_accepting_new_friends(void);
   static INLINE bool get_embedded_mode(void);
+  static INLINE bool get_accepting_non_friend_whispers(void);
 
   static INLINE void set_sfx(bool);
   static INLINE void set_toon_chat_sounds(bool);
@@ -83,6 +84,7 @@ PUBLISHED:
   static INLINE void set_server_type(ServerType);
   static INLINE void set_accepting_new_friends(bool);
   static INLINE void set_embedded_mode(bool);
+  static INLINE void set_accepting_non_friend_whispers(bool);
 
   static INLINE void set_show_fpsmeter(bool);
   static INLINE bool doSavedSettingsExist(void);  // does the saved settings file exist?
@@ -112,6 +114,7 @@ private:
   INLINE ServerType ns_server_type(void);
   INLINE bool ns_get_accepting_new_friends(void);
   INLINE bool ns_get_embedded_mode(void);
+  INLINE bool ns_get_accepting_non_friend_whispers(void);
 
   INLINE void ns_set_show_fpsmeter(bool);
   INLINE void ns_set_sfx(bool);
@@ -128,6 +131,7 @@ private:
   INLINE void ns_set_server_type(ServerType);
   INLINE void ns_set_accepting_new_friends(bool);
   INLINE void ns_set_embedded_mode(bool);
+  INLINE void ns_set_accepting_non_friend_whispers(bool);
   void ns_write_settings(void);
   void ns_read_settings(void);
   void read_file(Filename);
@@ -147,6 +151,7 @@ private:
   bool _bShowFpsMeter;
   bool _accepting_new_friends;
   bool _embedded_mode;
+  bool _accepting_non_friend_whispers;
   float _sfx_vol;
   float _music_vol;
   DisplayDriver _driver;
