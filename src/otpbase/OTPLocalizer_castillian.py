@@ -66,22 +66,22 @@ ChatManagerWhisperTo = "Susurrar a:"
 ChatManagerWhisperToName = "Susurrar a:\n%s"
 ChatManagerCancel = lCancel
 ChatManagerWhisperOffline = "%s está desconectado."
-OpenChatWarning = '¡Todavía no tienes "amigos secretos"!  No puedes conversar con otros dibus a menos que sean tus amigos secretos.\n\nPara convertirte en amigo secreto de alguien, haz clic en él y selecciona "Secretos" en el panel de detalles.  No hace falta decir que siempre puedes hablar con quien quieras por medio de la Charla rápida.'
+OpenChatWarning = '¡Todavía no tienes "amigos secretos"! No puedes conversar con otros dibus a menos que sean tus amigos secretos.\n\nPara convertirte en amigo secreto de alguien, haz clic en él y selecciona "Secretos" en el panel de detalles. No hace falta decir que siempre puedes hablar con quien quieras por medio de la Charla rápida.'
 OpenChatWarningOK = lOK
-UnpaidChatWarning = 'Cuando te hayas suscrito, podrás usar este botón para charlar con tus amigos mediante el teclado.  Hasta entonces, deberías usar la herramienta Charla rápida para conversar con los demás dibus.'
+UnpaidChatWarning = 'Cuando te hayas suscrito, podrás usar este botón para charlar con tus amigos mediante el teclado. Hasta entonces, deberías usar la herramienta Charla rápida para conversar con los demás dibus.'
 UnpaidChatWarningPay = "¡Suscríbete ya!"
 UnpaidChatWarningContinue = "Continuar prueba gratuita"
 PaidNoParentPasswordWarning = 'Una vez creada la contraseña parental, podrás activar este botón para charlar con tus amigos mediante el teclado. Hasta entonces, puedes usar la herramienta Charla rápida para conversar con los demás dibus.'
 PaidNoParentPasswordWarningSet = "Crear la contraseña parental ahora"
 PaidNoParentPasswordWarningContinue = "Seguir jugando"
 NoSecretChatWarningTitle = "Controles parentales"
-NoSecretChatWarning = 'Para que sea posible charlar con un amigo, la herramienta Amigos secretos debe estar activada.  Para saber más cosas sobre la herramienta Amigos secretos y acceder a los controles parentales, diles a tus padres que abran la sesión con su contraseña parental.'
+NoSecretChatWarning = 'Para que sea posible charlar con un amigo, la herramienta Amigos secretos debe estar activada. Para saber más cosas sobre la herramienta Amigos secretos y acceder a los controles parentales, diles a tus padres que abran la sesión con su contraseña parental.'
 NoSecretChatWarningOK = lOK
 NoSecretChatWarningCancel = lCancel
-NoSecretChatWarningWrongPassword = 'Esa contraseña no es correcta.  Introduce la contraseña parental que se creó al adquirir esta cuenta.  No se trata de la misma contraseña que se emplea para jugar al juego.'
+NoSecretChatWarningWrongPassword = 'Esa contraseña no es correcta. Introduce la contraseña parental que se creó al adquirir esta cuenta. No se trata de la misma contraseña que se emplea para jugar al juego.'
 NoSecretChatAtAllTitle = "Charla de Amigos secretos"
 # not sure what this should do in the new world order
-NoSecretChatAtAll = 'Para charlar con un amigo, la herramienta Amigos secretos debe estar activada.  La herramienta Amigos secretos permite a un miembro charlar con otro gracias al uso de un código secreto que se debe comunicar fuera del juego.\n\nPara activar esta herramienta sal de Toontown y actívala a través de Los Controles Parentales en Conecta Disney'
+NoSecretChatAtAll = 'Para charlar con un amigo, la herramienta Amigos secretos debe estar activada. La herramienta Amigos secretos permite a un miembro charlar con otro gracias al uso de un código secreto que se debe comunicar fuera del juego.\n\nPara activar esta herramienta sal de Toontown y actívala a través de Los Controles Parentales en Conecta Disney'
 # not sure what this should do in the new world order
 NoSecretChatAtAllOK = lOK
 
@@ -125,9 +125,9 @@ grey = TextProperties()
 grey.setTextColor(0.5, 0.5, 0.5, 1)
 TextPropertiesManager.getGlobalPtr().setProperties('grey', grey)
 
-ActivateChat = """La herramienta Amigos secretos permite a los socios charlar entre sí gracias al uso de un código secreto que se debe comunicar fuera del juego.  Para obtener toda la información, haz clic aquí:
+ActivateChat = """La herramienta Amigos secretos permite a los socios charlar entre sí gracias al uso de un código secreto que se debe comunicar fuera del juego. Para obtener toda la información, haz clic aquí:
 
-La herramienta Amigos secretos no está moderada ni supervisada.  Si los padres permiten a sus hijos usar su cuenta con la opción Amigos secretos activada, les aconsejamos que los supervisen mientras juegan.  Una vez activada, la herramienta Amigos secretos está disponible hasta que se desactiva.
+La herramienta Amigos secretos no está moderada ni supervisada. Si los padres permiten a sus hijos usar su cuenta con la opción Amigos secretos activada, les aconsejamos que los supervisen mientras juegan. Una vez activada, la herramienta Amigos secretos está disponible hasta que se desactiva.
 
 Al activar la herramienta Amigos secretos, los padres reconocen que existen ciertos riesgos inherentes a la posibilidad de charla de la herramienta y reconocen que han sido informados sobre dichos riesgos y están de acuerdo en aceptarlos."""
 
@@ -149,33 +149,33 @@ SecretFriendsInfoPanelClose = lClose
 SecretFriendsInfoPanelText = ["""
 La herramienta Amigos secretos
 
-La herramienta Amigos secretos permite a los socios conversar directamente entre sí mediante en Disney's Toontown Online (en lo sucesivo, el "Servicio"). Para ello, los socios deben establecer una conexión de Amigos secretos.  Cuando su hijo intente usar la herramienta Amigos secretos, le pediremos que introduzca su contraseña parental para confirmar su consentimiento al uso de dicha herramienta.  A continuación se describe con detalle proceso de creación de una conexión de Amigos secretos entre dos socios imaginarios a los que llamaremos "Susana" y "Miguel".
+La herramienta Amigos secretos permite a los socios conversar directamente entre sí mediante en Disney's Toontown Online (en lo sucesivo, el "Servicio"). Para ello, los socios deben establecer una conexión de Amigos secretos. Cuando su hijo intente usar la herramienta Amigos secretos, le pediremos que introduzca su contraseña parental para confirmar su consentimiento al uso de dicha herramienta. A continuación se describe con detalle proceso de creación de una conexión de Amigos secretos entre dos socios imaginarios a los que llamaremos "Susana" y "Miguel".
 1. Los padres de Susana y los de Miguel activan la herramienta Amigos secretos, introduciendo sus contraseñas parentales (a) en las Opciones de cuenta del Servicio o (b) cuando el juego se lo requiera en una ventana emergente de Control parental.
 2. Susana solicita un Secreto (descrito más adelante) desde dentro del Servicio.
 ""","""
 3. El Secreto de Susana se envía a Miguel fuera del Servicio. (Susana le puede comunicar su Secreto a Miguel directamente o indirectamente, a través de otra persona.)
 4. Miguel envía el Secreto de Susana al Servicio en un plazo de 48 horas a partir del momento en que Susana lo ha solicitado.
-5. El Servicio comunica a Miguel que Susana se ha convertido en su amiga secreta.  De igual modo, el Servicio notifica a Susana que Miguel se ha convertido en su amigo secreto.
-6. Ahora, Susana y Miguel pueden charlar entre sí hasta que uno de ellos decida que el otro deje de ser su amigo secreto o hasta que los padres de Susana o Miguel desactiven la herramienta Amigos secretos.  Por tanto, la conexión Amigos secretos puede ser desactivada en cualquier momento por:
+5. El Servicio comunica a Miguel que Susana se ha convertido en su amiga secreta. De igual modo, el Servicio notifica a Susana que Miguel se ha convertido en su amigo secreto.
+6. Ahora, Susana y Miguel pueden charlar entre sí hasta que uno de ellos decida que el otro deje de ser su amigo secreto o hasta que los padres de Susana o Miguel desactiven la herramienta Amigos secretos. Por tanto, la conexión Amigos secretos puede ser desactivada en cualquier momento por:
 ""","""
 (a) Un socio que borre a otro de su lista de amigos secretos (de la forma
 descrita en el Servicio) o (b) los padres de un socio que desactiven la herramienta Amigos secretos por medio de las Opciones de cuenta del Servicio (siguiendo los pasos allí establecidos).
 
-Un Secreto es un código informático generado al azar y asignado a un socio en concreto. Es necesario usar el Secreto para activar la conexión de Amigos secretos dentro de un plazo de 48 horas a partir del momento de su solicitud. De lo contrario, el Secreto caduca y no se puede utilizar.  Además, un secreto sólo se puede usar para establecer una sola conexión de Amigos Secretos.  Para crear más conexiones de Amigos secretos, el socio debe solicitar un Secreto adicional para cada uno de los nuevos amigos.
+Un Secreto es un código informático generado al azar y asignado a un socio en concreto. Es necesario usar el Secreto para activar la conexión de Amigos secretos dentro de un plazo de 48 horas a partir del momento de su solicitud. De lo contrario, el Secreto caduca y no se puede utilizar. Además, un secreto sólo se puede usar para establecer una sola conexión de Amigos Secretos. Para crear más conexiones de Amigos secretos, el socio debe solicitar un Secreto adicional para cada uno de los nuevos amigos.
 
-Las amistades secretas no se transfieren.  Por ejemplo, si Susana es amiga
+Las amistades secretas no se transfieren. Por ejemplo, si Susana es amiga
 ""","""
-secreta de Miguel y Miguel es amigo secreto de Ana, Susana no se convierte automáticamente en amiga secreta de Ana.  Para que Susana y Ana se hagan
+secreta de Miguel y Miguel es amigo secreto de Ana, Susana no se convierte automáticamente en amiga secreta de Ana. Para que Susana y Ana se hagan
 amigas secretas, una de ellas deberá solicitar un nuevo Secreto al Servicio y
 comunicárselo a la otra.
 
-Los amigos secretos se comunican entre sí mediante un servicio de conversación interactivo de formato libre.  El contenido de esta conversación es escrito directamente por el socio participante y procesado a través del Servicio, que está gestionado por Walt Disney Internet Group ("WDIG"), 506 2nd Avenue, Suite 2100, Seattle, WA 98104, EE.UU. (teléfono +1 (509) 742-4698; correo electrónico: ms_support@help.go.com).  Aunque aconsejamos a los socios que no intercambien datos personales, como sus nombres y apellidos, direcciones de correo electrónico, direcciones postales o números de teléfono mientras utilizan la herramienta Amigos secretos, no
+Los amigos secretos se comunican entre sí mediante un servicio de conversación interactivo de formato libre. El contenido de esta conversación es escrito directamente por el socio participante y procesado a través del Servicio, que está gestionado por Walt Disney Internet Group ("WDIG"), 506 2nd Avenue, Suite 2100, Seattle, WA 98104, EE.UU. (teléfono +1 (509) 742-4698; correo electrónico: ms_support@help.go.com). Aunque aconsejamos a los socios que no intercambien datos personales, como sus nombres y apellidos, direcciones de correo electrónico, direcciones postales o números de teléfono mientras utilizan la herramienta Amigos secretos, no
 ""","""
-podemos garantizar que tales intercambios de información personal no se produzcan. Aunque el servicio de conversación de Amigos secretos tiene un filtro automático de palabras malsonantes y obscenas, no está moderado ni  supervisado por nosotros.  Si los padres permiten a sus hijos usar su cuenta con la opción Amigos secretos activada, les aconsejamos que los supervisen mientras juegan en el Servicio..
+podemos garantizar que tales intercambios de información personal no se produzcan. Aunque el servicio de conversación de Amigos secretos tiene un filtro automático de palabras malsonantes y obscenas, no está moderado ni  supervisado por nosotros. Si los padres permiten a sus hijos usar su cuenta con la opción Amigos secretos activada, les aconsejamos que los supervisen mientras juegan en el Servicio..
 
 WDIG no hace uso del contenido de las conversaciones de Amigos secretos para ningún otro propósito que no sea el de comunicar dicho contenido al amigo secreto del socio, y no divulga ese contenido a terceros excepto en los siguientes casos: (1) Si la ley lo requiere, por ejemplo, para acatar una orden o citación judicial; (2) para hacer cumplir las Condiciones de uso aplicables al Servicio (a las que se puede acceder en la página principal del Servicio); (3) para proteger la seguridad de los socios del Servicio y del Servicio mismo.
 ""","""
-Los padres de un niño pueden, previa petición a WDIG, revisar y borrar el contenido de cualquier conversación mantenida por ese niño, suponiendo que dicho contenido no haya sido ya borrado por WDIG de sus archivos.  Según lo estipulado en la Ley estadounidense para la protección del menor en medios electrónicos (Children's Online Privacy Protection Act), no estamos autorizados a condicionar la participación de un niño en ninguna actividad (lo que incluye Amigos secretos) en base a la revelación por parte del niño de más información personal de la razonablemente necesaria para participar en tal actividad.
+Los padres de un niño pueden, previa petición a WDIG, revisar y borrar el contenido de cualquier conversación mantenida por ese niño, suponiendo que dicho contenido no haya sido ya borrado por WDIG de sus archivos. Según lo estipulado en la Ley estadounidense para la protección del menor en medios electrónicos (Children's Online Privacy Protection Act), no estamos autorizados a condicionar la participación de un niño en ninguna actividad (lo que incluye Amigos secretos) en base a la revelación por parte del niño de más información personal de la razonablemente necesaria para participar en tal actividad.
 
 Además, tal y como se menciona anteriormente, reconocemos el derecho de los padres a negarse a permitir que el niño siga utilizando la herramienta Amigos secretos. Al activar la herramienta Amigos secretos, los padres reconocen que existen ciertos riesgos inherentes a la posibilidad de charlar de los socios por medio de dicha herramienta, y reconocen que han sido informados sobre dichos riesgos y están de acuerdo en aceptarlos.
 """
@@ -195,7 +195,7 @@ LeaveToEnableChatUKNo = lCancel
 ChatMoreInfoOK = lOK
 SecretChatActivated = '¡La herramienta "Amigos secretos" ha sido activada!\n\nSi más tarde cambias de opinión y decides desactivar esta herramienta, haz clic en "Opciones de cuenta" en la página web de Toontown.'
 SecretChatActivatedOK = lOK
-ProblemActivatingChat = '¡Vaya!  No hemos podido activar la herramienta de charla "Amigos secretos".\n\n%s\n\nVuelve a intentarlo más tarde.'
+ProblemActivatingChat = '¡Vaya! No hemos podido activar la herramienta de charla "Amigos secretos".\n\n%s\n\nVuelve a intentarlo más tarde.'
 ProblemActivatingChatOK = lOK
 
 # MultiPageTextFrame.py
@@ -227,37 +227,37 @@ CreateAccountScreenUserNameNotFound = "No se ha encontrado el nombre de usuario.
 CRConnecting = "Conectando..."
 # host, port
 CRNoConnectTryAgain = "Imposible conectar con %s:%s. ¿Quieres intentarlo de nuevo?"
-CRNoConnectProxyNoPort = "Imposible conectar con %s:%s.\n\nTe estás conectando al Internet a través de un proxy que no permite las conexiones al puerto %s.\n\nPara jugar a Toontown es necesario abrir este puerto o desactivar el proxy.  Si el proxy ha sido suministrado por tu proveedor de Internet, debes ponerte en contacto con él para que abra este puerto."
+CRNoConnectProxyNoPort = "Imposible conectar con %s:%s.\n\nTe estás conectando al Internet a través de un proxy que no permite las conexiones al puerto %s.\n\nPara jugar a Toontown es necesario abrir este puerto o desactivar el proxy. Si el proxy ha sido suministrado por tu proveedor de Internet, debes ponerte en contacto con él para que abra este puerto."
 CRNoDistrictsTryAgain = "No hay distritos de Toontown disponibles. ¿Deseas intentarlo de nuevo?"
 CRLostConnection = "Tu conexión de Internet a Toontown se ha interrumpido inesperadamente."
 CRBootedReasons = {
-    1: "Se ha producido un problema inesperado.  Se ha perdido la conexión, pero deberías poder conectarte de nuevo y volver al juego.",
+    1: "Se ha producido un problema inesperado. Se ha perdido la conexión, pero deberías poder conectarte de nuevo y volver al juego.",
     100: "Has sido desconectado porque otra persona que ha abierto una sesión con tu cuenta en otro ordenador.",
     120: "Has sido desconectado debido a un problema con tu autorización para usar la charla mediante el teclado.",
-    122: "Se ha producido un problema inesperado en la conexión con Toontown.  Ponte en contacto con el Servicio de atención al cliente de Toontown.",
+    122: "Se ha producido un problema inesperado en la conexión con Toontown. Ponte en contacto con el Servicio de atención al cliente de Toontown.",
     125: "Tus archivos instalados de Toontown parecen ser incorrectos. Pulsa el botón Jugar de la página web oficial de Toontown para ejecutar el juego.",
     126: "No tienes privilegios de administrador.",
-    127: "A problem has occurred with your Toon.  Please contact Member Services via phone, email or  live chat and reference Error Code 127.  Thank you.",
+    127: "A problem has occurred with your Toon. Please contact Member Services via phone, email or live chat and reference Error Code 127. Thank you.",
     151: "Tu sesión ha sido cerrada por un administrador de los servidores de Toontown.",
     152: "There has been a reported violation of our Terms of Use connected to '%(name)s'. For more details, please review the message sent to the e-mail address associated with '%(name)s'.",
-    153: "Se ha reiniciado el distrito de Toontown en el que te hallabas.  Todos los que estaban en ese distrito han sido desconectados.  Sin embargo, deberías poder conectarte de nuevo para volver al juego.",
+    153: "Se ha reiniciado el distrito de Toontown en el que te hallabas. Todos los que estaban en ese distrito han sido desconectados. Sin embargo, deberías poder conectarte de nuevo para volver al juego.",
     288: "Lo sentimos, pero has gastado todos los minutos de que disponías en Toontown este mes.",
     349: "Lo sentimos, pero has gastado todos los minutos de que disponías en Toontown este mes.",
     }
-CRBootedReasonUnknownCode = "Ha surgido un problema inesperado (código de error %s).  Se ha perdido la conexión, pero deberías poder conectarte de nuevo y volver al juego."
+CRBootedReasonUnknownCode = "Ha surgido un problema inesperado (código de error %s). Se ha perdido la conexión, pero deberías poder conectarte de nuevo y volver al juego."
 CRTryConnectAgain = "\n\n¿Quieres intentar conectarte de nuevo?"
 # avName
 CRToontownUnavailable = "Toontown no parece estar disponible por el momento; seguimos intentándolo..."
 CRToontownUnavailableCancel = lCancel
 CRNameCongratulations = "¡¡ENHORABUENA!!"
 CRNameAccepted = "Tu nombre ha sido\naprobado por el Consejo Dibu.\n\nA partir de ahora,\nte llamarás\n\"%s\""
-CRServerConstantsProxyNoPort = "Imposible ponerse en contacto con %s.\n\nTe estás conectando al Internet a través de un proxy que no permite conexiones al puerto %s.\n\nPara jugar a Toontown es necesario abrir este puerto o desactivar el proxy.  Si el proxy ha sido suministrado por tu proveedor de Internet, debes ponerte en contacto con él para que abra este puerto."
-CRServerConstantsProxyNoCONNECT = "Imposible ponerse en contacto con %s.\n\nTe estás conectando al Internet a través de un proxy que no es compatible con el método CONNECT.\n\nPara jugar a Toontown es necesario activar esta opción o desactivar el proxy.  Si el proxy ha sido suministrado por tu proveedor de Internet, debes ponerte en contacto con él para activar esta opción."
+CRServerConstantsProxyNoPort = "Imposible ponerse en contacto con %s.\n\nTe estás conectando al Internet a través de un proxy que no permite conexiones al puerto %s.\n\nPara jugar a Toontown es necesario abrir este puerto o desactivar el proxy. Si el proxy ha sido suministrado por tu proveedor de Internet, debes ponerte en contacto con él para que abra este puerto."
+CRServerConstantsProxyNoCONNECT = "Imposible ponerse en contacto con %s.\n\nTe estás conectando al Internet a través de un proxy que no es compatible con el método CONNECT.\n\nPara jugar a Toontown es necesario activar esta opción o desactivar el proxy. Si el proxy ha sido suministrado por tu proveedor de Internet, debes ponerte en contacto con él para activar esta opción."
 CRServerConstantsTryAgain = "Imposible ponerse en contacto con %s.\n\nEl servidor de la cuenta de Toontown podría estar inoperativo en este momento, o puede ser que haya surgido un problema con tu conexión de Internet.\n\n¿Deseas intentarlo de nuevo?"
 CRServerDateTryAgain = "Imposible obtener la fecha del servidor de %s. ¿Deseas intentarlo de nuevo?"
 AfkForceAcknowledgeMessage = "A tu dibu le ha entrado sueño y se ha ido a la cama."
 PeriodTimerWarning = "¡Tu límite de tiempo en Toontown este mes casi ha terminado!"
-PeriodForceAcknowledgeMessage = "Has gastado todos los minutos de que disponías en Toontown este mes.  ¡Ven otra vez a jugar el mes que viene!"
+PeriodForceAcknowledgeMessage = "Has gastado todos los minutos de que disponías en Toontown este mes. ¡Ven otra vez a jugar el mes que viene!"
 CREnteringToontown = "Entrando a Toontown..."
 
 # DownloadWatcher.py
@@ -275,7 +275,7 @@ LoginScreenLoginPrompt = "Introduce un nombre de usuario y una contraseña."
 LoginScreenBadPassword = "Contraseña incorrecta.\nInténtalo de nuevo."
 LoginScreenInvalidUserName = "Nombre de usuario incorrecto.\nInténtalo de nuevo."
 LoginScreenUserNameNotFound = "No se ha encontrado el nombre de usuario.\nInténtalo de nuevo o crea otra cuenta."
-LoginScreenPeriodTimeExpired = "Lo sentimos, pero ya has gastado todos los minutos de que disponías en Toontown este mes.  Vuelve a principios del mes que viene."
+LoginScreenPeriodTimeExpired = "Lo sentimos, pero ya has gastado todos los minutos de que disponías en Toontown este mes. Vuelve a principios del mes que viene."
 LoginScreenNoNewAccounts = "Lo sentimos mucho, pero no aceptamos nuevas cuentas en este momento."
 LoginScreenTryAgain = "Inténtalo de nuevo"
 
@@ -303,8 +303,8 @@ SCMenuEmotions  = "EMOCIONES"
 SCMenuCustom    = "MIS FRASES"
 
 SCMenuResistance = "UNITE!"
-SCMenuPets      = "PETS"
-SCMenuPetTricks = "TRICKS"
+SCMenuPets      = "MASCOTAS"
+SCMenuPetTricks = "ACROBACIAS"
 
 SCMenuCog       = "COG SPEAK"
 SCMenuHello     = "HOLA"
@@ -323,16 +323,16 @@ SCMenuKartRacing   = "RACING"
 SCMenuFactoryMeet = "ENCUENTRO"
 
 SCMenuFactoryMeet = "MEET"
-SCMenuCFOBattle = "C.F.O."
+SCMenuCFOBattle = "DIRECTOR FINANCIERO"
 SCMenuCFOBattleCranes = "CRANES"
 SCMenuCFOBattleGoons = "GOONS"
-SCMenuCJBattle = "CHIEF JUSTICE"
-SCMenuCEOBattle = "C.E.O."
+SCMenuCJBattle = "JUEZ"
+SCMenuCEOBattle = "DIRECTOR GENERAL"
 SCMenuGolf   = "GOLF"
 SCMenuWhiteList = "WHITELIST"
-SCMenuPlacesPlayground           = "PLAYGROUND"
-SCMenuPlacesEstate               = "ESTATE"
-SCMenuPlacesCogs                 = "COGS"
+SCMenuPlacesPlayground           = "DIBUPARQUE"
+SCMenuPlacesEstate               = "HACIENDA"
+SCMenuPlacesCogs                 = "BOTS"
 SCMenuPlacesWait                 = "WAIT"
 
 SCMenuFriendlyYou = "Eres..."
@@ -342,11 +342,11 @@ SCMenuToontasksMyTasks = "Mis tareas"
 SCMenuToontasksYouShouldChoose = "Creo que deberias escoger..."
 
 SCMenuToontasksINeedMore         = "I need more..."
-SCMenuBattleGags                 = "GAGS"
+SCMenuBattleGags                 = "BROMAS"
 SCMenuBattleTaunts               = "TAUNTS"
-SCMenuBattleStrategy             = "STRATEGY"
-SCMenuBoardingGroup              = "BOARDING"
-SCMenuParties                    = "PARTIES"
+SCMenuBattleStrategy             = "ESTRATEGIA"
+SCMenuBoardingGroup              = "EMBARQUE"
+SCMenuParties                    = "FIESTAS"
 SCMenuAprilToons                 = "APRIL TOONS'"
 SCMenuSingingGroup               = "SINGING"
 SCMenuSillyHoliday                   = "SILLY METER"
@@ -354,34 +354,34 @@ SCMenuVictoryParties             = "VICTORY PARTIES"
 SCMenuSellbotNerf                = "STORM SELLBOT"
 SCMenuJellybeanJam               = "JELLYBEAN WEEK"
 SCMenuHalloween                  = "HALLOWEEN"
-SCMenuWinter                     = "L'HIVER"
-SCMenuSellbotInvasion            = "INVASION DE VENDIBOT"
+SCMenuWinter                     = "INVIERNO"
+SCMenuSellbotInvasion            = "SELLBOT INVASION"
 SCMenuFieldOffice                = "FIELD OFFICES"
-SCMenuIdesOfMarch                = "GREEN"
+SCMenuIdesOfMarch                = "VERDE"
 SCMenuLawbotNerf                 = "LAWBOTS LOSE"
 
 # FriendSecret.py
 FriendSecretNeedsPasswordWarningTitle = "Parental Controls"
-FriendSecretNeedsParentLoginWarning = """To get or enter a True Friend Code, log in with the Parent Account.  You can disable this prompt by changing your True Friend options."""
-FriendSecretNeedsPasswordWarning = """To get or enter a True Friend Code, you must enter the Parent Account Password.  You can disable this prompt by changing your True Friends options."""
+FriendSecretNeedsParentLoginWarning = """To get or enter a True Friend Code, log in with the Parent Account. You can disable this prompt by changing your True Friend options."""
+FriendSecretNeedsPasswordWarning = """To get or enter a True Friend Code, you must enter the Parent Account Password. You can disable this prompt by changing your True Friends options."""
 FriendSecretNeedsPasswordWarningOK = lOK
 FriendSecretNeedsPasswordWarningCancel = lCancel
-FriendSecretNeedsPasswordWarningWrongUsername = """That's not the correct username.  Please enter the username of the parental account.  This is not the same username used to play the game."""
-FriendSecretNeedsPasswordWarningWrongPassword = """That's not the correct password.  Please enter the password of the parental account.  This is not the same password used to play the game."""
-FriendSecretIntro = "Si estás jugando a Disney's Toontown Online con alguien que conozcas en la vida real, los dos pueden convertirse en amigos secretos.  Puedes charlar con tus amigos secretos usando el teclado.  Los demás dibus no entenderán lo que estás diciendo.\n\nPara hacer esto, necesitas obtener un Secreto.  Transmítele el Secreto a tu amigo y a nadie más.  Cuando tu amigo escriba el Secreto en su pantalla, los dos seran amigos secretos en Toontown."
+FriendSecretNeedsPasswordWarningWrongUsername = """That's not the correct username. Please enter the username of the parental account. This is not the same username used to play the game."""
+FriendSecretNeedsPasswordWarningWrongPassword = """That's not the correct password. Please enter the password of the parental account. This is not the same password used to play the game."""
+FriendSecretIntro = "Si estás jugando a Disney's Toontown Online con alguien que conozcas en la vida real, los dos pueden convertirse en amigos secretos. Puedes charlar con tus amigos secretos usando el teclado. Los demás dibus no entenderán lo que estás diciendo.\n\nPara hacer esto, necesitas obtener un Secreto. Transmítele el Secreto a tu amigo y a nadie más. Cuando tu amigo escriba el Secreto en su pantalla, los dos seran amigos secretos en Toontown."
 FriendSecretGetSecret = "Obtener Secreto"
 FriendSecretEnterSecret = "Si tienes un Secreto de alguien que conozcas, escríbelo aquí."
 FriendSecretOK = lOK
 FriendSecretCancel = lCancel
 FriendSecretGettingSecret = "Obteniendo Secreto. . ."
-FriendSecretGotSecret = "Aquí tienes tu nuevo Secreto.  ¡No te olvides de anotarlo!\n\nPuedes dar este Secreto solamente a una persona.  Cuando alguien escriba tu Secreto, éste no valdrá ya para nadie más.  Si deseas dar un Secreto a alguien más, tienes que pedir otro.\n\nEl Secreto sólo valdrá durante los dos días siguientes.  Tu amigo tendrá que escribirlo antes de que desaparezca, o de lo contrario el proceso no funcionará.\n\nTu Secreto es:"
-FriendSecretTooMany = "Lo siento, no puedes tener más Secretos hoy.  ¡Ya has tenido más que suficientes!\n\nPrueba de nuevo mañana."
+FriendSecretGotSecret = "Aquí tienes tu nuevo Secreto. ¡No te olvides de anotarlo!\n\nPuedes dar este Secreto solamente a una persona. Cuando alguien escriba tu Secreto, éste no valdrá ya para nadie más. Si deseas dar un Secreto a alguien más, tienes que pedir otro.\n\nEl Secreto sólo valdrá durante los dos días siguientes. Tu amigo tendrá que escribirlo antes de que desaparezca, o de lo contrario el proceso no funcionará.\n\nTu Secreto es:"
+FriendSecretTooMany = "Lo siento, no puedes tener más Secretos hoy. ¡Ya has tenido más que suficientes!\n\nPrueba de nuevo mañana."
 FriendSecretTryingSecret = "Probando Secreto. . ."
 FriendSecretEnteredSecretSuccess = "¡Ya eres amigo secreto de %s!"
-FriendSecretEnteredSecretUnknown = "Ése no es el Secreto de nadie.  ¿Seguro que lo has escrito bien?\n\nSi lo has escrito correctamente, tal vez haya caducado.  Pídele a tu amigo que te obtenga un Secreto nuevo (o consigue tú uno y dáselo a tu amigo)."
+FriendSecretEnteredSecretUnknown = "Ése no es el Secreto de nadie. ¿Seguro que lo has escrito bien?\n\nSi lo has escrito correctamente, tal vez haya caducado. Pídele a tu amigo que te obtenga un Secreto nuevo (o consigue tú uno y dáselo a tu amigo)."
 FriendSecretEnteredSecretFull = "No puedes ser amigo de %s porque uno de los dos tiene demasiados amigos en la lista."
 FriendSecretEnteredSecretFullNoName = "No pueden ser amigos porque uno de los dos tiene demasiados amigos en la lista."
-FriendSecretEnteredSecretSelf = "¡Acabas de escribir tu propio Secreto!  Ahora, nadie más puede usar ese Secreto."
+FriendSecretEnteredSecretSelf = "¡Acabas de escribir tu propio Secreto! Ahora, nadie más puede usar ese Secreto."
 FriendSecretNowFriends = "¡Ya eres amigo secreto de %s!"
 FriendSecretNowFriendsNoName = "¡Ya sois amigos secretos!"
 
@@ -608,7 +608,7 @@ SuitFaceoffTaunts = {
            ],
     'tbc': ["Te voy a pescar con las manos.",
             "Puedes llamarme Cachalote.",
-            "Ten cuidado.  A veces soy como un tiburón blanco.",
+            "Ten cuidado. A veces soy como un tiburón blanco.",
             "Por fin, ya pensaba que me estabas dando sedal.",
             "Voy a cocinarte a la sal.",
             "¿Qué tal me sienta el escabeche?",
@@ -758,7 +758,7 @@ SuitFaceoffTaunts = {
            ],
     'ym': ["Lástima que esto no te vaya a gustar.",
            "Odio que la gente esté seria.",
-           "Sonríe, la vida es bella... Aunque no para ti.  Una sonrisa vale por cien dibus.",
+           "Sonríe, la vida es bella... Aunque no para ti. Una sonrisa vale por cien dibus.",
            "Necesitas algo de alegría en tu vida.",
            "Después de esto se te va a quedar sonrisa de tonto.",
            "Mi sonrisa desarma a cualquiera.",
@@ -810,7 +810,7 @@ SuitFaceoffTaunts = {
            "Con mi superquitamanchas salen borrones como tú.",
            "Te voy a aplastar con mi megabdominator.",
            "Si acabo contigo, me regalo un cuchillo de cocina.",
-           "Tu final está disponible con una llamada.  ¡Date prisa! ¡Tu fin está al caer!",
+           "Tu final está disponible con una llamada. ¡Date prisa! ¡Tu fin está al caer!",
            "Acabe con los dibus molestos con \"zurradibu\".",
            "¡Te voy a poner los superéxitos de los bots!",
            "¿Cansado de tu figura? ¡Yo tengo la solución!",
@@ -2552,7 +2552,7 @@ SpeedChatStaticTextPirates = {
     60672 : "I just found the treasure I've been searching for.",
     60673 : "If you were a booger, I'd pick you first.",
     60674 : "Come to Tortuga often?",
-    60675 : "Do you have a map?  I just keep getting lost in your eyes.",
+    60675 : "Do you have a map? I just keep getting lost in your eyes.",
 
     65000 : "Yes",
     65001 : "No",
