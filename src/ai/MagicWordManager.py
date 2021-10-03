@@ -187,7 +187,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
             self.setMagicWordResponse(str(localAvatar.doId))
 
         elif wordIs("~doId"):
-            name = string.strip(word[6:])
+            name = str.strip(word[6:])
 
             objs = self.identifyDistributedObjects(name)
             if (len(objs) == 0):
@@ -260,7 +260,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
                 self.setMagicWordResponse(response)
             else:
                 tm.extraSkew = 0.0
-                skew = string.strip(word[5:])
+                skew = str.strip(word[5:])
                 if skew != "":
                     tm.extraSkew = float(skew)
                 globalClockDelta.clear()
@@ -271,7 +271,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
             # of seconds, or with no parameter, report the number of
             # seconds remaining.
 
-            timeout = string.strip(word[7:])
+            timeout = str.strip(word[7:])
             if timeout != "":
                 seconds = int(timeout)
                 self.cr.stopPeriodTimer()
@@ -295,11 +295,11 @@ class MagicWordManager(DistributedObject.DistributedObject):
             args = word.split()
             fEnableLight = 0
             if len(args) > 1:
-                if base.direct and (args[1] == 'CAM'):
-                    base.direct.enable()
+                if direct and (args[1] == 'CAM'):
+                    direct.enable()
                     taskMgr.removeTasksMatching('updateSmartCamera*')
                     camera.wrtReparentTo(render)
-                    base.direct.cameraControl.enableMouseFly()
+                    direct.cameraControl.enableMouseFly()
                     self.setMagicWordResponse("Enabled DIRECT camera")
                     return
                 elif args[1] == 'LIGHT':
@@ -308,9 +308,9 @@ class MagicWordManager(DistributedObject.DistributedObject):
             base.startTk()
             from direct.directtools import DirectSession
             if fEnableLight:
-                base.direct.enableLight()
+                direct.enableLight()
             else:
-                base.direct.enable()
+                direct.enable()
             self.setMagicWordResponse("Enabled DIRECT")
 
         elif wordIs("~TT"):
@@ -717,12 +717,6 @@ class MagicWordManager(DistributedObject.DistributedObject):
             else:
                 self.setMagicWordResponse('error')
 
-        elif wordIs('~ls'):
-            base.render.ls()
-
-        elif wordIs('~lsLocalAvatar'):
-            base.localAvatar.ls()
-
         else:
             # Not a magic word I know!
             return 0
@@ -740,7 +734,9 @@ class MagicWordManager(DistributedObject.DistributedObject):
                                          base.cr.userSignature])
 
     def b_setMagicWord(self, magicWord, avId = None, zoneId = None):
+        print("b_setMagicWord")
         if self.cr.wantMagicWords:
+            print("We want magic words")
             if avId == None:
                 avId = base.localAvatar.doId
 

@@ -28,6 +28,7 @@ class MagicWordManagerAI(DistributedObjectAI.DistributedObjectAI):
         DistributedObjectAI.DistributedObjectAI.__init__(self, air)
 
     def setMagicWord(self, word, avId, zoneId, signature):
+        print("setMagicWord", word, avId, zoneId, signature)
         senderId = self.air.getAvatarIdFromSender()
 
         sender = self.air.doId2do.get(senderId, None)
@@ -47,9 +48,9 @@ class MagicWordManagerAI(DistributedObjectAI.DistributedObjectAI):
             try:
                 self.doMagicWord(word, av, zoneId, senderId)
             except:
-                import traceback
-                traceback.print_exc()
-                self.down_setMagicWordResponse(senderId, "An error has occurred when trying to perform the magic!")
+                response = PythonUtil.describeException(backTrace = 1)
+                self.notify.warning("Ignoring error in magic word:\n%s" % response)
+                self.down_setMagicWordResponse(senderId, response)
         else:
             self.notify.info("Don't know avatar %d." % (avId))
 
@@ -67,7 +68,7 @@ class MagicWordManagerAI(DistributedObjectAI.DistributedObjectAI):
             if (not self.supportRename):
                 self.notify.warning("Rename is not supported for %s, requested by %d" % (av.name, senderId))
             else:
-                name = string.strip(word[8:])
+                name = word[8:].strip()
                 if name == "":
                     response = "No name."
                 else:
@@ -196,7 +197,7 @@ class MagicWordManagerAI(DistributedObjectAI.DistributedObjectAI):
 
         elif wordIs('~ai'):
             # Execute an arbitrary Python command on the AI.
-            command = string.strip(word[3:])
+            command = word[3:].strip()
             self.notify.warning("Executing command '%s' from %s" % (command, senderId))
             text = self.__execMessage(command)[:simbase.config.GetInt("ai-debug-length",300)]
             self.down_setMagicWordResponse(
