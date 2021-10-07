@@ -1176,7 +1176,7 @@ SpeedChatStaticTextToontown = {
     1108 : "Vamos para os Jardins da Margarida!",
     1109 : "Vamos para O Brrrgh!",
     1110 : "Vamos para a Sonholândia do Donald!",
-    1111 : "Vamos para a minha casa!",
+    1111 : "Vamos para a %s !" % lGoofySpeedway,
     1112 : "Vamos para a minha casa!",
     1113 : "Vamos para a sua casa!",
     1114 : "Vamos para o Quartel do Robô Vendedor!",
