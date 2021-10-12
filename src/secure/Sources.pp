@@ -7,8 +7,8 @@
     pandaexpress:m \
     interrogatedb \
     dtoolutil:c dtoolbase:c dtool:m \
-    prc:c
-	
+    prc:c express:c downloader:c
+
   #define WIN_SYS_LIBS Iphlpapi.lib
 
   #define USE_PACKAGES zlib net openssl
@@ -29,7 +29,7 @@
 #begin bin_target
   #define BUILD_TARGET $[HAVE_OPENSSL]
   #define OTHER_LIBS dtool:m \
-    dtoolutil:c dtoolbase:c
+    dtoolutil:c dtoolbase:c prc
 
   #define WIN_SYS_LIBS \
     advapi32.lib ws2_32.lib shell32.lib user32.lib crypt32.lib $[WIN_SYS_LIBS]

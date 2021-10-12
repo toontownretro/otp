@@ -2,7 +2,7 @@
   #define TARGET nametag
   #define LOCAL_LIBS otpbase
   #define OTHER_LIBS \
-    panda pandaexpress \
+    panda:m pandaexpress:m \
     interval:c direct:m \
     interrogatedb \
     dtoolutil:c dtoolbase:c dtool:m \
