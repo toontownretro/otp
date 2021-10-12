@@ -10,8 +10,15 @@
 
 #define BUILDING_DLL BUILDING_OTP_NAVIGATION
 
+  #define SOURCES \
+    config_navigation.h
+
+  #define COMPOSITE_SOURCES \
+    config_navigation.cxx
+
   #define INSTALL_HEADERS \
-    pathTable.h pathTable.I
+    pathTable.h pathTable.I \
+    config_navigation.h
 
   #define IGATESCAN all
   #define IGATEEXT \
