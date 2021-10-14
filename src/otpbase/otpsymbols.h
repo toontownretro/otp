@@ -10,12 +10,21 @@
 /* See dtoolsymbols.h for a rant on the purpose of this file.  */
 
 #ifdef BUILDING_OTP
+  #define BUILDING_OTP_STUB
   #define BUILDING_OTP_OTPBASE
   #define BUILDING_OTP_SETTINGS
   #define BUILDING_OTP_NAMETAG
   #define BUILDING_OTP_MOVEMENT
   #define BUILDING_OTP_SECURE
   #define BUILDING_OTP_NAVIGATION
+#endif
+
+#ifdef BUILDING_OTP_STUB
+  #define EXPCL_OTP_STUB EXPORT_CLASS
+  #define EXPTP_OTP_STUB EXPORT_TEMPL
+#else
+  #define EXPCL_OTP_STUB IMPORT_CLASS
+  #define EXPTP_OTP_STUB IMPORT_TEMPL
 #endif
 
 #ifdef BUILDING_OTP_OTPBASE

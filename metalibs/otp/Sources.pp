@@ -5,7 +5,12 @@
 // under Windows).
 
 #define DIR_TYPE metalib
+
+#if $[BUILD_COMPONENTS]
+#define BUILDING_DLL BUILDING_OTP_STUB
+#else
 #define BUILDING_DLL BUILDING_OTP
+#endif
 
 #define COMPONENT_LIBS \
    otpbase settings nametag movement secure navigation
