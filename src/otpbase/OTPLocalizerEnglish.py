@@ -2646,7 +2646,7 @@ SpeedChatStaticTextToontown = {
     30473 : "Save your gags for the Cogs inside!",
     30474 : "We have to defeat these Cogs first!",
     30475 : "Bump the barrels to get a Toon-up.",
-    30476 : "Use the Chief Justice SpeedChatMenu!",
+    30476 : "Use the Chief Justice SpeedChat Menu!",
     30477 : "Now we have to fill the jury chairs with Toons!",
     30478 : "The more Toons we get in, the easier it will be to defeat the CJ!",
     30479 : "Now we fight the Chief Justice!",
