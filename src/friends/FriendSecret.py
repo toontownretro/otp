@@ -128,7 +128,7 @@ class FriendSecretNeedsParentLogin(StateData.StateData):
                 okPos = (-0.22, 0.0, -0.5)
                 textPos = (0, 0.25)
                 okCommand = self.__handleOKWithParentAccount
-            elif base.cr.productName != "Terra-DMC":
+            elif base.cr.productName != "ES":
                 okPos = (-0.22, 0.0, -0.5)
                 textPos = (0, 0.25)
                 okCommand = self.__oldHandleOK
@@ -171,7 +171,7 @@ class FriendSecretNeedsParentLogin(StateData.StateData):
                 text_scale = 0.08)
 
             # if not foreign, make the domestic only password entry elements
-            if base.cr.productName != "Terra-DMC":
+            if base.cr.productName != "ES":
                 self.usernameLabel = DirectLabel(
                     parent = self.dialog,
                     relief = None,

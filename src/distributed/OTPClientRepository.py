@@ -2525,7 +2525,7 @@ class OTPClientRepository(ClientRepositoryBase):
         """
         assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
         return (self.secretChatAllowed or \
-               (self.productName == "Terra-DMC" and self.isBlue() and self.secretChatAllowed))
+               (self.productName == "ES" and self.isBlue() and self.secretChatAllowed))
 
     def allowWhiteListChat(self):
         if hasattr(self,'whiteListChatEnabled') and self.whiteListChatEnabled:
@@ -2553,7 +2553,7 @@ class OTPClientRepository(ClientRepositoryBase):
         """
         assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
         return ((self.isPaid() and self.secretChatNeedsParentPassword) or
-                (self.productName == "Terra-DMC" and self.isBlue() and self.secretChatNeedsParentPassword))
+                (self.productName == "ES" and self.isBlue() and self.secretChatNeedsParentPassword))
 
     def logAccountInfo(self):
         assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')

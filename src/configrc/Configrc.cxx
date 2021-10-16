@@ -283,7 +283,7 @@ static void write_const(std::ostream& os) {
   os << "product-name JP" << std::endl;
 #elif defined(USE_GERMAN)
   os << "language german" << std::endl;
-  os << "product-name T-Online" << std::endl;
+  os << "product-name DE" << std::endl;
 #elif defined(USE_PORTUGUESE)
   os << "language portuguese" << std::endl;
   os << "product-name BR" << std::endl;
