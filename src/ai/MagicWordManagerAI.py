@@ -499,7 +499,7 @@ class MagicWordManagerAI(DistributedObjectAI.DistributedObjectAI):
 
         # Strip of the "~dna" part; everything else is parameters to
         # AvatarDNA.updateToonProperties.
-        parms = string.strip(word[4:])
+        parms = word[4:].strip()
 
         # Get a copy of the avatar's current DNA.
         dna = ToonDNA.ToonDNA(av.dna.makeNetString())
