@@ -2728,8 +2728,11 @@ SpeedChatStaticTextPirates = {
     51421 : "Handsomely now, mates!",
 
     # PLACES
-    50400 : "Let's set sail.",
-    50401 : "Let's get out of here.",
+    50400 : "ここはどこだ？！",
+    50401 : "町に向かおう！",
+    50402 : "港に出向こう！",
+    50403 : "出港の準備をしよう！",
+    50404 : "バーに行こう！",
 
 
     # PLACES - LETS SAIL...
@@ -2792,16 +2795,9 @@ SpeedChatStaticTextPirates = {
     50305 : "Yer not so bad yerself!",
     50306 : "A fine plunder haul!",
 
-    # Places
-    50400 : "ここはどこだ？！",
-    50401 : "町に向かおう！",
-    50402 : "港に出向こう！",
-    50403 : "出港の準備をしよう！",
-    50404 : "バーに行こう！",
-
     # Adventures
     50500 : "Let's set sail!",
-    50501 : "Get onboard!  We're leaving port!",
+    50501 : "Get onboard! We're leaving port!",
     50502 : "Let's get to plunderin!",
     50503 : "Let's sail to Bilgewater!",
     50504 : "Let's sail to Port Royale!",

@@ -2824,6 +2824,38 @@ SpeedChatStaticTextPirates = {
     50305 : "Yer not so bad yerself!",
     50306 : "A fine plunder haul!",
 
+    # Adventures
+    50500 : "Let's set sail!",
+    50501 : "Get onboard! We're leaving port!",
+    50502 : "Let's get to plunderin!",
+    50503 : "Let's sail to Bilgewater!",
+    50504 : "Let's sail to Port Royale!",
+    50505 : "Let's use a Treasure Map!",
+    50506 : "Let's head back to Port!",
+
+    # Ships
+    50600 : "Port side! (left)",
+    50601 : "Starboard side! (right)",
+    50602 : "Incoming!",
+    50603 : "Broadside! Take cover!",
+    50604 : "Arm your cannons!",
+    50605 : "Open fire!",
+    50606 : "Hold your fire!",
+    50607 : "Aim for the masts!",
+    50608 : "Aim for the hull!",
+    50609 : "Prepare to board!",
+    50610 : "She's comin' about!",
+    50611 : "Fire a broadside!",
+    50612 : "Ramming speed!",
+    50613 : "Arrr! We're going in!",
+    50614 : "We've got her on the run!",
+    50615 : "We're taking on water!",
+    50616 : "We can't take anymore!",
+    50617 : "We need to repair!",
+    50618 : "Retreat!",
+    50619 : "Man overboard!",
+    50620 : "Avast! A dirty Navy Clipper!",
+
     # Card Games
     52400  : "May luck be my lady.",
     52401 : "I think these cards be marked!",
