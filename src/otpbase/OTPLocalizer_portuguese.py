@@ -2152,14 +2152,14 @@ SpeedChatStaticTextToontown = {
     30225 : "Atraia alegria para Toontown!\nBoas Festas!",
 
     # Phrases for Halloween
-    30250 : "Bu!",
-    30251 : "Feliz Halloween!",
-    30252 : "Assustador!",
+    30250: "Bu!",
+    30251: "Feliz Halloween!",
+    30252: "Assustador!",
 
     # Phrases for Christmas
-    30275 : "Boas-festas!",
-    30276 : "Feliz Ano-Novo!",
-    30277 : "Tenha um inverno maravilhoso!",
+    30275: "Boas-festas!",
+    30276: "Feliz Ano-Novo!",
+    30277: "Tenha um inverno maravilhoso!",
 
     # Phrases for Silly Story
     30301 : "Você viu o Medidor de Bobagens?",

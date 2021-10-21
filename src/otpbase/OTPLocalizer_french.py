@@ -1155,7 +1155,7 @@ SpeedChatStaticTextToontown = {
     1127 : "Allons au QG Chefbot !",
     1128 : "Allons combattre le Directeur !",
     1129 : "Allons sur les parcours de golf Cog !",
-    #1130 : "Let's go take over a Cogdominium!",    
+    #1130 : "Let's go take over a Cogdominium!",
     1130 : "Let's go take over a Field Office!",
 
     # Toontasks
@@ -2034,7 +2034,7 @@ SpeedChatStaticTextToontown = {
     30113 : "Pluto is in Melodyland.",
     30114 : "Donald is sleepwalking at the Speedway.",
     30115 : "Goofy is in Dreamland.",
-    
+
     30120 : "Mickey is acting like Daisy!",
     30121 : "Daisy is acting like Mickey!",
     30122 : "Minnie is acting like Pluto!",
@@ -2042,7 +2042,7 @@ SpeedChatStaticTextToontown = {
     30124 : "Pluto is talking!",
     30125 : "Goofy is acting like Donald!",
     30126 : "Donald is dreaming he is Goofy!",
-    
+
     30130 : "Watch how far I can jump.",
     30131 : "Wow, you jumped really far!",
     30132 : "Hey, Doodles can talk!",
@@ -2092,7 +2092,7 @@ SpeedChatStaticTextToontown = {
     30190 : "I'm gonna buy a whole new wardrobe!",
     30191 : "Jellybeans, please!",
     30192 : "Don't be mean, give a bean!",
-    
+
     # Phrases for caroling
     30200 : "Deck the halls... ",
     30201 : "Load some pies...",
@@ -2100,7 +2100,7 @@ SpeedChatStaticTextToontown = {
     30203 : "Snowman heads...",
     30204 : "Toontown's merry...",
     30205 : "Lure good cheer...",
-    
+
     30220 : "Deck the halls with seltzer spray!\nHappy Winter Holiday!",
     30221 : "Load some pies into your sleigh!\nHappy Winter Holiday!",
     30222 : "Joyful toons bring Cogs dismay!\nHappy Winter Holiday!",
@@ -2109,15 +2109,15 @@ SpeedChatStaticTextToontown = {
     30225 : "Lure good cheer the Toontown way!\nHappy Winter Holiday!",
 
     # Phrases for Halloween
-    30250: "Boo!",
-    30251: "Happy Halloween!",
-    30252: "Spooky!",
+    30250: "Bouh !",
+    30251: "Joyeux Halloween !",
+    30252: "Sinistre !",
 
     # Phrases for Christmas
-    30275: "Happy holidays!",
-    30276: "Season's greetings!",
-    30277: "Have a Wonderful Winter!",    
-    
+    30275: "Bon réveillon !",
+    30276: "Meilleures vœux !",
+    30277: "Have a Wonderful Winter!",
+
     # Phrases for Silly Story
     30301 : "Have you seen the Silly Meter?",
     30302 : "The Silly Meter is in Toon Hall.",
@@ -2127,7 +2127,7 @@ SpeedChatStaticTextToontown = {
     30306 : "Have you been to Flippy's new office?",
     30307 : "I caused a Silly Surge in battle!",
     30308 : "Let's defeat some Cogs to make Toontown sillier!",
-    
+
     30309 : "The Silly Meter is bigger and crazier than ever!",
     30310 : "Lots of hydrants have come alive!",
     30311 : "I saw a mail box moving!",
@@ -2137,7 +2137,7 @@ SpeedChatStaticTextToontown = {
     30315 : "Something silly, I bet!",
     30316 : "Have you caused a Silly Surge yet?",
     30317 : "Let's defeat some Cogs to make Toontown sillier!",
-    
+
     30318 : "Cog Invasion!",
     30319 : "Incoming!",
     30320 : "Let\'s stop those Cogs!",
@@ -2148,20 +2148,20 @@ SpeedChatStaticTextToontown = {
     30325 : "My favorites are the fire hydrants!",
     30326 : "My favorites are the mailboxes!",
     30327 : "My favorites are the trash cans!",
-    
+
     30328 : "Hooray! We stopped the Cog invasions!",
     30329 : "A hydrant helped me in battle!",
     30330 : "A hydrant boosted my Squirt Gags!",
     30331 : "A trash can boosted my Toon-Up Gags!",
     30332 : "A mailbox helped my Throw Gags!",
-    
+
     # Phrases for Victory Parties (warning 60400 is in use)
     30350: "Welcome to my Victory Party!",
     30351: "This is a great Victory Party!",
     30352: "We showed those Cogs who's boss!",
     30353: "Good job helping end the Cog invasions!",
     30354: "I bet this is driving the Cogs crazy!",
-    
+
     30355: "Let's play Cog-O-War!",
     30356: "My team won at Cog-O-War!",
     30357: "It's nice to have fire hydrants, trash cans, and mailboxes here!",
@@ -2223,7 +2223,7 @@ SpeedChatStaticTextToontown = {
     30483 : "When the Cogs get evidence in the scale, the CJ turns green!",
     30484 : "Something cool happens if we stun all the Cogs at once!",
     30485 : "Throw evidence at Toons to give them a Toon-up!",
-    
+
     # Phrases for Singing
 ##    9000 : 'Middle ' + 'G1',
 ##    9001 : 'Middle ' + 'A',
@@ -3040,6 +3040,7 @@ CustomSCStrings = {
     11017 : "Je n'en neige aucun doute !",
     11018 : "Jusque là, la neige est bonne !",
     11019 : "Tu vas le regretter !",
+    11020 : "Have a Wonderful Winter!",
 
     # Valentines
     12000 : "Reste avec moi !",

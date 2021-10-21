@@ -2513,13 +2513,13 @@ SpeedChatStaticTextToontown = {
     30225 : "Lure good cheer the Toontown way!\nHappy Winter Holiday!",
 
     # Phrases for Halloween
-    30250: "Boo!",
-    30251: "Happy Halloween!",
-    30252: "Spooky!",
+    30250: "バア！",
+    30251: "ハッピー・ハロウィン！!",
+    30252: "おばけみたい！",
 
     # Phrases for Christmas
-    30275: "Happy holidays!",
-    30276: "Season's greetings!",
+    30275: "よい休日を！!",
+    30276: "いい季節だね！",
     30277: "Have a Wonderful Winter!",    
     
     # Phrases for Silly Story
