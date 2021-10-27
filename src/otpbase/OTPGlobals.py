@@ -115,6 +115,7 @@ CEInvisible = 11
 CEPumpkin = 12
 CEBigWhite = 13
 CESnowMan = 14
+CEGreenToon = 15
 # This one is not really a cheesy effect, but it is implemented by the
 # cheesy effect system.  It's a string rather than a number to ensure
 # that no one cheats and asks for this via the cheesy effect

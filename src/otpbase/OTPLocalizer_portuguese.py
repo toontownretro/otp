@@ -2571,7 +2571,7 @@ SpeedChatStaticTextPirates = {
     52900 : "",
 
     # Adventures (LEGACY)
-    50500 "",
+    50500 : "",
 
     # Ships (LEGACY)
     50600 : "",
