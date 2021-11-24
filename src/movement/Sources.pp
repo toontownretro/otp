@@ -3,7 +3,7 @@
   #define LOCAL_LIBS \
     otpbase
   #define OTHER_LIBS \
-    panda:m downloader:c express:c pandabase:c recorder:c \
+    panda:m downloader:c express:c  recorder:c \
     pgraph:c pgraphnodes:c pipeline:c grutil:c anim:c pstatclient:c \
     collide:c cull:c device:c dgraph:c display:c \
     event:c gobj:c gsgbase:c linmath:c mathutil:c parametrics:c \

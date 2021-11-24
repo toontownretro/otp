@@ -18,11 +18,11 @@
 #define OTHER_LIBS direct:m panda:m pandaexpress:m dtool:m \
     express:c prc event:c pgraph:c pgraphnodes:c linmath:c gobj:c \
     anim:c putil:c mathutil:c downloader:c mathutil:c \
-    pandabase:c recorder:c grutil:c collide:c device:c \
+    recorder:c grutil:c collide:c device:c \
     dgraph:c display:c gsgbase:c parametrics:c text:c pnmimage:c \
     dtoolutil:c interrogatedb interval:c dtoolbase:c \
     pipeline:c pstatclient:c cull:c pnmimagetypes:c \
-    tform:c audio:c pgui:c directbase:c dcparser:c showbase:c \
+    tform:c audio:c pgui:c dcparser:c showbase:c \
     deadrec:c distributed:c motiontrail:c movies:c \
     $[if $[HAVE_NET],net:c] $[if $[WANT_NATIVE_NET],nativenet:c]
 
