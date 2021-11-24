@@ -6,7 +6,7 @@ config = getConfigShowbase()
 
 username = config.GetString("mysql-user")
 password = config.GetString("mysql-passwd")
-dbSalt = config.GetString("dev-branch-flavor","")
+dbSalt = ConfigVariableString("dev-branch-flavor","").getValue()
 if dbSalt:
     dbSalt = dbSalt + '_'
     pass

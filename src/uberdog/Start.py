@@ -32,16 +32,16 @@ from otp.uberdog.UberDogGlobal import *
 from otp.uberdog.UberDog import UberDog
 from direct.showbase.PythonUtil import *
 
-uber.mdip = uber.config.GetString("msg-director-ip", "localhost")
+uber.mdip = ConfigVariableString("msg-director-ip", "localhost").getValue()
 
-uber.mdport = uber.config.GetInt("msg-director-port", 6666)
+uber.mdport = ConfigVariableInt("msg-director-port", 6666).getValue()
 
-uber.esip = uber.config.GetString("event-server-ip", "localhost")
-uber.esport = uber.config.GetInt("event-server-port", 4343)
+uber.esip = ConfigVariableString("event-server-ip", "localhost").getValue()
+uber.esport = ConfigVariableInt("event-server-port", 4343).getValue()
 
-serverId = uber.config.GetInt("district-ssid", 20100000)
-uberDogMinChannel = uber.config.GetInt("uberdog-min-channel", 200400000)
-uberDogMaxChannel = uber.config.GetInt("uberdog-max-channel", 200449999)
+serverId = ConfigVariableInt("district-ssid", 20100000).getValue()
+uberDogMinChannel = ConfigVariableInt("uberdog-min-channel", 200400000).getValue()
+uberDogMaxChannel = ConfigVariableInt("uberdog-max-channel", 200449999).getValue()
 
 uber.air = UberDog(
         uber.mdip,
@@ -63,5 +63,3 @@ except:
     info = describeException()
     uber.air.writeServerEvent('uberdog-exception', 1, info)
     raise
-
-

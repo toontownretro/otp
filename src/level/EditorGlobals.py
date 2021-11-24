@@ -1,6 +1,7 @@
 """EditorGlobals module: contains global editor data"""
 
 from direct.showbase.PythonUtil import uniqueElements
+from otp.otpbase.OTPModules import *
 
 # levels should put themselves into the bboard under this posting
 # to assert themselves as the level to be edited by ~edit
@@ -25,7 +26,7 @@ assert uniqueElements(list(username2entIdBase.values()))
 
 usernameConfigVar = 'level-edit-username'
 undefinedUsername = 'UNDEFINED_USERNAME'
-editUsername = config.GetString(usernameConfigVar, undefinedUsername)
+editUsername = ConfigVariableString(usernameConfigVar, undefinedUsername).getValue()
 
 # call this to make sure things have been set up correctly
 def checkNotReadyToEdit():

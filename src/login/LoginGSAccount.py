@@ -69,10 +69,10 @@ class LoginGSAccount(LoginBase.LoginBase):
         Send a message to the server with our loginName
         """
 
-        DISLID = config.GetInt('fake-DISL-PlayerAccountId',0)
+        DISLID = ConfigVariableInt('fake-DISL-PlayerAccountId',0).getValue()
         if not DISLID:
             NameStringId = ("DISLID_%s" % (self.loginName))
-            DISLID = config.GetInt(NameStringId, 0)
+            DISLID = ConfigVariableInt(NameStringId, 0).getValue()
 
         cr=self.cr
         # Time to send a login message
@@ -106,7 +106,7 @@ class LoginGSAccount(LoginBase.LoginBase):
         # And our dev fake DISL account ID
         datagram.addUint32(DISLID)
         # Whether or not to enable OTP_WHITELIST
-        datagram.addString(config.GetString('otp-whitelist',"YES"))
+        datagram.addString(ConfigVariableString('otp-whitelist',"YES").getValue())
 
         # Send the message
         cr.send(datagram)

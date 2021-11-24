@@ -75,7 +75,7 @@ class TalkAssistant(DirectObject.DirectObject):
     into onscreen thought/word balloons
     """
     notify = DirectNotifyGlobal.directNotify.newCategory("TalkAssistant")
-    execChat = base.config.GetBool("exec-chat", 0)
+    execChat = ConfigVariableBool("exec-chat", 0).getValue()
 
     def __init__(self):
         assert self.notify.debug("TalkAssistant")
@@ -87,7 +87,7 @@ class TalkAssistant(DirectObject.DirectObject):
         self.zeroTimeGame = globalClock.getRealTime()
         self.floodThreshold = 10.0
 
-        self.useWhiteListFilter = base.config.GetBool('white-list-filter-openchat', 0)
+        self.useWhiteListFilter = ConfigVariableBool('white-list-filter-openchat', 0).getValue()
 
         self.lastWhisperDoId = None
         self.lastWhisperPlayerId = None

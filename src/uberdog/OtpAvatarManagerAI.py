@@ -2,7 +2,7 @@
 The Avatar Manager AI handles all the avatar (avatar groups) accross all districts.
 """
 
-#from cPickle import loads, dumps
+#from pickle import loads, dumps
 
 #from otp.ai.AIBaseGlobal import *
 from direct.distributed.DistributedObjectAI import DistributedObjectAI
@@ -32,6 +32,6 @@ class OtpAvatarManagerAI(DistributedObjectAI):
         assert self.notify.debugCall()
         self.notify.warning("AvatarManagerAI going offline")
         DistributedObjectAI.delete(self)
-    
+
     def online(self):
         assert self.notify.debugCall()

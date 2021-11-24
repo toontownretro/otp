@@ -42,14 +42,14 @@ class AccountServerConstants(RemoteValueSet):
 # (only used for customer service number for the US)
 
         if cr.productName == 'DisneyOnline-US':
-            if base.config.GetBool('tt-specific-login',0):
+            if ConfigVariableBool('tt-specific-login',0).getValue():
                 # the new website does not have constants.php, don't try to query it
                 pass
             else:
                 noquery = 0
 
         if (cr.accountOldAuth or
-            base.config.GetBool('default-server-constants', noquery)):
+            ConfigVariableBool('default-server-constants', noquery).getValue()):
             self.notify.debug('setting defaults, not using account server constants')
 
             # fake it; create and populate a 'dict' object
@@ -75,13 +75,13 @@ class AccountServerConstants(RemoteValueSet):
     # override the accessors so we can warn about undeclared constants
     def getBool(self, name):
         return self.__getConstant(name, RemoteValueSet.getBool)
-        
+
     def getInt(self, name):
         return self.__getConstant(name, RemoteValueSet.getInt)
-        
+
     def getFloat(self, name):
         return self.__getConstant(name, RemoteValueSet.getFloat)
-        
+
     def getString(self, name):
         return self.__getConstant(name, RemoteValueSet.getString)
 

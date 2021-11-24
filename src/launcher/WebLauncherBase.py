@@ -230,7 +230,7 @@ class WebLauncherBase(DirectObject):
 
     def getVerifyFiles(self):
         # TODO: take this out when we ship.
-        return config.GetInt('launcher-verify', 0)
+        return ConfigVariableInt('launcher-verify', 0).getValue()
 
     def getTestServerFlag(self):
         return self.getValue('IS_TEST_SERVER', 0)
@@ -361,7 +361,7 @@ class WebLauncherBase(DirectObject):
         is this a new installation?
         """
         result = self.getValue(self.NewInstallationKey, 1)
-        result = base.config.GetBool("new-installation", result)
+        result = ConfigVariableBool("new-installation", result).getValue()
         return result
 
     def setIsNotNewInstallation(self):

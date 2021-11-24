@@ -7,6 +7,7 @@ from . import Level
 from direct.directnotify import DirectNotifyGlobal
 from . import EntityCreatorAI
 from direct.showbase.PythonUtil import Functor, weightedChoice
+from otp.otpbase.OTPModules import *
 
 class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
                          Level.Level):
@@ -19,7 +20,7 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
         # these are required fields
         self.zoneId = zoneId
         self.entranceId = entranceId
-                      
+
         if len(avIds) <= 0 or len(avIds) > 4:
             self.notify.warning('How do we have this many avIds? avIds: %s' %avIds)
         assert len(avIds) > 0 and len(avIds) <= 4
@@ -33,17 +34,17 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
 
         if __dev__:
             self.modified = 0
-            
+
     def setLevelSpec(self, levelSpec):
         self.levelSpec = levelSpec
 
     def generate(self, levelSpec = None):
         self.notify.debug('generate')
         DistributedObjectAI.DistributedObjectAI.generate(self)
-        
+
         if levelSpec == None:
             levelSpec = self.levelSpec
-    
+
         self.initializeLevel(levelSpec)
 
         # self.zoneIds comes from LevelMgrAI
@@ -143,7 +144,7 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
             if av.getHp() <= 0:
                 av.inventory.zeroInv()
                 av.d_setInventory(av.inventory.makeNetString())
-        
+
     def requestCurrentLevelSpec(self, specHash, entTypeRegHash):
         senderId = self.air.getAvatarIdFromSender()
 
@@ -175,7 +176,7 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
         if hash(self.levelSpec) != specHash:
             self.notify.info('spec hashes do not match, sending our spec')
             spec = self.levelSpec
-            useDisk=simbase.config.GetBool('spec-by-disk', 1)
+            useDisk=ConfigVariableBool('spec-by-disk', 1).getValue()
         else:
             self.notify.info('spec hashes match, sending null spec')
             spec = None
@@ -209,8 +210,8 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
 
         # backups are made every N minutes, starting from the time that
         # the first edit is made
-        AutosavePeriod = simbase.config.GetFloat(
-            'level-autosave-period-minutes', 5)
+        AutosavePeriod = ConfigVariableDouble(
+            'level-autosave-period-minutes', 5).getValue()
 
         def scheduleAutosave(self):
             if hasattr(self, 'autosaveTask'):

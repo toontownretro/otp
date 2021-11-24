@@ -7,7 +7,7 @@ class DBInterface:
     def processDBName(cls, dbString):
         if __dev__:
             config = getConfigShowbase()
-            dbSalt = config.GetString("dev-branch-flavor","")
+            dbSalt = ConfigVariableString("dev-branch-flavor","").getValue()
             if dbSalt:
                 dbString = dbSalt + '_' + dbString
                 pass

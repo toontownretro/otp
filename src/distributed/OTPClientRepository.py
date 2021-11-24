@@ -8,7 +8,6 @@ import os
 
 
 from otp.otpbase.OTPModules import *
-from otp.otpbase.OTPModules import *
 from direct.gui.DirectGui import *
 from otp.distributed.OtpDoGlobals import *
 
@@ -90,7 +89,7 @@ class OTPClientRepository(ClientRepositoryBase):
         #      DE (Germany - German)
         #      BR (Brazil - Portuguese)
         #      FR (France - French)
-        self.productName = config.GetString('product-name', 'DisneyOnline-US')
+        self.productName = ConfigVariableString('product-name', 'DisneyOnline-US').getValue()
 
         # Derived classes should fill this in with the Python class of the
         # particular avatar type to create.  This is temporary code for
@@ -128,7 +127,7 @@ class OTPClientRepository(ClientRepositoryBase):
         if self.launcher:
             self.blue = self.launcher.getBlue()
         # Also check the Config file for testing.
-        fakeBlue = config.GetString('fake-blue', '')
+        fakeBlue = ConfigVariableString('fake-blue', '').getValue()
         if fakeBlue:
             self.blue = fakeBlue
 
@@ -139,7 +138,7 @@ class OTPClientRepository(ClientRepositoryBase):
         if self.launcher:
             self.playToken = self.launcher.getPlayToken()
         # Also check the Config file for testing.
-        fakePlayToken = config.GetString('fake-playtoken', '')
+        fakePlayToken = ConfigVariableString('fake-playtoken', '').getValue()
         if fakePlayToken:
             self.playToken = fakePlayToken
 
@@ -150,8 +149,8 @@ class OTPClientRepository(ClientRepositoryBase):
         if self.launcher:
             self.DISLToken = self.launcher.getDISLToken()
         # Also check the Config file for testing.
-        fakeDISLToken = config.GetString('fake-DISLToken', '')
-        fakeDISLPlayerName = config.GetString('fake-DISL-PlayerName','')
+        fakeDISLToken = ConfigVariableString('fake-DISLToken', '').getValue()
+        fakeDISLPlayerName = ConfigVariableString('fake-DISL-PlayerName','').getValue()
         if fakeDISLToken:
             self.DISLToken = fakeDISLToken
         elif fakeDISLPlayerName:
@@ -159,8 +158,8 @@ class OTPClientRepository(ClientRepositoryBase):
             defaultNumAvatars = 4
             defaultNumAvatarSlots = 4
             defaultNumConcur = 1
-            subCount = config.GetInt('fake-DISL-NumSubscriptions', 1)
-            playerAccountId = config.GetInt('fake-DISL-PlayerAccountId',defaultId)
+            subCount = ConfigVariableInt('fake-DISL-NumSubscriptions', 1).getValue()
+            playerAccountId = ConfigVariableInt('fake-DISL-PlayerAccountId',defaultId).getValue()
             self.DISLToken = ("ACCOUNT_NAME=%s" % fakeDISLPlayerName +
                               "&ACCOUNT_NUMBER=%s" % playerAccountId +
                               "&ACCOUNT_NAME_APPROVAL=%s" % config.GetString('fake-DISL-PlayerNameApproved','YES') +
@@ -193,7 +192,7 @@ class OTPClientRepository(ClientRepositoryBase):
 
         # Find out what kind of login we are supposed to used and let
         # us know if it's not found:
-        self.requiredLogin=config.GetString("required-login", "auto")
+        self.requiredLogin=ConfigVariableString("required-login", "auto").getValue()
         if (self.requiredLogin=="auto"):
             # Guess which login to used.
             self.notify.info("required-login auto.")
@@ -217,7 +216,7 @@ class OTPClientRepository(ClientRepositoryBase):
         self.computeValidateDownload()
 
         # Has the user provided a password to enable magic words?
-        self.wantMagicWords = base.config.GetString('want-magic-words', '')
+        self.wantMagicWords = ConfigVariableString('want-magic-words', '').getValue()
 
         # Get the HTTPClient from the Launcher, or make up a new client.
         # DummyLauncher does not have an HTTPClient
@@ -229,11 +228,11 @@ class OTPClientRepository(ClientRepositoryBase):
         # This method is also deliberately misnamed.
         self.allocateDcFile()
 
-        self.accountOldAuth = config.GetBool('account-old-auth', 0)
+        self.accountOldAuth = ConfigVariableBool('account-old-auth', 0).getValue()
         # allow toontown-account-old-auth
-        self.accountOldAuth = config.GetBool('%s-account-old-auth' % game.name,
-                                             self.accountOldAuth)
-        self.useNewTTDevLogin = base.config.GetBool('use-tt-specific-dev-login', False)
+        self.accountOldAuth = ConfigVariableBool('%s-account-old-auth' % game.name,
+                                             self.accountOldAuth).getValue()
+        self.useNewTTDevLogin = ConfigVariableBool('use-tt-specific-dev-login', False).getValue()
         # create a global login/account server interface
         if self.useNewTTDevLogin:
             self.loginInterface = LoginTTSpecificDevAccount.LoginTTSpecificDevAccount(self)
@@ -255,17 +254,17 @@ class OTPClientRepository(ClientRepositoryBase):
             self.notify.info("loginInterface: LoginTTAccount")
 
         # This value comes in from the server
-        self.secretChatAllowed = base.config.GetBool("allow-secret-chat", 0)
-        self.openChatAllowed = base.config.GetBool("allow-open-chat", 0)
+        self.secretChatAllowed = ConfigVariableBool("allow-secret-chat", 0).getValue()
+        self.openChatAllowed = ConfigVariableBool("allow-open-chat", 0).getValue()
 
         # This value comes in from the webAcctParams
         self.secretChatNeedsParentPassword = (
-            base.config.GetBool("secret-chat-needs-parent-password", 0)
+            ConfigVariableBool("secret-chat-needs-parent-password", 0).getValue()
             or (self.launcher and self.launcher.getNeedPwForSecretKey())
             )
 
         self.parentPasswordSet = (
-            base.config.GetBool("parent-password-set", 0)
+            ConfigVariableBool("parent-password-set", 0).getValue()
             or (self.launcher and self.launcher.getParentPasswordSet()))
 
         # Is there a signature identifying the particular xrc file in
@@ -274,11 +273,11 @@ class OTPClientRepository(ClientRepositoryBase):
             # In the dev environment, the default value comes from the
             # username.
             default = 'dev-%s' % (os.getenv("USER"))
-            self.userSignature = base.config.GetString('signature', default);
+            self.userSignature = ConfigVariableString('signature', default).getValue();
 
         else:
             # In the publish environment, the default value is "none".
-            self.userSignature = base.config.GetString('signature', 'none');
+            self.userSignature = ConfigVariableString('signature', 'none').getValue();
 
         # Free time is initially unexpired.  The Login??Account object
         # will fill this in properly at log in.
@@ -301,19 +300,19 @@ class OTPClientRepository(ClientRepositoryBase):
 
         self.timeManager = None
 
-        if config.GetBool('detect-leaks', 0) or config.GetBool('client-detect-leaks', 0):
+        if ConfigVariableBool('detect-leaks', 0).getValue() or ConfigVariableBool('client-detect-leaks', 0).getValue():
             self.startLeakDetector()
 
-        if config.GetBool('detect-messenger-leaks', 0) or config.GetBool('ai-detect-messenger-leaks', 0):
+        if ConfigVariableBool('detect-messenger-leaks', 0).getValue() or ConfigVariableBool('ai-detect-messenger-leaks', 0).getValue():
             self.messengerLeakDetector = MessengerLeakDetector.MessengerLeakDetector(
                 'client messenger leak detector')
-            if config.GetBool('leak-messages', 0):
+            if ConfigVariableBool('leak-messages', 0).getValue():
                 MessengerLeakDetector._leakMessengerObject()
 
-        if config.GetBool('run-garbage-reports', 0) or config.GetBool('client-run-garbage-reports', 0):
+        if ConfigVariableBool('run-garbage-reports', 0).getValue() or ConfigVariableBool('client-run-garbage-reports', 0).getValue():
             noneValue = -1.
-            reportWait = config.GetFloat('garbage-report-wait', noneValue)
-            reportWaitScale = config.GetFloat('garbage-report-wait-scale', noneValue)
+            reportWait = ConfigVariableDouble('garbage-report-wait', noneValue).getValue()
+            reportWaitScale = ConfigVariableDouble('garbage-report-wait-scale', noneValue).getValue()
             if reportWait == noneValue:
                 reportWait = 60. * 2.
             if reportWaitScale == noneValue:
@@ -321,9 +320,9 @@ class OTPClientRepository(ClientRepositoryBase):
             self.garbageReportScheduler = GarbageReportScheduler(waitBetween=reportWait,
                                                                  waitScale=reportWaitScale)
 
-        self._proactiveLeakChecks = (config.GetBool('proactive-leak-checks', 1) and
-                                     config.GetBool('client-proactive-leak-checks', 1))
-        self._crashOnProactiveLeakDetect = config.GetBool('crash-on-proactive-leak-detect', 1)
+        self._proactiveLeakChecks = (ConfigVariableBool('proactive-leak-checks', 1).getValue() and
+                                     ConfigVariableBool('client-proactive-leak-checks', 1).getValue())
+        self._crashOnProactiveLeakDetect = ConfigVariableBool('crash-on-proactive-leak-detect', 1).getValue()
 
         self.activeDistrictMap = {}
 
@@ -530,8 +529,8 @@ class OTPClientRepository(ClientRepositoryBase):
         self.playGame = playGame(self.gameFSM, self.gameDoneEvent)
         self.shardInterestHandle = None
         self.uberZoneInterest = None
-        self.wantSwitchboard = config.GetBool('want-switchboard',0)
-        self.wantSwitchboardHacks = base.config.GetBool('want-switchboard-hacks',0)
+        self.wantSwitchboard = ConfigVariableBool('want-switchboard',0).getValue()
+        self.wantSwitchboardHacks = ConfigVariableBool('want-switchboard-hacks',0).getValue()
 
         # Used for moderation of report-a-player feature
         self.centralLogger = self.generateGlobalObject(
@@ -541,7 +540,7 @@ class OTPClientRepository(ClientRepositoryBase):
     def startLeakDetector(self):
         if hasattr(self, 'leakDetector'):
             return False
-        firstCheckDelay = config.GetFloat('leak-detector-first-check-delay', 2 * 60.)
+        firstCheckDelay = ConfigVariableDouble('leak-detector-first-check-delay', 2 * 60.).getValue()
         self.leakDetector = ContainerLeakDetector(
             'client container leak detector', firstCheckDelay = firstCheckDelay)
         self.objectTypesLeakDetector = LeakDetectors.ObjectTypesLeakDetector()
@@ -704,7 +703,7 @@ class OTPClientRepository(ClientRepositoryBase):
 
         # is this a new installation?
         newInstall = launcher.getIsNewInstallation()
-        newInstall = base.config.GetBool("new-installation", newInstall)
+        newInstall = ConfigVariableBool("new-installation", newInstall).getValue()
 
         self.loginFSM.request("login")
 
@@ -981,7 +980,7 @@ class OTPClientRepository(ClientRepositoryBase):
     def waitForGetGameListResponse(self):
         assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
         if self.isGameListCorrect():
-            if base.config.GetBool('game-server-tests', 0):
+            if ConfigVariableBool('game-server-tests', 0).getValue():
                 # kick off a game server test suite
                 from otp.distributed import GameServerTestSuite
                 GameServerTestSuite.GameServerTestSuite(self)
@@ -1739,7 +1738,7 @@ class OTPClientRepository(ClientRepositoryBase):
                     # the user go ahead and exit / logout without submitting a bug.
                     logFunc = self.notify.warning
                     allowExit = False
-            if base.config.GetBool("direct-gui-edit", 0):
+            if ConfigVariableBool("direct-gui-edit", 0).getValue():
                 logFunc("There are leaks: %s tasks, %s events, %s ivals, %s garbage cycles\nLeaked Events may be due to direct gui editing" %
                         (leakedTasks, leakedEvents, leakedIvals, leakedGarbage))
             else:
@@ -2324,7 +2323,7 @@ class OTPClientRepository(ClientRepositoryBase):
             # No tutorial question... go play the game!
             self.gameFSM.request("playGame", [hoodId, zoneId, avId])
         else:
-            if base.config.GetBool('force-tutorial', 1):
+            if ConfigVariableBool('force-tutorial', 1).getValue():
                 # By default, we ask the tutorial question, unless it
                 # is DConfig'ed off.
                 # or they clicked on skip tutorial
@@ -2433,9 +2432,9 @@ class OTPClientRepository(ClientRepositoryBase):
 
         # check for the config overrides
         # if true, free-time-expired takes precedence over unlimited-free-time
-        if base.config.GetBool("free-time-expired", 0):
+        if ConfigVariableBool("free-time-expired", 0).getValue():
             return 1
-        if base.config.GetBool("unlimited-free-time", 0):
+        if ConfigVariableBool("unlimited-free-time", 0).getValue():
             return 0
 
         # -1 == never expires (paid/exempt)
@@ -2493,7 +2492,7 @@ class OTPClientRepository(ClientRepositoryBase):
              Returns OTPGlobals.AccessUnknown, OTPGlobals.VelvetRope, or OTPGlobals.Full
         """
         assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
-        paidStatus = base.config.GetString('force-paid-status', '')
+        paidStatus = ConfigVariableString('force-paid-status', '').getValue()
         if not paidStatus:
             return self.__isPaid
         elif paidStatus == 'paid':
@@ -2515,7 +2514,7 @@ class OTPClientRepository(ClientRepositoryBase):
     def allowFreeNames(self):
         assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
         # Do we allow free trialers to name their toon?
-        return base.config.GetInt("allow-free-names", 1)
+        return ConfigVariableInt("allow-free-names", 1).getValue()
 
     def allowSecretChat(self):
         """

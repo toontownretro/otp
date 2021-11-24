@@ -5,7 +5,6 @@ from direct.gui.DirectGui import *
 from direct.showbase.PythonUtil import *
 from direct.interval.IntervalGlobal import *
 from direct.showbase.InputStateGlobal import inputState
-from otp.otpbase.OTPModules import *
 
 from . import Avatar
 from direct.controls import ControlManager
@@ -39,17 +38,17 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar,
     """
     notify = DirectNotifyGlobal.directNotify.newCategory("LocalAvatar")
 
-    wantDevCameraPositions = base.config.GetBool('want-dev-camera-positions', 0)
-    wantMouse = base.config.GetBool('want-mouse', 0)
+    wantDevCameraPositions = ConfigVariableBool('want-dev-camera-positions', 0).getValue()
+    wantMouse = ConfigVariableBool('want-mouse', 0).getValue()
 
-    sleepTimeout = base.config.GetInt('sleep-timeout', 120)
-    swimTimeout = base.config.GetInt('afk-timeout', 600)
+    sleepTimeout = ConfigVariableInt('sleep-timeout', 120).getValue()
+    swimTimeout = ConfigVariableInt('afk-timeout', 600).getValue()
 
-    __enableMarkerPlacement = base.config.GetBool('place-markers', 0)
+    __enableMarkerPlacement = ConfigVariableBool('place-markers', 0).getValue()
 
-    acceptingNewFriends = base.config.GetBool('accepting-new-friends', 1)
+    acceptingNewFriends = ConfigVariableBool('accepting-new-friends', 1).getValue()
 
-    acceptingNonFriendWhispers = base.config.GetBool('accepting-non-friend-whispers', 0)
+    acceptingNonFriendWhispers = ConfigVariableBool('accepting-non-friend-whispers', 0).getValue()
 
     # special methods
     def __init__(self, cr, chatMgr, talkAssistant = None, passMessagesThrough = False):
@@ -119,7 +118,7 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar,
         self.soundWalk = None
 
         if __debug__:
-            if base.config.GetBool('want-dev-walker', 1):
+            if ConfigVariableBool('want-dev-walker', 1).getValue():
                 self.accept('f4', self.useDevControls)
                 self.accept('f4-up', self.useWalkControls)
 

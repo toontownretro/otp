@@ -11,6 +11,8 @@ from otp.otpbase import OTPGlobals
 from otp.otpbase.OTPModules import BitMask32
 from direct.directnotify import DirectNotifyGlobal
 
+from otp.otpbase.OTPModules import *
+
 
 class NavigationManager(object):
     notify = DirectNotifyGlobal.directNotify.newCategory("NavigationManager")
@@ -145,7 +147,7 @@ class NavigationManager(object):
 
             t1 = time.time()
 
-            if config.GetBool("want-parallel-pathgen", False):
+            if ConfigVariableBool("want-parallel-pathgen", False).getValue():
 
                 numProcs = 8
                 rowsPerProc = newMesh.numNodes / numProcs
@@ -215,7 +217,7 @@ def gogogo():
     from otp.otpbase.OTPModules import Filename
     from pirates.world.LocationConstants import LocationIds
 
-    navpath = os.path.expandvars(config.GetString("navdata-path","$OTP/src/navigation/"))
+    navpath = os.path.expandvars(ConfigVariableString("navdata-path","$OTP/src/navigation/").getValue())
 
     simbase.nm = NavigationManager(navpath,
                                    {LocationIds.PORT_ROYAL_ISLAND:'port_royal'})
@@ -240,8 +242,8 @@ def randomlookups():
         #mesh.pathTableLookup(random.randint(0,mesh.numNodes-1),random.randint(0,mesh.numNodes-1))
         route = mesh.findRoute(i[0],i[1])
 
-    #for i in xrange(mesh.numNodes-1):
-    #    for j in xrange(mesh.numNodes-1):
+    #for i in range(mesh.numNodes-1):
+    #    for j in range(mesh.numNodes-1):
     #        val = mesh.pathTableLookup(j,i)
 
     t2 = time.time()

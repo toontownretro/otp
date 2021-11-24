@@ -14,7 +14,7 @@ from otp.chat import TalkAssistant
 from otp.otpbase import OTPGlobals
 
 #hack, init for client-side outgoing chat filter
-if base.config.GetBool('want-chatfilter-hacks',0):
+if ConfigVariableBool('want-chatfilter-hacks',0).getValue():
     from otp.switchboard import badwordpy
     import os
     badwordpy.init(os.environ.get('OTP')+'\\src\\switchboard\\','')
@@ -62,7 +62,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
 
             self.autoRun = 0
 
-            self.whiteListEnabled = base.config.GetBool('whitelist-chat-enabled', 1)
+            self.whiteListEnabled = ConfigVariableBool('whitelist-chat-enabled', 1).getValue()
 
 
     ### managing ActiveAvatars ###
@@ -320,8 +320,8 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
             messenger.send("magicWord", [chatString])
         else:
             # HACK for demo - Outgoing dirty word check.  NEVER RELY ON THIS.
-            if base.config.GetBool('want-chatfilter-hacks',0):
-                if base.config.GetBool('want-chatfilter-drop-offending',0):
+            if ConfigVariableBool('want-chatfilter-hacks',0).getValue():
+                if ConfigVariableBool('want-chatfilter-drop-offending',0).getValue():
                     if badwordpy.test(chatString):
                         return
                 else:

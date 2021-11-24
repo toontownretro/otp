@@ -38,12 +38,12 @@ class MagicWordManager(DistributedObject.DistributedObject):
     def doLoginMagicWords(self):
         # MPG - we probably want generic versions of these
         """
-        if base.config.GetBool('want-chat', 0):
+        if ConfigVariableBool('want-chat', 0).getValue():
             # Automatically send ~chat if want-chat is true.
             self.d_setMagicWord('~chat', base.localAvatar.doId, 0)
-        if base.config.GetBool('want-run', 0):
+        if ConfigVariableBool('want-run', 0).getValue():
             self.toggleRun()
-        if base.config.GetBool('immortal-mode', 0):
+        if ConfigVariableBool('immortal-mode', 0).getValue():
             self.d_setMagicWord('~immortal', base.localAvatar.doId, 0)
         """
         pass
@@ -229,7 +229,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
             self.toggleRun()
 
         elif wordIs("~runFaster"):
-            if(config.GetBool("want-running",1)):
+            if(ConfigVariableBool("want-running",1).getValue()):
                 args = word.split()
                 if(len(args)>1):
                     base.debugRunningMultiplier = float(args[1])
@@ -725,7 +725,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
 
     # MPG need a generic version of this
     def toggleRun(self):
-        if(config.GetBool("want-running",1)):
+        if(ConfigVariableBool("want-running",1).getValue()):
             inputState.set("debugRunning",
                            inputState.isSet("debugRunning") != True)
 

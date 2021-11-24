@@ -47,9 +47,9 @@ class ChatInputWhiteList(FSM.FSM, DirectEntry):
         wantHistory = 0
         if __dev__:
             wantHistory = 1
-        self.wantHistory = base.config.GetBool('want-chat-history', wantHistory)
+        self.wantHistory = ConfigVariableBool('want-chat-history', wantHistory).getValue()
         self.history = ['']
-        self.historySize = base.config.GetInt('chat-history-size', 10)
+        self.historySize = ConfigVariableInt('chat-history-size', 10).getValue()
         self.historyIndex = 0
 
         self.whiteList = None
@@ -202,7 +202,7 @@ class ChatInputWhiteList(FSM.FSM, DirectEntry):
         # Filter out empty string
         if text:
             self.set("")
-            if base.config.GetBool("exec-chat", 0) and (text[0] == '>'):
+            if ConfigVariableBool("exec-chat", 0).getValue() and (text[0] == '>'):
                 if text[1:]:
                     # Exec a python command
                     ext = base.talkAssistant.execMessage(text[1:])
@@ -222,7 +222,7 @@ class ChatInputWhiteList(FSM.FSM, DirectEntry):
                     localAvatar.chatMgr.deactivateChat()
 
             # If slash command, execute it instead of sending chat
-            elif base.config.GetBool("want-slash-commands", 1) and (text[0] == '/'):
+        elif ConfigVariableBool("want-slash-commands", 1).getValue() and (text[0] == '/'):
                 base.talkAssistant.executeSlashCommand(text)
             elif (localAvatar.isGM() or base.cr.wantMagicWords) and (text[0] == '`'):
                 base.talkAssistant.executeGMCommand(text)
@@ -346,7 +346,7 @@ class ChatInputWhiteList(FSM.FSM, DirectEntry):
             if text[0] == '/':
                 self.guiItem.setAcceptEnabled(True)
                 return
-            elif text[0] == '>' and base.config.GetBool("exec-chat", 0):
+            elif text[0] == '>' and ConfigVariableBool("exec-chat", 0).getValue():
                 self.guiItem.setAcceptEnabled(True)
                 return
             elif text[0] == '~' and base.cr.wantMagicWords:

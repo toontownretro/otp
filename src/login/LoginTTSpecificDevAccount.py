@@ -92,7 +92,7 @@ class LoginTTSpecificDevAccount(LoginTTAccount.LoginTTAccount):
 
         tokenString = ''
         # parse toontown access
-        access = base.config.GetString('force-paid-status', '')
+        access = ConfigVariableString('force-paid-status', '').getValue()
         if access == '':
             access = 'FULL'
         elif access == 'paid':
@@ -112,7 +112,7 @@ class LoginTTSpecificDevAccount(LoginTTAccount.LoginTTAccount):
 
         # whitelist
         wlChatEnabled = 'YES'
-        if base.config.GetString('otp-whitelist', 'YES') == 'NO':
+        if ConfigVariableString('otp-whitelist', 'YES').getValue() == 'NO':
             wlChatEnabled = 'NO'
         tokenString += 'WL_CHAT_ENABLED=%s &' % wlChatEnabled
 
@@ -130,19 +130,19 @@ class LoginTTSpecificDevAccount(LoginTTAccount.LoginTTAccount):
 
         chatCodeCreationRule = 'No'
         if cr.allowSecretChat:
-            if base.config.GetBool("secret-chat-needs-parent-password", 0):
+            if ConfigVariableBool("secret-chat-needs-parent-password", 0).getValue():
                 chatCodeCreationRule = 'PARENT'
             else:
                 chatCodeCreationRule = 'YES'
         tokenString += 'CHAT_CODE_CREATION_RULE=%s&' % chatCodeCreationRule
 
         # at this point we don't know the account number
-        DISLID = config.GetInt('fake-DISL-PlayerAccountId',0)
+        DISLID = ConfigVariableInt('fake-DISL-PlayerAccountId',0).getValue()
         if not DISLID:
             NameStringId = ("DISLID_%s" % (self.loginName))
-            DISLID = config.GetInt(NameStringId, 0)
+            DISLID = ConfigVariableInt(NameStringId, 0).getValue()
 
-        tokenString += 'ACCOUNT_NUMBER=%d&' % DISLID # base.config.GetInt('new-account-number',100000002)
+        tokenString += 'ACCOUNT_NUMBER=%d&' % DISLID # ConfigVariableInt('new-account-number',100000002).getValue()
 
         # we do know username
         tokenString += 'ACCOUNT_NAME=%s&' % self.loginName
@@ -156,7 +156,7 @@ class LoginTTSpecificDevAccount(LoginTTAccount.LoginTTAccount):
         # assume us for now
         tokenString += 'Deployment=US&'
         # flag if it's an account with a parent account
-        withParentAccount = base.config.GetBool('dev-with-parent-account',0)
+        withParentAccount = ConfigVariableBool('dev-with-parent-account',0).getValue()
         if withParentAccount:
             tokenString += 'TOON_ACCOUNT_TYPE=WITH_PARENT_ACCOUNT&'
         else:
@@ -164,7 +164,7 @@ class LoginTTSpecificDevAccount(LoginTTAccount.LoginTTAccount):
         #and it need valid=true at the end
         tokenString += 'valid=true'
 
-        #tokenString = base.config.GetString('faketoken','')
+        #tokenString = ConfigVariableString('faketoken','').getValue()
 
         self.notify.info("tokenString=\n%s" % tokenString)
 
@@ -197,7 +197,7 @@ class LoginTTSpecificDevAccount(LoginTTAccount.LoginTTAccount):
         datagram.addUint32(4)
 
         # privilege string
-        magicWords = base.config.GetString('want-magic-words','')
+        magicWords = ConfigVariableString('want-magic-words','').getValue()
         datagram.addString(magicWords)
 
 
@@ -227,7 +227,7 @@ class LoginTTSpecificDevAccount(LoginTTAccount.LoginTTAccount):
 ##         # And our dev fake DISL account ID
 ##         datagram.addUint32(DISLID)
 ##         # Whether or not to enable OTP_WHITELIST
-##         datagram.addString(config.GetString('otp-whitelist',"YES"))
+##         datagram.addString(ConfigVariableString('otp-whitelist',"YES").getValue())
 
 
         # Send the message

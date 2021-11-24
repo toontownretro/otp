@@ -246,7 +246,7 @@ class AreaMapper(object):
 
 ##         self.pointVis = GeomLinestrips(Geom.UHStatic)
 
-##         for i in xrange(numVerts/4):
+##         for i in range(numVerts/4):
 ##             self.pointVis.addVertex(i*4)
 ##             self.pointVis.addVertex(i*4+1)
 ##             self.pointVis.addVertex(i*4+2)
@@ -352,7 +352,7 @@ class AreaMapper(object):
 ##         return count
 
 ##     def killCruft(self):
-##         for i in xrange(len(self.squares)):
+##         for i in range(len(self.squares)):
 ##             s = self.squares[i]
 ##             if (s[0] == s[2]) and (s[1] == s[3]):
 ##                 x = s[0]

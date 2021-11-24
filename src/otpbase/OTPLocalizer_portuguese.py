@@ -1195,7 +1195,7 @@ SpeedChatStaticTextToontown = {
     1127 : "Vamos para o Quartel do Robô Chefe!",
     1128 : "Vamos lutar com o Presidente!",
     1129 : "Vamos para o Campo de Golfe Cog!",
-    #1130 : "Let's go take over a Cogdominium!",    
+    #1130 : "Let's go take over a Cogdominium!",
     1130 : "Let's go take over a Field Office!",
 
     # Toontasks
@@ -1590,14 +1590,14 @@ SpeedChatStaticTextToontown = {
     5100 : "Vamos para o Três da Frente.",
     5101 : "Vamos para o Seis do Meio.",
     5102 : "Vamos para o Nove dos Fundos.",
-    5103 : "Vamos para a Batalha do C.E.O.",
-    5104 : "Vamos para a Batalha do Robô Vendedor.",
+    5103 : "Vamos para a Batalha do Presidente.",
+    5104 : "Vamos para a Batalha do V. P. Sênior.",
     5105 : "Vamos para a Entrada da Frente.",
     5106 : "Vamos para a Entrada dos Fundos.",
     5107 : "Vamos para a Casa da Moeda.",
     5108 : "Vamos para a Casa da Moeda de Dólar.",
     5109 : "Vamos para a Casa da Moeda de Barras de Ouro.",
-    5110 : "Vamos para a Batalha do C.F.O.",
+    5110 : "Vamos para a Batalha do Diretor Financeiro.",
     5111 : "Vamos para a Batalha do Juiz-Chefe.",
     5112 : "Vamos para o Escritório da Lei A.",
     5113 : "Vamos para o Escritório da Lei B.",
@@ -1608,14 +1608,14 @@ SpeedChatStaticTextToontown = {
     5200 : "Estamos indo para o Três da Frente.",
     5201 : "Estamos indo para o Seis do Meio.",
     5202 : "Estamos indo para o Nove dos Fundos.",
-    5203 : "Estamos indo para a Batalha do C.E.O .",
-    5204 : "Estamos indo para a Batalha do Robô Vendedor.",
+    5203 : "Estamos indo para a Batalha do Presidente.",
+    5204 : "Estamos indo para a Batalha do V. P. Sênior.",
     5205 : "Estamos indo para a Entrada da Frente.",
     5206 : "Estamos indo para a Entrada dos Fundos.",
     5207 : "Estamos indo para a Casa da Moeda.",
     5208 : "Estamos indo para a Casa da Moeda de Dólar.",
     5209 : "Estamos indo para a Casa da Moeda de Barras de Ouro.",
-    5210 : "Estamos indo para a Batalha do C.F.O .",
+    5210 : "Estamos indo para a Batalha do Diretor Financeiro.",
     5211 : "Estamos indo para a Batalha do Juiz-Chefe.",
     5212 : "Estamos indo para o Escritório da Lei A.",
     5213 : "Estamos indo para o Escritório da Lei B.",
@@ -2266,7 +2266,7 @@ SpeedChatStaticTextToontown = {
     30483 : "When the Cogs get evidence in the scale, the CJ turns green!",
     30484 : "Something cool happens if we stun all the Cogs at once!",
     30485 : "Throw evidence at Toons to give them a Toon-up!",
-    
+
     # Phrases for Singing
 ##    9000 : 'Middle ' + 'G1',
 ##    9001 : 'Middle ' + 'A',
@@ -3120,6 +3120,11 @@ CustomSCStrings = {
     12014 : "Batatinha quando nasce...",
     12015 : "Esparrama pelo chão...",
     12016 : "Que gracinha!",
+    12050 : "EU AMO acabar com Cogs!",
+    12051 : "Você é um estouro!",
+    12052 : "Só tenho olhos para você!",
+    12053 : "Você é mais doce do que uma bala!",
+    12054 : "Eu ADORARIA ter você em minha Festa Dia dos namorados!",
 
     # St. Patricks Day
     13000 : "Tenho você no coração!",
@@ -3384,28 +3389,28 @@ BoardingMenuSections = [
 ]
 
 SellbotNerfMenuSections = [
- -1, 
- 'REUNINDO', 
+ -1,
+ 'REUNINDO',
  'TORRES/VP Robô Vendedor',
 ]
 
 LawbotNerfMenuSections = [
- -1, 
+ -1,
  'REUNINDO',
  'COURTHOUSE/CJ',
 ]
 
 JellybeanJamMenuSections = [
- 'OBTER BALINHAS', 
+ 'OBTER BALINHAS',
  'GASTAR BALINHAS',
 # 'GRUPOS DE BALINHAS',
 ]
 
 WinterMenuSections = [
- 'CANÇÕES NATALINAS', 
+ 'CANÇÕES NATALINAS',
  -1,
 ]
- 
+
 HalloweenMenuSections = [
  -1
 ]

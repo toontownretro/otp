@@ -2,7 +2,6 @@
 
 from otp.otpbase.OTPModules import *
 from direct.gui.DirectGui import *
-from otp.otpbase.OTPModules import *
 from direct.fsm import StateData
 from otp.otpgui import OTPDialog
 from direct.fsm import ClassicFSM

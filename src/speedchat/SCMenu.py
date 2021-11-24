@@ -17,14 +17,14 @@ class SCMenu(SCObject, NodePath):
     # active menu member when the mouse rolls over the new member.
     # Set to zero to disable this behavior.
     config = getConfigShowbase()
-    SpeedChatRolloverTolerance = config.GetFloat(
-        'speedchat-rollover-tolerance', .08)
+    SpeedChatRolloverTolerance = ConfigVariableDouble(
+        'speedchat-rollover-tolerance', .08).getValue()
 
     # should we fade in the menus?
-    WantFade = config.GetBool('want-speedchat-fade', 0)
+    WantFade = ConfigVariableBool('want-speedchat-fade', 0).getValue()
 
     # How long it should take for a menu to fade in.
-    FadeDuration = config.GetFloat('speedchat-fade-duration', .2)
+    FadeDuration = ConfigVariableDouble('speedchat-fade-duration', .2).getValue()
 
     SerialNum = 0
 

@@ -6,14 +6,13 @@ from direct.directnotify import DirectNotifyGlobal
 from . import BasicEntities
 
 from otp.otpbase.OTPModules import *
-from otp.otpbase.OTPModules import *
 from direct.interval.IntervalGlobal import *
 from direct.distributed.ClockDelta import *
 
 from toontown.toonbase import ToontownGlobals
 from direct.directnotify import DirectNotifyGlobal
 from direct.fsm import ClassicFSM
-#import DistributedInteractiveEntity
+#from . import DistributedInteractiveEntity
 
 # effects #
 

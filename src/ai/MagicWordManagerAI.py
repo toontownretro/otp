@@ -14,8 +14,8 @@ from direct.task import Task
 class MagicWordManagerAI(DistributedObjectAI.DistributedObjectAI):
     notify = DirectNotifyGlobal.directNotify.newCategory("MagicWordManagerAI")
 
-    supportSuperchat = simbase.config.GetBool('support-superchat', 0)
-    supportRename = simbase.config.GetBool('support-rename', 0)
+    supportSuperchat = ConfigVariableBool('support-superchat', 0).getValue()
+    supportRename = ConfigVariableBool('support-rename', 0).getValue()
 
     # Fill in by subclass
     GameAvatarClass = None
@@ -199,7 +199,7 @@ class MagicWordManagerAI(DistributedObjectAI.DistributedObjectAI):
             # Execute an arbitrary Python command on the AI.
             command = word[3:].strip()
             self.notify.warning("Executing command '%s' from %s" % (command, senderId))
-            text = self.__execMessage(command)[:simbase.config.GetInt("ai-debug-length",300)]
+            text = self.__execMessage(command)[:ConfigVariableInt("ai-debug-length",300).getValue()]
             self.down_setMagicWordResponse(
                 senderId, text)
 

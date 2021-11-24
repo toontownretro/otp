@@ -1,7 +1,6 @@
 """TTAccount.py is for communicating with account servers"""
 
 from otp.otpbase.OTPModules import *
-from otp.otpbase.OTPModules import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase import PythonUtil
 from otp.otpbase import OTPLocalizer
@@ -13,7 +12,7 @@ accountServer = ''
 accountServer = launcher.getAccountServer()
 print("TTAccount: accountServer from launcher: ", (accountServer))
 
-configAccountServer = base.config.GetString('account-server', '')
+configAccountServer = ConfigVariableString('account-server', '').getValue()
 if configAccountServer:
     accountServer = configAccountServer
     print("TTAccount: overriding accountServer from config: ", (accountServer))

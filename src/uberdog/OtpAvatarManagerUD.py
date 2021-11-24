@@ -17,7 +17,7 @@ districts.
 # + get master family account id onto uberdog avatar manager
 #   A: I can add to the account online event
 # - allow master family account to delete any avatars
-# - Delete (move to another table?) 
+# - Delete (move to another table?)
 #    - Cleanup friends
 #    - Cleanup inventory, ships, etc (check in game)
 # - Undelete / restore
@@ -34,10 +34,11 @@ districts.
 # - handle avatar not found in game Db (and timeout condition)
 # - handle uberdog crashing: need to rediscover login state
 # - dont allow accounts without access to play
-# 
+#
 ############################################################
 
 """
+from otp.otpbase.OTPModules import *
 
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from otp.ai import AIMsgTypes
@@ -73,11 +74,11 @@ class AsyncRequestRemove(ManagedAsyncRequest):
 
         # Also let the guild system know this guy is gone
         if __dev__ and uber.air.isGuildManager:
-            uber.air.guildManager.avatarDeleted(self.avatarId)        
+            uber.air.guildManager.avatarDeleted(self.avatarId)
         self.air.sendUpdateToGlobalDoId("GuildManagerUD",
                                         "avatarDeleted",
                                         OtpDoGlobals.OTP_DO_ID_PIRATES_GUILD_MANAGER,
-                                        [self.avatarId])        
+                                        [self.avatarId])
         self.removeAvatar()
         # Resend the avatar list for security since it changed now
         self.distObj.sendAvIdList(self.accountId)
@@ -95,7 +96,7 @@ class AsyncRequestRemove(ManagedAsyncRequest):
             # looking for avatars deleted more than X days ago and then
             # really delete them from the game DB.
             # self.air.requestDeleteDoIdFromDisk(avatar.getDoId())
-            
+
             # Tell the client the remove is done
             self.distObj.sendUpdateToAccountId(self.accountId, "removeAvatarResponse", [self.avatarId, self.subId])
         except ValueError:
@@ -118,12 +119,12 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
     def __init__(self, air):
         DistributedObjectGlobalUD.__init__(self, air)
 
-        self.DBuser = uber.config.GetString("mysql-user", "ud_rw")
-        self.DBpasswd = uber.config.GetString("mysql-passwd", "r3adwr1te")
+        self.DBuser = ConfigVariableString("mysql-user", "ud_rw").getValue()
+        self.DBpasswd = ConfigVariableString("mysql-passwd", "r3adwr1te").getValue()
 
-        self.DBhost = uber.config.GetString("accountavatars-db-host", "localhost")
-        self.DBport = uber.config.GetInt("accountavatars-db-port", 3306)
-        self.DBname = uber.config.GetString("accountavatars-db-name", "avatars")
+        self.DBhost = ConfigVariableString("accountavatars-db-host", "localhost").getValue()
+        self.DBport = ConfigVariableInt("accountavatars-db-port", 3306).getValue()
+        self.DBname = ConfigVariableString("accountavatars-db-name", "avatars").getValue()
 
         self.db = MySQLAccountAvatarsDB.MySQLAccountAvatarsDB(host = self.DBhost,
                                                               port = self.DBport,
@@ -136,7 +137,7 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
         self.AsyncRequestAvatarList=None
         self.AsyncRequestCreateAvatar=None
         self.AsyncRequestRemove=AsyncRequestRemove
-        
+
         self.asyncRequests={}
 
         # Dictionary to track accountIds that are currently in the process
@@ -159,7 +160,7 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
         self.accept("avatarOffline", self.avatarOffline)
         self.sendUpdateToChannel(AIMsgTypes.CHANNEL_CLIENT_BROADCAST, "online", [])
         self.sendUpdateToChannel(AIMsgTypes.OTP_CHANNEL_AI_AND_UD_BROADCAST, "online", [])
-    
+
     def delete(self):
         self.ignoreAll()
         for i in list(self.asyncRequests.values()):
@@ -180,12 +181,12 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
         """
         priorAvatar = self.air.getAccountOnlineAvatar(accountId)
         if priorAvatar:
-            if config.GetBool('want-orphanedavatar-report', 0):
+            if ConfigVariableBool('want-orphanedavatar-report', 0).getValue():
                 assert self.notify.warning('found orphaned avatar: (%s,%s)' % (accountId, avatarId))
             self.removePriorAvatar(accountId, priorAvatar)
             pass
         pass
-    
+
     @report(types = ['args'], dConfigParam = 'orphanedavatar')
     def removePriorAvatar(self, accountId, avatarId):
         """
@@ -219,11 +220,11 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
                      openChatEnabled,createFriendsWithChat,chatCodeCreation):
         self.db.lastPlayed(avatarId, accountId)
         pass
-    
+
     @report(types = ['args'], dConfigParam = 'avatarmgr')
     def avatarOffline(self, avatarId):
         pass
-    
+
     def clearPendingAvatarCreates(self, accountId):
         subId = self.__pendingCreatesForAccount.pop(accountId, None)
         if subId:
@@ -256,7 +257,7 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
         number of avatars that this account or any family members logged in
         are currently in the process of creating.
         # NOTE: this does a DB query, so only call sparingly
-        """        
+        """
         # How many avatars has the family already created on disk?
         numCreated = len(self.db.getAvatarIdsForSubscription(subId))
         numPending = self.getNumAvatarsPendingCreate(subId)
@@ -264,7 +265,7 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
         return (numCreated + numPending)
 
     #----------------------------------
-    
+
     @report(types = ['args'], dConfigParam = 'avatarmgr')
     def requestAvatarList(self, senderId):
         accountId = senderId
@@ -317,7 +318,7 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
             avatarIds.extend([record[0] for record in avatarData])
         # The game server sniffs this message to enfore security
         self.sendUpdateToAccountId(accountId, "sendAvIdList", [avatarIds])
-        
+
     def requestRemoveAvatar(self, senderId, avatarId, subId, confirmPassword):
         replyToChannel = self.air.getSenderReturnChannel()
         accountId = senderId
@@ -347,7 +348,7 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
 
         # Rule: When using linked accounts, you can only delete avatars you created
         creatorId = creatorIds[avatarIds.index(avatarId)]
-        if simbase.config.GetBool('allow-linked-accounts', 0) and \
+        if ConfigVariableBool('allow-linked-accounts', 0).getValue() and \
            accountId != creatorId:
             self.notify.warning("accountId: %s tried to delete avatarId: %s from another creatorId: %s" %
                                 (accountId, avatarId, creatorId))
@@ -356,7 +357,7 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
             return reasonCode
 
         # TODO: allow master family account to delete any avatars
-        
+
         # TODO: check confirm password
 
         self.air.writeServerEvent('requestRemoveAvatar', avatarId, '%s|%s' % (accountId, subId))
@@ -367,16 +368,16 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
     def requestAvatarName(self, avatarName):
         avatarId = self.air.getAvatarIdFromSender()
         self.air.sendUpdateToDoId('DistributedAvatar', 'setName', avatarId, [avatarName])
-        
+
     def requestShareAvatar(self, senderId, avatarId, subId, shared):
         replyToChannel = self.air.getSenderReturnChannel()
         accountId = senderId
-        
+
         if not self.air.checkAccountId(accountId):
             reasonCode = RejectCode.INVALID_ACCOUNT
             self.sendUpdateToAccountId(accountId, "rejectShareAvatar", [reasonCode])
             return reasonCode
-        
+
         # You can only toggle the shared flag on avatars you created
         # TODO: allow master family account to toggle any avatars
         avatarRecords = self.db.getAvatarIdsForSubscription(subId)
@@ -389,7 +390,7 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
             reasonCode = RejectCode.NOT_YOUR_AVATAR
             self.sendUpdateToAccountId(accountId, "rejectShareAvatar", [reasonCode])
             return reasonCode
-        
+
         # Rule: You can only share avatars you created
         creatorId = creatorIds[avatarIds.index(avatarId)]
         if accountId != creatorId:
@@ -398,7 +399,7 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
             reasonCode = RejectCode.NOT_YOUR_AVATAR
             self.sendUpdateToAccountId(accountId, "rejectShareAvatar", [reasonCode])
             return reasonCode
-        
+
         self.air.writeServerEvent('requestShareAvatar', avatarId,
                                   '%s|%s|%s' % (accountId, subId, shared))
 
@@ -409,7 +410,7 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
     def requestAvatarSlot(self, senderId, subId, slot):
         replyToChannel = self.air.getSenderReturnChannel()
         accountId = senderId
-            
+
         if not self.air.checkAccountId(accountId):
             reasonCode = RejectCode.INVALID_ACCOUNT
             self.sendUpdateToAccountId(accountId, "rejectAvatarSlot", [reasonCode, subId, slot])
@@ -427,7 +428,7 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
             oldNumPending = self.__pendingCreatesForSubscription.get(oldSubId, 0)
             if oldNumPending > 0:
                 self.__pendingCreatesForSubscription[oldSubId] -= 1
-        
+
         # Make sure the family has not exceeded max num avatars
         totalNumAvatars = self.getNumAvatarsCreatedOrPending(subId)
         maxNumAvatars = self.getMaxNumAvatars(accountId, subId)
@@ -479,11 +480,11 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
             self.sendUpdateToAccountId(accountId, "rejectPlayAvatar", [reasonCode, avatarId])
             return reasonCode
 
-        
+
         # Ok, you can play this avatar.
         # First let's remove-from-ram if the avatar is somehow still out there
         self.air.requestDeleteDoId(avatarId)
-        
+
         # Let's go ahead and mark this avatar as online since we are expecting him soon.
         self.sendUpdateToAccountId(accountId, "playAvatarResponse",
                                   [avatarId, subDetails.subId, subDetails.subAccess, subDetails.subFounder])
@@ -504,4 +505,3 @@ class OtpAvatarManagerUD(DistributedObjectGlobalUD):
         else:
             self.notify.warning("getMaxNumAvatarSlots: account is not online")
             return 0
-

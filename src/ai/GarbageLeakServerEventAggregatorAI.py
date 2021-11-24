@@ -1,11 +1,12 @@
 from direct.showbase.DirectObject import DirectObject
 from direct.showbase import GarbageReport
+from otp.otpbase.OTPModules import *
 
 class GarbageLeakServerEventAggregatorAI(DirectObject):
     ClientLeakEvent = 'LeakAggregator-ClientGarbageLeakReceived'
     def __init__(self, air):
         self.air = air
-        self._eventFreq = config.GetFloat('garbage-leak-server-event-frequency', 60 * 60.)
+        self._eventFreq = ConfigVariableDouble('garbage-leak-server-event-frequency', 60 * 60.).getValue()
         self._doLaterName = None
         self._sentLeakDesc2num = {}
         self._curLeakDesc2num = {}
@@ -46,7 +47,7 @@ class GarbageLeakServerEventAggregatorAI(DirectObject):
     def _stopSending(self):
         self.removeTask(self._doLaterName)
         self._doLaterName = None
-        
+
     def _sendLeaks(self, task=None):
         # only send the number of occurences of each leak that
         # we haven't already sent
@@ -75,7 +76,7 @@ class GarbageLeakServerEventAggregatorAI(DirectObject):
     def _stopSendingClientLeaks(self):
         self.removeTask(self._doLaterNameClient)
         self._doLaterNameClient = None
-        
+
     def _sendClientLeaks(self, task=None):
         # only send the number of occurences of each leak that
         # we haven't already sent

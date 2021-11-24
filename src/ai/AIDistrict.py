@@ -39,7 +39,7 @@ class AIDistrict(AIRepository):
         self.setClientDatagram(0)
         assert minChannel > districtId
         if hasattr(self, 'setVerbose'):
-            if self.config.GetBool('verbose-airepository'):
+            if ConfigVariableBool('verbose-airepository', 0).getValue():
                 self.setVerbose(1)
 
         # Save the state server id
@@ -100,7 +100,7 @@ class AIDistrict(AIRepository):
 
     def incrementPopulation(self):
         self._population += 1
- 
+
     def decrementPopulation(self):
         if __dev__:
             assert self._population > 0
@@ -153,7 +153,7 @@ class AIDistrict(AIRepository):
     def enterPlayGame(self):
         self._zoneDataStore = AIZoneDataStore()
         AIRepository.enterPlayGame(self)
-        if simbase.config.GetBool('game-server-tests', 0):
+        if ConfigVariableBool('game-server-tests', 0).getValue():
             from otp.distributed import DistributedTestObjectAI
             self.testObject = DistributedTestObjectAI.DistributedTestObjectAI(self)
             self.testObject.generateOtpObject(self.getGameDoId(), 3)
@@ -200,7 +200,7 @@ class AIDistrict(AIRepository):
         return parentMgr
 
     def exitPlayGame(self):
-        if simbase.config.GetBool('game-server-tests', 0):
+        if ConfigVariableBool('game-server-tests', 0).getValue():
             self.testObject.requestDelete()
             del self.testObject
         self._zoneDataStore.destroy()

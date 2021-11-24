@@ -8,7 +8,9 @@ from direct.directnotify.DirectNotifyGlobal import directNotify
 
 from otp.friends.AvatarFriendInfo import AvatarFriendInfo
 
-       
+from otp.otpbase.OTPModules import *
+
+
 class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
     """
     The Avatar Friends Manager is a global object.
@@ -27,12 +29,12 @@ class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
         assert self.notify.debugCall()
         DistributedObjectGlobalUD.__init__(self, air)
 
-        self.DBuser = uber.config.GetString("mysql-user", "ud_rw")
-        self.DBpasswd = uber.config.GetString("mysql-passwd", "r3adwr1te")
+        self.DBuser = ConfigVariableString("mysql-user", "ud_rw").getValue()
+        self.DBpasswd = ConfigVariableString("mysql-passwd", "r3adwr1te").getValue()
 
-        self.DBhost = uber.config.GetString("avatarfriends-db-host","localhost")
-        self.DBport = uber.config.GetInt("avatarfriends-db-port",3306)
-        self.DBname = uber.config.GetString("avatarfriends-db-name","avatar_friends")
+        self.DBhost = ConfigVariableString("avatarfriends-db-host","localhost").getValue()
+        self.DBport = ConfigVariableInt("avatarfriends-db-port",3306).getValue()
+        self.DBname = ConfigVariableString("avatarfriends-db-name","avatar_friends").getValue()
 
         from otp.friends.AvatarFriendsDB import AvatarFriendsDB
         self.db = AvatarFriendsDB(host=self.DBhost,
@@ -50,7 +52,7 @@ class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
         self.asyncRequests = {}
         self.isAvatarOnline = {}
 
-    
+
     def announceGenerate(self):
         assert self.notify.debugCall()
         #self.accept("avatarOnline", self.avatarOnline, [])
@@ -74,7 +76,7 @@ class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
 
     def avatarOnlinePlusAccountInfo(self,avatarId,accountId,playerName,
                                     playerNameApproved,openChatEnabled,
-                                    createFriendsWithChat,chatCodeCreation):    
+                                    createFriendsWithChat,chatCodeCreation):
         assert self.notify.debugCall()
         assert avatarId
 
@@ -93,7 +95,7 @@ class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
             # Get my friends list from the SQL DB
             friends = self.db.getFriends(avatarId)
             self.avatarId2FriendsList[avatarId]=friends
-            
+
             if not hasattr(friends, "keys"): #check for error
                 self.notify.warning("self.db.getFriends(avatarId) has no keys %s" % (friends))
                 return
@@ -137,7 +139,7 @@ class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
             dclassName="DistributedAvatarUD"
             self.air.contextToClassName[context]=dclassName
             self.acceptOnce(
-                "doFieldResponse-%s"%(context,), 
+                "doFieldResponse-%s"%(context,),
                 setName, [avatarId, self.avatarId2Info, list(friends.keys())])
             self.air.queryObjectField(
                 dclassName, "setName", avatarId, context)
@@ -171,7 +173,7 @@ class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
 
         if avatarId in self.avatarId2Info:
             self.avatarId2Info[avatarId].onlineYesNo = 0
-        
+
         if avatarId:
             friendsList = self.avatarId2FriendsList.get(avatarId, None)
             if friendsList is not None and avatarId in self.avatarId2Info:
@@ -200,17 +202,17 @@ class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
             otherAvatarId, [])
         friendsList = self.avatarId2FriendsList.get(avatarId)
         otherFriendsList = self.avatarId2FriendsList.get(otherAvatarId)
-        
+
         def reject(reason):
             self.sendUpdateToAvatarId(
                 avatarId, "rejectInvite", [otherAvatarId, reason])
-                
-        
+
+
         #clear unvitations
         unvitations = self.avatarId2Unvitations.setdefault(avatarId, [])
         if otherAvatarId in unvitations:
             unvitations.remove(otherAvatarId)
-            
+
         if friendsList is None:
             reject(RejectCode.FRIENDS_LIST_NOT_HANDY)
         elif otherFriendsList is None:
@@ -273,7 +275,7 @@ class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
         Call this function if you want to retract an invitation you've
         made, or to decline an invitation from otherAvatarId, or to
         remove an existing friend from your friends list.
-        
+
         otherAvatarId may be online or offline.
         """
         avatarId = self.air.getAvatarIdFromSender()
@@ -283,13 +285,13 @@ class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
         if friendsList is None:
             friendsList = self.db.getFriends(avatarId)
             self.avatarId2FriendsList[avatarId] = friendsList
-        
+
         assert self.notify.debugCall("avatarId:%s"%(avatarId,))
-        
+
         def reject(reason):
             self.sendUpdateToAvatarId(
                 avatarId, "rejectRemove", [otherAvatarId, reason])
-        
+
         invitations = self.avatarId2Invitations.setdefault(avatarId, [])
         if otherAvatarId in invitations:
             # The other avatar was only invited and had not yet accepted
@@ -326,7 +328,7 @@ class AvatarFriendsManagerUD(DistributedObjectGlobalUD):
             self.db.removeFriendship(avatarId,otherAvatarId)
             self.sendUpdateToAvatarId(avatarId,"removeAvatarFriend",[otherAvatarId])
             self.sendUpdateToAvatarId(otherAvatarId,"removeAvatarFriend",[avatarId])
-    
+
 
     def updateAvatarName(self, avatarId, avatarName):
         if avatarId in self.avatarId2Info:

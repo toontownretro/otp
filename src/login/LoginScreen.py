@@ -755,12 +755,12 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
             self.cr.whiteListChatEnabled = 0
 
         # an example last logged in is "2009-11-09 17:51:51"
-        self.lastLoggedInStr = base.config.GetString('last-logged-in',"")
+        self.lastLoggedInStr = ConfigVariableString('last-logged-in',"").getValue()
         self.cr.lastLoggedIn = datetime.now()
         if hasattr(self.cr, 'toontownTimeManager'):
             self.cr.lastLoggedIn = self.cr.toontownTimeManager.convertStrToToontownTime(self.lastLoggedInStr)
         # developer login with a config override
-        self.cr.withParentAccount = base.config.GetBool('dev-with-parent-account',0)
+        self.cr.withParentAccount = ConfigVariableBool('dev-with-parent-account',0).getValue()
 
         self.notify.info("Login response return code %s" % (returnCode))
 

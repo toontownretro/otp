@@ -313,7 +313,7 @@ SCMenuStinky    = "DÉSAGRÉABLE"
 SCMenuPlaces    = "ENDROITS"
 SCMenuToontasks = "DÉFITOONS"
 SCMenuBattle    = "COMBAT"
-SCMenuGagShop   = "BOUTIQUE A GAGS"
+SCMenuGagShop   = "BOUTIQUE À GAGS"
 SCMenuFactory   = "USINE"
 SCMenuKartRacing   = "KARTING"
 SCMenuFactoryMeet = "RENCONTRE"
@@ -1130,7 +1130,7 @@ SpeedChatStaticTextToontown = {
     1102 : "Allons combattre les %s !" % Cogs,
     1103 : "Allons reprendre un bâtiment %s !" % Cog,
     1104 : "Allons dans l'ascenseur !",
-    1105 : "Allons à Toontown centre !",
+    1105 : "Allons à Toontown Centre !",
     1106 : "Allons aux Quais Donald !",
     1107 : "Allons au Pays musical de Minnie !",
     1108 : "Allons au Jardin de Daisy !",
@@ -1144,7 +1144,7 @@ SpeedChatStaticTextToontown = {
     1116 : "Allons dans l'usine !",
     1117 : "Allons à la pêche !",
     1118 : "Allons pêcher chez moi !",
-    1119 : "Allons au QG Caissbot [FB1] !",
+    1119 : "Allons au QG Caissbot !", # Allons au QG Caissbot [FB1] !
     1120 : "Allons combattre le Directeur Financier !",
     1121 : "Allons à la Fabrique à Sous !",
     1122 : "Allons au QG Loibot !",
@@ -1153,10 +1153,10 @@ SpeedChatStaticTextToontown = {
     1125 : "Allons chez %s !" % lOutdoorZone,
     1126 : "Allons chez %s !" % lGolfZone,
     1127 : "Allons au QG Chefbot !",
-    1128 : "Allons combattre le Directeur !",
+    1128 : "Allons combattre le Directeur Général !",
     1129 : "Allons sur les parcours de golf Cog !",
-    #1130 : "Let's go take over a Cogdominium!",
-    1130 : "Let's go take over a Field Office!",
+    #1130 : "Allons reprendre un Cogdominium !",
+    1130 : "Allons reprendre un Field Office !",
 
     # Toontasks
     1200 : "Quel défitoon dois-tu accomplir ?",
@@ -3111,14 +3111,14 @@ CustomSCStrings = {
 
     # Summer Estate Party phrases (seasonal catalog)
     14000 : "Organisons une fête !",
-    14001 : "Il est temps de s’amuser !",
-    14002 : "Le dernier dans la mare n’est qu’un Cog !",
+    14001 : "Il est temps de s'amuser !",
+    14002 : "Le dernier dans la mare n'est qu'un Cog !",
     14003 : "Entraînons nos Doudous ensemble !",
-    14004 : "Il est temps d’exercer les Doudous !",
+    14004 : "Il est temps d'exercer les Doudous !",
     14005 : "Ton Doudou est cool !",
     14006 : "Quels tours peut faire ton Doudou ?",
     14007 : "Il est temps de tirer au canon !",
-    14008 : "C’est super de tirer au canon !",
+    14008 : "C'est super de tirer au canon !",
     14009 : "Ta propriété est super !",
     14010 : "Ton jardin est cool !",
     14011 : "Ta propriété est cool !",

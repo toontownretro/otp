@@ -248,42 +248,42 @@ class LauncherBase(DirectObject):
         # Should the launcher do md5 checks on the files?
         # We should probably take this out completely when we ship
         self.VerifyFiles = self.getVerifyFiles()
-        self.setServerVersion(launcherConfig.GetString("server-version", "no_version_set"))
-        self.ServerVersionSuffix = launcherConfig.GetString("server-version-suffix", "")
+        self.setServerVersion(ConfigVariableString("server-version", "no_version_set").getValue())
+        self.ServerVersionSuffix = ConfigVariableString("server-version-suffix", "").getValue()
 
         # How many seconds should elapse between telling the user how the
         # download is progressing?
-        self.UserUpdateDelay = launcherConfig.GetFloat('launcher-user-update-delay', 0.5)
+        self.UserUpdateDelay = ConfigVariableDouble('launcher-user-update-delay', 0.5).getValue()
 
         # How much telemetry the game server subtracts out (bytes per second)
-        self.TELEMETRY_BANDWIDTH = launcherConfig.GetInt('launcher-telemetry-bandwidth', 2000)
+        self.TELEMETRY_BANDWIDTH = ConfigVariableInt('launcher-telemetry-bandwidth', 2000).getValue()
 
         # If we are above the increase threshold percentage, then we will
         # increase the bandwidth
-        self.INCREASE_THRESHOLD = launcherConfig.GetFloat('launcher-increase-threshold', 0.75)
+        self.INCREASE_THRESHOLD = ConfigVariableDouble('launcher-increase-threshold', 0.75).getValue()
 
         # If we are below the decrease threshold percentage, we will drop
         # back down to the next lower bandwidth
-        self.DECREASE_THRESHOLD = launcherConfig.GetFloat('launcher-decrease-threshold', 0.5)
+        self.DECREASE_THRESHOLD = ConfigVariableDouble('launcher-decrease-threshold', 0.5).getValue()
 
         # window length in seconds to look back when asking the
         # current byte rate
-        self.BPS_WINDOW = launcherConfig.GetFloat('launcher-bps-window', 8.0)
+        self.BPS_WINDOW = ConfigVariableDouble('launcher-bps-window', 8.0).getValue()
 
         # Should we decrease the bandwidth when the connection is not
         # going as fast as it had in the past?
-        self.DECREASE_BANDWIDTH = launcherConfig.GetBool('launcher-decrease-bandwidth', 1)
+        self.DECREASE_BANDWIDTH = ConfigVariableBool('launcher-decrease-bandwidth', 1).getValue()
 
         # What is our ceiling on downloader bandwidth?  This is mainly
         # useful for testing.  Set it to 0 to impose no ceiling.
-        self.MAX_BANDWIDTH = launcherConfig.GetInt('launcher-max-bandwidth', 0)
+        self.MAX_BANDWIDTH = ConfigVariableInt('launcher-max-bandwidth', 0).getValue()
 
         # Give Panda the same log we use
         self.nout = MultiplexStream()
         Notify.ptr().setOstreamPtr(self.nout, 0)
         self.nout.addFile(Filename(logfile))
 
-        if launcherConfig.GetBool('console-output', 0):
+        if ConfigVariableBool('console-output', 0).getValue():
             # Dupe output to the console (stderr, stdout) only if a
             # developer has asked us to via the prc file.
             self.nout.addStandardOutput()
@@ -304,7 +304,7 @@ class LauncherBase(DirectObject):
         self.notify.info("isTestServer: %s" % (self.testServerFlag))
 
         # The URL for the download server and directory.
-        downloadServerString = launcherConfig.GetString('download-server', '')
+        downloadServerString = ConfigVariableString('download-server', '').getValue()
         if downloadServerString:
             self.notify.info("Overriding downloadServer to %s." % (downloadServerString))
         else:
@@ -553,7 +553,7 @@ class LauncherBase(DirectObject):
 
     def getProductName(self):
         config = getConfigExpress()
-        productName = config.GetString('product-name', '')
+        productName = ConfigVariableString('product-name', '').getValue()
         if productName and (productName != 'DisneyOnline-US'):
             productName = "_%s" % productName
         else:
@@ -2445,7 +2445,7 @@ class LauncherBase(DirectObject):
         is this a new installation?
         """
         result = self.getValue(self.NewInstallationKey, 1)
-        result = base.config.GetBool("new-installation", result)
+        result = ConfigVariableBool("new-installation", result).getValue()
         return result
 
     def setIsNotNewInstallation(self):

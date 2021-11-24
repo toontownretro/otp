@@ -15,7 +15,7 @@ from direct.directnotify import DirectNotifyGlobal
 from otp.login import LeaveToPayDialog
 from direct.gui.DirectGui import *
 from otp.otpbase.OTPModules import *
-#from ChatInputSpeedChat import ChatInputSpeedChat
+#from toontown.chat.TTChatInputSpeedChat import TTChatInputSpeedChat
 
 # other systems can listen for these events if they
 # just want to know that a particular event happened
@@ -70,7 +70,7 @@ class ChatManager(DirectObject.DirectObject):
     into onscreen thought/word balloons
     """
     notify = DirectNotifyGlobal.directNotify.newCategory("ChatManager")
-    execChat = base.config.GetBool("exec-chat", 0)
+    execChat = ConfigVariableBool("exec-chat", 0).getValue()
 
     # special methods
     def __init__(self, cr, localAvatar):
@@ -555,7 +555,7 @@ class ChatManager(DirectObject.DirectObject):
                     'enterNormalChat', self.fsm.request,
                     ['whisperChat', [avatarName, avatarId]])
 
-        if base.cr.config.GetBool('force-typed-whisper-enabled',0):
+        if ConfigVariableBool('force-typed-whisper-enabled',0).getValue():
             self.whisperButton['state'] = 'normal'
             self.enablewhisperButton()
 

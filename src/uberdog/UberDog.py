@@ -35,7 +35,7 @@ class UberDog(AIRepository):
         self.doId2doCache={}
 
         if hasattr(self, 'setVerbose'):
-            if self.config.GetBool('verbose-uberrepository'):
+            if ConfigVariableBool('verbose-uberrepository', 0).getValue():
                 self.setVerbose(1)
 
         # The AI State machine

@@ -49,7 +49,7 @@ class AIRepository(ConnectionRepository):
     def __init__(self, mdip, mdport, esip, esport, dcFileNames, serverId, minChannel, maxChannel, dcSuffix = 'AI'):
         assert self.notify.debugStateCall(self)
         self._channels={}
-        self.AIRunningNetYield = simbase.config.GetBool('ai-running-net-yield', 0)
+        self.AIRunningNetYield = ConfigVariableBool('ai-running-net-yield', 0).getValue()
 
         self._msgBundleNames = []
 
@@ -111,19 +111,19 @@ class AIRepository(ConnectionRepository):
         assert self.maxZone >= self.minZone
         self.zoneAllocator = UniqueIdAllocator(self.minZone, self.maxZone)
 
-        if config.GetBool('detect-leaks', 0) or config.GetBool('ai-detect-leaks', 0):
+        if ConfigVariableBool('detect-leaks', 0).getValue() or ConfigVariableBool('ai-detect-leaks', 0).getValue():
             self.startLeakDetector()
 
-        if config.GetBool('detect-messenger-leaks', 0) or config.GetBool('ai-detect-messenger-leaks', 0):
+        if ConfigVariableBool('detect-messenger-leaks', 0).getValue() or ConfigVariableBool('ai-detect-messenger-leaks', 0).getValue():
             self.messengerLeakDetector = MessengerLeakDetector.MessengerLeakDetector(
                 'AI messenger leak detector')
-            if config.GetBool('leak-messages', 0):
+            if ConfigVariableBool('leak-messages', 0).getValue():
                 MessengerLeakDetector._leakMessengerObject()
 
-        if config.GetBool('run-garbage-reports', 0) or config.GetBool('ai-run-garbage-reports', 0):
+        if ConfigVariableBool('run-garbage-reports', 0).getValue() or ConfigVariableBool('ai-run-garbage-reports', 0).getValue():
             noneValue = -1.
-            reportWait = config.GetFloat('garbage-report-wait', noneValue)
-            reportWaitScale = config.GetFloat('garbage-report-wait-scale', noneValue)
+            reportWait = ConfigVariableDouble('garbage-report-wait', noneValue).getValue()
+            reportWaitScale = ConfigVariableDouble('garbage-report-wait-scale', noneValue).getValue()
             if reportWait == noneValue:
                 reportWait = None
             if reportWaitScale == noneValue:
@@ -131,9 +131,9 @@ class AIRepository(ConnectionRepository):
             self.garbageReportScheduler = GarbageReportScheduler(waitBetween=reportWait,
                                                                  waitScale=reportWaitScale)
 
-        self._proactiveLeakChecks = (config.GetBool('proactive-leak-checks', 1) and
-                                     config.GetBool('ai-proactive-leak-checks', 1))
-        self._crashOnProactiveLeakDetect = config.GetBool('crash-on-proactive-leak-detect', 1)
+        self._proactiveLeakChecks = (ConfigVariableBool('proactive-leak-checks', 1).getValue() and
+                                     ConfigVariableBool('ai-proactive-leak-checks', 1).getValue())
+        self._crashOnProactiveLeakDetect = ConfigVariableBool('crash-on-proactive-leak-detect', 1).getValue()
 
         # Give ourselves the first channel in the range
         self.ourChannel = self.allocateChannel()
@@ -152,7 +152,7 @@ class AIRepository(ConnectionRepository):
         #for generating unqiue names for non-dos, manly used for tasks
         self.keyCounter = 0
 
-        self.MaxEpockSpeed = self.config.GetFloat('ai-net-yield-epoch', 1.0/30.0)
+        self.MaxEpockSpeed = ConfigVariableDouble('ai-net-yield-epoch', 1.0/30.0).getValue()
 
         if self.AIRunningNetYield :
             taskMgr.doYield =self.taskManagerDoYieldNetwork
@@ -219,7 +219,7 @@ class AIRepository(ConnectionRepository):
     def startLeakDetector(self):
         if hasattr(self, 'leakDetector'):
             return False
-        firstCheckDelay = config.GetFloat('leak-detector-first-check-delay', -1)
+        firstCheckDelay = ConfigVariableDoubleFloat('leak-detector-first-check-delay', -1).getValue()
         if firstCheckDelay == -1:
             firstCheckDelay = None
         self.leakDetector = ContainerLeakDetector(

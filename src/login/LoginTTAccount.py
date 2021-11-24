@@ -17,7 +17,7 @@ class LoginTTAccount(LoginBase.LoginBase, TTAccount.TTAccount):
     def __init__(self, cr):
         LoginBase.LoginBase.__init__(self, cr)
         TTAccount.TTAccount.__init__(self, cr)
-        self.useTTSpecificLogin = base.config.GetBool('tt-specific-login', 0)
+        self.useTTSpecificLogin = ConfigVariableBool('tt-specific-login', 0).getValue()
         self.notify.info('self.useTTSpecificLogin =%s' % self.useTTSpecificLogin)
 
     def supportsRelogin(self):

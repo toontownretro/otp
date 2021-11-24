@@ -22,7 +22,7 @@ class DistributedLevel(DistributedObject.DistributedObject,
     """DistributedLevel"""
     notify = DirectNotifyGlobal.directNotify.newCategory('DistributedLevel')
 
-    WantVisibility = config.GetBool('level-visibility', 1)
+    WantVisibility = ConfigVariableBool('level-visibility', 1).getValue()
     # set this to true to get all distrib objs when showing hidden zones
     ColorZonesAllDOs = 0
 

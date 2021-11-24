@@ -25,9 +25,9 @@ class ChatInputTyped(DirectObject.DirectObject):
         wantHistory = 0
         if __dev__:
             wantHistory = 1
-        self.wantHistory = base.config.GetBool('want-chat-history', wantHistory)
+        self.wantHistory = ConfigVariableBool('want-chat-history', wantHistory).getValue()
         self.history = ['']
-        self.historySize = base.config.GetInt('chat-history-size', 10)
+        self.historySize = ConfigVariableInt('chat-history-size', 10).getValue()
         self.historyIndex = 0
 
         # It is up to a derived class, like ChatInputTyped, to
@@ -153,7 +153,7 @@ class ChatInputTyped(DirectObject.DirectObject):
                 #self.whisperName = None
                 #self.whisperId = None
                 pass
-            elif base.config.GetBool("exec-chat", 0) and (text[0] == '>'):
+            elif ConfigVariableBool("exec-chat", 0).getValue() and (text[0] == '>'):
                     # Exec a python command
                     text = self.__execMessage(text[1:])
                     base.localAvatar.setChatAbsolute(text, CFSpeech | CFTimeout)

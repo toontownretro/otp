@@ -8,13 +8,14 @@ from . import OTPRender
 import time
 import math
 import re
+from otp.otpbase.OTPModules import *
 
 class OTPBase(ShowBase):
     def __init__(self, windowType = None):
        self.wantEnviroDR = False
        ShowBase.__init__(self, windowType = windowType)
 
-       if config.GetBool("want-phase-checker", 0):
+       if ConfigVariableBool("want-phase-checker", 0).getValue():
             from direct.showbase import Loader
             Loader.phaseChecker = self.loaderPhaseChecker
             self.errorAccumulatorBuffer = ''
@@ -23,15 +24,15 @@ class OTPBase(ShowBase):
        self.dataUnused = NodePath("dataUnused")
 
        # Turn nametags on and off for video capture
-       self.wantNametags = self.config.GetBool('want-nametags', 1)
+       self.wantNametags = ConfigVariableBool('want-nametags', 1).getValue()
 
-       self.slowCloseShard = self.config.GetBool(
-           'slow-close-shard', 0)
-       self.slowCloseShardDelay = self.config.GetFloat(
-           'slow-close-shard-delay', 10.)
+       self.slowCloseShard = ConfigVariableBool(
+           'slow-close-shard', 0).getValue()
+       self.slowCloseShardDelay = ConfigVariableDouble(
+           'slow-close-shard-delay', 10.).getValue()
 
-       self.fillShardsToIdealPop = self.config.GetBool(
-            'fill-shards-to-ideal-pop', 1)
+       self.fillShardsToIdealPop = ConfigVariableBool(
+            'fill-shards-to-ideal-pop', 1).getValue()
 
        # By default, we want to use dynamic shadows.  ToonBase.py
        # turns this off.
@@ -74,7 +75,7 @@ class OTPBase(ShowBase):
         # Python code has to be thread-savvy (use
         # direct.stdpy.threading module for this).  Currently
         # EXPERIMENTAL; enable this at your own risk!
-        if base.config.GetBool('want-threaded-network', 0):
+        if ConfigVariableBool('want-threaded-network', 0).getValue():
             taskMgr.setupTaskChain('net', numThreads = 1, frameBudget = 0.001,
                                    threadPriority = TPLow)
 
@@ -235,7 +236,7 @@ class OTPBase(ShowBase):
         self.pixelZoomCamMovedList = []
         self.pixelZoomStarted = None
 
-        flag = self.config.GetBool('enable-pixel-zoom', True)
+        flag = ConfigVariableBool('enable-pixel-zoom', True).getValue()
         self.enablePixelZoom(flag)
 
 
@@ -372,7 +373,7 @@ class OTPBase(ShowBase):
     def openMainWindow(self, *args, **kw):
         result = ShowBase.openMainWindow(self, *args, **kw)
         if result:
-            self.wantEnviroDR = (not self.win.getGsg().isHardware() or config.GetBool("want-background-region",1))
+            self.wantEnviroDR = (not self.win.getGsg().isHardware() or ConfigVariableBool("want-background-region",1).getValue())
             self.backgroundDrawable = self.win
             pass
         return result

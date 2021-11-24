@@ -36,24 +36,24 @@ class TimeManager(DistributedObject.DistributedObject):
         # The number of seconds to wait between automatic
         # synchronizations.  Set to 0 to disable auto sync after
         # startup.
-        self.updateFreq = base.config.GetFloat('time-manager-freq', 1800)
+        self.updateFreq = ConfigVariableDouble('time-manager-freq', 1800).getValue()
 
         # The minimum number of seconds to wait between two unrelated
         # synchronization attempts.  Increasing this number cuts down
         # on frivolous synchronizations.
-        self.minWait = base.config.GetFloat('time-manager-min-wait', 10)
+        self.minWait = ConfigVariableDouble('time-manager-min-wait', 10).getValue()
 
         # The maximum number of seconds of uncertainty to tolerate in
         # the clock delta without trying again.
-        self.maxUncertainty = base.config.GetFloat('time-manager-max-uncertainty', 1)
+        self.maxUncertainty = ConfigVariableDouble('time-manager-max-uncertainty', 1).getValue()
 
         # The maximum number of attempts to try to get a low-latency
         # time measurement before giving up and accepting whatever we
         # get.
-        self.maxAttempts = base.config.GetInt('time-manager-max-attempts', 5)
+        self.maxAttempts = ConfigVariableInt('time-manager-max-attempts', 5).getValue()
 
         # A simulated clock skew for debugging, in seconds.
-        self.extraSkew = base.config.GetInt('time-manager-extra-skew', 0)
+        self.extraSkew = ConfigVariableInt('time-manager-extra-skew', 0).getValue()
 
         if self.extraSkew != 0:
             self.notify.info("Simulating clock skew of %0.3f s" % self.extraSkew)
@@ -87,7 +87,7 @@ class TimeManager(DistributedObject.DistributedObject):
         self.accept(OTPGlobals.SynchronizeHotkey, self.handleHotkey)
         self.accept('clock_error', self.handleClockError)
 
-        if __dev__ and base.config.GetBool('enable-garbage-hotkey', 0):
+        if __dev__ and ConfigVariableBool('enable-garbage-hotkey', 0).getValue():
             self.accept(OTPGlobals.DetectGarbageHotkey, self.handleDetectGarbageHotkey)
 
         if self.updateFreq > 0:

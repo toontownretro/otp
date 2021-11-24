@@ -62,7 +62,7 @@ class TimeManagerAI(DistributedObjectAI.DistributedObjectAI):
         """
         requesterId = self.air.getAvatarIdFromSender()
         self.notify.info("Client %s exception: %s" % (requesterId, info))
-        serverVersion = simbase.config.GetString('server-version','')
+        serverVersion = ConfigVariableString('server-version','').GetValue()
         self.air.writeServerEvent('client-exception', requesterId, '%s|%s' % (serverVersion,info))
 
     def setSignature(self, signature, hash, pyc):

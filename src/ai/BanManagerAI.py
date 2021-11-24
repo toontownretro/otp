@@ -7,6 +7,7 @@ import urllib.request, urllib.parse, urllib.error
 import os
 from otp.otpbase.OTPModules import HTTPClient, Ramfile
 from direct.directnotify import DirectNotifyGlobal
+from otp.otpbase.OTPModules import *
 
 class BanManagerAI:
     notify = DirectNotifyGlobal.directNotify.newCategory("BanManagerAI")
@@ -18,10 +19,10 @@ class BanManagerAI:
     # http://qnhspapp02.wdig.com:8005/dis-hold/action/event
     # live
     # https://vapps.disl.starwave.com:8005/dis-hold/action/event
-    BanUrl = simbase.config.GetString("ban-base-url", "https://vapps.disl.starwave.com:8005/dis-hold/action/event")
-    App = simbase.config.GetString("ban-app-name", "TTWorldAI")
-    Product = simbase.config.GetString("ban-product", "Toontown")
-    EventName = simbase.config.GetString("ban-event-name", "tthackattempt")
+    BanUrl = ConfigVariableString("ban-base-url", "https://vapps.disl.starwave.com:8005/dis-hold/action/event").getValue()
+    App = ConfigVariableString("ban-app-name", "TTWorldAI").getValue()
+    Product = ConfigVariableString("ban-product", "Toontown").getValue()
+    EventName = ConfigVariableString("ban-event-name", "tthackattempt").getValue()
 
     def __init__(self):
         """Construct and initialize members."""
@@ -51,7 +52,7 @@ class BanManagerAI:
         self.notify.info ("ban request %s dislid=%s comment=%s fullUrl=%s" % (self.curBanRequestNum, dislid, comment, fullUrl))
         simbase.air.writeServerEvent('ban_request', avatarId, "%s|%s|%s" % (dislid, comment, fullUrl))
 
-        if simbase.config.GetBool('do-actual-ban',False):
+        if ConfigVariableBool('do-actual-ban',False).getValue():
             newTaskName = "ban-task-%d" % self.curBanRequestNum
             newTask = taskMgr.add(self.doBanUrlTask, newTaskName)
             newTask.banRequestNum = self.curBanRequestNum
