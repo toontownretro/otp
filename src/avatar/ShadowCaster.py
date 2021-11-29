@@ -4,12 +4,14 @@ from direct.directnotify import DirectNotifyGlobal
 from direct.showbase.ShadowPlacer import ShadowPlacer
 from otp.otpbase import OTPGlobals
 
+from panda3d.core import ConfigVariableBool
+
 # This global variable will be set true or false according to whether
 # all avatar's drop shadows should be made visible, by the
 # TimeOfDayManager (which currently manages projected shadows).
 # Always change its state via this function, instead of monkeying with
 # it directly.
-globalDropShadowFlag = 1
+globalDropShadowFlag = not ConfigVariableBool("want-shaders", True).value
 def setGlobalDropShadowFlag(flag):
     global globalDropShadowFlag
     if flag != globalDropShadowFlag:
