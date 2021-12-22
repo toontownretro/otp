@@ -3359,7 +3359,7 @@ CustomSCStrings = {
     4020 : "Toons of the world unite!",
     4030 : "Howdy, partner!",
     4040 : "Much obliged.",
-    4050 : "Get along, little dogie.",
+    4050 : "Get along, little doggie.",
     4060 : "I'm going to hit the hay.",
     4070 : "I'm chomping at the bit!",
     4080 : "This town isn't big enough for the two of us!",

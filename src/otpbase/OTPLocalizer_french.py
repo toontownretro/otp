@@ -145,35 +145,57 @@ grey = TextProperties()
 grey.setTextColor(0.5, 0.5, 0.5, 1)
 TextPropertiesManager.getGlobalPtr().setProperties('grey', grey)
 
-ActivateChat = """La fonction "amis secrets" permet à un membre de discuter avec un autre membre uniquement à l'aide d'un code secret qui doit être communiqué en dehors du jeu. Pour une description complète, cliquez ici : La fonction "amis secrets" n'est ni modérée ni surveillée. Si les parents autorisent leurs enfants à utiliser leur compte avec la fonction "amis secrets" activée, nous les encourageons à surveiller leurs enfants lorsqu'ils jouent. Une fois activée, la fonction "amis secrets" est disponible jusqu'à ce qu'elle soit désactivée. En activant la fonction "amis secrets", vous reconnaissez qu'elle comporte des risques inhérents, que vous avez été informés de ceux-ci, et que vous acceptez lesdits risques."""
+ActivateChat = """La fonction "amis secrets" permet à un membre de discuter avec un autre membre uniquement à l'aide d'un code secret qui doit être communiqué en dehors du jeu. Pour une description complète, cliquez ici :
 
+La fonction "amis secrets" n'est ni modérée ni surveillée. Si les parents autorisent leurs enfants à utiliser leur compte avec la fonction "amis secrets" activée, nous les encourageons à surveiller leurs enfants lorsqu'ils jouent.
+Une fois activée, la fonction "amis secrets" est disponible jusqu'à ce qu'elle soit désactivée.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+En activant la fonction "amis secrets", vous reconnaissez qu'elle comporte des risques inhérents, que vous avez été informés de ceux-ci, et que vous acceptez lesdits risques."""
 
 ActivateChatYes = "Activer"
 ActivateChatNo = lCancel
 ActivateChatMoreInfo = "Plus d'infos"
 ActivateChatPrivacyPolicy = "Politique de confidentialité"
 
+
+ActivateChatPrivacyPolicy_Button1A = "Version 1"
+ActivateChatPrivacyPolicy_Button1K = "Version 1"
+ActivateChatPrivacyPolicy_Button2A = "Version 2"
+ActivateChatPrivacyPolicy_Button2K = "Version 2"
+
+PrivacyPolicyText_1A = [""" """]
+PrivacyPolicyText_1K = [""" """]
+PrivacyPolicyText_2A = [""" """]
+PrivacyPolicyText_2K = [""" """]
+PrivacyPolicyText_Intro = [""" """]
+PrivacyPolicyClose = lClose
+
 # SecretFriendsInfoPanel.py
 SecretFriendsInfoPanelOk = lOK
 SecretFriendsInfoPanelClose = lClose
-SecretFriendsInfoPanelText = ["""Caractéristiques de la fonction "amis secrets"."""
+SecretFriendsInfoPanelText = ["""
+La fonction " Amis secrets "
+La fonction " Amis secrets " permet à un membre de s'adresser directement à un autre membre sur Toontown en ligne de Disney (le " Service "), une fois que ces membres ont établi une connexion " Amis secrets ". Si votre enfant veut utiliser la fonction " Amis secrets ", nous vous demandons de nous indiquer que vous l'autorisez à utiliser cette fonction en entrant votre Mot de Passe Parent. Voici une description détaillée de la procédure permettant de créer une connexion " Amis secrets " entre deux membres, que nous avons appelés "Sally" et "Mike."
+1. Les parents de Sally et de Mike activent chacun de leur côté la fonction " Amis secrets " en entrant leurs mots de passe parent respectifs, soit (a) dans les " Options de compte " du service, soit (b) lorsque celui-ci leur est demandé par une fenêtre contextuelle de contrôle parental. 
+2. Sally demande un secret (décrit ci-dessous) depuis le service.
+""","""
+3. Le secret de Sally est communiqué à Mike en dehors du service. (Il peut lui être communiqué soit directement par Sally, soit indirectement lorsque Sally révèle son secret à une autre personne.)
+4. Mike soumet le secret de Sally au service dans les 48 heures après que Sally a fait la demande du secret.
+5. Le service avertit alors Mike que Sally est devenue son amie secrète. Le service avertit également Sally que Mike est devenu son ami secret. 
+6. Sally et Mike peuvent alors discuter directement entre eux jusqu'à ce que l'un des deux choisisse de mettre fin à leur amitié secrète, ou que l'un des parents respectifs de Sally ou Mike mette fin à la fonction " Ami secret ". Le lien " Ami secret " peut donc être désactivé à tout moment par soit : (a) un membre désactivant son ou ses amis secrets de sa liste d'amis (comme il est décrit dans le service) ; soit, (b) le parent de ce membre désactivant la fonction " Ami secret " en allant dans la zone " Options de compte " du service et en suivant les étapes détaillées ici.
+""","""
+Un secret est un code aléatoire généré par ordinateur assigné à un membre particulier. Le secret doit être utilisé pour activer un lien d'ami secret dans les 48 heures à partir du moment où le membre demande le secret ; faute de quoi le secret arrive à expiration et ne peut plus être utilisé. De plus, un secret ne peut être utilisé que pour établir un seul lien d'ami secret. Pour créer d'autres liens d'amis secrets, le membre doit demander un nouveau secret pour chaque ami secret supplémentaire.
+L'amitié secrète n'est pas transférable. Par exemple, si Sally devient amie secrète de Mike, et que Mike devient ami secret de Jessica, Sally ne devient pas automatiquement amie secrète de Jessica. Pour que Sally et Jessica deviennent amies secrètes, l'une d'entre elles doit demander un nouveau secret au service et le communiquer à l'autre. 
+""","""
+Les amis secrets communiquent entre eux par un chat interactif de forme libre. Le contenu de ce chat est rédigé directement par le membre participant et est traité par le service, qui est exploité par Walt Disney Internet Group ("WDIG"), 506 2nd Avenue, Suite 2100, Seattle, WA 98104 (téléphone 00 1 (509) 742-4698 ; courrier électronique ms_support@help.go.com). Nous conseillons à nos membres de ne pas échanger d'informations personnelles telles que leurs noms, prénoms, adresses électroniques, adresses postales ou numéros de téléphone lors de l'utilisation de la fonction " Amis secrets ". Cependant, nous ne pouvons pas garantir que ce type d'échange d'informations personnelles ne se produira pas. Bien que le chat " Amis secrets " fasse l'objet d'un filtrage automatique pour la plupart des mots grossiers, il n'est ni modéré ni supervisé par nous. Si les parents autorisent leurs enfants à utiliser leur compte avec la fonction " Amis secrets " activée, nous les encourageons à surveiller leurs enfants lorsqu'ils jouent dans le cadre de nos services. 
+""","""
+WDIG n'utilise le contenu du chat " Amis secrets " pour aucun autre usage que la communication de ce contenu à l'ami secret du membre, et ne révèle ce contenu à aucun tiers excepté : (1) si cela est légalement nécessaire, par exemple pour exécuter une ordonnance de tribunal ou une assignation ; (2) pour faire respecter les Conditions d'utilisation applicables au service (consultables sur la page d'accueil) ; ou (3) pour protéger la sûreté et la sécurité des membres du service et le service lui-même. Sur demande adressée à WDIG, le parent d'un enfant peut consulter et faire supprimer tout contenu de chat d'ami secret produit par cet enfant, dans la mesure où ledit contenu n'a pas déjà été supprimé des fichiers de WDIG. En vertu de la loi américaine sur la protection de la confidentialité des enfants (Children's Online Privacy Protection Act), il nous est interdit de subordonner, et nous ne subordonnons pas, la participation d'un enfant à quelque activité que ce soit (y compris les amis secrets) à la communication par l'enfant de plus d'informations qu'il n'est raisonnablement nécessaire à la participation à une telle activité.
+""","""
+De plus, comme il est indiqué ci-dessus, nous reconnaissons le droit d'un parent de nous refuser l'autorisation de permettre à un enfant l'utilisation de la fonction " Amis secrets ". En activant la fonction " Amis secrets ", vous reconnaissez qu'il existe des risques inhérents à la capacité des membres à discuter les uns avec les autres par la fonction " Amis secrets ", que vous avez été informés de ceux-ci, et voulez bien accepter lesdits risques. 
+"""
 ]
+#SecretFriendsInfoPanelText = ["""Caractéristiques de la fonction "amis secrets"."""
+#]
 
 LeaveToPay = """De manière à pouvoir effectuer votre achat, vous allez automatiquement quitter le jeu et être redirigé sur le site Toontown."""
 LeaveToPayYes = "Acheter"
@@ -237,6 +259,7 @@ CRBootedReasons = {
     122: "Un problème inattendu est survenu lors de votre connexion à Toontown. Veuillez contacter le service clients de Toontown.",
     125: "Vos fichiers Toontown installés ne sont pas valides. Utilisez le bouton \"Jouer\" sur le site officiel de Toontown pour lancer Toontown.",
     126: "Vous n'êtes pas autorisé(e) à utiliser les fonctions réservées aux administrateurs.",
+    127: "A problem has occurred with your Toon. Please contact Member Services via email and reference Error Code 127. Thank you.",
     151: "Vous avez été déconnecté(e) par un administrateur travaillant sur les serveurs de Toontown.",
     152: "Une violation de nos Conditions d'utilisation par '%(name)s' a été signalée. Pour des raisons de sécurité, nous avons provisoirement bloqué le compte. Pour de plus amples informations, veuillez vous référer au message envoyé à l'adresse e-mail associée à '%(name)s'.",
     153: "Le district de Toontown sur lequel vous étiez en train de jouer a été réinitialisé. Toutes les personnes jouant dans ce district ont été déconnectées. Vous devriez toutefois pouvoir vous reconnecter et revenir directement dans le jeu.",
@@ -347,7 +370,7 @@ SCMenuSellbotNerf                = "STORM SELLBOT"
 SCMenuJellybeanJam               = "SEMAINE DES BONBONS"
 SCMenuHalloween                  = "HALLOWEEN"
 SCMenuWinter                     = "L'HIVER"
-SCMenuSellbotInvasion            = "INVASION DE VENDIBOT"
+SCMenuSellbotInvasion            = "INVASION DES VENDIBOTS"
 SCMenuFieldOffice                = "FIELD OFFICES"
 SCMenuIdesOfMarch                = "VERT"
 SCMenuLawbotNerf                 = "LAWBOTS LOSE"
@@ -435,11 +458,12 @@ GuildInviterAsking = "Demander à %s de rejoindre la guilde."
 GuildInviterGuildSaidYes = "%s a rejoint la guilde !"
 
 # FriendInviter.py
-FriendOnline = "%s s'est connecté(e)."
-FriendOffline = "%s s'est déconnecté(e)."
+FriendOnline = "s'est connecté(e)."
+FriendOffline = "s'est déconnecté(e)."
 FriendInviterOK = lOK
 FriendInviterCancel = lCancel
 FriendInviterStopBeingFriends = "Arrêter d'être ami(e)."
+FriendInviterConfirmRemove = "Remove"
 FriendInviterYes = lYes
 FriendInviterNo = lNo
 FriendInviterClickToon = "Clique sur le Toon avec lequel tu voudrais devenir ami(e)."
@@ -449,6 +473,8 @@ FriendInviterPlayerTooMany = "Tu as trop d'amis de jeu pour pouvoir en ajouter u
 FriendInviterNotYet = "Veux-tu devenir ami(e) avec %s ?"
 FriendInviterCheckAvailability = "Recherche de la disponibilité de %s."
 FriendInviterNotAvailable = "%s est occupé(e) en ce moment, ressaie plus tard."
+FriendInviterCantSee = "This only works if you can see %s."
+FriendInviterNotOnline = "This only works if %s is online"
 FriendInviterNotOpen = "%s does not have open chat, use secrets to make friends"
 FriendInviterWentAway = "%s est parti(e)."
 FriendInviterAlready = "%s est déjà ton ami(e)."
@@ -469,7 +495,6 @@ FriendInviterTooMany = "%s a déjà trop d'amis !"
 FriendInviterOtherTooMany = "%s a déjà trop d'amis !"
 FriendInviterMaybe = "%s n'a pas pu répondre."
 FriendInviterDown = "Ne peut pas se faire d'amis pour l'instant."
-
 
 #Talk Path Labels
 TalkGuild = "G"
@@ -519,7 +544,16 @@ EmoteList = [
     "Cri",
     "Content",
     "Furieux",
-    "Rire"
+    "Rire",
+##    "Sing Note G1",
+##    "Sing Note A",
+##    "Sing Note B",
+##    "Sing Note C",
+##    "Sing Note D",
+##    "Sing Note E",
+##    "Sing Note F",
+##    "Sing Note G2",
+##    "Sing Note Rest",
     ]
 
 EmoteWhispers = [
@@ -548,6 +582,7 @@ EmoteWhispers = [
     "%s est content.",
     "%s est furieux.",
     "%s rit.",
+    "%s is singing note G1."
     ]
 
 # Reverse lookup:  get the index from the name.
@@ -577,6 +612,14 @@ EmoteFuncDict = {
     "Content" : 22,
     "Furieux" : 23,
     "Rire" : 24,
+    "Sing Note G1" : 25,
+    "Sing Note A" : 26,
+    "Sing Note B" : 27,
+    "Sing Note C" : 28,
+    "Sing Note D" : 29,
+    "Sing Note E" : 30,
+    "Sing Note F" : 31,
+    "Sing Note G2" : 32,
     }
 
 # SuitDialog.py
@@ -3280,9 +3323,9 @@ AvatarDetailPanelCancel = lCancel
 AvatarDetailPanelClose = lClose
 AvatarDetailPanelLookup = "Change les informations sur %s."
 AvatarDetailPanelFailedLookup = "Impossible d'obtenir les informations pour %s."
-AvatarDetailPanelPlayer = "Player: %(player)s\nWorld: %(world)s\nLocation: %(location)s"
+AvatarDetailPanelPlayer = "Player: %(player)s\nMonde: %(world)s\nEmplacement: %(location)s"
 AvatarDetailPanelOnline = "District: %(district)s\nEmplacement: %(location)s"
-AvatarDetailPanelOffline = "District: offline\nEmplacement: offline"
+AvatarDetailPanelOffline = "District: hors-ligne\nEmplacement: hors-ligne"
 
 # AvatarPanel.py
 AvatarPanelFriends = "Amis"
@@ -3293,7 +3336,7 @@ AvatarPanelIgnore = "Ignorer"
 AvatarPanelStopIgnore = "Cesser d'ignorer"
 AvatarPanelEndIgnore = "Cesser d'ignorer"
 AvatarPanelTrade = "Échanger"
-#AvatarPanelCogDetail = "Dept: %s\nLevel: %s\n"
+#AvatarPanelCogDetail = "Dépt : %s\nNiveau : %s\n"
 AvatarPanelCogLevel = "Niveau : %s"
 AvatarPanelCogDetailClose = lClose
 
