@@ -5,7 +5,7 @@
 
   #define OTHER_LIBS dtoolbase:c dtool:m
 
-  #define USE_PACKAGES eigen
+  #define USE_PACKAGES eigen sleef
 
   #define SOURCES \
     otpbase.h otpsymbols.h \
