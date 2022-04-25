@@ -37,7 +37,7 @@ Nametag(float chat_wordwrap) {
   _region_active = false;
 
   char buffer[128];
-  sprintf(buffer, "flash-%p", this);
+  sprintf_s(buffer, "flash-%p", this);
   _flash_track_name = buffer;
 }
 

@@ -15,6 +15,7 @@ from otp.distributed import Account/AI/UD
 from otp.ai import TimeManager/AI
 from otp.ai import MagicWordManager/AI
 from otp.avatar import DistributedAvatar/AI/UD
+//from otp.distributed import DistributedPuppeteer/AI
 from otp.avatar import DistributedPlayer/AI
 from otp.friends import FriendManager/AI
 from otp.friends import AvatarFriendsManager/UD
@@ -402,6 +403,12 @@ dclass DistributedPlayer: DistributedAvatar {
 
   setAsGM(bool isGM = 0) required ram broadcast ownrecv airecv;
 };
+
+//dclass DistributedPuppeteer : DistributedObject {
+//  requestPuppet(uint8) p2p clsend;
+//  requestExit() p2p clsend;
+//  rejectPuppet(uint8) p2p;
+//};
 
 dclass MagicWordManager: DistributedObject {
   setMagicWord(string, uint32 avId, uint32 zoneId,

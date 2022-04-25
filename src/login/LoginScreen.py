@@ -27,8 +27,8 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
     Contains methods for displaying the login screen,
     getting and verifying the user's login name
     """
-    AutoLoginName = base.config.GetString("%s-auto-login%s"%(game.name, os.getenv("otp_client", "")), "")
-    AutoLoginPassword = base.config.GetString("%s-auto-password%s"%(game.name, os.getenv("otp_client", "")), "")
+    AutoLoginName = ConfigVariableString("%s-auto-login%s"%(game.name, os.getenv("otp_client", "")), "").getValue()
+    AutoLoginPassword = ConfigVariableString("%s-auto-password%s"%(game.name, os.getenv("otp_client", "")), "").getValue()
 
     # Create a notify category
     notify = DirectNotifyGlobal.directNotify.newCategory("LoginScreen")

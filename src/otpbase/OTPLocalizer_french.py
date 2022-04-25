@@ -61,7 +61,6 @@ SCEmoteNoAccessMsg = "Tu n'as pas encore accès\nà cette émotion."
 SCEmoteNoAccessOK = lOK
 
 ParentPassword = "Mot de passe parent"
-ParentPassword = "Mot de passe parent"
 
 # ChatGarbler.py
 ChatGarblerDefault = ["bla"]
@@ -437,7 +436,7 @@ FriendInviteeNo = lNo
 GuildInviterWentAway = "%s n'est plus présent."
 GuildInviterAlready = "%s est déjà dans la guilde."
 GuildInviterBusy = "%s est occupé pour l'instant."
-GuildInviterNotYet = "Inviter %s à rejoindre ta guilde&nbsp;?"
+GuildInviterNotYet = "Inviter %s à rejoindre ta guilde ?"
 GuildInviterCheckAvailability = "Invite %s à rejoindre ta guilde."
 GuildInviterOK = lOK
 GuildInviterNo = lNo

@@ -162,31 +162,31 @@ class OTPClientRepository(ClientRepositoryBase):
             playerAccountId = ConfigVariableInt('fake-DISL-PlayerAccountId',defaultId).getValue()
             self.DISLToken = ("ACCOUNT_NAME=%s" % fakeDISLPlayerName +
                               "&ACCOUNT_NUMBER=%s" % playerAccountId +
-                              "&ACCOUNT_NAME_APPROVAL=%s" % config.GetString('fake-DISL-PlayerNameApproved','YES') +
-                              "&SWID=%s" % config.GetString('fake-DISL-SWID','{1763AC36-D73F-41C2-A54A-B579E58B69C8}') +
-                              "&FAMILY_NUMBER=%s" % config.GetString('fake-DISL-FamilyAccountId','-1') +
-                              "&familyAdmin=%s" % config.GetString('fake-DISL-FamilyAdmin','1') +
-                              "&PIRATES_ACCESS=%s" % config.GetString('fake-DISL-PiratesAccess','FULL') +
-                              "&PIRATES_MAX_NUM_AVATARS=%s" % config.GetInt('fake-DISL-MaxAvatars',defaultNumAvatars) +
-                              "&PIRATES_NUM_AVATAR_SLOTS=%s" % config.GetInt('fake-DISL-MaxAvatarSlots',defaultNumAvatarSlots) +
-                              "&expires=%s" % config.GetString('fake-DISL-expire','1577898000') +
-                              "&OPEN_CHAT_ENABLED=%s" % config.GetString('fake-DISL-OpenChatEnabled','YES') +
-                              "&CREATE_FRIENDS_WITH_CHAT=%s" % config.GetString('fake-DISL-CreateFriendsWithChat','YES') +
-                              "&CHAT_CODE_CREATION_RULE=%s" % config.GetString('fake-DISL-ChatCodeCreation','YES') +
-                              "&FAMILY_MEMBERS=%s" % config.GetString('fake-DISL-FamilyMembers') +
+                              "&ACCOUNT_NAME_APPROVAL=%s" % ConfigVariableString('fake-DISL-PlayerNameApproved','YES').getValue() +
+                              "&SWID=%s" % ConfigVariableString('fake-DISL-SWID','{1763AC36-D73F-41C2-A54A-B579E58B69C8}').getValue() +
+                              "&FAMILY_NUMBER=%s" % ConfigVariableString('fake-DISL-FamilyAccountId','-1').getValue() +
+                              "&familyAdmin=%s" % ConfigVariableString('fake-DISL-FamilyAdmin','1').getValue() +
+                              "&PIRATES_ACCESS=%s" % ConfigVariableString('fake-DISL-PiratesAccess','FULL').getValue() +
+                              "&PIRATES_MAX_NUM_AVATARS=%s" % ConfigVariableInt('fake-DISL-MaxAvatars',defaultNumAvatars).getValue() +
+                              "&PIRATES_NUM_AVATAR_SLOTS=%s" % ConfigVariableInt('fake-DISL-MaxAvatarSlots',defaultNumAvatarSlots).getValue() +
+                              "&expires=%s" % ConfigVariableString('fake-DISL-expire','1577898000').getValue() +
+                              "&OPEN_CHAT_ENABLED=%s" % ConfigVariableString('fake-DISL-OpenChatEnabled','YES').getValue() +
+                              "&CREATE_FRIENDS_WITH_CHAT=%s" % ConfigVariableString('fake-DISL-CreateFriendsWithChat','YES').getValue() +
+                              "&CHAT_CODE_CREATION_RULE=%s" % ConfigVariableString('fake-DISL-ChatCodeCreation','YES').getValue() +
+                              "&FAMILY_MEMBERS=%s" % ConfigVariableString('fake-DISL-FamilyMembers').getValue() +
                               "&PIRATES_SUB_COUNT=%s" % subCount)
             for i in range(subCount):
-                self.DISLToken += ("&PIRATES_SUB_%s_ACCESS=%s" % (i, config.GetString('fake-DISL-Sub-%s-Access'%i, 'FULL')) +
-                                   "&PIRATES_SUB_%s_ACTIVE=%s" % (i, config.GetString('fake-DISL-Sub-%s-Active'%i, 'YES')) +
-                                   "&PIRATES_SUB_%s_ID=%s" % (i, config.GetInt('fake-DISL-Sub-%s-Id'%i, playerAccountId) + config.GetInt('fake-DISL-Sub-Id-Offset', 0)) +
-                                   "&PIRATES_SUB_%s_LEVEL=%s" % (i, config.GetInt('fake-DISL-Sub-%s-Level'%i, 3)) +
-                                   "&PIRATES_SUB_%s_NAME=%s" % (i, config.GetString('fake-DISL-Sub-%s-Name'%i, fakeDISLPlayerName)) +
-                                   "&PIRATES_SUB_%s_NUM_AVATARS=%s" % (i, config.GetInt('fake-DISL-Sub-%s-NumAvatars'%i, defaultNumAvatars)) +
-                                   "&PIRATES_SUB_%s_NUM_CONCUR=%s" % (i, config.GetInt('fake-DISL-Sub-%s-NumConcur'%i, defaultNumConcur)) +
-                                   "&PIRATES_SUB_%s_OWNERID=%s" % (i, config.GetInt('fake-DISL-Sub-%s-OwnerId'%i, playerAccountId)) +
-                                   "&PIRATES_SUB_%s_FOUNDER=%s" % (i, config.GetString('fake-DISL-Sub-%s-Founder'%i, 'YES'))
+                self.DISLToken += ("&PIRATES_SUB_%s_ACCESS=%s" % (i, ConfigVariableString('fake-DISL-Sub-%s-Access'%i, 'FULL').getValue()) +
+                                   "&PIRATES_SUB_%s_ACTIVE=%s" % (i, ConfigVariableString('fake-DISL-Sub-%s-Active'%i, 'YES').getValue()) +
+                                   "&PIRATES_SUB_%s_ID=%s" % (i, ConfigVariableInt('fake-DISL-Sub-%s-Id'%i, playerAccountId).getValue() + ConfigVariableInt('fake-DISL-Sub-Id-Offset', 0).getValue()) +
+                                   "&PIRATES_SUB_%s_LEVEL=%s" % (i, ConfigVariableInt('fake-DISL-Sub-%s-Level'%i, 3).getValue()) +
+                                   "&PIRATES_SUB_%s_NAME=%s" % (i, ConfigVariableString('fake-DISL-Sub-%s-Name'%i, fakeDISLPlayerName).getValue()) +
+                                   "&PIRATES_SUB_%s_NUM_AVATARS=%s" % (i, ConfigVariableInt('fake-DISL-Sub-%s-NumAvatars'%i, defaultNumAvatars).getValue()) +
+                                   "&PIRATES_SUB_%s_NUM_CONCUR=%s" % (i, ConfigVariableInt('fake-DISL-Sub-%s-NumConcur'%i, defaultNumConcur).getValue()) +
+                                   "&PIRATES_SUB_%s_OWNERID=%s" % (i, ConfigVariableInt('fake-DISL-Sub-%s-OwnerId'%i, playerAccountId).getValue()) +
+                                   "&PIRATES_SUB_%s_FOUNDER=%s" % (i, ConfigVariableString('fake-DISL-Sub-%s-Founder'%i, 'YES').getValue())
                                    )
-            self.DISLToken += ("&WL_CHAT_ENABLED=%s" % config.GetString('fake-DISL-WLChatEnabled','YES') +
+            self.DISLToken += ("&WL_CHAT_ENABLED=%s" % ConfigVariableString('fake-DISL-WLChatEnabled','YES').getValue() +
                                "&valid=true")
             print(self.DISLToken)
 
@@ -674,7 +674,8 @@ class OTPClientRepository(ClientRepositoryBase):
             # messages, and ensure that it is downloaded in phase 3.
 
             self.systemMessageSfx = base.loadSfx(
-                "phase_3.5/audio/sfx/GUI_whisper_3.mp3")
+#                "phase_3.5/audio/sfx/GUI_whisper_3.mp3")
+                "phase_3.5/audio/sfx/clock03.mp3")
 
         if self.systemMessageSfx:
             base.playSfx(self.systemMessageSfx)
@@ -2248,7 +2249,7 @@ class OTPClientRepository(ClientRepositoryBase):
 
         def checkScale(task):
             # Spammy --> assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
-            assert base.localAvatar.getTransform().hasUniformScale()
+            #assert base.localAvatar.getTransform().hasUniformScale()
             return Task.cont
         assert taskMgr.add(checkScale, 'globalScaleCheck')
 

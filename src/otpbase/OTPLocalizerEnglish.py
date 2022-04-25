@@ -1041,7 +1041,7 @@ SuitFaceoffTaunts = {
            "Good, it takes two to mingle.",
            "Let's mingle.",
            "This looks like a good place to mingle.",
-           "Well,isn't this cozy?",
+           "Well, isn't this cozy?",
            "You're mingling with defeat.",
            "I'm going to mingle in your business.",
            "Are you sure you're ready to mingle?",
@@ -2620,7 +2620,7 @@ SpeedChatStaticTextToontown = {
     30413: "Watch out for the Cogs!",
     30414: "Collect Jokes to get a Toon-up at the end!",
     30415: "When the room shakes, a Mover & Shaker is nearby.",
-    30416: "Defeat all four Movers & Shakers to open the exit!",
+    30416: "Defeat all four Mover & Shakers to open the exit!",
     30417: "The exit is open!",
     30418: "It's the Boss!",
 
