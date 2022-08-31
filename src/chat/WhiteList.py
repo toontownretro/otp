@@ -12,7 +12,7 @@ class WhiteList:
         self.words = []
 
         for line in wordlist:
-            self.words.append(line.strip("\n\r").lower())
+            self.words.append(line.strip(b"\n\r").lower())
 
         self.words.sort()
 
@@ -21,7 +21,7 @@ class WhiteList:
 
     def cleanText(self,text):
         text = text.strip(".,?!")
-        text = text.lower()
+        text = text.lower().encode('utf-8')
         return text
 
     def isWord(self,text):

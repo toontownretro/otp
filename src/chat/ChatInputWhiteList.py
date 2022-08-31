@@ -222,7 +222,7 @@ class ChatInputWhiteList(FSM.FSM, DirectEntry):
                     localAvatar.chatMgr.deactivateChat()
 
             # If slash command, execute it instead of sending chat
-        elif ConfigVariableBool("want-slash-commands", 1).getValue() and (text[0] == '/'):
+            elif ConfigVariableBool("want-slash-commands", 1).getValue() and (text[0] == '/'):
                 base.talkAssistant.executeSlashCommand(text)
             elif (localAvatar.isGM() or base.cr.wantMagicWords) and (text[0] == '`'):
                 base.talkAssistant.executeGMCommand(text)

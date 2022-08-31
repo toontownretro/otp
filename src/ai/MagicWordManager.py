@@ -3,6 +3,7 @@ from direct.showbase import GarbageReport, ContainerReport, MessengerLeakDetecto
 from direct.distributed import DistributedObject
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase.InputStateGlobal import inputState
+from direct.showbase.ObjectCount import ObjectCount
 from direct.task import Task
 from direct.task.TaskProfiler import TaskProfiler
 from otp.avatar import Avatar
@@ -438,6 +439,11 @@ class MagicWordManager(DistributedObject.DistributedObject):
                 self.baselineObjReport = report
 
             self.setMagicWordResponse('objects logged')
+        
+        elif wordIs('~objectcount'):
+            def handleObjectCountDone(objectCount):
+                self.setMagicWordResponse('object count logged')
+                oc = ObjectCount('~objectcount', doneCallback=handleObjectCountDone)
 
         elif wordIs('~objecthg'):
             import gc
@@ -469,6 +475,13 @@ class MagicWordManager(DistributedObject.DistributedObject):
             full = 'full' in args
             safeMode = 'safe' in args
             delOnly = 'delonly' in args
+            cycleLimit = None
+            for arg in args:
+                try:
+                    cycleLimit = int(arg)
+                    break
+                except:
+                    pass
             # This does a garbage collection and dumps the list of leaked (uncollectable) objects to the log.
             GarbageReport.GarbageLogger('~garbage', fullReport=full, threaded=True,
                                         safeMode=safeMode, delOnly=delOnly,
@@ -481,7 +494,11 @@ class MagicWordManager(DistributedObject.DistributedObject):
             self.setMagicWordResponse('printing gui creation stacks')
 
         elif wordIs("~creategarbage"):
-            GarbageReport._createGarbage()
+            args = word.split()
+            num = 1
+            if len(args) > 1:
+                num = int(args[1])
+            GarbageReport._createGarbage(num)
             # this is coming back from the AI
             #self.setMagicWordResponse(senderId, 'leaked garbage created')
 
@@ -584,7 +601,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
             response = 'flushed AI task profiles%s' % choice(name, ' for %s' % name, '')
             self.setMagicWordResponse(response)
 
-        elif wordIs('~objectcount'):
+        elif wordIs('~dobjectcount'):
             base.cr.printObjectCount()
             self.setMagicWordResponse('logging client distributed object count...')
 
@@ -763,6 +780,13 @@ class MagicWordManager(DistributedObject.DistributedObject):
                 self.notify.info("Simulating client crash: exit error = %s" % (errorCode))
                 base.exitShow(errorCode)
 
+            if (magicWord.count('~exception')):
+                self.notify.error('~exception: simulating a client exception...')
+                s = ''
+                while 1:
+                    s += 'INVALIDNAME'
+                    eval(s)
+
             self.setMagicWord(magicWord, avId, zoneId)
 
 
@@ -772,6 +796,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
         The AI might send a formatted string response to certain magic
         words.
         """
+        self.notify.info(response)
         base.localAvatar.setChatAbsolute(response, CFSpeech | CFTimeout)
         base.talkAssistant.receiveDeveloperMessage(response)
 

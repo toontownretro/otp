@@ -34,9 +34,9 @@ class MagicWordManagerAI(DistributedObjectAI.DistributedObjectAI):
         sender = self.air.doId2do.get(senderId, None)
         if sender:
             if senderId == avId:
-                sender = "%s/%s(%s)" % (sender.accountName, sender.name, senderId)
+                sender = "%s/%s(%s)" % (sender.accountName, sender._name, senderId)
             else:
-                sender = "%s/%s(%s) (for %d)" % (sender.accountName, sender.name, senderId, avId)
+                sender = "%s/%s(%s) (for %d)" % (sender.accountName, sender._name, senderId, avId)
         else:
             sender = "Unknown avatar %d" % (senderId)
 
