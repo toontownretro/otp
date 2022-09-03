@@ -9,6 +9,7 @@ from direct.directnotify import DirectNotifyGlobal
 from otp.otpbase import OTPGlobals
 from direct.showbase import PythonUtil
 from direct.showbase import GarbageReport
+import base64
 import time
 import os
 import sys
@@ -273,6 +274,22 @@ class TimeManager(DistributedObject.DistributedObject):
         self.sendUpdate("setExceptionInfo", [info])
         self.cr.flush()
 
+    def setStackDump(self, dump):
+        self.notify.debug("Stack dump: %s" % fastRepr(dump))
+        maxLen = 900
+        dataLeft = base64.b64encode(dump)
+        index = 0
+        while dataLeft:
+            if len(dataLeft) >= maxLen:
+                data = dataLeft[:maxLen]
+                dataLeft = dataLeft[maxLen:]
+            else:
+                data = dataLeft
+                dataLeft = None
+            self.sendUpdate('setStackDump', [index, data])
+            index += 1
+            self.cr.flush()
+
     def d_setSignature(self, signature, hash, pyc):
         """
         This method is called by the client at startup time, to send
@@ -298,7 +315,10 @@ class TimeManager(DistributedObject.DistributedObject):
             di = base.pipe.getDisplayInformation()
 
         di.updateCpuFrequency(0)
-        cacheStatus = preloadCache()
+        try:
+            cacheStatus = preloadCache()
+        except NameError:
+            cacheStatus = ''
 
         ooghz = 1.0e-009
         cpuSpeed = (di.getMaximumCpuFrequency() * ooghz,
@@ -462,7 +482,7 @@ class TimeManager(DistributedObject.DistributedObject):
             pass
         else:
             key = re.search(
-                r'<key>ProductUserVisibleVersion</key>\s*' +
+                r'<key>ProductUserVisibleVersion</key>\\s*' +
                 r'<string>(.*?)</string>', theFile.read())
             theFile.close()
             if key is not None:

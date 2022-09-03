@@ -909,7 +909,7 @@ class LauncherBase(DirectObject):
             self.httpChannel.beginGetDocument(DocumentSpec(task.mfURL))
             self.httpChannel.downloadToFile(task.localFilename)
 
-        self.miniTaskMgr.add(task, 'launcher-download-multifile')
+        self._addMiniTask(task, 'launcher-download-multifile')
 
     def downloadPatchSimpleProgress(self, task):
         startingByte = self.httpChannel.getFirstByteDelivered()
@@ -1051,6 +1051,7 @@ class LauncherBase(DirectObject):
                                        0, task.callbackProgress)
 
             else:
+
                 # 404 not found or some such nonsense.
                 if self.httpChannel.isValid():
                     # Huh?
@@ -1079,7 +1080,7 @@ class LauncherBase(DirectObject):
         task.decompressor = Decompressor()
         errorCode = task.decompressor.initiate(task.localFilename)
         if (errorCode > 0):
-            self.miniTaskMgr.add(task, 'launcher-decompressFile')
+            self._addMiniTask(task, 'launcher-decompressFile')
         else:
             self.handleInitiateFatalError(errorCode)
 
@@ -1165,7 +1166,7 @@ class LauncherBase(DirectObject):
         task.decompressor = Decompressor()
         errorCode = task.decompressor.initiate(task.localFilename)
         if (errorCode > 0):
-            self.miniTaskMgr.add(task, 'launcher-decompressMultifile')
+            self._addMiniTask(task, 'launcher-decompressMultifile')
         else:
             self.handleInitiateFatalError(errorCode)
 
@@ -1277,7 +1278,7 @@ class LauncherBase(DirectObject):
                 sys.exit()
 
         self.notify.info("Extracting %d subfiles from multifile %s." % (numFiles, mfname))
-        self.miniTaskMgr.add(task, 'launcher-extract')
+        self._addMiniTask(task, 'launcher-extract')
 
     def extractTask(self, task):
         #if self.notify.getDebug():
@@ -1369,7 +1370,7 @@ class LauncherBase(DirectObject):
         task.patcher = Patcher()
         errorCode = task.patcher.initiate(task.patchFile, task.patcheeFile)
         if (errorCode > 0):
-            self.miniTaskMgr.add(task, 'launcher-patch')
+            self._addMiniTask(task, 'launcher-patch')
         else:
             self.handleInitiateFatalError(errorCode)
 
@@ -1648,6 +1649,16 @@ class LauncherBase(DirectObject):
         self.notify.info("Stopping mini task manager.")
         self.miniTaskMgr = None
         return task.done
+
+    def _addMiniTask(self, task, name):
+        if not self.miniTaskMgr:
+            self.notify.info("Restarting mini task manager.")
+            self.miniTaskMgr = MiniTaskManager()
+
+            from direct.task.TaskManagerGlobal import taskMgr
+            taskMgr.remove('miniTaskManager')
+            taskMgr.add(self._stepMiniTaskManager, 'miniTaskManager')
+        self.miniTaskMgr.add(task, name)
 
     def newTaskManager(self):
         """ A derived class should call this, for instance in
@@ -2308,7 +2319,7 @@ class LauncherBase(DirectObject):
             task = MiniTask(self.patchAndHashTask)
             task.cleanCallback = self.updateMultifileDone
             task.uncleanCallback = self.startReextractingFiles
-            self.miniTaskMgr.add(task, "patchAndHash")
+            self._addMiniTask(task, "patchAndHash")
         else:
             self.updateMultifileDone()
 

@@ -26,8 +26,11 @@ class AIBase:
         # Get the dconfig object
         self.config = getConfigShowbase()
         __builtins__["__dev__"] = ConfigVariableBool('want-dev', 0).getValue()
-        if ConfigVariableBool('want-variable-dump', 0).getValue():
-            ExceptionVarDump.install()
+        logStackDump = ConfigVariableBool('log-stack-dump', not __dev__).getValue() or \
+                       ConfigVariableBool('ai-log-stack-dump', not __dev__).getValue()
+        uploadStackDump = self.config.GetBool('upload-stack-dump', 0)
+        if logStackDump or uploadStackDump:
+            ExceptionVarDump.install(logStackDump, uploadStackDump)
 
         if ConfigVariableBool('use-vfs', 1).getValue():
             vfs = VirtualFileSystem.getGlobalPtr()

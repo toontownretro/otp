@@ -12,6 +12,8 @@ import time
 from otp.avatar import Avatar, PlayerBase
 from otp.chat import TalkAssistant
 from otp.otpbase import OTPGlobals
+from otp.avatar.Avatar import teleportNotify
+from otp.distributed.TelemetryLimited import TelemetryLimited
 
 #hack, init for client-side outgoing chat filter
 if ConfigVariableBool('want-chatfilter-hacks',0).getValue():
@@ -21,7 +23,8 @@ if ConfigVariableBool('want-chatfilter-hacks',0).getValue():
 
 
 class DistributedPlayer(DistributedAvatar.DistributedAvatar,
-                        PlayerBase.PlayerBase):
+                        PlayerBase.PlayerBase,
+                        TelemetryLimited):
     """Distributed Player class:"""
 
     # This is the length of time that should elapse before we allow
@@ -43,6 +46,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
 
             DistributedAvatar.DistributedAvatar.__init__(self, cr)
             PlayerBase.PlayerBase.__init__(self)
+            TelemetryLimited.__init__(self)
 
             self.__teleportAvailable = 0
 
@@ -64,6 +68,18 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
 
             self.whiteListEnabled = ConfigVariableBool('whitelist-chat-enabled', 1).getValue()
 
+
+    @staticmethod
+    def GetPlayerGenerateEvent():
+        return 'DistributedPlayerGenerateEvent'
+
+    @staticmethod
+    def GetPlayerNetworkDeleteEvent():
+        return 'DistributedPlayerNetworkDeleteEvent'
+
+    @staticmethod
+    def GetPlayerDeleteEvent():
+        return 'DistributedPlayerDeleteEvent'
 
     ### managing ActiveAvatars ###
 
@@ -95,6 +111,10 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
         to the world, either for the first time or from the cache.
         """
         DistributedAvatar.DistributedAvatar.generate(self)
+
+    def announceGenerate(self):
+        DistributedAvatar.DistributedAvatar.announceGenerate(self)
+        messenger.send(self.GetPlayerGenerateEvent(), [self])
 
     def setLocation(self, parentId, zoneId, teleport=0):
         DistributedAvatar.DistributedAvatar.setLocation(self, parentId, zoneId, teleport)
@@ -502,6 +522,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
     ### teleportQuery ###
 
     def d_teleportQuery(self, requesterId, sendToId = None):
+        teleportNotify.debug("sending teleportQuery%s" % ((requesterId, sendToId),))
         self.sendUpdate("teleportQuery", [requesterId], sendToId)
         #print("sending teleportQuery %s %s" % (requesterId, sendToId))
 
@@ -519,16 +540,20 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
         # friends list, or who are somewhere nearby.
         #print("received teleportQuery %s" % (requesterId))
         #avatar = base.cr.identifyAvatar(requesterId)
+        teleportNotify.debug("receieved teleportQuery(%s)" % requesterId)
         avatar = base.cr.playerFriendsManager.identifyFriend(requesterId)
 
         if avatar != None:
+            teleportNotify.debug("avatar is not None")
             # new ignore list is handled by the Friends manager's, there are now two types, avatar and player.
             if base.cr.avatarFriendsManager.checkIgnored(requesterId):
+                teleportNotify.debug("avatar ignored via avatarFriendsManager")
                 self.d_teleportResponse(self.doId, 2, 0, 0, 0, sendToId = requesterId)
                 return
 
             # We're ignoring this jerk.  Send back a suitable response.
             if requesterId in self.ignoreList:
+                teleportNotify.debug("avatar ignored via ignoreList")
                 self.d_teleportResponse(self.doId, 2, 0, 0, 0, sendToId = requesterId)
                 return
 
@@ -539,16 +564,19 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
                     # We need to check the guest list of this party and see if
                     # requesterId is on the list
                     if requesterId not in base.distributedParty.inviteeIds:
+                        teleportNotify.debug("avatar not in inviteeIds")
                         # Sorry, not on the list, send a try-again-later message
                         self.d_teleportResponse(self.doId, 0, 0, 0, 0, sendToId = requesterId)
                         return
 
                 if base.distributedParty.isPartyEnding:
+                    teleportNotify.debug("party is ending")
                     self.d_teleportResponse(self.doId, 0, 0, 0, 0, sendToId = requesterId)
                     return
 
             #print("teleport Available %s Ghost %s" % (self.__teleportAvailable, self.ghostMode))
-            if self.__teleportAvailable and not self.ghostMode:
+            if self.__teleportAvailable and not self.ghostMode and ConfigVariableBool('can-be-teleported-to', 1).getValue():
+                teleportNotify.debug("teleport initiation successful")
                 # Generate a whisper message that so-and-so is teleporting
                 # to us.
                 self.setSystemMessage(requesterId, OTPLocalizer.WhisperComingToVisit % (avatar.getName()))
@@ -566,6 +594,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
                 self.setSystemMessage(requesterId, OTPLocalizer.WhisperFailedVisit % (avatar.getName()))
 
 
+        teleportNotify.debug("teleport initiation failed")
         # Send back a try-again-later message.
         self.d_teleportResponse(self.doId, 0, 0, 0, 0, sendToId = requesterId)
 
@@ -591,14 +620,17 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
 
     def d_teleportResponse(self, avId, available, shardId, hoodId, zoneId,
                            sendToId = None):
+        teleportNotify.debug("sending teleportResponse%s" % ((avId, available, shardId, hoodId, zoneId, sendToId),))
         self.sendUpdate("teleportResponse", [avId, available, shardId, hoodId, zoneId], sendToId)
 
     def teleportResponse(self, avId, available, shardId, hoodId, zoneId):
+        teleportNotify.debug("received teleportResponse%s" % ((avId, available, shardId, hoodId, zoneId),))
         messenger.send('teleportResponse', [avId, available, shardId, hoodId, zoneId])
 
     ### teleportGiveup ###
 
     def d_teleportGiveup(self, requesterId, sendToId = None):
+        teleportNotify.debug("sending teleportGiveup(%s) to %s" % (requesterId, sendToId))
         self.sendUpdate("teleportGiveup", [requesterId], sendToId)
 
     def teleportGiveup(self, requesterId):
@@ -610,6 +642,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
         that effect.
 
         """
+        teleportNotify.debug("received teleportGiveup(%s)" % (requesterId,))
         avatar = base.cr.identifyAvatar(requesterId)
 
         if not self._isValidWhisperSource(avatar):

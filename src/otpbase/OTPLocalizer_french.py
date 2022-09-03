@@ -3095,7 +3095,7 @@ CustomSCStrings = {
     10019 : "Je t'ai fait peur ?",
 
     # Fall Festivus
-    11000 : "Bah! Balivernes !",
+    11000 : "Bah ! Balivernes !",
     11001 : "Mieux vaut ne pas bouder !",
     11002 : "Brrr !",
     11003 : "Glaçant !",

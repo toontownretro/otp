@@ -232,6 +232,7 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar,
 
         base.popCTrav()
 
+        taskMgr.remove('posCamera')
         self.disableAvatarControls()
         self.stopTrackAnimToSpeed()
         self.stopUpdateSmartCamera()
@@ -967,6 +968,7 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar,
             camera.setPos(savePos)
             camera.setHpr(saveHpr)
 
+            taskMgr.remove('posCamera')
             camera.posHprInterval(time, (x, y, z), (h, p, r), name="posCamera")
 
     def getClampedAvatarHeight(self):

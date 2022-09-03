@@ -55,11 +55,13 @@ class PlayerFriendsManager(DistributedObjectGlobal):
 
     def sendRequestUseUnlimitedSecret(self,secret):
         assert self.notify.debugCall()
-        self.sendUpdate("requestUseUnlimitedSecret", [0,secret])
-
+        #self.sendUpdate("requestUseUnlimitedSecret", [0,secret])
+        pass
+        
     def sendRequestUseLimitedSecret(self,secret,username,password):
         assert self.notify.debugCall()
-        self.sendUpdate("requestUseLimitedSecret", [0,secret,username,password])
+        #self.sendUpdate("requestUseLimitedSecret", [0,secret,username,password])
+        pass
 
 
     def sendSCWhisper(self,recipientId,msgId):

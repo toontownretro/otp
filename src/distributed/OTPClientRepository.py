@@ -46,6 +46,7 @@ from otp.otpbase import OTPGlobals
 from otp.otpbase import OTPLauncherGlobals
 from otp.uberdog import OtpAvatarManager
 from otp.distributed import OtpDoGlobals
+from otp.distributed.TelemetryLimiter import TelemetryLimiter
 from otp.ai.GarbageLeakServerEventAggregator import GarbageLeakServerEventAggregator
 
 from .PotentialAvatar import PotentialAvatar
@@ -272,7 +273,7 @@ class OTPClientRepository(ClientRepositoryBase):
         if __debug__:
             # In the dev environment, the default value comes from the
             # username.
-            default = 'dev-%s' % (os.getenv("USER"))
+            default = 'dev-%s' % (os.getenv("USERNAME"))
             self.userSignature = ConfigVariableString('signature', default).getValue();
 
         else:
@@ -325,6 +326,8 @@ class OTPClientRepository(ClientRepositoryBase):
         self._crashOnProactiveLeakDetect = ConfigVariableBool('crash-on-proactive-leak-detect', 1).getValue()
 
         self.activeDistrictMap = {}
+
+        self.telemetryLimiter = TelemetryLimiter()
 
         self.serverVersion = serverVersion
 
@@ -683,6 +686,7 @@ class OTPClientRepository(ClientRepositoryBase):
     def getConnectedEvent(self):
         return 'OTPClientRepository-connected'
 
+    @report(types=['args', 'deltaStamp'], dConfigParam='teleport')
     def _handleConnected(self):
         self.launcher.setDisconnectDetailsNormal()
         messenger.send(self.getConnectedEvent())
@@ -705,6 +709,9 @@ class OTPClientRepository(ClientRepositoryBase):
         # is this a new installation?
         newInstall = launcher.getIsNewInstallation()
         newInstall = ConfigVariableBool("new-installation", newInstall).getValue()
+        if newInstall:
+             self.notify.warning("new installation")
+
 
         self.loginFSM.request("login")
 
@@ -1707,6 +1714,7 @@ class OTPClientRepository(ClientRepositoryBase):
 ##
 #################################################
 
+    @report(types=['args'], dConfigParam='teleport')
     def detectLeaks(self, okTasks=None, okEvents=None):
         if (not __dev__) or \
            configIsToday("allow-unclean-exit"):
@@ -1732,7 +1740,7 @@ class OTPClientRepository(ClientRepositoryBase):
             else:
                 if __debug__:
                     # log the leaks and stop the client
-                    logFunc = self.notify.error
+                    logFunc = (not PythonUtil.configIsToday('temp-disable-leak-detection') and self).notify.error
                     allowExit = False
                 else:
                     # In production, lets log the warning so we can do triage, but let
@@ -1797,6 +1805,7 @@ class OTPClientRepository(ClientRepositoryBase):
                         jobMgr.TaskName,
                         self.GarbageCollectTaskName,
                         "RedownloadNewsTask", #in another taskChain and taskMgr.remove doesnt work
+                        TelemetryLimiter.TaskName,
                         ]
         if extraTasks is not None:
             allowedTasks.extend(extraTasks)
@@ -1882,7 +1891,7 @@ class OTPClientRepository(ClientRepositoryBase):
                         except:
                             pass
             msg += "\n}\n"
-            self.notify.info(msg)
+            self.notify.warning(msg)
             return len(problems)
         else:
             return 0
@@ -3307,3 +3316,12 @@ class OTPClientRepository(ClientRepositoryBase):
         except:
             self.notify.debug("In isLocalId(), localAvatar not created yet")
             return False
+
+    ITAG_PERM = 'perm'
+    ITAG_AVATAR = 'avatar'
+    ITAG_SHARD = 'shard'
+    ITAG_WORLD = 'world'
+    ITAG_GAME = 'game'
+
+    def addTaggedInterest(self, parentId, zoneId, mainTag, desc, otherTags=[], event=None):
+        return self.addInterest(parentId, zoneId, desc, event)

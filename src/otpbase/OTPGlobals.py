@@ -189,6 +189,7 @@ ProductPrefix = None
 # when they get loaded.
 def getInterfaceFont():
     global InterfaceFont
+    global InterfaceFontPath
     if (InterfaceFont == None):
         if InterfaceFontPath == None:
             InterfaceFont = TextNode.getDefaultFont()
@@ -204,6 +205,7 @@ def setInterfaceFont(path):
 
 def getSignFont():
     global SignFont
+    global SignFontPath
     if (SignFont == None):
         if SignFontPath == None:
             InterfaceFont = TextNode.getDefaultFont()
@@ -219,6 +221,7 @@ def setSignFont(path):
 
 def getFancyFont():
     global FancyFont
+    global FancyFontPath
     if (FancyFont == None):
         if FancyFontPath == None:
             InterfaceFont = TextNode.getDefaultFont()
@@ -233,6 +236,7 @@ def setFancyFont(path):
 
 
 def getNametagFont(index):
+    global NametagFontPaths
     global NametagFonts
     if ((index not in NametagFonts )or NametagFonts[index] == None):
         if (index not in NametagFontPaths ) or (NametagFontPaths[index] == None):
@@ -268,6 +272,7 @@ def getGlobalDialogClass():
 
 def setDialogClasses(dialogClass, globalDialogClass):
     global DialogClass
+    global GlobalDialogClass
     DialogClass = dialogClass
     global GlobalDialogClass
     GlobalDialogClass = globalDialogClass
