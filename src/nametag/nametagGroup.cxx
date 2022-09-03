@@ -13,6 +13,7 @@
 #include "throw_event.h"
 #include "string_utils.h"
 #include "clockObject.h"
+#include "jobSystem.h"
 
 #include <algorithm>
 
@@ -72,12 +73,14 @@ NametagGroup::
 ~NametagGroup() {
   // Tell all our child nametags that they're no longer associated
   // with a NametagGroup.
-  Nametags::iterator ti;
-  for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
-    Nametag *tag = (*ti);
+  //Nametags::iterator ti;
+  //for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
+  JobSystem *jsys = JobSystem::get_global_ptr();
+  jsys->parallel_process(_nametags.size(), [&] (size_t i) {
+    Nametag *tag = _nametags[i]; //(*ti);
     tag->_group = (NametagGroup *)NULL;
     tag->update_contents();
-  }
+  });
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -155,9 +158,11 @@ clear_aux_nametags() {
   Nametags new_nametags;
   new_nametags.reserve(2);
 
-  Nametags::iterator ti;
-  for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
-    Nametag *tag = (*ti);
+  //Nametags::iterator ti;
+  //for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
+  JobSystem *jsys = JobSystem::get_global_ptr();
+  jsys->parallel_process(_nametags.size(), [&] (size_t i) {
+    Nametag *tag = _nametags[i]; //(*ti);
 
     if (tag == _nametag2d || tag == _nametag3d) {
       new_nametags.push_back(tag);
@@ -166,7 +171,7 @@ clear_aux_nametags() {
       tag->_group = (NametagGroup *)NULL;
       tag->update_contents();
     }
-  }
+  });
 
   _nametags.swap(new_nametags);
 }
@@ -407,11 +412,13 @@ manage(MarginManager *manager) {
   if (!is_managed()) {
     _manager = manager;
 
-    Nametags::iterator ti;
-    for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
-      Nametag *tag = (*ti);
+    //Nametags::iterator ti;
+    //for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
+    JobSystem *jsys = JobSystem::get_global_ptr();
+    jsys->parallel_process(_nametags.size(), [&] (size_t i) {
+      Nametag *tag = _nametags[i]; //(*ti);
       tag->manage(manager);
-    }
+    });
   }
 }
 
@@ -429,11 +436,13 @@ unmanage(MarginManager *manager) {
     nassertv(manager == _manager);
     _manager = (MarginManager *)NULL;
 
-    Nametags::iterator ti;
-    for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
-      Nametag *tag = (*ti);
+    //Nametags::iterator ti;
+    //for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
+    JobSystem *jsys = JobSystem::get_global_ptr();
+    jsys->parallel_process(_nametags.size(), [&] (size_t i) {
+      Nametag *tag = _nametags[i]; //(*ti);
       tag->unmanage(manager);
-    }
+    });
   }
 }
 
@@ -480,11 +489,13 @@ copy_name_to(const NodePath &dest) const {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 update_regions() {
-  Nametags::iterator ti;
-  for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
-    Nametag *tag = (*ti);
+  //Nametags::iterator ti;
+  //for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
+  JobSystem *jsys = JobSystem::get_global_ptr();
+  jsys->parallel_process(_nametags.size(), [&] (size_t i) {
+    Nametag *tag = _nametags[i]; //(*ti);
     tag->update_region(_region_seq);
-  }
+  });
 
   // Now increment the region_seq for next time.
   _region_seq++;
@@ -536,9 +547,11 @@ update_regions() {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 update_contents_all() {
-  Nametags::iterator ti;
-  for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
-    Nametag *tag = (*ti);
+  //Nametags::iterator ti;
+  //for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
+  JobSystem *jsys = JobSystem::get_global_ptr();
+  jsys->parallel_process(_nametags.size(), [&] (size_t i) {
+    Nametag *tag = _nametags[i]; //(*ti);
     tag->update_contents();
-  }
+  });
 }

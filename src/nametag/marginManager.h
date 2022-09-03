@@ -16,6 +16,8 @@
 #include "vector_int.h"
 #include "nodePath.h"
 #include "genericAsyncTask.h"
+#include "lightReMutex.h"
+#include "tvector.h"
 
 ////////////////////////////////////////////////////////////////////
 //       Class : MarginManager
@@ -60,7 +62,8 @@ public:
 private:
   void show_visible_no_conflict();
   void show_visible_resolve_conflict();
-  int choose_cell(MarginPopup *popup, vector_int &empty_cells);
+  typedef tvector<int> EmptyCells;
+  int choose_cell(MarginPopup *popup, EmptyCells &empty_cells);
 
   void show(MarginPopup *popup, int cell_index);
   void hide(int cell_index);
@@ -110,6 +113,8 @@ private:
   typedef pvector<Cell> Cells;
   Cells _cells;
   int _num_available_cells;
+  
+  static LightReMutex _margin_manager_thread_lock;
 
 #ifndef NDEBUG
   NodePath _show_cells;

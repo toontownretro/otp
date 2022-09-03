@@ -6,7 +6,7 @@
     interval:c direct:m \
     interrogatedb \
     dtoolutil:c dtoolbase:c dtool:m \
-    express:c prc event:c pgraph:c pgraphnodes:c linmath:c gobj:c \
+    express:c prc event:c pgraph:c pgraphnodes:c jobsystem:c linmath:c gobj:c \
     anim:c putil:c mathutil:c downloader:c mathutil:c \
     recorder:c grutil:c collide:c device:c \
     dgraph:c display:c gsgbase:c parametrics:c text:c pnmimage:c \
@@ -34,7 +34,8 @@
     popupMouseWatcherRegion.I popupMouseWatcherRegion.h \
     marginPopup.I marginPopup.h \
     marginManager.I marginManager.h \
-    whisperPopup.I whisperPopup.h
+    whisperPopup.I whisperPopup.h \
+    tvector.h tpvector.h
 
   #define COMPOSITE_SOURCES  \
     chatBalloon.cxx \

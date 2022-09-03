@@ -13,11 +13,14 @@
 #include "omniBoundingVolume.h"
 #include "indent.h"
 #include "asyncTaskManager.h"
+#include "jobSystem.h"
+#include "lightReMutexHolder.h"
 
 #include <algorithm>
 #include <random>
 
 TypeHandle MarginManager::_type_handle;
+LightReMutex MarginManager::_margin_manager_thread_lock("margin-manager-thread-lock");
 
 ////////////////////////////////////////////////////////////////////
 //     Function: MarginManager::Constructor
@@ -169,7 +172,7 @@ add_cell(float left, float right, float bottom, float top) {
                    (bottom + top) * 0.5f);
 
   int cell_index = _cells.size();
-  _cells.push_back(Cell());
+  _cells.emplace_back(Cell());
   Cell &cell = _cells.back();
   cell._is_available = true;
   compose_matrix(cell._mat, scale, hpr, trans);
@@ -216,7 +219,7 @@ add_cell(float left, float right, float bottom, float top, NodePath &parent) {
                    (bottom + top) * 0.5f);
 
   int cell_index = _cells.size();
-  _cells.push_back(Cell());
+  _cells.emplace_back(Cell());
   Cell &cell = _cells.back();
   cell._is_available = true;
   compose_matrix(cell._mat, scale, hpr, trans);
@@ -301,6 +304,8 @@ show_cells() {
 
   Cells::const_iterator ci;
   for (ci = _cells.begin(); ci != _cells.end(); ++ci) {
+  //JobSystem *jsys = JobSystem::get_global_ptr();
+  //jsys->parallel_process(_cells.size(), [&] (size_t i) {
     const Cell &cell = (*ci);
 
     if (cell._is_available) {
@@ -314,7 +319,7 @@ show_cells() {
     lines.draw_to(LPoint3f(cell._width, 0.0f, -1.0f) * cell._mat);
     lines.draw_to(LPoint3f(cell._width, 0.0f, 1.0f) * cell._mat);
     lines.draw_to(LPoint3f(-cell._width, 0.0f, 1.0f) * cell._mat);
-  }
+  }//);
 
   NodePath this_np(this);
   _show_cells = this_np.attach_new_node(lines.create());
@@ -551,15 +556,19 @@ write(ostream &out, int indent_level) const {
 void MarginManager::
 show_visible_no_conflict() {
   // First, find all the empty cells.
-  vector_int empty_cells;
-  Cells::const_iterator ci;
-  for (ci = _cells.begin(); ci != _cells.end(); ++ci) {
-    if ((*ci)._is_available && (*ci)._np.is_empty()) {
+  EmptyCells empty_cells;
+  
+  //Cells::const_iterator ci;
+  //for (ci = _cells.begin(); ci != _cells.end(); ++ci) {
+  JobSystem *jsys = JobSystem::get_global_ptr();
+  jsys->parallel_process(_cells.size(), [&] (size_t i) {
+    const Cell &cell = _cells[i]; //(*ci);
+    if (cell._is_available && cell._np.is_empty()) {
       // Here's an empty cell.
-      int cell_index = (ci - _cells.begin());
-      empty_cells.push_back(cell_index);
+      int cell_index = i; //(ci - _cells.begin());
+      empty_cells.emplace_back(cell_index);
     }
-  }
+  });
 
   // Randomize the list, so we'll pull the cells out in random order.
   auto random = std::default_random_engine(std::random_device()());
@@ -590,6 +599,8 @@ show_visible_no_conflict() {
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 show_visible_resolve_conflict() {
+  JobSystem *jsys = JobSystem::get_global_ptr();
+
   // First, get a list of the popups that want to be visible in
   // descending order by score.
   typedef pvector<Popups::iterator> PopupsByScore;
@@ -602,7 +613,7 @@ show_visible_resolve_conflict() {
 
     if (info._wants_visible) {
       info._score = popup->get_score();
-      by_score.push_back(pi);
+      by_score.emplace_back(pi);
     }
   }
 
@@ -611,26 +622,28 @@ show_visible_resolve_conflict() {
   // Now all the popups on the head of this list will be visible, and
   // all the ones on the tail will be invisible.  Start from the
   // beginning of the tail and make sure they're all invisible.
-  int i;
-  for (i = _num_available_cells; i < (int)by_score.size(); i++) {
+  for (int i = _num_available_cells; i < (int)by_score.size(); i++) {
+  //jsys->parallel_process(by_score.size(), [&] (size_t i) {
     pi = by_score[i];
     MarginPopup *popup = (*pi).first;
     PopupInfo &info = (*pi).second;
     if (popup->is_visible()) {
       hide(info._cell_index);
     }
-  }
+  }//);
 
   // Now we can find all the empty cells.
-  vector_int empty_cells;
-  Cells::const_iterator ci;
-  for (ci = _cells.begin(); ci != _cells.end(); ++ci) {
-    if ((*ci)._is_available && (*ci)._np.is_empty()) {
+  EmptyCells empty_cells;
+  //Cells::const_iterator ci;
+  //for (ci = _cells.begin(); ci != _cells.end(); ++ci) {
+  jsys->parallel_process(_cells.size(), [&] (size_t i) {
+    const Cell &cell = _cells[i]; //(*ci);
+    if (cell._is_available && cell._np.is_empty()) {
       // Here's an empty cell.
-      int cell_index = (ci - _cells.begin());
-      empty_cells.push_back(cell_index);
+      int cell_index = i; //(ci - _cells.begin());
+      empty_cells.emplace_back(cell_index);
     }
-  }
+  });
 
   // Randomize the list, so we'll pull the cells out in random order.
   auto random = std::default_random_engine(std::random_device()());
@@ -638,7 +651,8 @@ show_visible_resolve_conflict() {
 
   // And place all the cells from the head of the wants-visible list.
   // There should be an empty cell available for each of them.
-  for (i = 0; i < _num_available_cells; i++) {
+  //for (i = 0; i < _num_available_cells; i++) {
+  jsys->parallel_process(_num_available_cells, [&] (size_t i) {
     pi = by_score[i];
     MarginPopup *popup = (*pi).first;
     if (!popup->is_visible()) {
@@ -647,7 +661,7 @@ show_visible_resolve_conflict() {
 
       show(popup, cell_index);
     }
-  }
+  });
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -657,7 +671,9 @@ show_visible_resolve_conflict() {
 //               from the given list of empty cells.
 ////////////////////////////////////////////////////////////////////
 int MarginManager::
-choose_cell(MarginPopup *popup, vector_int &empty_cells) {
+choose_cell(MarginPopup *popup, EmptyCells &empty_cells) {
+  LightReMutexHolder holder(_margin_manager_thread_lock);
+
   double now = ClockObject::get_global_clock()->get_frame_time();
   int popup_code = popup->get_object_code();
 
@@ -708,6 +724,8 @@ choose_cell(MarginPopup *popup, vector_int &empty_cells) {
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 show(MarginPopup *popup, int cell_index) {
+  LightReMutexHolder holder(_margin_manager_thread_lock);
+
   nassertv(cell_index >= 0 && cell_index < (int)_cells.size());
   nassertv(_cells[cell_index]._np.is_empty());
 
@@ -736,6 +754,8 @@ show(MarginPopup *popup, int cell_index) {
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 hide(int cell_index) {
+  LightReMutexHolder holder(_margin_manager_thread_lock);
+
   nassertv(cell_index >= 0 && cell_index < (int)_cells.size());
   nassertv(!_cells[cell_index]._np.is_empty());
 
