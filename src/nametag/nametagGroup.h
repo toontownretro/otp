@@ -16,6 +16,7 @@
 #include "pvector.h"
 #include "nodePath.h"
 #include "vector_string.h"
+#include "lightReMutex.h"
 
 class MarginManager;
 class Nametag2d;
@@ -201,6 +202,7 @@ private:
 
   static int _unique_index;
 
+  static LightReMutex _nametag_group_thread_lock;
 };
 
 #include "nametagGroup.I"

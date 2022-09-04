@@ -13,11 +13,13 @@
 #include "throw_event.h"
 #include "string_utils.h"
 #include "clockObject.h"
+#include "lightReMutexHolder.h"
 #include "jobSystem.h"
 
 #include <algorithm>
 
 int NametagGroup::_unique_index = 0;
+LightReMutex NametagGroup::_nametag_group_thread_lock("nametag-group-thread-lock");
 
 ////////////////////////////////////////////////////////////////////
 //     Function: NametagGroup::Constructor
@@ -91,6 +93,8 @@ NametagGroup::
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 add_nametag(Nametag *tag) {
+  LightReMutexHolder holder(_nametag_group_thread_lock);
+
   if (tag->has_group() && tag->get_group() == this) {
     // Already added.
     nametag_cat.info()
@@ -121,6 +125,8 @@ add_nametag(Nametag *tag) {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 remove_nametag(Nametag *tag) {
+  LightReMutexHolder holder(_nametag_group_thread_lock);
+
   if (!tag->has_group()) {
     // Already removed.
     nametag_cat.info()
@@ -155,6 +161,8 @@ remove_nametag(Nametag *tag) {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 clear_aux_nametags() {
+  LightReMutexHolder holder(_nametag_group_thread_lock);
+
   Nametags new_nametags;
   new_nametags.reserve(2);
 
@@ -211,6 +219,8 @@ get_nametag(int n) const {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 set_name_wordwrap(float name_wordwrap) {
+  LightReMutexHolder holder(_nametag_group_thread_lock);
+
   _name_wordwrap = name_wordwrap;
   set_display_name(_display_name);
 }
@@ -246,6 +256,8 @@ get_name_wordwrap() const {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 set_color_code(ColorCode code) {
+  LightReMutexHolder holder(_nametag_group_thread_lock);
+
   _color_code = code;
 
   update_contents_all();
@@ -261,6 +273,8 @@ set_color_code(ColorCode code) {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 set_display_name(const string &name) {
+  LightReMutexHolder holder(_nametag_group_thread_lock);
+
   _display_name = name;
 
   if (!_display_name.empty() && _name_font != (TextFont *)NULL) {
@@ -309,6 +323,8 @@ set_display_name(const string &name) {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 set_chat(const string &chat, int chat_flags, int page_number) {
+  LightReMutexHolder holder(_nametag_group_thread_lock);
+
   _chat_flags = chat_flags;
   _page_number = page_number;
   double now = ClockObject::get_global_clock()->get_frame_time();
@@ -365,6 +381,8 @@ set_chat(const string &chat, int chat_flags, int page_number) {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 set_page_number(int page_number) {
+  LightReMutexHolder holder(_nametag_group_thread_lock);
+
   if (_page_number != page_number) {
     _page_number = page_number;
 
@@ -409,6 +427,8 @@ click() {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 manage(MarginManager *manager) {
+  LightReMutexHolder holder(_nametag_group_thread_lock);
+
   if (!is_managed()) {
     _manager = manager;
 
@@ -432,6 +452,8 @@ manage(MarginManager *manager) {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 unmanage(MarginManager *manager) {
+  LightReMutexHolder holder(_nametag_group_thread_lock);
+
   if (is_managed()) {
     nassertv(manager == _manager);
     _manager = (MarginManager *)NULL;
@@ -489,8 +511,9 @@ copy_name_to(const NodePath &dest) const {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 update_regions() {
-  //Nametags::iterator ti;
-  //for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
+  LightReMutexHolder holder(_nametag_group_thread_lock);
+
+  //for (Nametags::iterator ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
   JobSystem *jsys = JobSystem::get_global_ptr();
   jsys->parallel_process(_nametags.size(), [&] (size_t i) {
     Nametag *tag = _nametags[i]; //(*ti);
@@ -547,8 +570,7 @@ update_regions() {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 update_contents_all() {
-  //Nametags::iterator ti;
-  //for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
+  //for (Nametags::iterator ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
   JobSystem *jsys = JobSystem::get_global_ptr();
   jsys->parallel_process(_nametags.size(), [&] (size_t i) {
     Nametag *tag = _nametags[i]; //(*ti);

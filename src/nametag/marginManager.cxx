@@ -15,6 +15,7 @@
 #include "asyncTaskManager.h"
 #include "jobSystem.h"
 #include "lightReMutexHolder.h"
+#include "tpvector.h"
 
 #include <algorithm>
 #include <random>
@@ -88,6 +89,8 @@ int MarginManager::
 add_grid_cell(float x, float y,
               float screen_left, float screen_right,
               float screen_bottom, float screen_top) {
+  LightReMutexHolder holder(_margin_manager_thread_lock);
+
   float screen_width = (screen_right - screen_left);
   float screen_height = (screen_top - screen_bottom);
 
@@ -126,6 +129,8 @@ add_grid_cell(float x, float y,
               float screen_left, float screen_right,
               float screen_bottom, float screen_top,
               NodePath &parent) {
+  LightReMutexHolder holder(_margin_manager_thread_lock);
+
   float screen_width = (screen_right - screen_left);
   float screen_height = (screen_top - screen_bottom);
 
@@ -161,6 +166,8 @@ add_grid_cell(float x, float y,
 ////////////////////////////////////////////////////////////////////
 int MarginManager::
 add_cell(float left, float right, float bottom, float top) {
+  LightReMutexHolder holder(_margin_manager_thread_lock);
+
   // We choose the appropriate scale such that -1 .. 1 maps to the top
   // and bottom of the rectangle, and the appropriate translation such
   // that (0, 0) is in the center of the rectangle.
@@ -208,6 +215,8 @@ add_cell(float left, float right, float bottom, float top) {
 ////////////////////////////////////////////////////////////////////
 int MarginManager::
 add_cell(float left, float right, float bottom, float top, NodePath &parent) {
+  LightReMutexHolder holder(_margin_manager_thread_lock);
+
   // We choose the appropriate scale such that -1 .. 1 maps to the top
   // and bottom of the rectangle, and the appropriate translation such
   // that (0, 0) is in the center of the rectangle.
@@ -251,6 +260,8 @@ add_cell(float left, float right, float bottom, float top, NodePath &parent) {
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 set_cell_available(int cell_index, bool available) {
+  LightReMutexHolder holder(_margin_manager_thread_lock);
+
   nassertv(cell_index >= 0 && cell_index < (int)_cells.size());
 
   if (_cells[cell_index]._is_available) {
@@ -298,6 +309,8 @@ get_cell_available(int cell_index) const {
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 show_cells() {
+  LightReMutexHolder holder(_margin_manager_thread_lock);
+
   hide_cells();
 
   LineSegs lines;
@@ -333,6 +346,8 @@ show_cells() {
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 hide_cells() {
+   LightReMutexHolder holder(_margin_manager_thread_lock);
+
   _show_cells.remove_node();
 }
 #endif
@@ -346,6 +361,8 @@ hide_cells() {
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 manage_popup(MarginPopup *popup) {
+  LightReMutexHolder holder(_margin_manager_thread_lock);
+
   nassertv(!popup->is_managed());
   nassertv(!popup->is_visible());
   popup->set_managed(true);
@@ -366,6 +383,8 @@ manage_popup(MarginPopup *popup) {
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 unmanage_popup(MarginPopup *popup) {
+  LightReMutexHolder holder(_margin_manager_thread_lock);
+
   Popups::iterator pi = _popups.find(popup);
   if (pi == _popups.end()) {
     // Not on the list.
@@ -397,10 +416,11 @@ unmanage_popup(MarginPopup *popup) {
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 update() {
+  JobSystem *jsys = JobSystem::get_global_ptr();
+
   // First, query all of our managed popups to see if they should
   // change their managed/unmanaged state.
-  Popups::iterator pi;
-  pi = _popups.begin();
+  Popups::iterator pi = _popups.begin();
   while (pi != _popups.end()) {
     MarginPopup *popup = (*pi).first;
     PopupInfo &info = (*pi).second;
@@ -438,7 +458,8 @@ update() {
   int num_visible = 0;
   bool any_new_visible = false;
 
-  for (pi = _popups.begin(); pi != _popups.end(); ++pi) {
+  //for (pi = _popups.begin(); pi != _popups.end(); ++pi) {
+  jsys->parallel_process<Popups::iterator>(_popups.begin(), _popups.size(), [&] (Popups::iterator pi) {
     MarginPopup *popup = (*pi).first;
     PopupInfo &info = (*pi).second;
 
@@ -453,24 +474,25 @@ update() {
         // Find the one with the highest score.
         float best_score = info._score;
         MarginPopup *best_popup = popup;
-        PopupSet::iterator psi;
-        for (psi = popup_set.begin(); psi != popup_set.end(); ++psi) {
+        for (PopupSet::iterator psi = popup_set.begin(); psi != popup_set.end(); ++psi) {
+        //jsys->parallel_process<PopupSet::iterator>(popup_set.begin(), popup_set.size(), [&] (PopupSet::iterator psi) {
           MarginPopup *try_popup = (*psi);
           PopupInfo &try_info = _popups[try_popup];
           if (try_info._wants_visible && try_info._score > best_score) {
             best_score = try_info._score;
             best_popup = try_popup;
           }
-        }
+        }//);
 
         // Now set all the other ones invisible.
-        for (psi = popup_set.begin(); psi != popup_set.end(); ++psi) {
+        for (PopupSet::iterator psi = popup_set.begin(); psi != popup_set.end(); ++psi) {
+        //jsys->parallel_process<PopupSet::iterator>(popup_set.begin(), popup_set.size(), [&] (PopupSet::iterator psi) {
           MarginPopup *try_popup = (*psi);
           PopupInfo &try_info = _popups[try_popup];
           if (try_popup != best_popup) {
             try_info._wants_visible = false;
           }
-        }
+        }//);
       }
     }
 
@@ -488,7 +510,7 @@ update() {
       // request for a bit until we've looked at all the popups.
       any_new_visible = true;
     }
-  }
+  });
 
   if (any_new_visible) {
     // Now, can we satisfy all the popups that want visibility?
@@ -502,11 +524,12 @@ update() {
   }
 
   // Now do all the callbacks.
-  for (pi = _popups.begin(); pi != _popups.end(); ++pi) {
+  //for (pi = _popups.begin(); pi != _popups.end(); ++pi) {
+  jsys->parallel_process<Popups::iterator>(_popups.begin(), _popups.size(), [&] (Popups::iterator pi) {
     MarginPopup *popup = (*pi).first;
 
     popup->frame_callback();
-  }
+  });
 
 #ifndef NDEBUG
   // Update the visualization of the MouseWatcherRegions, if this
@@ -527,8 +550,7 @@ void MarginManager::
 write(ostream &out, int indent_level) const {
   PandaNode::write(out, indent_level);
 
-  Popups::const_iterator pi;
-  for (pi = _popups.begin(); pi != _popups.end(); ++pi) {
+  for (Popups::const_iterator pi = _popups.begin(); pi != _popups.end(); ++pi) {
     MarginPopup *popup = (*pi).first;
     const PopupInfo &info = (*pi).second;
 
@@ -557,10 +579,9 @@ void MarginManager::
 show_visible_no_conflict() {
   // First, find all the empty cells.
   EmptyCells empty_cells;
-  
-  //Cells::const_iterator ci;
-  //for (ci = _cells.begin(); ci != _cells.end(); ++ci) {
   JobSystem *jsys = JobSystem::get_global_ptr();
+  
+  //for (Cells::const_iterator ci = _cells.begin(); ci != _cells.end(); ++ci) {
   jsys->parallel_process(_cells.size(), [&] (size_t i) {
     const Cell &cell = _cells[i]; //(*ci);
     if (cell._is_available && cell._np.is_empty()) {
@@ -575,8 +596,8 @@ show_visible_no_conflict() {
   std::shuffle(std::begin(empty_cells), std::end(empty_cells), random);
 
   // Now find a home for each popup that needs one.
-  Popups::iterator pi;
-  for (pi = _popups.begin(); pi != _popups.end(); ++pi) {
+  //for (Popups::iterator pi = _popups.begin(); pi != _popups.end(); ++pi) {
+  jsys->parallel_process<Popups::iterator>(_popups.begin(), _popups.size(), [&] (Popups::iterator pi) {
     MarginPopup *popup = (*pi).first;
     PopupInfo &info = (*pi).second;
 
@@ -586,7 +607,7 @@ show_visible_no_conflict() {
 
       show(popup, cell_index);
     }
-  }
+  });
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -603,11 +624,11 @@ show_visible_resolve_conflict() {
 
   // First, get a list of the popups that want to be visible in
   // descending order by score.
-  typedef pvector<Popups::iterator> PopupsByScore;
+  typedef tpvector<Popups::iterator> PopupsByScore;
   PopupsByScore by_score;
 
-  Popups::iterator pi;
-  for (pi = _popups.begin(); pi != _popups.end(); ++pi) {
+  //for (Popups::iterator pi = _popups.begin(); pi != _popups.end(); ++pi) {
+  jsys->parallel_process<Popups::iterator>(_popups.begin(), _popups.size(), [&] (Popups::iterator pi) {
     MarginPopup *popup = (*pi).first;
     PopupInfo &info = (*pi).second;
 
@@ -615,7 +636,7 @@ show_visible_resolve_conflict() {
       info._score = popup->get_score();
       by_score.emplace_back(pi);
     }
-  }
+  });
 
   sort(by_score.begin(), by_score.end(), SortPopupsByScore());
 
@@ -624,7 +645,7 @@ show_visible_resolve_conflict() {
   // beginning of the tail and make sure they're all invisible.
   for (int i = _num_available_cells; i < (int)by_score.size(); i++) {
   //jsys->parallel_process(by_score.size(), [&] (size_t i) {
-    pi = by_score[i];
+    Popups::iterator pi = by_score[i];
     MarginPopup *popup = (*pi).first;
     PopupInfo &info = (*pi).second;
     if (popup->is_visible()) {
@@ -634,8 +655,7 @@ show_visible_resolve_conflict() {
 
   // Now we can find all the empty cells.
   EmptyCells empty_cells;
-  //Cells::const_iterator ci;
-  //for (ci = _cells.begin(); ci != _cells.end(); ++ci) {
+  //for (Cells::const_iterator ci = _cells.begin(); ci != _cells.end(); ++ci) {
   jsys->parallel_process(_cells.size(), [&] (size_t i) {
     const Cell &cell = _cells[i]; //(*ci);
     if (cell._is_available && cell._np.is_empty()) {
@@ -653,7 +673,7 @@ show_visible_resolve_conflict() {
   // There should be an empty cell available for each of them.
   //for (i = 0; i < _num_available_cells; i++) {
   jsys->parallel_process(_num_available_cells, [&] (size_t i) {
-    pi = by_score[i];
+    Popups::iterator pi = by_score[i];
     MarginPopup *popup = (*pi).first;
     if (!popup->is_visible()) {
       int cell_index = choose_cell(popup, empty_cells);
