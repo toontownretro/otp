@@ -580,7 +580,7 @@ show_visible_no_conflict() {
   // First, find all the empty cells.
   EmptyCells empty_cells;
   JobSystem *jsys = JobSystem::get_global_ptr();
-  
+
   //for (Cells::const_iterator ci = _cells.begin(); ci != _cells.end(); ++ci) {
   jsys->parallel_process(_cells.size(), [&] (size_t i) {
     const Cell &cell = _cells[i]; //(*ci);
@@ -698,7 +698,7 @@ choose_cell(MarginPopup *popup, EmptyCells &empty_cells) {
   int popup_code = popup->get_object_code();
 
   // First, see if one of the empty cells still remembers this popup.
-  vector_int::iterator ii;
+  EmptyCells::iterator ii;
   for (ii = empty_cells.begin(); ii != empty_cells.end(); ++ii) {
     int cell_index = (*ii);
     Cell &cell = _cells[cell_index];
