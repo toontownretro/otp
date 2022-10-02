@@ -1,6 +1,4 @@
-import MySQLdb
-import MySQLdb.constants.CR
-import MySQLdb.constants.ER
+import pymysql as MySQLdb
 
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from otp.uberdog.DBInterface import DBInterface
@@ -150,8 +148,8 @@ class MySQLAccountAvatarsDB(DBInterface):
             cursor = MySQLdb.cursors.DictCursor(self.db)
             cursor.execute(command)
         except MySQLdb.OperationalError as e:
-            if (e[0] == MySQLdb.constants.CR.SERVER_GONE_ERROR) or \
-               (e[0] == MySQLdb.constants.CR.SERVER_LOST):
+            if (e[0] == MySQLdb.constants.CR.CR_SERVER_GONE_ERROR) or \
+               (e[0] == MySQLdb.constants.CR.CR_SERVER_LOST):
                 self.reconnect()
                 cursor = MySQLdb.cursors.DictCursor(self.db)
                 cursor.execute(command)
@@ -168,8 +166,8 @@ class MySQLAccountAvatarsDB(DBInterface):
             cursor = MySQLdb.cursors.DictCursor(self.db)
             cursor.execute(command)
         except MySQLdb.OperationalError as e:
-            if (e[0] == MySQLdb.constants.CR.SERVER_GONE_ERROR) or \
-               (e[0] == MySQLdb.constants.CR.SERVER_LOST):
+            if (e[0] == MySQLdb.constants.CR.CR_SERVER_GONE_ERROR) or \
+               (e[0] == MySQLdb.constants.CR.CR_SERVER_LOST):
                 self.reconnect()
                 cursor = MySQLdb.cursors.DictCursor(self.db)
                 cursor.execute(command)
@@ -186,8 +184,8 @@ class MySQLAccountAvatarsDB(DBInterface):
             cursor = MySQLdb.cursors.DictCursor(self.db)
             cursor.execute(command)
         except MySQLdb.OperationalError as e:
-            if (e[0] == MySQLdb.constants.CR.SERVER_GONE_ERROR) or \
-               (e[0] == MySQLdb.constants.CR.SERVER_LOST):
+            if (e[0] == MySQLdb.constants.CR.CR_SERVER_GONE_ERROR) or \
+               (e[0] == MySQLdb.constants.CR.CR_SERVER_LOST):
                 self.reconnect()
                 cursor = MySQLdb.cursors.DictCursor(self.db)
                 cursor.execute(command)
@@ -205,8 +203,8 @@ class MySQLAccountAvatarsDB(DBInterface):
             cursor = MySQLdb.cursors.DictCursor(self.db)
             cursor.execute(command)
         except MySQLdb.OperationalError as e:
-            if (e[0] == MySQLdb.constants.CR.SERVER_GONE_ERROR) or \
-               (e[0] == MySQLdb.constants.CR.SERVER_LOST):
+            if (e[0] == MySQLdb.constants.CR.CR_SERVER_GONE_ERROR) or \
+               (e[0] == MySQLdb.constants.CR.CR_SERVER_LOST):
                 self.reconnect()
                 cursor = MySQLdb.cursors.DictCursor(self.db)
                 cursor.execute(command)
@@ -225,8 +223,8 @@ class MySQLAccountAvatarsDB(DBInterface):
             cursor.execute(command)
             return cursor.fetchall()
         except MySQLdb.OperationalError as e:
-            if (e[0] == MySQLdb.constants.CR.SERVER_GONE_ERROR) or \
-               (e[0] == MySQLdb.constants.CR.SERVER_LOST):
+            if (e[0] == MySQLdb.constants.CR.CR_SERVER_GONE_ERROR) or \
+               (e[0] == MySQLdb.constants.CR.CR_SERVER_LOST):
                 self.reconnect()
                 cursor = MySQLdb.cursors.Cursor(self.db)
                 cursor.execute(command)
@@ -244,8 +242,8 @@ class MySQLAccountAvatarsDB(DBInterface):
             cursor = MySQLdb.cursors.Cursor(self.db)
             cursor.execute(command)
         except MySQLdb.OperationalError as e:
-            if (e[0] == MySQLdb.constants.CR.SERVER_GONE_ERROR) or \
-               (e[0] == MySQLdb.constants.CR.SERVER_LOST):
+            if (e[0] == MySQLdb.constants.CR.CR_SERVER_GONE_ERROR) or \
+               (e[0] == MySQLdb.constants.CR.CR_SERVER_LOST):
                 self.reconnect()
                 cursor = MySQLdb.cursors.Cursor(self.db)
                 cursor.execute(command)

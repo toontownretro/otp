@@ -1,4 +1,4 @@
-import MySQLdb
+import pymysql as MySQLdb
 
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from direct.directnotify.DirectNotifyGlobal import directNotify

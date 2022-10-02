@@ -1,4 +1,4 @@
-import MySQLdb
+import pymysql as MySQLdb
 import direct
 from otp.otpbase.OTPModules import *
 

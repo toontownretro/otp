@@ -1,4 +1,4 @@
-import MySQLdb
+import pymsql as MySQLdb
 import _mysql_exceptions
 import datetime
 #from otp.distributed import OtpDoGlobals

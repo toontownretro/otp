@@ -1,4 +1,4 @@
-import MySQLdb
+import pymysql as MySQLdb
 import time
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.task import Task
@@ -32,7 +32,7 @@ class GuildDB(DBInterface):
     DB wrapper class for guilds!  All SQL code for guilds should be in here.
     """
     notify = directNotify.newCategory('GuildDB')
-        
+
     def __init__(self,host,port,user,passwd,dbname):
         self.sqlAvailable = uber.sqlAvailable
         if not self.sqlAvailable:
@@ -40,7 +40,7 @@ class GuildDB(DBInterface):
 
         # Now set the bwDictPath. Used during token generation to make sure
         # we're not giving out any strings that contain bad words
-        
+
         self.bwDictPath = uber.bwDictPath
 
         # If Path string is empty, flag the dict as being offline
@@ -91,7 +91,7 @@ class GuildDB(DBInterface):
         cursor.execute("USE `%s`" % self.dbname)
         if __debug__:
             self.notify.debug("Using database '%s'" % self.dbname)
-        
+
         try:
             cursor.execute("CREATE TABLE `guildinfo` (`gid` INT(32) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT, `name` VARCHAR(21), `wantname` VARCHAR(21), `namestatus` INT(8), `create_date` DATETIME)")
             if __debug__:
@@ -149,7 +149,7 @@ class GuildDB(DBInterface):
     def createGuild(self, avId, isRetry=False):
         if not self.sqlAvailable:
             return
-        
+
         # Enter a new Guild into the guildinfo table, and a new member into the member table
         try:
             # By giving a guild Id of 0, it will auto-increment to the desired id
@@ -247,7 +247,7 @@ class GuildDB(DBInterface):
             return self.queryStatus(avatarId)
 
         return guildId, name, rank, change
-        
+
 
     def getName(self, guildId):
         if not self.sqlAvailable:
@@ -278,7 +278,7 @@ class GuildDB(DBInterface):
         except:
             self.reconnect()
             self.setWantName(guildId, wantname)
-        
+
     def setWantName(self, guildId, wantname):
         if not self.sqlAvailable:
             return 0
@@ -320,7 +320,7 @@ class GuildDB(DBInterface):
         except MySQLdb.OperationalError as e:
             self.reconnect()
             self.getWantName(guildId)
-    
+
     def approveName(self, guildId):
         if not self.sqlAvailable:
             return "Guild DB Unavailable"
@@ -369,7 +369,7 @@ class GuildDB(DBInterface):
         except MySQLdb.OperationalError as e:
             self.reconnect()
             self.nameProcessed(guildId, newval)
-        
+
     def addMember(self, guildId, avId, rank):
         if not self.sqlAvailable:
             return "Guild DB Unavailable"
@@ -440,20 +440,20 @@ class GuildDB(DBInterface):
         except MySQLdb.OperationalError as e:
             self.reconnect()
             self.changeRank(avId, rank)
-    
-        
+
+
     def getMembers(self, guildId):
         if not self.sqlAvailable:
             return []
 
         # cursor = MySQLdb.cursors.DictCursor(self.db)
         cursor = self.db.cursor()
-        
+
         try:
             cursor.execute("SELECT * FROM `member` where `gid` = %s" , guildId)
             members = cursor.fetchall()
             return members
-        except MySQLdb.OperationalError as e:            
+        except MySQLdb.OperationalError as e:
             self.reconnect()
             print("DEBUG - Operational Error")
             return self.getMembers(guildId)
@@ -485,7 +485,7 @@ class GuildDB(DBInterface):
                 return 1
             else:
                 return 0
-        except MySQLdb.OperationalError as e:            
+        except MySQLdb.OperationalError as e:
             self.reconnect()
             print("DEBUG - Operational Error")
             return self.isTokenUnique(token)
@@ -506,7 +506,7 @@ class GuildDB(DBInterface):
                 pass
             else:
                 raise Exception("INVALID_TOKEN")
-        except MySQLdb.OperationalError as e:            
+        except MySQLdb.OperationalError as e:
             self.reconnect()
             print("DEBUG - Operational Error")
             return self.redeemToken(token, avId)
@@ -544,7 +544,7 @@ class GuildDB(DBInterface):
         # Return the Guild Name
 
         return [gNameId, creatorAvId]
-        
+
     def deleteFriendToken(self, token):
         if not self.sqlAvailable:
             return "Guild DB Unavailable"
@@ -579,7 +579,7 @@ class GuildDB(DBInterface):
             else:
                 return False
 
-        except MySQLdb.OperationalError as e:            
+        except MySQLdb.OperationalError as e:
             self.reconnect()
             print("DEBUG - Operational Error - Checking for Too Many Tokens from AVID")
             return self.checkForTooManyTokens(avId)
@@ -671,7 +671,7 @@ class GuildDB(DBInterface):
         except MySQLdb.OperationalError as e:
             self.reconnect()
             self.decRCountInDB(token, avId, newRCount)
-        
+
 
     def startCleanUpExpiredTokens(self):
         taskMgr.remove('cleanUpTokensTask')
@@ -824,7 +824,7 @@ class GuildDB(DBInterface):
 ##             else:
 ##                 self.setEmailNotificationPref(avId, 0, None)
 ##                 return [0, None]
-            
+
 ##         except MySQLdb.OperationalError,e:
 ##             self.reconnect()
 ##             return getEmailNotificationPref(avId)
@@ -874,4 +874,4 @@ class GuildDB(DBInterface):
         cursor.execute("TRUNCATE TABLE guilds")
         self.db.commit()
 
- 
+

@@ -3,16 +3,15 @@
 #import Pyro.errors
 import sys
 import datetime
-import MySQLdb
-import MySQLdb.constants.CR
+import pymysql as MySQLdb
 import _mysql_exceptions
 
 from otp.switchboard.sbLog import sbLog
 import otp.switchboard.sbConfig as sbConfig
 import otp.switchboard.sbSQL as sbSQL
 
-SERVER_GONE_ERROR = MySQLdb.constants.CR.SERVER_GONE_ERROR
-SERVER_LOST = MySQLdb.constants.CR.SERVER_LOST
+SERVER_GONE_ERROR = MySQLdb.constants.CR.CR_SERVER_GONE_ERROR
+SERVER_LOST = MySQLdb.constants.CR.CR_SERVER_LOST
 
 class sbMaildb:
     def __init__(self,log,host,port,user,passwd,db):
@@ -67,7 +66,7 @@ class sbMaildb:
         if not self.sqlAvailable:
             self.log.debug("sqlAvailable was false when calling getMail")
             return ()
-        
+
         cursor = MySQLdb.cursors.DictCursor(self.db)
         try:
             cursor.execute("USE `%s`"%self.dbname)
@@ -75,7 +74,7 @@ class sbMaildb:
             res = cursor.fetchallDict()
             #self.log.debug("Select was successful in sbMaildb, returning %s" % str(res))
             return res
-        
+
         except _mysql_exceptions.OperationalError as e:
             if isRetry == True:
                 self.log.error("Error on getMail retry, giving up:\n%s" % str(e))
@@ -103,7 +102,7 @@ class sbMaildb:
             countcursor.execute(sbSQL.getMailSELECT,(recipientId,))
             if countcursor.rowcount >= sbConfig.mailStoreMessageLimit:
                 self.log.debug("%d's mailbox is full!  Can't fit message from %d." %(recipientId,senderId))
-                return     
+                return
 
             cursor = MySQLdb.cursors.DictCursor(self.db)
 
@@ -141,7 +140,7 @@ class sbMaildb:
                 self.log.security("%d tried to delete message %d which didn't exist or wasn't his!" % (accountId,messageId))
 
             self.db.commit()
-                
+
         except _mysql_exceptions.OperationalError as e:
             if isRetry == True:
                 self.log.error("Error in deleteMail retry, giving up:\n%s" % str(e))
@@ -155,7 +154,7 @@ class sbMaildb:
                 self.deleteMail(accountId,messageId,True)
         except Exception as e:
             self.log.error("Unknown error in deleteMail, giving up:\n%s" % str(e))
-            return            
+            return
 
 
     def dumpMailTable(self):
@@ -165,4 +164,4 @@ class sbMaildb:
         return cursor.fetchallDict()
 
 
-        
+

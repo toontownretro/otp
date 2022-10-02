@@ -1,12 +1,11 @@
-import MySQLdb
+import pymsql as MySQLdb
 import _mysql_exceptions
-import MySQLdb.constants.CR
 import datetime
 from otp.friends.FriendInfo import FriendInfo
 import otp.switchboard.sbSQL as sbSQL
 
-SERVER_GONE_ERROR = MySQLdb.constants.CR.SERVER_GONE_ERROR
-SERVER_LOST = MySQLdb.constants.CR.SERVER_LOST
+SERVER_GONE_ERROR = MySQLdb.constants.CR.CR_SERVER_GONE_ERROR
+SERVER_LOST = MySQLdb.constants.CR.CR_SERVER_LOST
 
 class LastSeenDB:
     """
@@ -35,7 +34,7 @@ class LastSeenDB:
 
         self.log.info("Connected to lastseen MySQL db at %s:%d."%(host,port))
 
-        
+
         try:
             cursor = self.db.cursor()
             cursor.execute("USE `%s`"%self.dbname)
@@ -81,7 +80,7 @@ class LastSeenDB:
                                   location = info['location'],
                                   sublocation = info['sublocation'],
                                   timestamp = info['lastupdate'])
-            
+
         except _mysql_exceptions.OperationalError as e:
             if isRetry == True:
                 self.log.error("Error on getInfo retry, giving up:\n%s" % str(e))
@@ -114,7 +113,7 @@ class LastSeenDB:
                             info.sublocation))
 
             self.db.commit()
-            
+
         except _mysql_exceptions.OperationalError as e:
             if isRetry == True:
                 self.log.error("Error on setInfo retry, giving up:\n" % str(e))
@@ -131,7 +130,7 @@ class LastSeenDB:
         except Exception as e:
             self.log.error("Unknown error on setInfo, giving up:\n%s" % str(e))
             return
-                           
+
 
     def getTableStatus(self,isRetry=False):
         if not self.sqlAvailable:

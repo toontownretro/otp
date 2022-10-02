@@ -1,25 +1,24 @@
-import MySQLdb
-import MySQLdb.constants.CR
+import pymysql as MySQLdb
 import _mysql_exceptions
 import datetime
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from otp.distributed import OtpDoGlobals
 from otp.uberdog.DBInterface import DBInterface
 
-SERVER_GONE_ERROR = MySQLdb.constants.CR.SERVER_GONE_ERROR
-SERVER_LOST = MySQLdb.constants.CR.SERVER_LOST
+SERVER_GONE_ERROR = MySQLdb.constants.CR.CR_SERVER_GONE_ERROR
+SERVER_LOST = MySQLdb.constants.CR.CR_SERVER_LOST
 
 class AvatarFriendsDB(DBInterface):
     """
     DB wrapper class for avatar friends!  All SQL code for avatar friends should be in here.
     """
     notify = directNotify.newCategory('AvatarFriendsDB')
-        
+
     def __init__(self,host,port,user,passwd,dbname):
         self.sqlAvailable = uber.sqlAvailable
         if not self.sqlAvailable:
             return
-        
+
         self.host = host
         self.port = port
         self.user = user
@@ -52,7 +51,7 @@ class AvatarFriendsDB(DBInterface):
         cursor.execute("USE `%s`"%self.dbname)
         if __debug__:
             self.notify.debug("Using database '%s'"%self.dbname)
-        
+
         try:
             cursor.execute("""
             CREATE TABLE `avatarfriends` (
@@ -92,7 +91,7 @@ class AvatarFriendsDB(DBInterface):
     def getFriends(self,avatarId):
         if not self.sqlAvailable:
             return []
-        
+
         cursor = MySQLdb.cursors.DictCursor(self.db)
         try:
             cursor.execute("SELECT * FROM avatarfriends WHERE friendId1=%s OR friendId2=%s",(avatarId,avatarId))
@@ -155,7 +154,7 @@ class AvatarFriendsDB(DBInterface):
                     cursor.execute("DELETE FROM avatarfriends where friendId1=%s AND friendId2=%s",(avatarId2,avatarId1))
             else:
                 raise e
-            
+
         self.db.commit()
 
     #for debugging only
@@ -172,4 +171,4 @@ class AvatarFriendsDB(DBInterface):
         cursor.execute("TRUNCATE TABLE avatarfriends")
         self.db.commit()
 
- 
+
