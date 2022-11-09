@@ -33,5 +33,3 @@ if grep -s '^#*fake-playtoken' "$configrc" > /dev/null; then
 else
   echo "fake-playtoken $playtoken" >> "$configrc"
 fi
-
-

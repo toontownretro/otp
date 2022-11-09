@@ -256,7 +256,7 @@ class SCMenu(SCObject, NodePath):
                 self.fadeIval = LerpFunctionInterval(
                     self.fadeFunc, fromData=0., toData=1.,
                     duration = SCMenu.FadeDuration)
-                self.fadeIval.play()
+                self.fadeIval.start()
                 if parentMenu is not None:
                     parentMenu.childHasFaded = 1
 

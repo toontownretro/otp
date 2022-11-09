@@ -147,23 +147,26 @@ class Avatar(Actor, ShadowCaster):
     def delete(self):
         try:
             self.Avatar_deleted
+            return
         except:
-            # masad: delete nametag before actor removes me
-            self.deleteNametag3d()
-            Actor.cleanup(self)
-            if self.ManagesNametagAmbientLightChanged:
-                self.ignoreNametagAmbientLightChange()
             self.Avatar_deleted = 1
-            del self.__font
-            del self.style
-            del self.soundChatBubble
-            del self.nametag
-            self.nametag3d.removeNode()
-            ShadowCaster.delete(self)
-            Actor.delete(self)
+
+        # masad: delete nametag before actor removes me
+        self.deleteNametag3d()
+        Actor.cleanup(self)
+        if self.ManagesNametagAmbientLightChanged:
+            self.ignoreNametagAmbientLightChange()
+        del self.__font
+        del self.style
+        del self.soundChatBubble
+        del self.nametag
+        self.nametag3d.removeNode()
+        ShadowCaster.delete(self)
+        Actor.delete(self)
 
     def acceptNametagAmbientLightChange(self):
         self.accept("nametagAmbientLightChanged", self.nametagAmbientLightChanged)
+
     def ignoreNametagAmbientLightChange(self):
         self.ignore("nametagAmbientLightChanged")
 

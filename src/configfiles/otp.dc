@@ -395,7 +395,7 @@ dclass DistributedPlayer: DistributedAvatar {
   OwningAccount(uint32 avId = 0);
   // the string the person want to be there av's name
   WishName(string = "") db ram;
-  // CLOSED,OPEN,USED,.. The state of the name review process         
+  // CLOSED,OPEN,USED,.. The state of the name review process
   WishNameState(string = "") db ram;
   //Access Contorl for velvet rope
   setPreviousAccess(uint8 access = 0) required db airecv;

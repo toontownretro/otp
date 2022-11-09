@@ -23,7 +23,6 @@ class SpeedchatRelayUD(DistributedObjectGlobalUD):
         pfmID = OtpDoGlobals.OTP_DO_ID_PLAYER_FRIENDS_MANAGER
         dg = self.dclass.aiFormatUpdate(fieldName, pfmID, pfmID, pfmID, parameters)
         self.air.sendDatagram(dg)
-
         
     def translateMessage(self, messageType, indexArray, senderDISLName):
         if messageType == SpeedchatRelayGlobals.NORMAL:
@@ -32,9 +31,7 @@ class SpeedchatRelayUD(DistributedObjectGlobalUD):
             return SCDecoders.decodeSCCustomMsg(indexArray[0])
         elif messageType == SpeedchatRelayGlobals.EMOTE:
             return SCDecoders.decodeSCEmoteWhisperMsg(indexArray[0], senderDISLName)
-        else:
-            return None
-        
+        return None
         
     def sendUpdateToAvatarIdFromDOID(self, avId, fieldName, args):
         channelId = self.GetPuppetConnectionChannel(avId)
@@ -42,4 +39,3 @@ class SpeedchatRelayUD(DistributedObjectGlobalUD):
         
     def sendUpdateToChannelFromDOID(self, channelId, fieldName, args):
         self.air.sendUpdateToChannelFrom(self, channelId, fieldName,self.doId, args)
-        
