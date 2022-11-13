@@ -8,10 +8,11 @@
 
 #include "otpbase.h"
 
+#include "lightReMutex.h"
 #include "nametag.h"
+#include "nodePath.h"
 #include "marginPopup.h"
 #include "pStatCollector.h"
-#include "nodePath.h"
 
 class ChatBalloon;
 
@@ -64,6 +65,8 @@ private:
   NodePath _balloon;
   LPoint3f _arrow_center;
   bool _master_arrows;
+  
+  static LightReMutex _nametag2d_thread_lock;
 
 public:
   // Statistics

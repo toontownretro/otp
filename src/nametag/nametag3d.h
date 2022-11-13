@@ -8,11 +8,12 @@
 
 #include "otpbase.h"
 
+#include "lightReMutex.h"
 #include "nametag.h"
+#include "nodePath.h"
 #include "pandaNode.h"
 #include "pointerTo.h"
 #include "pStatCollector.h"
-#include "nodePath.h"
 
 class ChatBalloon;
 
@@ -63,6 +64,8 @@ private:
 
   bool _has_frame;
   LVecBase4f _frame;
+  
+  static LightReMutex _nametag3d_thread_lock;
 
 public:
   // Statistics

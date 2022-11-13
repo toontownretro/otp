@@ -18,12 +18,14 @@
 #include "cardMaker.h"
 #include "cullBinAttrib.h"
 #include "transparencyAttrib.h"
+#include "lightReMutexHolder.h"
 #include "nodePath.h"
 #include "deg_2_rad.h"
 #include "cmath.h"
 #include "pStatTimer.h"
 
 TypeHandle Nametag2d::_type_handle;
+LightReMutex Nametag2d::_nametag2d_thread_lock("nametag2d-thread-lock");
 
 #ifndef CPPPARSER
 PStatCollector Nametag2d::_contents_pcollector("App:Show code:Nametags:2d:Contents");
@@ -325,6 +327,8 @@ consider_visible() {
 ////////////////////////////////////////////////////////////////////
 void Nametag2d::
 set_managed(bool flag) {
+  LightReMutexHolder holder(_nametag2d_thread_lock);
+  
   MarginPopup::set_managed(flag);
 }
 
@@ -338,6 +342,8 @@ set_managed(bool flag) {
 ////////////////////////////////////////////////////////////////////
 void Nametag2d::
 set_visible(bool flag) {
+  LightReMutexHolder holder(_nametag2d_thread_lock);
+  
   MarginPopup::set_visible(flag);
   update_contents();
 }

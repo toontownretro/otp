@@ -15,6 +15,7 @@
 #include "transformState.h"
 #include "transparencyAttrib.h"
 #include "look_at.h"
+#include "lightReMutexHolder.h"
 #include "cardMaker.h"
 #include "decalEffect.h"
 #include "cullBinAttrib.h"
@@ -30,6 +31,7 @@
 #include "dcast.h"
 
 TypeHandle Nametag3d::_type_handle;
+LightReMutex Nametag3d::_nametag3d_thread_lock("nametag3d-thread-lock");
 
 #ifndef CPPPARSER
 PStatCollector Nametag3d::_contents_pcollector("App:Show code:Nametags:3d:Contents");
@@ -182,6 +184,8 @@ cull_callback(CullTraverser *, CullTraverserData &data) {
 ////////////////////////////////////////////////////////////////////
 void Nametag3d::
 release(const MouseWatcherParameter &param) {
+  LightReMutexHolder holder(_nametag3d_thread_lock); 
+  
   if (param.get_button() == MouseButton::one()) {
     Nametag::set_state(PGButton::S_rollover);
 
