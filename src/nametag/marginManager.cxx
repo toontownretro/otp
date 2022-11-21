@@ -3,6 +3,8 @@
 //
 ////////////////////////////////////////////////////////////////////
 
+#include "config_nametag.h"
+
 #include "marginManager.h"
 #include "nametagGlobals.h"
 
@@ -581,23 +583,23 @@ show_visible_no_conflict() {
   EmptyCells empty_cells;
   JobSystem *jsys = JobSystem::get_global_ptr();
 
-  //for (Cells::const_iterator ci = _cells.begin(); ci != _cells.end(); ++ci) {
-  jsys->parallel_process(_cells.size(), [&] (size_t i) {
-    const Cell &cell = _cells[i]; //(*ci);
+  for (Cells::const_iterator ci = _cells.begin(); ci != _cells.end(); ++ci) {
+  //jsys->parallel_process(_cells.size(), [&] (size_t i) {
+    const Cell &cell = (*ci); //_cells[i];
     if (cell._is_available && cell._np.is_empty()) {
       // Here's an empty cell.
-      int cell_index = i; //(ci - _cells.begin());
+      int cell_index = (ci - _cells.begin()); // i;
       empty_cells.emplace_back(cell_index);
     }
-  });
+  }//);
 
   // Randomize the list, so we'll pull the cells out in random order.
   auto random = std::default_random_engine(std::random_device()());
   std::shuffle(std::begin(empty_cells), std::end(empty_cells), random);
 
   // Now find a home for each popup that needs one.
-  //for (Popups::iterator pi = _popups.begin(); pi != _popups.end(); ++pi) {
-  jsys->parallel_process<Popups::iterator>(_popups.begin(), _popups.size(), [&] (Popups::iterator pi) {
+  for (Popups::iterator pi = _popups.begin(); pi != _popups.end(); ++pi) {
+  //jsys->parallel_process<Popups::iterator>(_popups.begin(), _popups.size(), [&] (Popups::iterator pi) {
     MarginPopup *popup = (*pi).first;
     PopupInfo &info = (*pi).second;
 
@@ -607,7 +609,7 @@ show_visible_no_conflict() {
 
       show(popup, cell_index);
     }
-  });
+  }//);
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -730,7 +732,11 @@ choose_cell(MarginPopup *popup, EmptyCells &empty_cells) {
   // All right, if all else fails, just use the last cell.  There
   // should be at least one cell available, or we wouldn't have come
   // into choose_cell().
-  nassertr(!empty_cells.empty(), -1);
+  if (!empty_cells.empty()) {
+    margin_cat.warning() << "We have RUN out of empty cells, " << _cells.size() << " occupied!\n";
+    return -1;
+  }
+  
   int cell_index = empty_cells.back();
   empty_cells.pop_back();
 

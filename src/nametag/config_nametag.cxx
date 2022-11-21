@@ -20,6 +20,7 @@
 
 ConfigureDef(config_nametag);
 NotifyCategoryDef(nametag, "");
+NotifyCategoryDef(margin, "");
 
 ConfigureFn(config_nametag) {
   init_libnametag();
