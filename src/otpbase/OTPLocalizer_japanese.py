@@ -1742,6 +1742,10 @@ SpeedChatStaticTextToontown = {
     2007 : "あか",
     2008 : "ピンク",
     2009 : "ちゃいろ",
+    # Shader specific
+    2050 : "None",
+    2051 : "B&W",
+    2052 : "Sepia",
 
     # CFO battle
     2100 : "クレーンを操作しよう！",

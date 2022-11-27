@@ -46,7 +46,8 @@ from otp.otpbase import OTPGlobals
 from otp.otpbase import OTPLauncherGlobals
 from otp.uberdog import OtpAvatarManager
 from otp.distributed import OtpDoGlobals
-from otp.distributed.TelemetryLimiter import TelemetryLimiter
+if game.name == 'toontown':
+    from otp.distributed.TelemetryLimiter import TelemetryLimiter
 from otp.ai.GarbageLeakServerEventAggregator import GarbageLeakServerEventAggregator
 
 from .PotentialAvatar import PotentialAvatar
@@ -327,7 +328,8 @@ class OTPClientRepository(ClientRepositoryBase):
 
         self.activeDistrictMap = {}
 
-        self.telemetryLimiter = TelemetryLimiter()
+        if game.name == 'toontown':
+            self.telemetryLimiter = TelemetryLimiter()
 
         self.serverVersion = serverVersion
 

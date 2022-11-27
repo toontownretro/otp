@@ -1768,6 +1768,10 @@ SpeedChatStaticTextToontown = {
     2007 : "Red",
     2008 : "Pink",
     2009 : "Brown",
+    # Shader specific
+    2050 : "None",
+    2051 : "B&W",
+    2052 : "Sepia",
 
     # CFO battle
     2100 : "Please operate the crane.",

@@ -59,7 +59,7 @@ class TimeManager(DistributedObject.DistributedObject):
         if self.extraSkew != 0:
             self.notify.info("Simulating clock skew of %0.3f s" % self.extraSkew)
 
-        self.reportFrameRateInterval = base.config.GetDouble('report-frame-rate-interval', 300.0)
+        self.reportFrameRateInterval = ConfigVariableDouble('report-frame-rate-interval', 300.0).getValue()
 
         self.talkResult = 0
         self.thisContext = -1
@@ -355,7 +355,7 @@ class TimeManager(DistributedObject.DistributedObject):
             # However, we'll put a cap on the frame rate interval, so
             # it doesn't go unreasonably wide if we set the reporting
             # interval to be fairly slow.
-            maxFrameRateInterval = base.config.GetDouble('max-frame-rate-interval', 30.0)
+            maxFrameRateInterval = ConfigVariableFloat('max-frame-rate-interval', 30.0).getValue()
             globalClock.setAverageFrameRateInterval(min(frameRateInterval, maxFrameRateInterval))
 
         taskMgr.remove('frameRateMonitor')
