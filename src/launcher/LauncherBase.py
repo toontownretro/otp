@@ -10,13 +10,17 @@ import os
 import time
 import string
 import builtins
-from panda3d.core import *
+
+#from panda3d.core import *
+
 # Import DIRECT files
 from direct.showbase.MessengerGlobal import *
 from direct.showbase.DirectObject import DirectObject
 from direct.showbase.EventManagerGlobal import *
 from direct.task.MiniTask import MiniTask, MiniTaskManager
 from direct.directnotify.DirectNotifyGlobal import *
+
+from otp.otpbase.OTPModules import *
 
 # Redirect Python output and err to the same file
 class LogAndOutput:
@@ -313,7 +317,7 @@ class LauncherBase(DirectObject):
 
         # server is a semicolon-delimited list of URL's.
         self.downloadServerList = []
-        for name in string.split(downloadServerString, ';'):
+        for name in downloadServerString.split(';'):
             url = URLSpec(name, 1)
             self.downloadServerList.append(url)
 
