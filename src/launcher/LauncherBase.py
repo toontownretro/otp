@@ -252,42 +252,42 @@ class LauncherBase(DirectObject):
         # Should the launcher do md5 checks on the files?
         # We should probably take this out completely when we ship
         self.VerifyFiles = self.getVerifyFiles()
-        self.setServerVersion(ConfigVariableString("server-version", "no_version_set").getValue())
-        self.ServerVersionSuffix = ConfigVariableString("server-version-suffix", "").getValue()
+        self.setServerVersion(config.GetString("server-version", "no_version_set"))
+        self.ServerVersionSuffix = config.GetString("server-version-suffix", "")
 
         # How many seconds should elapse between telling the user how the
         # download is progressing?
-        self.UserUpdateDelay = ConfigVariableDouble('launcher-user-update-delay', 0.5).getValue()
+        self.UserUpdateDelay = config.GetDouble('launcher-user-update-delay', 0.5)
 
         # How much telemetry the game server subtracts out (bytes per second)
-        self.TELEMETRY_BANDWIDTH = ConfigVariableInt('launcher-telemetry-bandwidth', 2000).getValue()
+        self.TELEMETRY_BANDWIDTH = config.GetInt('launcher-telemetry-bandwidth', 2000)
 
         # If we are above the increase threshold percentage, then we will
         # increase the bandwidth
-        self.INCREASE_THRESHOLD = ConfigVariableDouble('launcher-increase-threshold', 0.75).getValue()
+        self.INCREASE_THRESHOLD = config.GetDouble('launcher-increase-threshold', 0.75)
 
         # If we are below the decrease threshold percentage, we will drop
         # back down to the next lower bandwidth
-        self.DECREASE_THRESHOLD = ConfigVariableDouble('launcher-decrease-threshold', 0.5).getValue()
+        self.DECREASE_THRESHOLD = config.GetDouble('launcher-decrease-threshold', 0.5)
 
         # window length in seconds to look back when asking the
         # current byte rate
-        self.BPS_WINDOW = ConfigVariableDouble('launcher-bps-window', 8.0).getValue()
+        self.BPS_WINDOW = config.GetDouble('launcher-bps-window', 8.0)
 
         # Should we decrease the bandwidth when the connection is not
         # going as fast as it had in the past?
-        self.DECREASE_BANDWIDTH = ConfigVariableBool('launcher-decrease-bandwidth', 1).getValue()
+        self.DECREASE_BANDWIDTH = config.GetBool('launcher-decrease-bandwidth', 1)
 
         # What is our ceiling on downloader bandwidth?  This is mainly
         # useful for testing.  Set it to 0 to impose no ceiling.
-        self.MAX_BANDWIDTH = ConfigVariableInt('launcher-max-bandwidth', 0).getValue()
+        self.MAX_BANDWIDTH = config.GetInt('launcher-max-bandwidth', 0).getValue()
 
         # Give Panda the same log we use
         self.nout = MultiplexStream()
         Notify.ptr().setOstreamPtr(self.nout, 0)
         self.nout.addFile(Filename(logfile))
 
-        if ConfigVariableBool('console-output', 0).getValue():
+        if config.GetBool('console-output', 0):
             # Dupe output to the console (stderr, stdout) only if a
             # developer has asked us to via the prc file.
             self.nout.addStandardOutput()
@@ -308,7 +308,7 @@ class LauncherBase(DirectObject):
         self.notify.info("isTestServer: %s" % (self.testServerFlag))
 
         # The URL for the download server and directory.
-        downloadServerString = ConfigVariableString('download-server', '').getValue()
+        downloadServerString = config.GetString('download-server', '')
         if downloadServerString:
             self.notify.info("Overriding downloadServer to %s." % (downloadServerString))
         else:
