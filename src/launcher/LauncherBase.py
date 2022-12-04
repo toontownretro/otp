@@ -280,7 +280,7 @@ class LauncherBase(DirectObject):
 
         # What is our ceiling on downloader bandwidth?  This is mainly
         # useful for testing.  Set it to 0 to impose no ceiling.
-        self.MAX_BANDWIDTH = config.GetInt('launcher-max-bandwidth', 0).getValue()
+        self.MAX_BANDWIDTH = config.GetInt('launcher-max-bandwidth', 0)
 
         # Give Panda the same log we use
         self.nout = MultiplexStream()
