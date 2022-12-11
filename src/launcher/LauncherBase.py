@@ -45,8 +45,8 @@ class LauncherBase(DirectObject):
     # override and redefine
     GameName = 'game'
     ArgCount = 6
-    LauncherPhases = [1,2,3,4]
-    TmpOverallMap = [.25,.25,.25,.25] # totals to 1.00
+    LauncherPhases = [1, 2, 3, 4]
+    TmpOverallMap = [.25, .25, .25, .25]  # totals to 1.00
 
     # Various bandwidths (bytes per second).  It is important that the
     # difference between any two adjacent entries not be too large--we
@@ -162,15 +162,35 @@ class LauncherBase(DirectObject):
             # it can't be Vista
             self.VISTA = 0
 
+        """
+        Setup the log files
+        """
         # match log format specified in installerBase.cxx,
         # want this fmt so log files can be sorted oldest first based on name,
         # and so old open handles to logs dont prevent game from starting
+        logDir = ConfigVariableString("otp-log-client-base-dir", "otplog").getValue()
         ltime = time.localtime()
-        logSuffix = "%02d%02d%02d_%02d%02d%02d" % (ltime[0]-2000,ltime[1],ltime[2],ltime[3],ltime[4],ltime[5])
+
+        if not os.path.isdir(logDir):
+            print(f"didn't find a log dir, making {logDir}")
+            os.mkdir(logDir)
+
+        logSuffix = "%02d%02d%02d_%02d%02d%02d" % (
+            ltime[0] - 2000,    # year
+            ltime[1],           # month
+            ltime[2],           # day
+            ltime[3],           # hour
+            ltime[4],           # minute
+            ltime[5]            # second
+        )
+
         logPrefix = ''
         if not self.WIN32:
             logPrefix = os.environ.get('LOGFILE_PREFIX', '')
-        logfile = logPrefix + self.getLogFileName() + '-' + logSuffix + '.log'
+        if not logPrefix:
+            logPrefix = os.path.join(os.getcwd(), logDir)
+        logfile = os.path.join(logPrefix, self.getLogFileName() + '-' + logSuffix + '.log')
+
         self.errorfile = 'errorCode'
 
         # old game log deletion now managed by activeX control
@@ -422,7 +442,7 @@ class LauncherBase(DirectObject):
         # todo: generate this list as part of build launcher
         self.phaseOverallMap = {}
         tmpOverallMap = self.TmpOverallMap
-        tmpPhase3Map = [0.001,0.996,0.0,0.0,0.003]
+        tmpPhase3Map = [0.001, 0.996, 0.0, 0.0, 0.003]
 
         # Initialize all phases 0 percent done for starters
         phaseIdx = 0
