@@ -168,11 +168,11 @@ class LauncherBase(DirectObject):
         # match log format specified in installerBase.cxx,
         # want this fmt so log files can be sorted oldest first based on name,
         # and so old open handles to logs dont prevent game from starting
-        logDir = ConfigVariableString("otp-log-client-base-dir", "otplog").getValue()
+        logDir = ConfigVariableString("log-client-base-dir", "log").getValue()
         ltime = time.localtime()
 
         if not os.path.isdir(logDir):
-            print(f"didn't find a log dir, making {logDir}")
+            print(f"Didn't find a log dir, Making {logDir}")
             os.mkdir(logDir)
 
         logSuffix = "%02d%02d%02d_%02d%02d%02d" % (
