@@ -47,7 +47,10 @@ class SCMenuHolder(SCElement):
         SCElement.__init__(self)
         self.title = title
 
-        scGui = loader.loadModel(SCMenu.GuiModelName)
+        if not SCMenu.GuiModel:
+            SCMenu.GuiModel = loader.loadModel(SCMenu.GuiModelName)
+            
+        scGui = SCMenu.GuiModel
         self.scArrow = scGui.find('**/chatArrow')
 
         self.menu = None

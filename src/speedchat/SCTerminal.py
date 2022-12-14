@@ -17,6 +17,7 @@ SCTerminalLinkedEmoteEvent = 'SCTerminalLinkedEmoteEvent'
 # in or out of whisper mode
 SCWhisperModeChangeEvent = 'SCWhisperModeChange'
 
+
 class SCTerminal(SCElement):
     """ SCTerminal is the base class for all 'terminal' speedchat
     entities """
@@ -24,7 +25,10 @@ class SCTerminal(SCElement):
         SCElement.__init__(self)
         self.setLinkedEmote(linkedEmote)
 
-        scGui = loader.loadModel(SCMenu.GuiModelName)
+        if not SCMenu.GuiModel:
+            SCMenu.GuiModel = loader.loadModel(SCMenu.GuiModelName)
+            
+        scGui = SCMenu.GuiModel
         self.emotionIcon = scGui.find('**/emotionIcon')
         self.setDisabled(False)
         self.__numCharges = -1

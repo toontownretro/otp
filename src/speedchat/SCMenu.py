@@ -33,6 +33,10 @@ class SCMenu(SCObject, NodePath):
     # objects, respectively. Also the names of the gui icon nodes.
     BackgroundModelName = None
     GuiModelName = None
+    
+    # These are for caching the models themselves upon loading them.
+    BackgroundModel = None
+    GuiModel = None
 
     def __init__(self, holder=None):
         SCObject.__init__(self)
@@ -48,8 +52,11 @@ class SCMenu(SCObject, NodePath):
 
         self.FinalizeTaskName = 'SCMenu%s_Finalize' % self.SerialNum
         self.ActiveMemberSwitchTaskName = ('SCMenu%s_SwitchActiveMember' % self.SerialNum)
+        
+        if not self.BackgroundModel:
+            self.BackgroundModel = loader.loadModel(self.BackgroundModelName)
 
-        self.bg = loader.loadModel(self.BackgroundModelName)
+        self.bg = self.BackgroundModel
         def findNodes(names, model=self.bg):
             results = []
             for name in names:
