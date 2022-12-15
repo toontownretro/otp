@@ -1,6 +1,6 @@
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from direct.directnotify.DirectNotifyGlobal import directNotify
-#from direct.http.WebRequest import WebRequestDispatcher
+from direct.http.WebRequest import WebRequestDispatcher
 from direct.task import Task
 from otp.ai import AIMsgTypes
 from otp.web.SettingsMgrBase import SettingsMgrBase
@@ -23,14 +23,12 @@ class SettingsMgrUD(DistributedObjectGlobalUD, SettingsMgrBase):
 
         self.HTTPListenPort = uber.settingsMgrHTTPListenPort
         
-        '''
         self.webDispatcher = WebRequestDispatcher()
         self.webDispatcher.landingPage.setTitle("SettingsMgr")
         self.webDispatcher.landingPage.setDescription("SettingsMgr enables developers to tweak game settings without restarting the site.")
         self.webDispatcher.registerGETHandler("settings",self.handleHTTPSettings,returnsResponse=True,autoSkin=True)
         self.webDispatcher.landingPage.addTab("Settings","/settings")
         self.webDispatcher.listenOnPort(self.HTTPListenPort)
-        '''
 
         self.air.setConnectionName("SettingsMgr")
         self.air.setConnectionURL("http://%s:%s/" % (socket.gethostbyname(socket.gethostname()),self.HTTPListenPort))
