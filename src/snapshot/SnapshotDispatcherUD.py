@@ -2,7 +2,7 @@ import direct
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from otp.ai import AIMsgTypes
 from direct.directnotify.DirectNotifyGlobal import directNotify
-#from direct.http.WebRequest import WebRequestDispatcher
+from direct.http.WebRequest import WebRequestDispatcher
 
 from direct.task import Task
 import queue

@@ -968,7 +968,6 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar,
             camera.setPos(savePos)
             camera.setHpr(saveHpr)
 
-            taskMgr.remove('posCamera')
             camera.posHprInterval(time, (x, y, z), (h, p, r), name="posCamera")
 
     def getClampedAvatarHeight(self):

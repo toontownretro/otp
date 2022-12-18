@@ -161,6 +161,9 @@ dclass TimeManager: DistributedObject {
   setNumAIGarbageLeaks(uint32 numLeaks);
   // for logging
   setClientGarbageLeak(uint32 num, string leak) airecv clsend;
+
+  checkAvOnDistrict(uint32, DoId) clsend airecv;
+  checkAvOnDistrictResult(uint32, DoId, bool);
 };
 
 // See Also:
@@ -813,6 +816,7 @@ dclass SpeedchatRelay : DistributedObject, TalkPath_account{
 
 dclass CentralLogger : DistributedObject {
   sendMessage(string category, string text, uint32 targetDISLId, uint32 targetAvatarID) clsend;
+  logAIGarbage() airecv;
 };
 
 dclass SettingsMgr: DistributedObject {
