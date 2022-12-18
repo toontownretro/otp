@@ -82,7 +82,7 @@ class AIRepository(ConnectionRepository):
         if not self.esurl.empty() and not self.esurl.hasPort():
             self.esurl.setPort(esport)
 
-        self.notify.info("event server at %s." % (repr(self.esurl)))
+        self.notify.info("Event Server at %s." % (repr(self.esurl)))
 
         # UDP socket for sending events to the event server.
         self.udpSock = None
@@ -275,7 +275,7 @@ class AIRepository(ConnectionRepository):
         with embedded vertical bars as separators.
         """
         if not self.udpSock:
-            self.notify.debug("Unable to log server event: no udpSock.")
+            self.notify.warning("Unable to log server event: no udpSock.")
             return
 
         # Make who be a string (it might be passed in as an integer)

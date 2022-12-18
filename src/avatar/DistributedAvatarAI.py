@@ -101,3 +101,10 @@ class DistributedAvatarAI(DistributedNodeAI.DistributedNodeAI):
         if simbase.air.doId2do.get(avId):
             onShard = True
         self.sendUpdateToAvatarId(senderId,"confirmAvOnShard",[avId, onShard])
+
+    def setParentStr(self, parentToken):
+        if parentToken:
+            senderId = self.air.getAvatarIdFromSender()
+            self.air.writeServerEvent('Admin chat warning', senderId, 'using setParentStr to send "%s"' % parentToken)
+            self.notify.warning('Admin chat warning: %s using setParentStr to send "%s"' % (senderId, parentToken))
+        DistributedNodeAI.DistributedNodeAI.setParentStr(self, parentToken)
