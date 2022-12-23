@@ -11,7 +11,7 @@ from panda3d.core import ConfigVariableBool
 # TimeOfDayManager (which currently manages projected shadows).
 # Always change its state via this function, instead of monkeying with
 # it directly.
-globalDropShadowFlag = not ConfigVariableBool("want-shaders", True).value
+globalDropShadowFlag = 1
 def setGlobalDropShadowFlag(flag):
     global globalDropShadowFlag
     if flag != globalDropShadowFlag:
