@@ -19,6 +19,7 @@
 #include <algorithm>
 
 int NametagGroup::_unique_index = 0;
+PT(CallbackObject) NametagGroup::_chat_callback = nullptr;
 LightReMutex NametagGroup::_nametag_group_thread_lock("nametag-group-thread-lock");
 
 ////////////////////////////////////////////////////////////////////
@@ -45,6 +46,9 @@ NametagGroup() {
   _chat_block_length = 0.5f;
 
   _unique_id = "nametag-" + format_string(++_unique_index);
+  
+  _callback_id = 0;
+  
   _object_code = 0;
 
   _nametag3d_flag = NF_offscreen;
@@ -349,7 +353,8 @@ set_chat(const string &chat, int chat_flags, int page_number) {
       _chat_pages.clear();
       _chat_flags = 0;
     }
-
+    // Call a callback if we have it set.
+    do_chat_callback(chat);
   }
 
 
