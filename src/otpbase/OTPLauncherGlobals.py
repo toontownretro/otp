@@ -10,4 +10,3 @@ ExitEnableChat = 102
 ExitTimeExpired = 103
 ExitUpsell = 104
 NonErrorExitStateEnd = 199
-

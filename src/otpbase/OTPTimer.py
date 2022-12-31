@@ -6,6 +6,7 @@ from direct.showbase.PythonUtil import bound
 
 from otp.otpbase import OTPGlobals
 
+
 class OTPTimer(DirectFrame):
     """
     Implements a generic onscreen timer.
@@ -25,7 +26,7 @@ class OTPTimer(DirectFrame):
                              relief = None,
                              scale = 0.45,
                              image = image,
-                             image_pos = (0,0,0),
+                             image_pos = (0, 0, 0),
                              text = "0",
                              text_fg = (0, 0, 0, 1),
                              text_font = OTPGlobals.getInterfaceFont(),
@@ -99,7 +100,7 @@ class OTPTimer(DirectFrame):
         elif timeStrLen == 3:
             self.setTimeStr(timeStr, 0.2, (-0.01, -0.08))
 
-    def setTimeStr(self, timeStr, scale = 0.2, pos = (-0.01, -0.08), fg = None):
+    def setTimeStr(self, timeStr, scale=0.2, pos=(-0.01, -0.08), fg=None):
         """
         Sets the time label being displayed.
         """
