@@ -22,9 +22,11 @@ except:
     language = ConfigVariableString("language", "english").getValue()
     checkLanguage = ConfigVariableBool("check-language", 0).getValue()
 
+
 # Ask what language we are running in. Returns a string.
 def getLanguage():
     return language
+
 
 print(("OTPLocalizer: Running in language: %s" % (language)))
 if language == "english":
@@ -59,7 +61,6 @@ if checkLanguage:
                 for dkey in list(fval.keys()):
                     if dkey not in val:
                         print(("WARNING: Foreign module: %s extra key: %s.%s" % (_languageModule, key, dkey)))
-
 
     for key in list(foreignModule.__dict__.keys()):
         if key not in englishModule.__dict__:
