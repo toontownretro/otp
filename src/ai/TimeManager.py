@@ -355,7 +355,7 @@ class TimeManager(DistributedObject.DistributedObject):
             # However, we'll put a cap on the frame rate interval, so
             # it doesn't go unreasonably wide if we set the reporting
             # interval to be fairly slow.
-            maxFrameRateInterval = ConfigVariableFloat('max-frame-rate-interval', 30.0).getValue()
+            maxFrameRateInterval = ConfigVariableDouble('max-frame-rate-interval', 30.0).getValue()
             globalClock.setAverageFrameRateInterval(min(frameRateInterval, maxFrameRateInterval))
 
         taskMgr.remove('frameRateMonitor')
