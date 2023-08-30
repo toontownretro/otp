@@ -3,7 +3,11 @@ Makefile
 pp.dep
 built
 **/Opt*-*
+**/*-Opt*-*
 *.o
+*.obj
+*.lib
+*.pdb
 readlog.txt
 *.log
 *.bak
