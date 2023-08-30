@@ -92,6 +92,8 @@ protected:
 
 private:
   void update_region(UpdateSeq region_seq);
+  
+  virtual bool app_callback();
 
   int _contents;
   bool _active;

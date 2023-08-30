@@ -12,6 +12,7 @@
 
 #include "callbackData.h"
 #include "callbackObject.h"
+#include "genericAsyncTask.h"
 #include "textFont.h"
 #include "pointerTo.h"
 #include "updateSeq.h"
@@ -167,6 +168,8 @@ public:
 
 private:
   void update_contents_all();
+  
+  static AsyncTask::DoneStatus update_task(GenericAsyncTask *task, void *data);
 
   Nametag2d *_nametag2d;
   Nametag3d *_nametag3d;
@@ -222,6 +225,8 @@ private:
   static int _unique_index;
   
   int _callback_id;
+  
+  PT(GenericAsyncTask) _update_task;
   
   static PT(CallbackObject) _chat_callback;
 

@@ -51,7 +51,7 @@ Nametag3d() :
 #ifdef DO_MEMORY_USAGE
   MemoryUsage::update_type(this, this);
 #endif
-  set_cull_callback();
+  //set_cull_callback();
 
   if (nametag_cat.is_debug()) {
     nametag_cat.debug()
@@ -123,50 +123,32 @@ safe_to_flatten_below() const {
 }
 
 ////////////////////////////////////////////////////////////////////
-//     Function: Nametag3d::cull_callback
-//       Access: Public, Virtual
-//  Description: This function will be called during the cull
-//               traversal to perform any additional operations that
-//               should be performed at cull time.  This may include
-//               additional manipulation of render state or additional
-//               visible/invisible decisions, or any other arbitrary
-//               operation.
-//
-//               Note that this function will *not* be called unless
-//               set_cull_callback() is called in the constructor of
-//               the derived class.  It is necessary to call
-//               set_cull_callback() to indicated that we require
-//               cull_callback() to be called.
-//
-//               By the time this function is called, the node has
-//               already passed the bounding-volume test for the
-//               viewing frustum, and the node's transform and state
-//               have already been applied to the indicated
-//               CullTraverserData object.
-//
-//               The return value is true if this node should be
-//               visible, or false if it should be culled.
+//     Function: Nametag3d::app_callback
+//       Access: Protected, Virtual
 ////////////////////////////////////////////////////////////////////
 bool Nametag3d::
-cull_callback(CullTraverser *, CullTraverserData &data) {
-  if (has_group()) {
-    NametagGroup *group = get_group();
+app_callback() {
+  PStatTimer timer(_adjust_pcollector);
+  NodePath this_np = NodePath(this);
+    
+  // Get the name of the bin our Nametag is under.
+  std::string bin_name = this_np.get_bin_name();
 
-    if (group->is_managed()) {
-      PStatTimer timer(_adjust_pcollector);
-      NodePath this_np = data.get_node_path();
-
-      // We need to know the sorting property of the bin in which the
-      // nametag is rendered.
-      int bin_index = data._state->get_bin_index();
-      int bin_sort = CullBinManager::get_global_ptr()->get_bin_sort(bin_index);
-
-      adjust_to_camera(this_np, bin_sort);
-    }
+  // We need to know the sorting property of the bin in which the
+  // nametag is rendered.
+  CullBinManager *bin_mgr = CullBinManager::get_global_ptr();
+  int bin_index = bin_mgr->find_bin(bin_name);
+  int bin_sort = 0;
+  if (bin_index > -1) {
+    bin_sort = bin_mgr->get_bin_sort(bin_index);
   }
+
+  adjust_to_camera(this_np, bin_sort);
 
   return true;
 }
+
+
 
 ////////////////////////////////////////////////////////////////////
 //     Function: Nametag3d::release

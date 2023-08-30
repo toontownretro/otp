@@ -390,3 +390,8 @@ update_region(UpdateSeq region_seq) {
     }
   }
 }
+
+
+bool Nametag::app_callback() {
+    return true;
+}

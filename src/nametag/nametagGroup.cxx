@@ -10,6 +10,7 @@
 #include "chatFlags.h"
 #include "config_nametag.h"
 
+#include "asyncTaskManager.h"
 #include "throw_event.h"
 #include "string_utils.h"
 #include "clockObject.h"
@@ -68,6 +69,13 @@ NametagGroup() {
   _nametag3d = new Nametag3d;
   add_nametag(_nametag2d);
   add_nametag(_nametag3d);
+  
+  // Spawn a task to automatically update the NametagGroup each frame.
+  _update_task = new GenericAsyncTask(_unique_id + "-UpdateTask", &NametagGroup::update_task, this);
+  // Make sure the tasks runs right before we render.
+  _update_task->set_sort(49);
+  AsyncTaskManager *task_mgr = AsyncTaskManager::get_global_ptr();
+  task_mgr->add(_update_task);
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -87,6 +95,10 @@ NametagGroup::
     tag->_group = (NametagGroup *)NULL;
     tag->update_contents();
   });
+  
+  if (_update_task != nullptr) {
+    _update_task->remove();
+  }
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -581,4 +593,21 @@ update_contents_all() {
     Nametag *tag = _nametags[i]; //(*ti);
     tag->update_contents();
   });
+}
+
+////////////////////////////////////////////////////////////////////
+//     Function: NametagGroup::update_task
+//       Access: Private
+//  Description: This is the task callback to update the NametagGroup
+//               each frame.
+////////////////////////////////////////////////////////////////////
+AsyncTask::DoneStatus NametagGroup::
+update_task(GenericAsyncTask *task, void *data) {
+  NametagGroup *group = ((NametagGroup *)data);
+  for (Nametags::iterator ti = group->_nametags.begin(); ti != group->_nametags.end(); ++ti) {
+    Nametag *tag = (*ti);
+    if (!tag->is_group_managed()) { continue; }
+    tag->app_callback();
+  }
+  return AsyncTask::DS_cont;
 }

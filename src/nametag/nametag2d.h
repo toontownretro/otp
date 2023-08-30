@@ -34,7 +34,7 @@ public:
 
 public:
   // From base class PandaNode.
-  virtual bool cull_callback(CullTraverser *trav, CullTraverserData &data);
+  //virtual bool cull_callback(CullTraverser *trav, CullTraverserData &data);
 
   // From base class MarginPopup.
   virtual float get_score();
@@ -45,6 +45,7 @@ protected:
   virtual void update_contents();
   virtual void manage(MarginManager *manager);
   virtual void unmanage(MarginManager *manager);
+  virtual bool app_callback();
 
   // from base class MarginPopup.
   virtual void frame_callback();

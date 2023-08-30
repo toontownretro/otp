@@ -35,16 +35,17 @@ public:
   // From base class PandaNode.
   virtual bool safe_to_flatten() const;
   virtual bool safe_to_flatten_below() const;
-  virtual bool cull_callback(CullTraverser *trav, CullTraverserData &data);
+  //virtual bool cull_callback(CullTraverser *trav, CullTraverserData &data);
 
   // From base class Nametag.
   virtual void release(const MouseWatcherParameter &param);
 
 protected:
-  // from base class Nametag.
+  // From base class Nametag.
   virtual void update_contents();
   virtual void manage(MarginManager *manager);
   virtual void unmanage(MarginManager *manager);
+  virtual bool app_callback();
 
 private:
   void generate_name();
