@@ -107,6 +107,10 @@ AIMsgName2Id = {
 # create id->name table for debugging
 AIMsgId2Names = invertDictLossless(AIMsgName2Id)
 
+#if not isClient():
+#    print("EXECWARNING AIMsgTypes: %s" % AIMsgName2Id)
+#    printStack()
+
 # put msg names in module scope, assigned to msg value
 for name, value in list(AIMsgName2Id.items()):
     exec('%s = %s' % (name, value))

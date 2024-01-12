@@ -46,10 +46,6 @@ WhisperPlayerOnline = "%s connecté à %s"
 WhisperPlayerOffline = "%s est déconnecté."
 WhisperUnavailable = "Ce joueur n'est plus disponible pour chuchoter."
 
-DialogSpecial = "ooo"
-DialogExclamation = "!"
-DialogQuestion = "?"
-
 # ChatInputNormal.py
 ChatInputNormalSayIt = "Dis-le"
 ChatInputNormalCancel = "Annuler"
@@ -586,31 +582,31 @@ EmoteWhispers = [
 
 # Reverse lookup:  get the index from the name.
 EmoteFuncDict = {
-    "Signe de la main"   : 0,
-    "Content(e)"  : 1,
-    "Triste"    : 2,
-    "En colère"  : 3,
-    "Sommeil" : 4,
-    "Haussement d'épaules"  : 5,
-    "Danse"  : 6,
-    "Clin d'œil"   : 7,
-    "Ennuyé(e)"  : 8,
-    "Applaudissements" : 9,
-    "Recul" : 10,
-    "Désorienté(e)"  : 11,
-    "A plat ventre" : 12,
-    "Révérence"    : 13,
-    "Peau de banane" : 14,
-    "Salut de la Résistance" : 15,
-    "Rire" : 16,
+    "Wave"   : 0,
+    "Happy"  : 1,
+    "Sad"    : 2,
+    "Angry"  : 3,
+    "Sleepy" : 4,
+    "Shrug"  : 5,
+    "Dance"  : 6,
+    "Think"   : 7,
+    "Bored"  : 8,
+    "Applause" : 9,
+    "Cringe" : 10,
+    "Confused"  : 11,
+    "Belly Flop"  : 12,
+    "Bow"    : 13,
+    "Banana Peel" : 14,
+    "Resistance Salute" : 15,
+    "Laugh" : 16,
     lYes    : 17,
     lNo     : 18,
     lOK     : 19,
     "Surprise" : 20,
-    "Cri" : 21,
-    "Content" : 22,
-    "Furieux" : 23,
-    "Rire" : 24,
+    "Cry" : 21,
+    "Delighted" : 22,
+    "Furious" : 23,
+    "Laugh" : 24,
     "Sing Note G1" : 25,
     "Sing Note A" : 26,
     "Sing Note B" : 27,
@@ -2070,6 +2066,29 @@ SpeedChatStaticTextToontown = {
     21204: 'Fais une culbute !',
     21205: 'Danse !',
     21206: 'Parle !',
+
+    # Phrases for April Toon's week 2009  
+#    30100 : "Happy April Toons' Day!",
+#    30101 : "Happy April Toons' Week!",
+#    30102 : "Welcome to my April Toons' Day party!",
+#    30103 : "Welcome to my April Toons' Week party!",
+#    30110 : "Watch how far I can jump.",
+#    30111 : "Wow, you jumped really far!",
+#    30112 : "Hey, Doodles can talk!",
+#    30113 : "Did your Doodle just talk?",
+#    30120 : "Where's Mickey?",
+#    30121 : "Where's Minnie?",
+#    30122 : "Where's Pluto?",
+#    30123 : "Where's Donald?",
+#    30124 : "Where's Goofy?",
+#    30125 : "Where's Daisy?",
+#    30130 : "In Daisy's Garden.",
+#    30131 : "In Toontown Central.",
+#    30132 : "In The Brrrgh.",
+#    30133 : "In Minnie's Melodyland.",
+#    30134 : "In Goofy's Speedway.",
+#    30135 : "In Donald's Dreamland.",
+#    31040 : "Wow, look where that kart landed!",
 
     # Phrases for April Toon's week
     30100 : "Happy April Toons' Week!",

@@ -545,17 +545,17 @@ EmoteFuncDict = {
 
 # SuitDialog.py
 SuitBrushOffs = {
-    'f':  ["Llego tarde a una reunión",
+    'f':  ["Llego tarde a una reunión.",
            ],
-    'p':  ["Lárgate",
+    'p':  ["Lárgate.",
            ],
-    'ym': ['Al sonriente no le hace gracia',
+    'ym': ['Al sonriente no le hace gracia.',
            ],
-    None: ["Es mi día libre",
-           "Creo que te has equivocado de despacho",
-           "Que tu secretaria llame a la mía",
-           "No tengo tiempo para reunirme contigo",
-           "Habla con mi ayudante"]
+    None: ["Es mi día libre.",
+           "Creo que te has equivocado de despacho.",
+           "Que tu secretaria llame a la mía.",
+           "No tengo tiempo para reunirme contigo.",
+           "Habla con mi ayudante."]
     }
 
 SuitFaceoffTaunts = {
@@ -1993,6 +1993,29 @@ SpeedChatStaticTextToontown = {
     21204: 'Backflip!',
     21205: 'Dance!',
     21206: 'Speak!',
+
+    # Phrases for April Toon's week 2009  
+#    30100 : "Happy April Toons' Day!",
+#    30101 : "Happy April Toons' Week!",
+#    30102 : "Welcome to my April Toons' Day party!",
+#    30103 : "Welcome to my April Toons' Week party!",
+#    30110 : "Watch how far I can jump.",
+#    30111 : "Wow, you jumped really far!",
+#    30112 : "Hey, Doodles can talk!",
+#    30113 : "Did your Doodle just talk?",
+#    30120 : "Where's Mickey?",
+#    30121 : "Where's Minnie?",
+#    30122 : "Where's Pluto?",
+#    30123 : "Where's Donald?",
+#    30124 : "Where's Goofy?",
+#    30125 : "Where's Daisy?",
+#    30130 : "In Daisy's Garden.",
+#    30131 : "In Toontown Central.",
+#    30132 : "In The Brrrgh.",
+#    30133 : "In Minnie's Melodyland.",
+#    30134 : "In Goofy's Speedway.",
+#    30135 : "In Donald's Dreamland.",
+#    31040 : "Wow, look where that kart landed!",
 
     # Phrases for April Toon's week
     30100 : "Happy April Toons' Week!",

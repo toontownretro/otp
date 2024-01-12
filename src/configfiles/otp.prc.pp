@@ -17,7 +17,7 @@ dc-file $OTP/src/configfiles/otp.dc
 verify-ssl 0
 
 # We compress animation files by default.
-compress-channels 1
+compress-channels 0
 
 # We take advantage of the render2dp scene graph for things layered on
 # top of everything else.
@@ -46,7 +46,7 @@ ime-hide 1
 
 # Make sure textures are forced to a power-of-2 size by default, as a
 # convenience.
-textures-power-2 down
+textures-power-2 none
 
 # This enables checking the clock against the time-of-day clock,
 # mainly useful for defeating programs like Speed Gear.

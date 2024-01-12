@@ -329,7 +329,7 @@ class LevelSpec:
             """internal. saves spec to file. returns zero on failure"""
             retval = 1
             # wb to create a UNIX-format file
-            f = file(filename, 'wb')
+            f = open(filename, 'wb')
             try:
                 f.write(self.getPrettyString())
             except IOError:

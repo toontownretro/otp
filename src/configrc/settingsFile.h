@@ -12,7 +12,7 @@
 extern const char *configrc_settings_filename;
 
 #define CONFIGRC_MAJOR_VERSION 1
-#define CONFIGRC_MINOR_VERSION 7
+#define CONFIGRC_MINOR_VERSION 8
 
 // this is awful.  We can't include toontownbase.h because it will cause
 // a build circularity.  So we have to define EXPCL_TOONTOWN on our own.

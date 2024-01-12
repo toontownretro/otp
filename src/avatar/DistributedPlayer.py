@@ -13,8 +13,7 @@ from otp.avatar import Avatar, PlayerBase
 from otp.chat import TalkAssistant
 from otp.otpbase import OTPGlobals
 from otp.avatar.Avatar import teleportNotify
-if game.name == 'toontown':
-    from otp.distributed.TelemetryLimited import TelemetryLimited
+from otp.distributed.TelemetryLimited import TelemetryLimited
 
 #hack, init for client-side outgoing chat filter
 if ConfigVariableBool('want-chatfilter-hacks',0).getValue():

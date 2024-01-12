@@ -8,7 +8,6 @@ class DistributedPuppeteer(DistributedObject.DistributedObject):
 
     def __init__(self, cr):
         DistributedObject.DistributedObject.__init__(self, cr)
-        return
 
     def startPuppet(self, puppet):
         self.notify.debug("Starting puppet %d" % puppet.doId)

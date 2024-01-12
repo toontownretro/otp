@@ -7,7 +7,6 @@ class Puppeteer(DirectObject.DirectObject):
 
     def __init__(self):
         DirectObject.DirectObject.__init__(self)
-        return
 
     def startPuppet(self, puppet):
         self.notify.debug("Starting puppet %d" % puppet.doId)
