@@ -161,7 +161,7 @@ ActivateChatPrivacyPolicy_Button2K = "Version 2"
 
 PrivacyPolicyText_1A = [""" """]
 PrivacyPolicyText_1K = [""" """]
-PrivacyPolicyText_2A = [""" ""]
+PrivacyPolicyText_2A = [""" """]
 PrivacyPolicyText_2K = [""" """]
 PrivacyPolicyText_Intro = [""" """]
 PrivacyPolicyClose = lClose
@@ -173,23 +173,30 @@ SecretFriendsInfoPanelText = ["""
 O recurso Chat Aberto de Amigos verdadeiros
 
 O recurso Chat Aberto de Amigos verdadeiros permite que um membro converse diretamente com outro no Toontown On-line da Disney (o "Serviço") depois que os membros estabelecerem uma conexão de Amigos verdadeiros. Quando o seu filho tentar usar o recurso Chat Aberto de Amigos verdadeiros, solicitaremos que você insira a sua Senha de pais para indicar seu consentimento para que a criança use o recurso. Esta é uma descrição detalhada do processo de criação de uma conexão de Amigos secretos entre os membros fictícios chamados "Sandra" e "Marcos".
-1. O responsável por Sandra e o responsável por Marcos ativam o recurso Amigos secretos inserindo suas respectivas Senhas de pais (a) nas áreas de Opções da conta do Serviço ou (b) quando for solicitado no jogo, em uma janela pop-up de Controles disponíveis aos pais.
-2. Sandra pede um Segredo (descrito abaixo) no Serviço.
+1. O responsável por Sandra e o responsável por Marcos ativam o recurso Chat aberto de Amigos verdadeiros inserindo suas respectivas Senhas de pais (a) nas áreas de Opções da conta do Serviço ou (b) quando for solicitado no jogo, em uma janela pop-up de Controles disponíveis aos pais.
+2. Sandra pede um Código de Amigo verdadeiro (descrito abaixo) no Serviço.
 ""","""
-3. O Segredo de Sandra é comunicado a Marcos fora do Serviço. (O Segredo de Sandra pode ser comunicado a Marcos diretamente por Sandra ou indiretamente, se Sandra revelar o Segredo a outra pessoa.)
-4. Marcos envia o Segredo de Sandra ao Serviço dentro de 48 horas a partir da hora em que Sandra solicitou o Segredo ao Serviço.
-5. Em seguida, o Serviço notifica Marcos de que Sandra tornou-se sua Amiga secreta. Da mesma forma, o Serviço notifica Sandra de que Marcos tornou-se seu Amigo secreto.
-6. Sandra e Marcos podem agora conversar diretamente um com o outro até um deles escolher cancelar o seu relacionamento como Amigo secreto, ou até que o recurso de Amigos secretos seja desativado para Sandra ou Marcos por um dos responsáveis por essas crianças. Então, a conexão de Amigos secretos pode ser desativada a qualquer momento: (a) por um membro, que remove o Amigo secreto de sua lista de amigos (conforme descrito no Serviço), ou (b) pelo responsável pelo membro, que desativa o recurso Amigos secretos na área Opções da conta do Serviço, seguindo as etapas definidas no recurso.
-""","""
-O Segredo é um código aleatório, gerado por computador, que é atribuído a um membro específico. O Segredo precisa ser usado para ativar a conexão de Amigo secreto dentro de 48 horas a partir da hora em que o membro solicitou o Segredo; caso contrário, o Segredo expirará e não poderá ser usado. Além disso, só se pode usar um único Segredo para estabelecer uma conexão de Amigo secreto. Para fazer conexões adicionais de Amigos secretos, o membro precisará solicitar mais segredos, um para cada Amigo secreto que quiser incluir.
+3. O Código de Amigo verdadeiro de Sandra é comunicado a Marcos fora do Serviço. (O Código de Amigo verdadeiro de Sandra pode ser comunicado a Marcos diretamente por Sandra ou indiretamente, se Sandra revelar o Código de Amigo verdadeiro a outra pessoa.)
+4. Marcos envia o Código de Amigo verdadeiro de Sandra ao Serviço dentro de 48 horas a partir da hora em que Sandra solicitou o Código de Amigo verdadeiro ao Serviço.
+5. Em seguida, o Serviço notifica Marcos de que Sandra tornou-se sua Amiga verdadeira. Da mesma forma, o Serviço notifica Sandra de que Marcos tornou-se seu Amigo verdadeiro.
+6. Sandra e Marcos podem agora conversar diretamente um com o outro até um deles escolher cancelar o seu relacionamento como Amigo verdadeiro, ou até que o recurso Chat Aberto de Amigos verdadeiros seja desativado para Sandra ou Marcos por um dos responsáveis por essas crianças. Então, a conexão de Amigos verdadeiros pode ser desativada a qualquer momento: (a) por um membro, que remove o Amigo verdadeiro de sua lista de amigos (conforme descrito no Serviço), ou (b) pelo responsável pelo membro, que desativa o recurso Chat Aberto de
+Amigos verdadeiros na área Opções da conta do Serviço, seguindo as etapas definidas no recurso. 
 
-As Amizades secretas não podem ser transferidas. Por exemplo, se Sandra se tornar Amiga secreta de Marcos, e Marcos se tornar Amigo secreto de Jéssica, Sandra não se tornará automaticamente Amiga secreta de Jéssica. Para que Sandra e Jéssica se tornem Amigas secretas, uma delas terá que solicitar um novo Segredo ao Serviço e comunicar à outra.
-#""","""
-Os Amigos secretos se comunicam entre si por meio de uma conversa interativa em formato livre. O conteúdo da conversa é inserido diretamente pelo membro participante e é processado pelo Serviço, cuja operação é realizada pelo Walt Disney Internet Group ("WDIG"), 506 2nd Avenue, Suite 2100, Seattle, WA 98104, EUA (telefone +1 (509) 742-4698; e-mail ms_support@help.go.com). Apesar de recomendarmos aos membros não trocarem com outros membros informações pessoais como nome e sobrenome, e-mails, endereço postal ou números de telefone ao usarem o recurso Amigos secretos, não podemos garantir que os membros seguirão a recomendação e que tais informações sejam preservadas. Embora o chat Amigos secretos seja automaticamente filtrado para evitar o uso da maioria dos palavrões, não há moderação nem supervisão de nossa parte. Se os pais deixarem seus filhos usarem a conta com o recurso Amigos secretos ativado no Serviço, aconselhamos que eles mesmos supervisionem os filhos durante a brincadeira.
+O Código de Amigo verdadeiro é um código aleatório, gerado por computador, que é atribuído a um membro específico. O Código de Amigo verdadeiro precisa ser usado para ativar a conexão de Amigo verdadeiro dentro de 48 horas a partir da hora em que o membro solicitou o Código de Amigo verdadeiro; caso contrário, o Código de Amigo verdadeiro expirará e não poderá ser usado. Além disso, só se pode usar um único Código de Amigo verdadeiro para estabelecer uma conexão de Amigo verdadeiro. Para fazer conexões adicionais de Amigos verdadeiros, o membro precisará solicitar mais segredos, um para cada Amigo verdadeiro que quiser incluir. As Amizades verdadeiras não podem ser transferidas. Por exemplo, se Sandra se tornar Amiga verdadeira de Marcos, e Marcos se tornar Amigo verdadeiro de Jéssica, Sandra não se tornará automaticamente Amiga Verdadeira de Jéssica. Para que Sandra e Jéssica se
+
+""",""" 
+tornem Amigas verdadeiras, uma delas terá que solicitar um novo Código de Amigo verdadeiro ao Serviço e comunicar à outra. 
+
+Os Amigos verdadeiros se comunicam entre si por meio de uma conversa interativa em formato livre. O conteúdo da conversa é inserido diretamente pelo membro participante e é processado pelo Serviço, cuja operação é realizada pelo Walt Disney Internet Group ("WDIG"), S. Buena Vista St., Burbank, CA 91521-7691. Apesar de recomendarmos aos membros não trocarem com outros membros informações pessoais como nome e sobrenome, e-mails, endereço postal ou números de telefone ao usarem o recurso Chat Aberto de Amigos verdadeiros, não podemos garantir que os membros seguirão a recomendação e que tais informações sejam preservadas. Embora o chat de Amigos verdadeiros seja automaticamente filtrado para evitar o uso da maioria dos palavrões, Chat Aberto de Amigos verdadeiros pode ser moderado e a Disney reserva-se o direito de moderar qualquer parte do Serviço que a Disney,
 ""","""
-O WDIG não usa o conteúdo do chat Amigos secretos para nenhum fim que não seja a comunicação do conteúdo ao amigo secreto do membro, e não revela tal conteúdo a terceiros, exceto: (1) se exigido por lei; por exemplo, para cumprir uma ordem ou intimação judicial; (2) para fazer com que os Termos de Uso aplicáveis ao Serviço (que podem ser acessados na página principal do Serviço) sejam respeitados; ou (3) para proteger a segurança dos Membros do Serviço e o Serviço propriamente dito. Mediante solicitação ao WDIG, o responsável por uma criança-membro pode analisar e mandar apagar qualquer conteúdo do recurso de chat Amigos secretos fornecidos pela criança em questão, desde que tal conteúdo já não tenha sido excluído dos registros pelo WDIG. Obedecendo à Children's Online Privacy Protection Act, uma lei americana de proteção à privacidade on-line para as crianças, estamos proibidos de condicionar a participação da criança em qualquer tipo de atividade (inclusive o recurso Amigos secretos) ao fornecimento, por parte da criança, de mais informações pessoais do que o estritamente necessário para que ela participe de tais atividades.
+a seu exclusivo e absoluto critério, julgar necessário. No entanto, como chat aberto de amigos verdadeiros nem sempre será moderado, se os pais deixarem seus filhos usarem a conta com o recurso Chat Aberto de Amigos verdadeiros ativado no Serviço, aconselhamos que eles mesmos supervisionem os filhos durante a brincadeira. 
+
+O WDIG não usa o conteúdo do chat Amigos verdadeiros para nenhum fim que não seja a comunicação do conteúdo ao amigo verdadeiro do membro, e não revela tal conteúdo a terceiros, exceto: (1) se exigido por lei; por exemplo, para cumprir uma ordem ou intimação judicial; (2) para fazer com que os Termos de Uso
 ""","""
-Além disso, conforme observado acima, reconhecemos o direito do responsável pela criança de não permitir que continuemos a deixar que a criança use o recurso Amigos secretos. Ao ativar o recurso Amigos secretos, você reconhece que há alguns riscos inerentes ao chat, no qual os membros podem conversar uns com os outros usando o recurso Amigos secretos, sendo que você foi informado de todos os riscos mencionados aqui, concordando em aceitá-los."""
+aplicáveis ao Serviço (que podem ser acessados na página principal do Serviço) sejam respeitados; ou (3) para proteger a segurança dos Membros do Serviço e o Serviço propriamente dito. Mediante solicitação ao WDIG, o responsável por uma criança-membro pode analisar e mandar apagar qualquer conteúdo do recurso de chat Amigos secretos fornecidos pela criança em questão, desde que tal conteúdo já não tenha sido excluído dos registros pelo WDIG. Obedecendo à Children's Online Privacy Protection Act, uma lei americana de proteção à privacidade on-line para as crianças, estamos proibidos de condicionar a participação da criança em qualquer tipo de atividade (inclusive o recurso Chat de Amigos verdadeiros) ao fornecimento, por parte da criança, de mais informações pessoais do que o estritamente necessário para que ela participe de tais atividades. 
+
+Além disso, conforme observado acima, reconhecemos o direito do responsável pela criança de não permitir que continuemos a deixar que a criança use o recurso Amigos verdadeiros. Ao ativar o recurso Chat Aberto de Amigos secretos, você reconhece que há alguns riscos inerentes ao chat, no qual os membros podem conversar uns com os outros usando o recurso Chat Aberto de Amigos verdadeiros, sendo que você foi informado de todos os riscos mencionados aqui, concordando em aceitá-los.
+"""
 ]
 #LeaveToPay = """Para efetuar a compra, o jogo sairá para Toontown.com.br"""
 LeaveToPay = """Para efetuar a compra, você sairá do jogo e será direcionado para Toontown.com.br"""
@@ -207,12 +214,12 @@ LeaveToEnableChatUKYes = "Ativar chat"
 LeaveToEnableChatUKNo = lCancel
 
 ChatMoreInfoOK = lOK
-SecretChatDeactivated = 'O recurso "Amigos secretos" foi desativado.'
-RestrictedSecretChatActivated = 'O recurso "Amigos secretos restritos" foi ativado!'
-SecretChatActivated = 'O sistema "Amigos secretos" foi ativado!\n\nSe você mudar de idéia e decidir desativar este recurso mais tarde, clique em "Opções da conta" na página da web de Toontown.'
+SecretChatDeactivated = 'O recurso "Amigos verdadeiros" foi desativado.'
+RestrictedSecretChatActivated = 'O recurso "Amigos verdadeiros restritos" foi ativado!'
+SecretChatActivated = 'O sistema "Amigos verdadeiros" foi ativado!\n\nSe você mudar de idéia e decidir desativar este recurso mais tarde, clique em "Opções da conta" na página da web de Toontown.'
 SecretChatActivatedOK = lOK
 SecretChatActivatedChange = "Alterar Opções"
-ProblemActivatingChat = 'Ops! Não foi possível ativar o recurso de chat "Amigos secretos".\n\n%s\n\nTente novamente mais tarde.'
+ProblemActivatingChat = 'Ops! Não foi possível ativar o recurso de chat "Amigos verdadeiros".\n\n%s\n\nTente novamente mais tarde.'
 ProblemActivatingChatOK = lOK
 
 # MultiPageTextFrame.py
@@ -369,9 +376,9 @@ SCMenuJellybeanJam               = "Dança de Balinhas"
 SCMenuHalloween                  = "HALLOWEEN"
 SCMenuWinter                     = "INVERNO"
 SCMenuSellbotInvasion            = "SELLBOT INVASION"
-SCMenuFieldOffice                = "FIELD OFFICES"
-SCMenuIdesOfMarch                = "GREEN"
-SCMenuLawbotNerf                 = "LAWBOTS LOSE"
+SCMenuFieldOffice                = "ESCRITÓRIOS DE CAMPO"
+SCMenuIdesOfMarch                = "VERDE"
+SCMenuLawbotNerf                 = "ROBÔS DA LEI PERDERAM"
 
 # FriendSecret.py
 FriendSecretNeedsPasswordWarningTitle = "Controles disponíveis aos pais"
