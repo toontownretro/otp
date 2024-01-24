@@ -418,8 +418,6 @@ unmanage_popup(MarginPopup *popup) {
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 update() {
-  JobSystem *jsys = JobSystem::get_global_ptr();
-
   // First, query all of our managed popups to see if they should
   // change their managed/unmanaged state.
   Popups::iterator pi = _popups.begin();
@@ -460,8 +458,7 @@ update() {
   int num_visible = 0;
   bool any_new_visible = false;
 
-  //for (pi = _popups.begin(); pi != _popups.end(); ++pi) {
-  jsys->parallel_process<Popups::iterator>(_popups.begin(), _popups.size(), [&] (Popups::iterator pi) {
+  for (pi = _popups.begin(); pi != _popups.end(); ++pi) {
     MarginPopup *popup = (*pi).first;
     PopupInfo &info = (*pi).second;
 
@@ -477,24 +474,22 @@ update() {
         float best_score = info._score;
         MarginPopup *best_popup = popup;
         for (PopupSet::iterator psi = popup_set.begin(); psi != popup_set.end(); ++psi) {
-        //jsys->parallel_process<PopupSet::iterator>(popup_set.begin(), popup_set.size(), [&] (PopupSet::iterator psi) {
           MarginPopup *try_popup = (*psi);
           PopupInfo &try_info = _popups[try_popup];
           if (try_info._wants_visible && try_info._score > best_score) {
             best_score = try_info._score;
             best_popup = try_popup;
           }
-        }//);
+        }
 
         // Now set all the other ones invisible.
         for (PopupSet::iterator psi = popup_set.begin(); psi != popup_set.end(); ++psi) {
-        //jsys->parallel_process<PopupSet::iterator>(popup_set.begin(), popup_set.size(), [&] (PopupSet::iterator psi) {
           MarginPopup *try_popup = (*psi);
           PopupInfo &try_info = _popups[try_popup];
           if (try_popup != best_popup) {
             try_info._wants_visible = false;
           }
-        }//);
+        }
       }
     }
 
@@ -512,7 +507,7 @@ update() {
       // request for a bit until we've looked at all the popups.
       any_new_visible = true;
     }
-  });
+  }
 
   if (any_new_visible) {
     // Now, can we satisfy all the popups that want visibility?
@@ -526,12 +521,10 @@ update() {
   }
 
   // Now do all the callbacks.
-  //for (pi = _popups.begin(); pi != _popups.end(); ++pi) {
-  jsys->parallel_process<Popups::iterator>(_popups.begin(), _popups.size(), [&] (Popups::iterator pi) {
+  for (pi = _popups.begin(); pi != _popups.end(); ++pi) {
     MarginPopup *popup = (*pi).first;
-
     popup->frame_callback();
-  });
+  }
 
 #ifndef NDEBUG
   // Update the visualization of the MouseWatcherRegions, if this
@@ -581,25 +574,22 @@ void MarginManager::
 show_visible_no_conflict() {
   // First, find all the empty cells.
   EmptyCells empty_cells;
-  JobSystem *jsys = JobSystem::get_global_ptr();
 
-  //for (Cells::const_iterator ci = _cells.begin(); ci != _cells.end(); ++ci) {
-  jsys->parallel_process(_cells.size(), [&] (size_t i) {
-    const Cell &cell = _cells[i]; //(*ci);
+  for (Cells::const_iterator ci = _cells.begin(); ci != _cells.end(); ++ci) {
+    const Cell &cell = (*ci);
     if (cell._is_available && cell._np.is_empty()) {
       // Here's an empty cell.
       int cell_index =  i; //(ci - _cells.begin());
       empty_cells.emplace_back(cell_index);
     }
-  });
+  }
 
   // Randomize the list, so we'll pull the cells out in random order.
   auto random = std::default_random_engine(std::random_device()());
   std::shuffle(std::begin(empty_cells), std::end(empty_cells), random);
 
   // Now find a home for each popup that needs one.
-  //for (Popups::iterator pi = _popups.begin(); pi != _popups.end(); ++pi) {
-  jsys->parallel_process<Popups::iterator>(_popups.begin(), _popups.size(), [&] (Popups::iterator pi) {
+  for (Popups::iterator pi = _popups.begin(); pi != _popups.end(); ++pi) {
     MarginPopup *popup = (*pi).first;
     PopupInfo &info = (*pi).second;
 
@@ -611,7 +601,7 @@ show_visible_no_conflict() {
 
       show(popup, cell_index);
     }
-  });
+  }
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -631,8 +621,7 @@ show_visible_resolve_conflict() {
   typedef tpvector<Popups::iterator> PopupsByScore;
   PopupsByScore by_score;
 
-  //for (Popups::iterator pi = _popups.begin(); pi != _popups.end(); ++pi) {
-  jsys->parallel_process<Popups::iterator>(_popups.begin(), _popups.size(), [&] (Popups::iterator pi) {
+  for (Popups::iterator pi = _popups.begin(); pi != _popups.end(); ++pi) {
     MarginPopup *popup = (*pi).first;
     PopupInfo &info = (*pi).second;
 
@@ -640,7 +629,7 @@ show_visible_resolve_conflict() {
       info._score = popup->get_score();
       by_score.emplace_back(pi);
     }
-  });
+  }
 
   sort(by_score.begin(), by_score.end(), SortPopupsByScore());
 
