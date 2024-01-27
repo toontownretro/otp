@@ -25,32 +25,31 @@ class AIBase:
     def __init__(self):
         # Get the dconfig object
         self.config = getConfigShowbase()
-        __builtins__["__dev__"] = ConfigVariableBool('want-dev', 0).getValue()
-        logStackDump = ConfigVariableBool('log-stack-dump', not __dev__).getValue() or \
-                       ConfigVariableBool('ai-log-stack-dump', not __dev__).getValue()
+        __builtins__["__dev__"] = self.config.GetBool('want-dev', 0)
+        logStackDump = self.config.GetBool(('log-stack-dump', (not __dev__)) or self.config.GetBool('ai-log-stack-dump', (not __dev__)))
         uploadStackDump = self.config.GetBool('upload-stack-dump', 0)
         if logStackDump or uploadStackDump:
             ExceptionVarDump.install(logStackDump, uploadStackDump)
 
-        if ConfigVariableBool('use-vfs', 1).getValue():
+        if self.config.GetBool('use-vfs', 1):
             vfs = VirtualFileSystem.getGlobalPtr()
         else:
             vfs = None
 
         # Store dconfig variables
-        self.wantTk = ConfigVariableBool('want-tk', 0).getValue()
+        self.wantTk = self.config.GetBool('want-tk', 0)
 
         # How long should the AI sleep between frames to keep CPU usage down
-        self.AISleep = ConfigVariableDouble('ai-sleep', 0.04).getValue()
-        self.AIRunningNetYield = ConfigVariableBool('ai-running-net-yield', 0).getValue()
-        self.AIForceSleep = ConfigVariableBool('ai-force-sleep', 0).getValue()
+        self.AISleep = self.config.GetFloat('ai-sleep', 0.04)
+        self.AIRunningNetYield = self.config.GetBool('ai-running-net-yield', 0)
+        self.AIForceSleep = self.config.GetBool('ai-force-sleep', 0)
         self.eventMgr = eventMgr
         self.messenger = messenger
         self.bboard = bulletinBoard
 
         self.taskMgr = taskMgr
-        Task.TaskManager.taskTimerVerbose = ConfigVariableBool('task-timer-verbose', 0).getValue()
-        Task.TaskManager.extendedExceptions = ConfigVariableBool('extended-exceptions', 0).getValue()
+        Task.TaskManager.taskTimerVerbose = self.config.GetBool('task-timer-verbose', 0)
+        Task.TaskManager.extendedExceptions = self.config.GetBool('extended-exceptions', 0)
 
         self.sfxManagerList = None
         self.musicManager = None
@@ -94,11 +93,11 @@ class AIBase:
         PythonUtil.recordFunctorCreationStacks()
 
         # This is temporary:
-        __builtins__["wantTestObject"] = ConfigVariableBool('want-test-object', 0).getValue()
+        __builtins__["wantTestObject"] = self.config.GetBool('want-test-object', 0)
 
 
-        self.wantStats = ConfigVariableBool('want-pstats', 0).getValue()
-        Task.TaskManager.pStatsTasks = ConfigVariableBool('pstats-tasks', 0).getValue()
+        self.wantStats = self.config.GetBool('want-pstats', 0)
+        Task.TaskManager.pStatsTasks = self.config.GetBool('pstats-tasks', 0)
         # Set up the TaskManager to reset the PStats clock back
         # whenever we resume from a pause.  This callback function is
         # a little hacky, but we can't call it directly from within
@@ -110,8 +109,8 @@ class AIBase:
         defaultValue = 1
         if __dev__:
             defaultValue = 0
-        wantFakeTextures = ConfigVariableBool('want-fake-textures-ai',
-                                               defaultValue).getValue()
+        wantFakeTextures = self.config.GetBool('want-fake-textures-ai',
+                                               defaultValue)
 
         if wantFakeTextures:
             # Setting textures-header-only is a little better than
@@ -126,36 +125,36 @@ class AIBase:
         # config flags should be.
         # I tried putting this logic in ToontownAIRepository, but wantPets is
         # needed during the import of ToontownAIRepository.py
-        self.wantPets = ConfigVariableBool('want-pets', 1).getValue()
+        self.wantPets = self.config.GetBool('want-pets', 1)
         if self.wantPets:
             if game.name == 'toontown':
                 from toontown.pets import PetConstants
-                self.petMoodTimescale = ConfigVariableDouble(
-                    'pet-mood-timescale', 1.).getValue()
-                self.petMoodDriftPeriod = ConfigVariableDouble(
-                    'pet-mood-drift-period', PetConstants.MoodDriftPeriod).getValue()
-                self.petThinkPeriod = ConfigVariableDouble(
-                    'pet-think-period', PetConstants.ThinkPeriod).getValue()
-                self.petMovePeriod = ConfigVariableDouble(
-                    'pet-move-period', PetConstants.MovePeriod).getValue()
-                self.petPosBroadcastPeriod = ConfigVariableDouble(
+                self.petMoodTimescale = self.config.GetFloat(
+                    'pet-mood-timescale', 1.)
+                self.petMoodDriftPeriod = self.config.GetFloat(
+                    'pet-mood-drift-period', PetConstants.MoodDriftPeriod)
+                self.petThinkPeriod = self.config.GetFloat(
+                    'pet-think-period', PetConstants.ThinkPeriod)
+                self.petMovePeriod = self.config.GetFloat(
+                    'pet-move-period', PetConstants.MovePeriod)
+                self.petPosBroadcastPeriod = self.config.GetFloat(
                     'pet-pos-broadcast-period',
-                    PetConstants.PosBroadcastPeriod).getValue()
+                    PetConstants.PosBroadcastPeriod)
 
-        self.wantBingo = ConfigVariableBool('want-fish-bingo', 1).getValue()
-        self.wantKarts = ConfigVariableBool('wantKarts', 1).getValue()
+        self.wantBingo = self.config.GetBool('want-fish-bingo', 1).getValue()
+        self.wantKarts = self.config.GetBool('wantKarts', 1).getValue()
 
-        self.newDBRequestGen = ConfigVariableBool(
+        self.newDBRequestGen = self.config.GetBool(
             'new-database-request-generate', 1).getValue()
 
-        self.waitShardDelete = ConfigVariableBool('wait-shard-delete', 1).getValue()
-        self.blinkTrolley = ConfigVariableBool('blink-trolley', 0).getValue()
-        self.fakeDistrictPopulations = ConfigVariableBool('fake-district-populations', 0).getValue()
+        self.waitShardDelete = self.config.GetBool('wait-shard-delete', 1).getValue()
+        self.blinkTrolley = self.config.GetBool('blink-trolley', 0).getValue()
+        self.fakeDistrictPopulations = self.config.GetBool('fake-district-populations', 0).getValue()
 
-        self.wantSwitchboard = ConfigVariableBool('want-switchboard', 0).getValue()
-        self.wantSwitchboardHacks = ConfigVariableBool('want-switchboard-hacks', 0).getValue()
-        self.GEMdemoWhisperRecipientDoid = ConfigVariableBool('gem-demo-whisper-recipient-doid', 0).getValue()
-        self.sqlAvailable = ConfigVariableBool('sql-available', 1).getValue()
+        self.wantSwitchboard = self.config.GetBool('want-switchboard', 0).getValue()
+        self.wantSwitchboardHacks = self.config.GetBool('want-switchboard-hacks', 0).getValue()
+        self.GEMdemoWhisperRecipientDoid = self.config.GetBool('gem-demo-whisper-recipient-doid', 0).getValue()
+        self.sqlAvailable = self.config.GetBool('sql-available', 1).getValue()
 
         self.createStats()
 
@@ -168,21 +167,21 @@ class AIBase:
 
     def setupCpuAffinities(self, minChannel):
         if game.name == 'uberDog':
-            affinityMask = ConfigVariableInt('uberdog-cpu-affinity-mask', -1).getValue()
+            affinityMask = self.config.GetInt('uberdog-cpu-affinity-mask', -1)
         else:
-            affinityMask = ConfigVariableInt('ai-cpu-affinity-mask', -1).getValue()
+            affinityMask = self.config.GetInt('ai-cpu-affinity-mask', -1)
         if affinityMask != -1:
             TrueClock.getGlobalPtr().setCpuAffinity(affinityMask)
         else:
             # this is useful on machines that perform better with each process
             # assigned to a single CPU
-            autoAffinity = ConfigVariableBool('auto-single-cpu-affinity', 0).getValue()
+            autoAffinity = self.config.GetBool('auto-single-cpu-affinity', 0)
             if game.name == 'uberDog':
-                affinity = ConfigVariableInt('uberdog-cpu-affinity', -1).getValue()
+                affinity = self.config.GetInt('uberdog-cpu-affinity', -1)
                 if autoAffinity and (affinity == -1):
                     affinity = 2
             else:
-                affinity = ConfigVariableInt('ai-cpu-affinity', -1).getValue()
+                affinity = self.config.GetInt('ai-cpu-affinity', -1)
                 if autoAffinity and (affinity == -1):
                     affinity = 1
             if affinity != -1:
