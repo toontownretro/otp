@@ -427,7 +427,7 @@ GuildMemberOnline = "entrou on-line."
 GuildMemberOffline = "saiu e está off-line."
 GuildPrefix = "(G):"
 GuildNewMember = "Novo Associado da Guilda"
-GuildMemberUnknown = "Unknown"
+GuildMemberUnknown = "Desconhecido"
 GuildMemberGMMessage = "Warning! Would you like to give up leadership of your guild and make %s your guild master?\n\nYou will become an officer"
 
 # GuildInvitee.py
