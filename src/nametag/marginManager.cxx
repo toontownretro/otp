@@ -579,7 +579,7 @@ show_visible_no_conflict() {
     const Cell &cell = (*ci);
     if (cell._is_available && cell._np.is_empty()) {
       // Here's an empty cell.
-      int cell_index =  i; //(ci - _cells.begin());
+      int cell_index = (ci - _cells.begin());
       empty_cells.emplace_back(cell_index);
     }
   }
