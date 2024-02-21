@@ -17,12 +17,17 @@
 #include "asyncTaskManager.h"
 #include "jobSystem.h"
 #include "lightReMutexHolder.h"
-#include "tpvector.h"
+#include "pStatTimer.h"
 
 #include <algorithm>
 #include <random>
 
 TypeHandle MarginManager::_type_handle;
+
+#ifndef CPPPARSER
+PStatCollector MarginManager::_update_pcollector("App:Show code:Nametags:MarginManager:Update");
+#endif
+
 LightReMutex MarginManager::_margin_manager_thread_lock("margin-manager-thread-lock");
 
 ////////////////////////////////////////////////////////////////////
@@ -418,6 +423,10 @@ unmanage_popup(MarginPopup *popup) {
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 update() {
+#ifdef DO_PSTATS
+  PStatTimer timer(_update_pcollector);
+#endif
+
   // First, query all of our managed popups to see if they should
   // change their managed/unmanaged state.
   Popups::iterator pi = _popups.begin();
@@ -618,7 +627,7 @@ show_visible_resolve_conflict() {
 
   // First, get a list of the popups that want to be visible in
   // descending order by score.
-  typedef tpvector<Popups::iterator> PopupsByScore;
+  typedef pvector<Popups::iterator> PopupsByScore;
   PopupsByScore by_score;
 
   for (Popups::iterator pi = _popups.begin(); pi != _popups.end(); ++pi) {
@@ -648,15 +657,14 @@ show_visible_resolve_conflict() {
 
   // Now we can find all the empty cells.
   EmptyCells empty_cells;
-  //for (Cells::const_iterator ci = _cells.begin(); ci != _cells.end(); ++ci) {
-  jsys->parallel_process(_cells.size(), [&] (size_t i) {
-    const Cell &cell = _cells[i]; //(*ci);
+  for (Cells::const_iterator ci = _cells.begin(); ci != _cells.end(); ++ci) {
+    const Cell &cell = (*ci);
     if (cell._is_available && cell._np.is_empty()) {
       // Here's an empty cell.
-      int cell_index = i; //(ci - _cells.begin());
+      int cell_index = (ci - _cells.begin());
       empty_cells.emplace_back(cell_index);
     }
-  });
+  }
 
   // Randomize the list, so we'll pull the cells out in random order.
   auto random = std::default_random_engine(std::random_device()());

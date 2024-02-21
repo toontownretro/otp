@@ -20,6 +20,7 @@
 #include "nodePath.h"
 #include "vector_string.h"
 #include "lightReMutex.h"
+#include "pStatCollector.h"
 
 class MarginManager;
 class Nametag2d;
@@ -170,6 +171,10 @@ private:
   void update_contents_all();
   
   static AsyncTask::DoneStatus update_task(GenericAsyncTask *task, void *data);
+  
+  static PStatCollector _update_regions_pcollector;
+  static PStatCollector _update_contents_all_pcollector;
+  static PStatCollector _update_pcollector;
 
   Nametag2d *_nametag2d;
   Nametag3d *_nametag3d;

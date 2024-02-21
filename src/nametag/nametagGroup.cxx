@@ -16,11 +16,19 @@
 #include "clockObject.h"
 #include "lightReMutexHolder.h"
 #include "jobSystem.h"
+#include "pStatTimer.h"
 
 #include <algorithm>
 
 int NametagGroup::_unique_index = 0;
 PT(CallbackObject) NametagGroup::_chat_callback = nullptr;
+
+#ifndef CPPPARSER
+PStatCollector NametagGroup::_update_regions_pcollector("App:Show code:Nametags:Group:Regions");
+PStatCollector NametagGroup::_update_contents_all_pcollector("App:Show code:Nametags:Group:AllContents");
+PStatCollector NametagGroup::_update_pcollector("App:Show code:Nametags:Group:Update");
+#endif
+
 LightReMutex NametagGroup::_nametag_group_thread_lock("nametag-group-thread-lock");
 
 ////////////////////////////////////////////////////////////////////
@@ -529,6 +537,10 @@ copy_name_to(const NodePath &dest) const {
 void NametagGroup::
 update_regions() {
   LightReMutexHolder holder(_nametag_group_thread_lock);
+  
+#ifdef DO_PSTATS
+  PStatTimer timer(_update_regions_pcollector);
+#endif
 
   //for (Nametags::iterator ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
   JobSystem *jsys = JobSystem::get_global_ptr();
@@ -587,6 +599,10 @@ update_regions() {
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
 update_contents_all() {
+#ifdef DO_PSTATS
+  PStatTimer timer(_update_contents_all_pcollector);
+#endif
+  
   //for (Nametags::iterator ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
   JobSystem *jsys = JobSystem::get_global_ptr();
   jsys->parallel_process(_nametags.size(), [&] (size_t i) {
@@ -603,6 +619,10 @@ update_contents_all() {
 ////////////////////////////////////////////////////////////////////
 AsyncTask::DoneStatus NametagGroup::
 update_task(GenericAsyncTask *task, void *data) {
+#ifdef DO_PSTATS
+  PStatTimer timer(_update_pcollector);
+#endif
+  
   NametagGroup *group = ((NametagGroup *)data);
   for (Nametags::iterator ti = group->_nametags.begin(); ti != group->_nametags.end(); ++ti) {
     Nametag *tag = (*ti);

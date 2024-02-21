@@ -92,7 +92,9 @@ bool Nametag2d::
 app_callback() {
   if (!is_visible()) { return false; }
   
+#ifdef DO_PSTATS
   PStatTimer timer(_adjust_pcollector);
+#endif
   rotate_arrow();
 
   return true;
@@ -153,7 +155,10 @@ get_object_code() {
 ////////////////////////////////////////////////////////////////////
 void Nametag2d::
 update_contents() {
+#ifdef DO_PSTATS
   PStatTimer timer(_contents_pcollector);
+#endif
+
   stop_flash();
 
   if (has_group()) {

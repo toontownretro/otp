@@ -64,6 +64,7 @@ class DistributedAvatar(DistributedActor, Avatar):
             del self.DistributedAvatar_announced
         except:
             return
+        
         self.reparentTo(hidden)
         self.removeActive()
         self.disableBodyCollisions()
@@ -86,10 +87,12 @@ class DistributedAvatar(DistributedActor, Avatar):
         """
         try:
             self.DistributedAvatar_deleted
+            return
         except:
             self.DistributedAvatar_deleted = 1
-            Avatar.delete(self)
-            DistributedActor.delete(self)
+            
+        Avatar.delete(self)
+        DistributedActor.delete(self)
 
 
     def generate(self):

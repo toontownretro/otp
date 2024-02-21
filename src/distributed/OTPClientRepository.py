@@ -294,8 +294,9 @@ class OTPClientRepository(ClientRepositoryBase):
         self.periodTimerStarted = None
         self.periodTimerSecondsRemaining = None
 
-        # register render and hidden for distributed reparents
+        # register render, actors, and hidden for distributed reparents
         self.parentMgr.registerParent(OTPGlobals.SPRender, base.render)
+        self.parentMgr.registerParent(OTPGlobals.SPActors, base.actors)
         # we really don't want to use hidden anymore, just remove from the
         # scene graph entirely by reparenting to an empty nodepath
         self.parentMgr.registerParent(OTPGlobals.SPHidden, NodePath())

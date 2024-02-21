@@ -97,7 +97,8 @@ MaxCustomMessages = 25
 SPInvalid = 0 # ParentMgr does not allow default values to be used as parent tokens
 SPHidden = 1
 SPRender = 2
-SPDynamic = 5
+SPActors = 3 # We need this so anything parented under this shows.
+SPDynamic = 6
 
 # Cheesy rendering effects for Toons
 CENormal = 0

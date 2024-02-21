@@ -17,7 +17,7 @@
 #include "nodePath.h"
 #include "genericAsyncTask.h"
 #include "lightReMutex.h"
-#include "tvector.h"
+#include "pStatCollector.h"
 
 ////////////////////////////////////////////////////////////////////
 //       Class : MarginManager
@@ -62,7 +62,7 @@ public:
 private:
   void show_visible_no_conflict();
   void show_visible_resolve_conflict();
-  typedef tvector<int> EmptyCells;
+  typedef pvector<int> EmptyCells;
   int choose_cell(MarginPopup *popup, EmptyCells &empty_cells);
 
   void show(MarginPopup *popup, int cell_index);
@@ -108,6 +108,8 @@ private:
     // This represents the time at which the cell last became vacant.
     double _hide_time;
   };
+  
+  static PStatCollector _update_pcollector;
 
   LVecBase3f _cell_scale;
   typedef pvector<Cell> Cells;

@@ -128,7 +128,10 @@ safe_to_flatten_below() const {
 ////////////////////////////////////////////////////////////////////
 bool Nametag3d::
 app_callback() {
+#ifdef DO_PSTATS
   PStatTimer timer(_adjust_pcollector);
+#endif
+
   NodePath this_np = NodePath(this);
     
   // Get the name of the bin our Nametag is under.
@@ -186,7 +189,10 @@ release(const MouseWatcherParameter &param) {
 ////////////////////////////////////////////////////////////////////
 void Nametag3d::
 update_contents() {
+#ifdef DO_PSTATS
   PStatTimer timer(_contents_pcollector);
+#endif
+
   stop_flash();
 
   if (_has_draw_order) {

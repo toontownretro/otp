@@ -52,6 +52,8 @@ class OTPBase(ShowBase):
        self.gameOptionsCode = ''
        self.locationCode = ''
        self.locationCodeChanged = time.time()
+       
+       self.setupSceneNodes()
 
        # Set the default camera to use the appropriate bitmask.
        if (base.cam):
@@ -125,6 +127,47 @@ class OTPBase(ShowBase):
                 base.win.removeDisplayRegion(mainDR)
                 mainDR = base.win.makeMonoDisplayRegion()
                 mainDR.setCamera(base.cam)
+                
+    def setupSceneNodes(self):
+        if not self.render:
+            return
+            
+        """ 
+        Setup our scene nodepath, This nodepath should contain both animated and static children in two seperate nodepaths.
+        
+        Example Layout: 
+        
+        render
+          scene
+            static
+              chair
+            animated
+              pinwheel
+        """
+        self.scene = NodePath('scene')
+        self.scene.reparentTo(self.render)
+        
+        self.sceneStatic = NodePath('static')
+        self.sceneStatic.reparentTo(self.scene)
+
+        self.sceneAnimated = NodePath('animated')
+        self.sceneAnimated.reparentTo(self.scene)
+        
+        """ 
+        Setup our actor nodepath, This nodepath should contain as many actors as possible.
+        
+        Example Layout: 
+        
+        render
+          scene
+            actors
+              toons
+                toon1
+              cogs
+                cog1
+        """
+        self.actors = NodePath('actors')
+        self.actors.reparentTo(self.render)
 
     def setupEnviroCamera(self):
         """ Set up a special DisplayRegion and camera for rendering
