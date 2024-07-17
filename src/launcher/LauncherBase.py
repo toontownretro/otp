@@ -221,7 +221,7 @@ class LauncherBase(DirectObject):
 
         # Write to the log
         print("\n\nStarting %s..." % self.GameName)
-        print(("Current time: " + time.asctime(time.localtime(time.time()))
+        print ("Current time: " + time.asctime(time.localtime(time.time())
                + " " + time.tzname[0]))
         print("sys.path = ", sys.path)
         print("sys.argv = ", sys.argv)
@@ -229,7 +229,7 @@ class LauncherBase(DirectObject):
 
         if(len(sys.argv)>=self.ArgCount):
             Configrc_args = sys.argv[self.ArgCount-1]
-            print(("generating configrc using: '" + Configrc_args + "'"))
+            print("generating configrc using: '" + Configrc_args + "'")
         else:
             Configrc_args = ""
             print("generating standard configrc")
@@ -958,7 +958,7 @@ class LauncherBase(DirectObject):
         # Calculate the percent done as an int
         # Only consider the download 90 percent of the process
         # We still need to decompress and extract it too
-        #self.notify.info('^^^^^download so far = ' + `bytesWritten` + ' $' + `self.patchDownloadSoFar`)
+        #self.notify.info('^^^^^download so far = ' + repr(bytesWritten) + ' $' + repr(self.patchDownloadSoFar))
         percentPatchComplete = self.getPercentPatchComplete(bytesWritten)
 
         # Set the percent done in the phase map for phase_3 only
@@ -966,7 +966,7 @@ class LauncherBase(DirectObject):
         # through this single multifile represents the progress through the
         # current phase. Do not ever set to 100 to prevent roundup from
         # prematurely reporting 100. Instead only report 99 here
-        #self.notify.info('-------percent patch complete = ' + `percentPatchComplete`)
+        #self.notify.info('-------percent patch complete = ' + repr(percentPatchComplete))
         self.setPercentPhaseComplete(self.currentPhase, percentPatchComplete)
 
     def downloadMultifileWriteToDisk(self, task):
@@ -1476,7 +1476,7 @@ class LauncherBase(DirectObject):
                 nameSizeTuple = self.linesInProgress[i].split()
                 # get rid of the L from the number
                 numSize = nameSizeTuple[1].split('L')
-                sum += string.atoi(numSize[0])
+                sum += int(numSize[0])
         return sum
 
     def readProgressFile(self):
@@ -2542,7 +2542,7 @@ class LauncherBase(DirectObject):
             # now calculate an overall percenatage
             # rescale this percent according to weight of this phase
             self.overallComplete = int(round(percent * self.phaseOverallMap[phase])) + self.progressSoFar
-            #self.notify.info('overall complete ' + `self.overallComplete` + '%')
+            #self.notify.info('overall complete ' + repr(self.overallComplete) + '%')
             # also set the value in the registry
             self.setRegistry("PERCENT_OVERALL_COMPLETE", self.overallComplete)
 

@@ -264,16 +264,16 @@ class MySQLAccountAvatarsDB(DBInterface):
     # fdb = MySQLAccountAvatarsDB("127.0.0.1", 3306, "root", "root", "avatars")
     # fdb.addAvatarToSubscription(3300000002, 1234, 1023, 1)
     # t = fdb.getAvatarIdsForSubscription(1023)
-    # print t
+    # print(t)
     # fdb.addAvatarToSubscription(3300000005, 1234, 1023, 1)
     # t = fdb.getAvatarIdsForSubscription(1023)
-    # print t
+    # print(t)
     # fdb.removeAvatarFromSubscription(3300000005, 1023)
     # t = fdb.getAvatarIdsForSubscription(1023)
-    # print t
+    # print(t)
     # fdb.setSharedFlag(3300000002, 1023, 1)
     # t = fdb.getAvatarIdsForSubscription(1023)
-    # print t
+    # print(t)
     # print("break and execute: UPDATE account_to_avatars SET datemadeinactive = NULL WHERE avatar_id = 3300000005")
     # t = fdb.getAvatarIdsForSubscription(1023)
-    # print t
+    # print(t)

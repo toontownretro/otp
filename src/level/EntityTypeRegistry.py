@@ -58,7 +58,7 @@ class EntityTypeRegistry:
 
         # get a list of the EntityTypeDesc classes in the type module
         classes = []
-        for key, value in list(entityTypeModule.__dict__.items()):
+        for key, value in entityTypeModule.__dict__.items():
             if type(value) is type:
                 if issubclass(value, EntityTypeDesc.EntityTypeDesc):
                     classes.append(value)
@@ -82,7 +82,7 @@ class EntityTypeRegistry:
         # create mapping of entity output types to list of concrete entity
         # typenames with that output type
         self.output2typeNames = {}
-        for typename, typeDesc in list(self.entTypeName2typeDesc.items()):
+        for typename, typeDesc in self.entTypeName2typeDesc.items():
             if typeDesc.isConcrete():
                 if hasattr(typeDesc, 'output'):
                     outputType = typeDesc.output
@@ -92,7 +92,7 @@ class EntityTypeRegistry:
         # create list of permanent entity typenames (entity types that cannot
         # be inserted or removed in the editor)
         self.permanentTypeNames = []
-        for typename, typeDesc in list(self.entTypeName2typeDesc.items()):
+        for typename, typeDesc in self.entTypeName2typeDesc.items():
             if typeDesc.isPermanent():
                 assert typeDesc.isConcrete()
                 self.permanentTypeNames.append(typename)
@@ -101,9 +101,9 @@ class EntityTypeRegistry:
         # of entity typenames are concrete and are of that type or derive
         # from that type
         self.typeName2derivedTypeNames = {}
-        for typename, typeDesc in list(self.entTypeName2typeDesc.items()):
+        for typename, typeDesc in self.entTypeName2typeDesc.items():
             typenames = []
-            for tn, td in list(self.entTypeName2typeDesc.items()):
+            for tn, td in self.entTypeName2typeDesc.items():
                 if td.isConcrete():
                     if issubclass(td.__class__, typeDesc.__class__):
                         typenames.append(tn)

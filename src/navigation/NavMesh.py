@@ -146,7 +146,7 @@ class NavMesh(object):
                 elif len(neighbor) == 1:
                     neighborPolys.append(neighbor[0])
                 else:
-                    raise "Two neighbors found for the same edge?!?!"
+                    raise Exception("Two neighbors found for the same edge?!?!")
 
             self.connectionLookup[pId] = neighborPolys
 
@@ -308,11 +308,11 @@ class NavMesh(object):
         Also compacts the polygon IDs into a contiguous range from 0 to N.
         No need to do the same for vertex IDs yet.
         '''
-        '''print "Stitching polygons: %s -> " % (len(self.polyToVerts)),
+        '''print("Stitching polygons: %s -> " % (len(self.polyToVerts)))
         orig = len(self.polyToVerts)
         numPasses = 1
         while self._growEachPolyOnce():
-            print "%s -> " % (len(self.polyToVerts)),
+            print("%s -> " % (len(self.polyToVerts)))
             numPasses += 1
         print("Done!\nPoly count reduced to %0.1f%% of original." % (len(self.polyToVerts)/float(orig)*100.0))'''
 
@@ -548,7 +548,7 @@ class NavMesh(object):
 ##                         nodeToF[neighbor] = nodeToG[neighbor] + nodeToH[neighbor]
 ##                         openQueue.push((nodeToF[neighbor],neighbor))
 
-##         raise "No path found!  D:"
+##         raise Exception("No path found!  D:")
 
 
     def _findAllRoutesToGoal(self, goalNode):
@@ -642,7 +642,7 @@ class NavMesh(object):
         for row in self.pathData:
             for val in row:
                 if val == None:
-                    raise "Incomplete path data!"
+                    raise Exception("Incomplete path data!")
 
         shortestPathLookup = self.pathData
 
@@ -710,14 +710,14 @@ class NavMesh(object):
 ##         Look up the equivalent of pathData[goalNode][startNode] in our run-length encoded data.
 ##         '''
 ##         if startNode >= self.numNodes or goalNode >= self.numNodes:
-##             raise "Invalid node ID.  Must be less than self.numNodes (%s)." % self.numNodes
+##             raise Exception("Invalid node ID.  Must be less than self.numNodes (%s)." % self.numNodes)
 
 ##         str = self.pathData[startNode]
 
 ##         pos = 0
 
 ##         while (pos < len(str)) and (256*ord(str[pos]) + ord(str[pos+1]) <= goalNode):
-##             #print pos, ": ",256*ord(str[pos]) + ord(str[pos+1])
+##             #print(pos, ": ",256*ord(str[pos]) + ord(str[pos+1]))
 ##             pos += 3
 
 ##         pos -= 3
@@ -823,10 +823,10 @@ class NavMesh(object):
         Saving to a file lets us avoid doing expensive precomputation every time a mesh instance is required.
         '''
         if self.environmentHash is None:
-            raise "Attempted write to file without valid environment hash!"
+            raise Exception("Attempted write to file without valid environment hash!")
 
         if storePathTable and not self.pathData:
-            raise "Attempted to write empty pathData.  Call NavMesh.generatePathTable() first!"
+            raise Exception("Attempted to write empty pathData.  Call NavMesh.generatePathTable() first!")
 
         f = open(filename,'wb')
 

@@ -37,7 +37,7 @@ class Mover(CMover):
             self.pscInt = PStatCollector(Mover.PSCInt)
 
     def destroy(self):
-        for name, impulse in list(self.impulses.items()):
+        for name, impulse in self.impulses.items():
             Mover.notify.debug('removing impulse: %s' % name)
             self.removeImpulse(name)
 

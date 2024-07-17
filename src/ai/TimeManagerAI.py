@@ -135,6 +135,14 @@ class TimeManagerAI(DistributedObjectAI.DistributedObjectAI):
         self.notify.info('client-fps %s|%s' % (requesterId, info))
         self.air.writeServerEvent('client-fps', requesterId, info)
 
+    # TODO:
+    def checkAvOnDistrict(self, av, context):
+        """
+        Toontown Check: This method is called by the client during gameplay to ensure
+        they're part of the current district.
+        """
+        pass
+
     if __dev__:
         def checkForGarbageLeaks(self, wantReply):
             senderId = self.air.getAvatarIdFromSender()

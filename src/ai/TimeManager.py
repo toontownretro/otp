@@ -504,9 +504,12 @@ class TimeManager(DistributedObject.DistributedObject):
         return result
 
     def checkAvOnDistrict(self, av, context):
+        """ Toontown Check: This method is called every once in a while to verify
+        to the server that the user is part of the district they're in. """
         self.sendUpdate('checkAvOnDistrict', [context, av.doId])
 
     def checkAvOnDistrictResult(self, context, avId, present):
+        """ Toontown Check: Report the result back to the client. """
         av = self.cr.getDo(avId)
         if av:
             av._zombieCheckResult(context, present)

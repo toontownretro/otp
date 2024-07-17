@@ -211,7 +211,8 @@ class SCMenu(SCObject, NodePath):
                         subMenu = menuType()
                         subMenuChildren = child[2:]
                     if emote:
-                        print(('warning: tried to link emote %s to a menu holder' % emote))
+                        print ('warning: tried to link emote %s '
+                               'to a menu holder' % emote)
                     holder = SCMenuHolder(holderTitle, menu=subMenu)
                     menu.append(holder)
                     addChildren(subMenu, subMenuChildren)

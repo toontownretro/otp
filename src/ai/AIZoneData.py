@@ -216,7 +216,7 @@ class AIZoneDataStore:
         # table of (parentId, zoneId) -> AIZoneDataObj
         self._zone2data = {}
     def destroy(self):
-        for zone, data in list(self._zone2data.items()):
+        for zone, data in self._zone2data.items():
             data.destroy()
         del self._zone2data
     def hasDataForZone(self, parentId, zoneId):

@@ -396,8 +396,8 @@ if 0:
     assert     checkName('')
     assert     checkName('\t')
     assert     checkName(TextEncoder().encodeWtext('\xa0'))
-    assert     checkName(TextEncoder().encodeWtext('\u1680'))
-    assert     checkName(TextEncoder().encodeWtext('\u2001'))
+    assert     checkName(TextEncoder().encodeWtext('\\u1680'))
+    assert     checkName(TextEncoder().encodeWtext('\\u2001'))
     # printable chars
     for i in range(32):
         assert checkName(chr(i))
@@ -415,7 +415,7 @@ if 0:
     # mono letter
     assert     checkName('Eeee')
     assert     checkName('Jjj')
-    assert     checkName(TextEncoder().encodeWtext('\u30a1\u30a1\u30a1'))
+    assert     checkName(TextEncoder().encodeWtext('\\u30a1\\u30a1\\u30a1'))
     # dashes
     assert     checkName('-Conqueror')
     assert     checkName('Conqueror-')

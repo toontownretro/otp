@@ -294,7 +294,7 @@ class DistributedLevel(DistributedObject.DistributedObject,
     def fixupLevelModel(self):
         # fix up the floor collisions for walkable zones *before*
         # any entities get put under the model
-        for zoneNum,zoneNode in list(self.zoneNum2node.items()):
+        for zoneNum,zoneNode in self.zoneNum2node.items():
             # don't do this to the uberzone
             if zoneNum == LevelConstants.UberZoneEntId:
                 continue
@@ -625,7 +625,7 @@ class DistributedLevel(DistributedObject.DistributedObject,
         removedZoneNums = []
         allVZ = dict(visibleZoneNums)
         allVZ.update(self.curVisibleZoneNums)
-        for vz,dummy in list(allVZ.items()):
+        for vz,dummy in allVZ.items():
             new = vz in visibleZoneNums
             old = vz in self.curVisibleZoneNums
             if new and old:
@@ -689,7 +689,7 @@ class DistributedLevel(DistributedObject.DistributedObject,
         # zones' viz lists
         del self.curVisibleZoneNums[LevelConstants.UberZoneEntId]
         # Make sure every zone is visible
-        for vz,dummy in list(self.curVisibleZoneNums.items()):
+        for vz,dummy in self.curVisibleZoneNums.items():
             self.showZone(vz)
         # Redo visibility using current zone num
         self.updateVisibility()

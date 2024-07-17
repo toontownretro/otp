@@ -292,7 +292,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
         Sends a speedchat whisper message to the indicated
         toon, prefixed with our own name.
         """
-        print(("whisperSCEmoteTo %s %s %s" % (emoteId, sendToId, toPlayer)))
+        print("whisperSCEmoteTo %s %s %s" % (emoteId, sendToId, toPlayer))
         if toPlayer:
             base.cr.playerFriendsManager.sendSCEmoteWhisper(sendToId, emoteId)
             return

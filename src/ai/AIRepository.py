@@ -884,10 +884,10 @@ class AIRepository(ConnectionRepository):
 
     def sendUpdate(self, do, fieldName, args):
         #print("---------------sendUpdate--")
-        #print do
-        #print do.doId
-        #print fieldName
-        #print args
+        #print(do)
+        #print(do.doId)
+        #print(fieldName)
+        #print(args)
         dg = do.dclass.aiFormatUpdate(
                 fieldName, do.doId, do.doId, self.ourChannel, args)
         self.sendDatagram(dg)

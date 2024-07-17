@@ -501,7 +501,7 @@ class GuildDB(DBInterface):
             # print('Executing Query for %s' % token)
             cursor.execute("SELECT * FROM `guildtokens` where `tokenid` = %s", token)
             entries = cursor.fetchall()
-            # print len(entries)
+            # print(len(entries))
             if len(entries) == 1:
                 pass
             else:
@@ -519,7 +519,7 @@ class GuildDB(DBInterface):
         # rCount indicates the code type / redeeem rules, i.e. onetime use,
         # multi-use, unlimited use.
         rCount = entries[0][5]
-        # print guildToken, gNameId
+        # print(guildToken, gNameId)
         rank = 1
 
         # Make sure we don't have too many members in the guild

@@ -36,5 +36,5 @@ class EntityCreatorBase:
         self.entType2Ctor[entType] = ctor
 
     def privRegisterTypes(self, type2ctor):
-        for entType, ctor in list(type2ctor.items()):
+        for entType, ctor in type2ctor.items():
             self.privRegisterType(entType, ctor)

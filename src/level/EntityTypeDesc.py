@@ -48,7 +48,7 @@ class EntityTypeDesc:
     def getAttribsOfType(self, type):
         """returns list of attrib names of the given type"""
         names = []
-        for attribName, desc in list(self.attribDescDict.items()):
+        for attribName, desc in self.attribDescDict.items():
             if desc.getDatatype() == type:
                 names.append(attribName)
         return names
@@ -69,7 +69,7 @@ class EntityTypeDesc:
 
         bases = list(c.__bases__)
         if object in bases:
-            print("Removing built-in `object` from base list")
+            print("Removing built-in repr(object) from base list")
             bases.remove(object)
 
         # make sure all of our base classes have their complete list of

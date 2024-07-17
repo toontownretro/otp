@@ -99,9 +99,15 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         buttonScale = 1.15*masterScale
         buttonLineHeight = 0.14*masterScale
 
+        #background = loader.loadModel("phase_3/models/gui/login-background")
+        #nameBalloon = loader.loadModel("phase_3/models/props/chatbox_input")
+        #guiButton = loader.loadModelOnce("phase_3/models/gui/quit_button")
+
         # login screen
         self.frame = DirectFrame(
             parent = aspect2d,
+            #image = background.find("**/first_time_install"),
+            #image_scale = (1, 1, 1),
             relief = None,
             sortOrder=20,
             )
@@ -166,6 +172,20 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
             )
         linePos-=buttonLineHeight
 
+        #if self.allowNewAccounts:
+        #    image_color = Vec4(1, 1, 1, 1)
+        #    imageSet = (guiButton.find("**/QuitBtn_UP"),
+        #                guiButton.find("**/QuitBtn_DN"),
+        #                guiButton.find("**/QuitBtn_RLVR"),
+        #                ),
+        #else:
+        #    g = 0.5
+        #    image_color = Vec4(g, g, g, 1)
+        #    imageSet = (guiButton.find("**/QuitBtn_UP"),
+        #                guiButton.find("**/QuitBtn_DN"),
+        #                guiButton.find("**/QuitBtn_UP"),
+        #                ),
+
         self.createAccountButton = DirectButton(
             parent = self.frame,
             relief = DGG.RAISED,
@@ -178,6 +198,21 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
             command = self.__handleCreateAccount,
             )
         linePos-=buttonLineHeight
+
+        #self.forgotPasswordButton = DirectButton(
+        #    parent = self.frame,
+        #    relief = DGG.RAISED,
+        #    pos = (0, 0, linePos),
+        #    scale = buttonScale,
+        #    text = OTPLocalizer.LoginScreenForgotPassword,
+        #    text_scale = 0.06,
+        #    text_pos = (0, -0.02),
+        #    image_scale = buttonImageScale,
+        #    command = self.__handleForgotPassword,
+        #    )
+        #if self.hideForgotPassword:
+        #    self.forgotPasswordButton.hide()
+        #linePos -= buttonLineHeight
 
         self.quitButton = DirectButton(
             parent = self.frame,
@@ -229,6 +264,35 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
             command = self.__handleFailTryAgain,
             )
         linePos-=buttonLineHeight
+
+        #self.failForgotPasswordButton = DirectButton(
+        #    parent = self.failDialog,
+        #    relief = DGG.RAISED,
+        #    pos = (0, 0, linePos),
+        #    scale = .9,
+        #    image_scale = buttonImageScale,
+        #    text = OTPLocalizer.LoginScreenForgotPassword,
+        #    text_scale = 0.06,
+        #    text_pos = (0, -0.02),
+        #    command = self.__handleFailForgotPassword,
+        #    )
+        #if self.hideForgotPassword:
+        #    self.failForgotPasswordButton.hide()
+        #linePos -= buttonLineHeight
+ 
+        #if self.allowNewAccounts:
+        #    image_color = Vec4(1, 1, 1, 1)
+        #    imageSet = (guiButton.find("**/QuitBtn_UP"),
+        #                guiButton.find("**/QuitBtn_DN"),
+        #                guiButton.find("**/QuitBtn_RLVR"),
+        #                ),
+        #else:
+        #    g = 0.5
+        #    image_color = Vec4(g, g, g, 1)
+        #    imageSet = (guiButton.find("**/QuitBtn_UP"),
+        #                guiButton.find("**/QuitBtn_DN"),
+        #                guiButton.find("**/QuitBtn_UP"),
+        #                ),
 
         self.failCreateAccountButton = DirectButton(
             parent = self.failDialog,

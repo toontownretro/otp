@@ -367,7 +367,7 @@ class Analyzer:
         cpuSpeedTrue = {}
         cpuSpeedEffective = {}
         cpuPowersave = {}
-        for tuple, sessions in list(self.hardware.items()):
+        for tuple, sessions in self.hardware.items():
             player = tuple[0]
             session = sessions[0]
             if session.vendorId != None:

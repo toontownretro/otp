@@ -274,7 +274,7 @@ class OTPClientRepository(ClientRepositoryBase):
         if __debug__:
             # In the dev environment, the default value comes from the
             # username.
-            default = 'dev-%s' % (os.getenv("USERNAME"))
+            default = 'dev-%s' % (os.getenv("USER") or os.getenv("USERNAME"))
             self.userSignature = ConfigVariableString('signature', default).getValue();
 
         else:
@@ -1072,7 +1072,7 @@ class OTPClientRepository(ClientRepositoryBase):
     @report(types = ['args', 'deltaStamp'], dConfigParam = 'teleport')
     def _shardsAreReady(self):
         # make sure there's at least one shard up
-        #print self.activeDistrictMap
+        #print(self.activeDistrictMap)
         for shard in list(self.activeDistrictMap.values()):
             if shard.available:
                 return True
@@ -1389,7 +1389,7 @@ class OTPClientRepository(ClientRepositoryBase):
             assert (avatarTotal <= self.avatarLimit) and (avatarTotal >= 0)
             avList = []
 
-            #print di.getDatagram().dumpHex(ostream)
+            #print(di.getDatagram().dumpHex(ostream))
             for i in range(0, avatarTotal):
                 # Get the avatar id number
                 avNum = di.getUint32()
@@ -1439,7 +1439,7 @@ class OTPClientRepository(ClientRepositoryBase):
             assert (avatarTotal <= self.avatarLimit) and (avatarTotal >= 0)
             avList = []
 
-            #print di.getDatagram().dumpHex(ostream)
+            #print(di.getDatagram().dumpHex(ostream))
             for i in range(0, avatarTotal):
                 # Get the avatar id number
                 avNum = di.getUint32()

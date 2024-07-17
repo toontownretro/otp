@@ -207,7 +207,7 @@ class NavigationManager(object):
             newMesh.writeToFile(self.navFilePath+self.envIdToFilename[id]+".nav",storePathTable=True)
 
             if not newMesh.checkHash(hash):
-                raise "Hash check still failed after we regenerated the NavMesh!  Something is seriously wrong!"
+                raise Exception("Hash check still failed after we regenerated the NavMesh!  Something is seriously wrong!")
 
         # Mesh is now accurate, we're good to go.
         self.meshes[id] = newMesh

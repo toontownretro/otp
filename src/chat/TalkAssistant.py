@@ -151,7 +151,7 @@ class TalkAssistant(DirectObject.DirectObject):
 
         backStart = max(start-numLines, 0)
 
-        #print start
+        #print(start)
 
         text = self.historyComplete[backStart:start]
         text.reverse()
@@ -349,7 +349,7 @@ class TalkAssistant(DirectObject.DirectObject):
     def printHistoryComplete(self):
         print("HISTORY COMPLETE")
         for message in self.historyComplete:
-            print(("%s %s %s\n%s\n" % (message.getTimeStamp(), message.getSenderAvatarName(), message.getSenderAccountName(), message.getBody())))
+            print("%s %s %s\n%s\n" % (message.getTimeStamp(), message.getSenderAvatarName(), message.getSenderAccountName(), message.getBody()))
 
     ####################################
     # Exec-chat functions
@@ -360,7 +360,7 @@ class TalkAssistant(DirectObject.DirectObject):
         pass
 
     def execMessage(self, message):
-        print(("execMessage %s" % (message)))
+        print ("execMessage %s" % (message))
         if not TalkAssistant.ExecNamespace:
             # Import some useful variables into the ExecNamespace initially.
             TalkAssistant.ExecNamespace = { }
@@ -535,7 +535,7 @@ class TalkAssistant(DirectObject.DirectObject):
 
     def receiveWhisperTalk(self, avatarId, avatarName, accountId, accountName, toId, toName, message, scrubbed = 0):
         error = None
-        print(("receiveWhisperTalk %s %s %s %s %s" % (avatarId, avatarName, accountId, accountName, message)))
+        print ("receiveWhisperTalk %s %s %s %s %s" % (avatarId, avatarName, accountId, accountName, message))
         if (not avatarName) and (avatarId):
             avatarName = self.findAvatarName(avatarId)
         if (not accountName) and (accountId):
@@ -982,7 +982,7 @@ class TalkAssistant(DirectObject.DirectObject):
         return error
 
     def receivePlayerWhisperSpeedChat(self, type, messageIndex, senderAvId, name = None):
-        # dprint("receivePlayerWhisperTypedChat %s  %s %s" %(type, messageIndex, senderId))
+        # print("receivePlayerWhisperTypedChat %s  %s %s" %(type, messageIndex, senderId))
         error = None
 
         if (not name) and (senderAvId):

@@ -198,7 +198,7 @@ class ChatInputWhiteList(FSM.FSM, DirectEntry):
         """
 
         text = self.get(plain=True)
-        #print text
+        #print(text)
         # Filter out empty string
         if text:
             self.set("")
@@ -305,7 +305,7 @@ class ChatInputWhiteList(FSM.FSM, DirectEntry):
         pass
 
     def __execMessage(self, message):
-        print(("_execMessage %s" % (message)))
+        print ("_execMessage %s" % (message))
         if not ChatInputTyped.ExecNamespace:
             # Import some useful variables into the ExecNamespace initially.
             ChatInputTyped.ExecNamespace = { }

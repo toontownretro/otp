@@ -33,7 +33,7 @@ for i in range(iters):
     #wedge._setOneway("sendWhisper")
     wedge1.sendWhisper(1,1,"test")
     #players.append(Pyro.core.getProxyForURI("PYRONAME://:sb.player.%d"%i))
-    #print i
+    #print(i)
     #sys.stdout.flush()
     ##testP = Pyro.core.getProxyForURI("PYRONAME://:sb.player.%d"%i)
     #players[i]._setOneway("recvWhisper")

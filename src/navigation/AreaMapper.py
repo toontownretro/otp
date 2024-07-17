@@ -114,7 +114,7 @@ class AreaMapper(object):
                     self.setStart(spawnPt[0][0], spawnPt[0][1])
                     return
 
-        raise "No player spawn points found for the given game area!  D:"
+        raise Exception("No player spawn points found for the given game area!  D:")
 
 
     def setSquareSize(self,size):
@@ -456,7 +456,7 @@ class AreaMapper(object):
 
 ##     def _fixZValues(self):
 ##         print("Fixing Z values...")
-##         for k in self.vertexIdToXYZ.keys():
+##         for k in list(self.vertexIdToXYZ.keys()):
 ##             v = self.vertexIdToXYZ[k]
 
 ##             self.vertexIdToXYZ[k] = (v[0],v[1],self.findFloor(v[0],v[1]))

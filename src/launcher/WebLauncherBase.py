@@ -138,7 +138,7 @@ class WebLauncherBase(DirectObject):
 
         # Write to the log
         print("\n\nStarting %s..." % self.GameName)
-        print(("Current time: " + time.asctime(time.localtime(time.time()))
+        print ("Current time: " + time.asctime(time.localtime(time.time())
                + " " + time.tzname[0]))
         print("sys.argv = ", sys.argv)
         print("tokens = ", appRunner.tokens)

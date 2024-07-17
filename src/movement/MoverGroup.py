@@ -49,5 +49,5 @@ class MoverGroup(CMoverGroup):
             self.pscCppInt.stop()
 
     def broadcastPositionUpdates(self):
-        for mover in self._name2pyMovers.values():
+        for mover in list(self._name2pyMovers.values()):
             mover._posHprBroadcast()

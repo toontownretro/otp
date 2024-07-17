@@ -106,7 +106,7 @@ class FriendManagerAI(DistributedObjectAI.DistributedObjectAI):
             # The client might legitimately try to cancel a context
             # that has already been cancelled.
             #self.air.writeServerEvent('suspicious', avId, 'FriendManagerAI.cancelFriendQuery unknown context')
-            #self.notify.warning('Message for unknown context ' + `context`)
+            #self.notify.warning('Message for unknown context ' + repr(context))
             return
 
         self.cancelInvite(invite)
@@ -181,7 +181,7 @@ class FriendManagerAI(DistributedObjectAI.DistributedObjectAI):
             # The client might legitimately try to cancel a context
             # that has already been cancelled.
             #self.air.writeServerEvent('suspicious', avId, 'FriendManagerAI.inviteeAcknowledgeCancel unknown context')
-            #self.notify.warning('Message for unknown context ' + `context`)
+            #self.notify.warning('Message for unknown context ' + repr(context))
             return
 
         self.clearInvite(invite)

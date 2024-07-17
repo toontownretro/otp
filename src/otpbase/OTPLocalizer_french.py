@@ -1182,7 +1182,7 @@ SpeedChatStaticTextToontown = {
     1116 : "Allons dans l'usine !",
     1117 : "Allons à la pêche !",
     1118 : "Allons pêcher chez moi !",
-    1119 : "Allons au QG Caissbot !", # Allons au QG Caissbot [FB1] !
+    1119 : "Allons au QG Caissbot !",#[FB1] !",
     1120 : "Allons combattre le Directeur Financier !",
     1121 : "Allons à la Fabrique à Sous !",
     1122 : "Allons au QG Loibot !",

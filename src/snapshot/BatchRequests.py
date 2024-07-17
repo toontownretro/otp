@@ -18,7 +18,7 @@ ids = list(map(string.strip,ids))
 opener = urllib.request.FancyURLopener({})
 
 for avId in ids:
-    print(("%s..." % avId), end=' ')
+    print ("%s..." % avId, end=' ')
     f = opener.open("http://%s:%s/queueSnapshot?avatarId=%s" % (hostname,portnum,avId))
     #f.read()  # Do this if we want to check the result...which we don't if we want to be fast
     print("done")

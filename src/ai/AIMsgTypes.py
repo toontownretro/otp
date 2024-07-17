@@ -112,7 +112,7 @@ AIMsgId2Names = invertDictLossless(AIMsgName2Id)
 #    printStack()
 
 # put msg names in module scope, assigned to msg value
-for name, value in list(AIMsgName2Id.items()):
+for name, value in AIMsgName2Id.items():
     exec('%s = %s' % (name, value))
 del name, value
 

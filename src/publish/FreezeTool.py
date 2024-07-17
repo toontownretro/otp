@@ -275,7 +275,7 @@ class Freezer:
         excludes = []
         includes = []
         autoIncludes = []
-        for moduleName, token in list(self.modules.items()):
+        for moduleName, token in self.modules.items():
             if token == self.MTInclude:
                 includes.append(moduleName)
             elif token == self.MTAuto:
@@ -339,7 +339,7 @@ class Freezer:
         # referencing.
         moduleNames = []
 
-        for moduleName, token in list(self.modules.items()):
+        for moduleName, token in self.modules.items():
             prevToken = self.previousModules.get(moduleName, None)
             if token == self.MTInclude or token == self.MTAuto:
                 # Include this module (even if a previous pass
@@ -358,7 +358,7 @@ class Freezer:
         # actual filename we put in there is meaningful only for stack
         # traces, so we'll just use the module name.
         replace_paths = []
-        for moduleName, module in list(self.mf.modules.items()):
+        for moduleName, module in self.mf.modules.items():
             if module.__code__:
                 origPathname = module.__code__.co_filename
                 replace_paths.append((origPathname, moduleName))
@@ -366,7 +366,7 @@ class Freezer:
 
         # Now that we have built up the replacement mapping, go back
         # through and actually replace the paths.
-        for moduleName, module in list(self.mf.modules.items()):
+        for moduleName, module in self.mf.modules.items():
             if module.__code__:
                 co = self.mf.replace_paths_in_code(module.__code__)
                 module.__code__ = co;

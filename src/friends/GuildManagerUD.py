@@ -195,7 +195,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         if guildInfo:
             if 0:
                 # alternate coolness
-                guildmates, haveData = zip(*guildInfo)
+                guildmates, haveData = list(zip(*guildInfo))
             else:
                 guildmates = [x[0] for x in guildInfo]
                 haveData = [x[1] for x in guildInfo]

@@ -32,7 +32,7 @@ class PlayerFriendsManager(DistributedObjectGlobal):
         self.ignoreAll()
 
     def sendRequestInvite(self,playerId):
-        print(("PFM sendRequestInvite id:%s" % (playerId)))
+        print ("PFM sendRequestInvite id:%s" % (playerId))
         assert self.notify.debugCall()
         self.sendUpdate("requestInvite", [0,playerId,True])
 
@@ -106,17 +106,17 @@ class PlayerFriendsManager(DistributedObjectGlobal):
         messenger.send(OTPGlobals.PlayerFriendRejectRemoveEvent,[playerId,reason])
 
     def secretResponse(self,secret):
-        print(("secretResponse %s"%(secret)))
+        print ("secretResponse %s"%(secret))
         assert self.notify.debugCall()
         messenger.send(OTPGlobals.PlayerFriendNewSecretEvent,[secret])
 
     def rejectSecret(self,reason):
-        print(("rejectSecret %s"%(reason)))
+        print ("rejectSecret %s"%(reason))
         assert self.notify.debugCall()
         messenger.send(OTPGlobals.PlayerFriendRejectNewSecretEvent,[reason])
 
     def rejectUseSecret(self,reason):
-        print(("rejectUseSecret %s"%(reason)))
+        print ("rejectUseSecret %s"%(reason))
         assert self.notify.debugCall()
         messenger.send(OTPGlobals.PlayerFriendRejectUseSecretEvent,[reason])
         
