@@ -104,7 +104,9 @@ class DistributedAvatarAI(DistributedNodeAI.DistributedNodeAI):
 
     def setParentStr(self, parentToken):
         if parentToken:
+            # this has been previously used as an exploit to send strings to
+            # other clients, without being logged or filtered
             senderId = self.air.getAvatarIdFromSender()
-            self.air.writeServerEvent('Admin chat warning', senderId, 'using setParentStr to send "%s"' % parentToken)
-            self.notify.warning('Admin chat warning: %s using setParentStr to send "%s"' % (senderId, parentToken))
+            self.air.writeServerEvent('Admin chat warning', senderId, 'using setParentStr to send \"%s\"'%parentToken)
+            self.notify.warning("Admin chat warning: %s using setParentStr to send \"%s\""%(senderId, parentToken))
         DistributedNodeAI.DistributedNodeAI.setParentStr(self, parentToken)

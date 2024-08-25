@@ -55,8 +55,8 @@ class DistributedPlayerAI(DistributedAvatarAI.DistributedAvatarAI,
     def isPlayerControlled(self):
         return True
     
-    def setLocation(self, parentId, zoneId, teleport=0):
-        DistributedAvatarAI.DistributedAvatarAI.setLocation(self, parentId, zoneId, teleport)
+    def setLocation(self, parentId, zoneId):
+        DistributedAvatarAI.DistributedAvatarAI.setLocation(self, parentId, zoneId)
         if self.isPlayerControlled():
             # hmm, did this come from a hacker trying to get somewhere they shouldn't be?
             if not self.air._isValidPlayerLocation(parentId, zoneId):

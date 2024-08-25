@@ -1,0 +1,11 @@
+#!/bin/bash
+
+SBPATH="/sbpub/otp/switchboard"
+XDPATH="/sbpub/otp/switchboard/xd"
+
+pushd . 2>&1 > /dev/null
+
+cd $XDPATH
+python ../xd/startXDWedge.py --name XD --wedgeport 6054 --nshost localhost --nsport 6053 --xdhost doldxdapp10.starwave.com --xdport 9001 --clhost vrops73.starwave.com --clport 6060 --bwdictpath /switchboard/bwdict/
+
+popd

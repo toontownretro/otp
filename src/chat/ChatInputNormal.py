@@ -144,6 +144,9 @@ class ChatInputNormal(DirectObject.DirectObject):
         # Now try to evaluate the expression using ChatInputNormal.ExecNamespace as
         # the local namespace.
         try:
+            #if not isClient():
+            #    print("EXECWARNING ChatInputNormal eval: %s"%message)
+            #    printStack()
             return str(eval(message, globals(), ChatInputNormal.ExecNamespace))
 
         except SyntaxError:
@@ -151,6 +154,9 @@ class ChatInputNormal(DirectObject.DirectObject):
             # "import math".  These aren't expressions, so eval()
             # fails, but they can be exec'ed.
             try:
+                #if not isClient():
+                #    print"(EXECWARNING ChatInputNormal exec: %s"%message)
+                #    printStack()
                 exec(message, globals(), ChatInputNormal.ExecNamespace)
                 return 'ok'
             except:

@@ -108,7 +108,7 @@ AIMsgName2Id = {
 AIMsgId2Names = invertDictLossless(AIMsgName2Id)
 
 #if not isClient():
-#    print("EXECWARNING AIMsgTypes: %s" % AIMsgName2Id)
+#    print("EXECWARNING AIMsgTypes: %s"%AIMsgName2Id)
 #    printStack()
 
 # put msg names in module scope, assigned to msg value

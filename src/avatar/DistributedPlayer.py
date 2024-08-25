@@ -117,8 +117,8 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
         DistributedAvatar.DistributedAvatar.announceGenerate(self)
         messenger.send(self.GetPlayerGenerateEvent(), [self])
 
-    def setLocation(self, parentId, zoneId, teleport=0):
-        DistributedAvatar.DistributedAvatar.setLocation(self, parentId, zoneId, teleport)
+    def setLocation(self, parentId, zoneId):
+        DistributedAvatar.DistributedAvatar.setLocation(self, parentId, zoneId)
         # if the avatar just got put somewhere it shouldn't be, delete it
         # this is to prevent hackers from sidling over into an 'uber' zone, thereby
         # keeping themselves on your client even after the client no longer has interest in the

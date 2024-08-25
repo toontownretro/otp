@@ -39,7 +39,7 @@ class AIDistrict(AIRepository):
         self.setClientDatagram(0)
         assert minChannel > districtId
         if hasattr(self, 'setVerbose'):
-            if ConfigVariableBool('verbose-airepository', 0).getValue():
+            if ConfigVariableBool('verbose-airepository').getValue():
                 self.setVerbose(1)
 
         # Save the state server id

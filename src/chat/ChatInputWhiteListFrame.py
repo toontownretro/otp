@@ -367,6 +367,9 @@ class ChatInputWhiteListFrame(FSM.FSM, DirectFrame):
         # Now try to evaluate the expression using ChatInputTyped.ExecNamespace as
         # the local namespace.
         try:
+            #if not isClient():
+            #    print("EXECWARNING ChatInputWhiteListFrame eval: %s"%message)
+            #    printStack()
             return str(eval(message, globals(), ChatInputTyped.ExecNamespace))
 
         except SyntaxError:
@@ -374,6 +377,9 @@ class ChatInputWhiteListFrame(FSM.FSM, DirectFrame):
             # "import math".  These aren't expressions, so eval()
             # fails, but they can be exec'ed.
             try:
+                #if not isClient():
+                #    print("EXECWARNING ChatInputWhiteListFrame exec: %s"%message)
+                #    printStack()
                 exec(message, globals(), ChatInputTyped.ExecNamespace)
                 return 'ok'
             except:

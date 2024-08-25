@@ -371,6 +371,9 @@ class TalkAssistant(DirectObject.DirectObject):
         # the local namespace.
 
         try:
+            #if not isClient():
+            #    print("EXECWARNING TalkAssistant eval: %s"%message)
+            #    printStack()
             return str(eval(message, globals(), TalkAssistant.ExecNamespace))
 
         except SyntaxError:
@@ -378,6 +381,9 @@ class TalkAssistant(DirectObject.DirectObject):
             # "import math".  These aren't expressions, so eval()
             # fails, but they can be exec'ed.
             try:
+                #if not isClient():
+                #    print("EXECWARNING TalkAssistant exec: %s"%message)
+                #    printStack()
                 exec(message, globals(), TalkAssistant.ExecNamespace)
                 return "ok"
             except:
