@@ -8,7 +8,7 @@ from direct.directnotify.DirectNotifyGlobal import directNotify
 
 from otp.friends.AvatarFriendInfo import AvatarFriendInfo
 
-from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import ConfigVariableString, ConfigVariableInt
 
 
 class AvatarFriendsManagerUD(DistributedObjectGlobalUD):

@@ -746,11 +746,20 @@ class DistributedLevel(DistributedObject.DistributedObject,
                     Func(self.hideSmallTitleText),
                     Func(self.showTitleText),
                     Wait(6.1),
-                    LerpColorInterval(self.titleText, 0.5,
-                        Vec4(self.titleColor[0], self.titleColor[1],
-                             self.titleColor[2], self.titleColor[3]),
-                        startColor=Vec4(self.titleColor[0], self.titleColor[1], self.titleColor[2], 0.0)))
-            smallTitleSeq = Sequence(Func(self.hideTitleText), Func(self.showSmallTitle))
+                    LerpColorInterval(self.titleText,
+                                      0.5,
+                                      Vec4(self.titleColor[0],
+                                           self.titleColor[1],
+                                           self.titleColor[2],
+                                           self.titleColor[3]),
+                                      startColor = Vec4(self.titleColor[0],
+                                                        self.titleColor[1],
+                                                        self.titleColor[2],
+                                                        0.0),
+                                      )
+                    )
+            smallTitleSeq = Sequence(Func(self.hideTitleText),
+                                     Func(self.showSmallTitle))
             if titleSeq:
                 self.titleSeq = Sequence(titleSeq, smallTitleSeq)
             else:

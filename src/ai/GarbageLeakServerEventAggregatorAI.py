@@ -1,6 +1,6 @@
 from direct.showbase.DirectObject import DirectObject
 from direct.showbase import GarbageReport
-from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import ConfigVariableDouble
 
 class GarbageLeakServerEventAggregatorAI(DirectObject):
     ClientLeakEvent = 'LeakAggregator-ClientGarbageLeakReceived'

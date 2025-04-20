@@ -162,6 +162,7 @@ dclass TimeManager: DistributedObject {
   // for logging
   setClientGarbageLeak(uint32 num, string leak) airecv clsend;
 
+  // Toontown specific:
   // This is message is sent by the client during gameplay.
   checkAvOnDistrict(uint32, DoId) clsend airecv;
   checkAvOnDistrictResult(uint32, DoId, bool);

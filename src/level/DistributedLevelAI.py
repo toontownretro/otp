@@ -7,7 +7,7 @@ from . import Level
 from direct.directnotify import DirectNotifyGlobal
 from . import EntityCreatorAI
 from direct.showbase.PythonUtil import Functor, weightedChoice
-from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import ConfigVariableBool, ConfigVariableDouble
 
 class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
                          Level.Level):

@@ -1,4 +1,5 @@
 import direct
+from panda3d.direct import HttpRequest
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from otp.ai import AIMsgTypes
 from direct.directnotify.DirectNotifyGlobal import directNotify

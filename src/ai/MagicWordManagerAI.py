@@ -223,7 +223,7 @@ class MagicWordManagerAI(DistributedObjectAI.DistributedObjectAI):
 
             if 'all' in args:
                 self.notify.info('printing full object set...')
-                report.getObjectPool().printObjsByType()
+                report.getObjectPool().printObjsByType() #(printReferrers='ref' in args)
 
             if hasattr(self, 'baselineObjReport'):
                 self.notify.info('calculating diff from baseline ObjectReport...')

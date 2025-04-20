@@ -38,7 +38,6 @@ districts.
 ############################################################
 
 """
-from otp.otpbase.OTPModules import *
 
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from otp.ai import AIMsgTypes
@@ -47,6 +46,8 @@ from otp.uberdog.UberDogUtil import ManagedAsyncRequest
 from otp.uberdog.RejectCode import RejectCode
 from otp.avatar.DistributedPlayerAI import DistributedPlayerAI
 from otp.uberdog import MySQLAccountAvatarsDB
+
+from otp.otpbase.OTPModules import ConfigVariableString, ConfigVariableInt, ConfigVariableBool
 
 from direct.directnotify.DirectNotifyGlobal import directNotify
 notify = directNotify.newCategory('AvatarManagerUD')

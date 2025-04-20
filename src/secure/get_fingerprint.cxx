@@ -76,7 +76,7 @@ preload_cache() {
         strm << "&mac=";
         for (unsigned int i = 0; i < ap->AddressLength; ++i) {
           char hex[32];
-          sprintf_s(hex, "%02x", ap->Address[i]);
+          sprintf(hex, "%02x", ap->Address[i]);
           strm << hex;
         }
       }

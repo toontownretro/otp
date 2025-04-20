@@ -13,8 +13,10 @@ from otp.otpbase import OTPRender
 from direct.showbase.PythonUtil import recordCreationStack
 from direct.directnotify.DirectNotifyGlobal import directNotify
 
-teleportNotify = DirectNotifyGlobal.directNotify.newCategory('Teleport')
+# Teleport debug is exclusive to Toontown.
+teleportNotify = DirectNotifyGlobal.directNotify.newCategory("Teleport")
 teleportNotify.showTime = True
+
 if ConfigVariableBool('want-teleport-debug', 1).getValue():
     teleportNotify.setDebug(1)
 

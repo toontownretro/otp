@@ -2,7 +2,6 @@ from direct.showbase import DirectObject
 from direct.directnotify import DirectNotifyGlobal
 
 class Puppeteer(DirectObject.DirectObject):
-    __module__ = __name__
     notify = DirectNotifyGlobal.directNotify.newCategory('Puppeteer')
 
     def __init__(self):

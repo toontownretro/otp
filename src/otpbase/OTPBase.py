@@ -8,7 +8,7 @@ from . import OTPRender
 import time
 import math
 import re
-from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import ConfigVariableBool, ConfigVariableDouble
 
 class OTPBase(ShowBase):
     def __init__(self, windowType = None):

@@ -5,7 +5,7 @@ from otp.otpbase import OTPLocalizer
 from otp.otpbase import OTPGlobals
 from otp.avatar.AvatarHandle import AvatarHandle
 from otp.ai import AIInterestHandles
-from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import ConfigVariableBool
 
 GUILDRANK_VETERAN = 4
 GUILDRANK_GM = 3

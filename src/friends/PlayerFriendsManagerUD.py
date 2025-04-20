@@ -13,7 +13,7 @@ from otp.otpbase import OTPLocalizer as localizer
 
 import random
 
-from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import ConfigVariableBool
 
 
 #--------------------------------------------------

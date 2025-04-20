@@ -2261,7 +2261,7 @@ class OTPClientRepository(ClientRepositoryBase):
 
         def checkScale(task):
             # Spammy --> assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
-            #assert base.localAvatar.getTransform().hasUniformScale()
+            assert base.localAvatar.getTransform().hasUniformScale()
             return Task.cont
         assert taskMgr.add(checkScale, 'globalScaleCheck')
 
@@ -2669,14 +2669,14 @@ class OTPClientRepository(ClientRepositoryBase):
         currently up and running, and accepting avatars.
         """
         assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
-        l = []
+        list = []
         for s in list(self.activeDistrictMap.values()):
             if s.available:
-                l.append(
+                list.append(
                         (s.doId, s.name, s.avatarCount,
                         s.newAvatarCount))
 
-        return l
+        return list
 
 
     ######### General senders and handlers #########
@@ -3177,7 +3177,7 @@ class OTPClientRepository(ClientRepositoryBase):
     def handleGenerateWithRequired(self, di):
         parentId = di.getUint32()
         zoneId = di.getUint32()
-        assert parentId == self.GameGlobalsId or parentId in self.doId2do
+        #assert parentId == self.GameGlobalsId or parentId in self.doId2do
         # Get the class Id
         classId = di.getUint16()
         # Get the DO Id

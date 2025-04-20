@@ -15,7 +15,7 @@ from direct.directnotify import DirectNotifyGlobal
 from otp.login import LeaveToPayDialog
 from direct.gui.DirectGui import *
 from otp.otpbase.OTPModules import *
-#from toontown.chat.TTChatInputSpeedChat import TTChatInputSpeedChat
+#from .ChatInputSpeedChat import ChatInputSpeedChat
 
 # other systems can listen for these events if they
 # just want to know that a particular event happened

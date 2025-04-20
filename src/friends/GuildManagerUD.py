@@ -15,7 +15,7 @@ from otp.otpbase import OTPLocalizer
 import time
 import string
 
-from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import ConfigVariableString,ConfigVariableInt,ConfigVariableBool
 
 #--------------------------------------------------
 

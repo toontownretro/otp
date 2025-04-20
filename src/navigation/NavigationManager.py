@@ -11,7 +11,7 @@ from otp.otpbase import OTPGlobals
 from otp.otpbase.OTPModules import BitMask32
 from direct.directnotify import DirectNotifyGlobal
 
-from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import ConfigVariableBool, ConfigVariableString
 
 
 class NavigationManager(object):

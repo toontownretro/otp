@@ -425,7 +425,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
 
             if 'all' in args:
                 self.notify.info('printing full object set...')
-                report.getObjectPool().printObjsByType()
+                report.getObjectPool().printObjsByType() #(printReferrers='ref' in args)
 
             if hasattr(self, 'baselineObjReport'):
                 self.notify.info('calculating diff from baseline ObjectReport...')
@@ -733,6 +733,12 @@ class MagicWordManager(DistributedObject.DistributedObject):
                     '~gptcn', args[1], Functor(self._handleGPTCNfinished, args[1]))
             else:
                 self.setMagicWordResponse('error')
+ 
+        #elif wordIs('~ls'):
+        #    base.render.ls()
+
+        #elif wordIs('~lsLocalAvatar'):
+        #    base.localAvatar.ls()
 
         else:
             # Not a magic word I know!

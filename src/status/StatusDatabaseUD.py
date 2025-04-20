@@ -5,7 +5,7 @@ from direct.directnotify.DirectNotifyGlobal import directNotify
 from otp.uberdog.DBKeepAlive import DBKeepAlive
 from otp.uberdog.DBInterface import DBInterface
 
-from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import ConfigVariableString
 
 class StatusDatabaseUD(DistributedObjectGlobalUD,DBInterface):
     """
