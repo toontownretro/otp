@@ -811,8 +811,8 @@ GuildInviterAsking = "Asking %s to join the guild."
 GuildInviterGuildSaidYes = "%s has joined the guild!"
 
 # FriendInviter.py
-FriendOnline = "%s has come online."
-FriendOffline = "%s has gone offline."
+FriendOnline = "has come online."
+FriendOffline = "has gone offline."
 FriendInviterOK = lOK
 FriendInviterCancel = lCancel
 FriendInviterStopBeingFriends = "ともだちをやめる"
@@ -3689,7 +3689,7 @@ AvatarDetailPanelCancel = lCancel
 AvatarDetailPanelClose = lClose
 AvatarDetailPanelLookup = "%s の状態を調べています…"
 AvatarDetailPanelFailedLookup = "%s の状態を調べられませんでした。"
-AvatarDetailPanelPlayer = "Player: %(player)s\nWorld: %(world)s\nLocation: %(location)s"
+AvatarDetailPanelPlayer = "ﾌﾟﾚｲﾔｰ: %(player)s\nﾜｰﾙﾄﾞ: %(world)s\nﾛｹｰｼｮﾝ: %(location)s"
 AvatarDetailPanelOnline = "ﾛﾋﾞｰ: %(district)s\nｴﾘｱ: %(location)s"
 AvatarDetailPanelOffline = "ﾛﾋﾞｰ: オフライン\nｴﾘｱ: オフライン"
 

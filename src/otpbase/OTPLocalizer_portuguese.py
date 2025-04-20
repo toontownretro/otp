@@ -3387,7 +3387,7 @@ AvatarDetailPanelClose = "Fechar"
 AvatarDetailPanelLookup = "Procurando detalhes de %s."
 AvatarDetailPanelFailedLookup = "Não foi possível obter detalhes de %s."
 AvatarDetailPanelPlayer = "Jogador: %(player)s\Mundo: %(world)s\nLocal: %(location)s"
-AvatarDetailPanelOnline = "Região: %(district)s\nLocation: %(location)s"
+AvatarDetailPanelOnline = "Região: %(district)s\nLocal: %(location)s"
 AvatarDetailPanelOffline = "Região: off-line\nLocal: off-line"
 
 # AvatarPanel.py

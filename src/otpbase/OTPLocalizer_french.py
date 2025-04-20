@@ -3345,9 +3345,9 @@ AvatarDetailPanelCancel = lCancel
 AvatarDetailPanelClose = lClose
 AvatarDetailPanelLookup = "Change les informations sur %s."
 AvatarDetailPanelFailedLookup = "Impossible d'obtenir les informations pour %s."
-AvatarDetailPanelPlayer = "Player: %(player)s\nMonde: %(world)s\nEmplacement: %(location)s"
-AvatarDetailPanelOnline = "District: %(district)s\nEmplacement: %(location)s"
-AvatarDetailPanelOffline = "District: hors-ligne\nEmplacement: hors-ligne"
+AvatarDetailPanelPlayer = "Joueur : %(player)s\nMonde : %(world)s\nLieu : %(location)s"
+AvatarDetailPanelOnline = "District : %(district)s\nLieu : %(location)s"
+AvatarDetailPanelOffline = "District : hors-ligne\nLieu : hors-ligne"
 
 # AvatarPanel.py
 AvatarPanelFriends = "Amis"
