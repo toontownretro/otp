@@ -2143,6 +2143,23 @@ SpeedChatStaticTextToontown = {
     30174 : "I'll stun the VP from the back.",
     30175 : "Jump when the VP jumps!",
 
+    # Phrases for Bank Upgrade
+    #30180 : "My bank holds 12,000 jellybeans!",
+    #30181 : "I need to fill my new jellybean bank!",
+    #30182 : "Do you want to go get jellybeans?",
+    #30183 : "I got double jellybeans on the Trolley!",
+    #30184 : "I got double jellybeans from fishing!",
+    #30185 : "I got double jellybeans at a party!",
+    #30186 : "I want to adopt a Doodle!",
+    #30187 : "I adopted a Doodle!",
+    #30188 : "I'm going to adopt a Doodle with all these jellybeans!",
+    #30189 : "There are new shirts in the Cattlelog for jellybean parties!",
+    #30190 : "The Toon Troop is throwing jellybean parties in Acorn Acres!",
+    #30191 : "Jellybeans, please!",
+    #30192 : "Don't be mean, give a bean!",
+    #30193 : "Who wants jellybeans?",
+    #30194 : "Dance for jellybeans!",
+
     # Phrases for Jellybean Jam
     30180 : "I got double jellybeans on the Trolley!",
     30181 : "I got double jellybeans from fishing!",
