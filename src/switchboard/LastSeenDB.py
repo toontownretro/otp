@@ -1,5 +1,4 @@
-import pymsql as MySQLdb
-import _mysql_exceptions
+import pymysql as MySQLdb
 import datetime
 from otp.friends.FriendInfo import FriendInfo
 import otp.switchboard.sbSQL as sbSQL
@@ -27,7 +26,7 @@ class LastSeenDB:
                                       port=port,
                                       user=user,
                                       passwd=passwd)
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             self.log.warning("Failed to connect to MySQL at %s:%d.  LastSeenDB is disabled."%(host,port))
             self.sqlAvailable = 0
             return
@@ -81,7 +80,7 @@ class LastSeenDB:
                                   sublocation = info['sublocation'],
                                   timestamp = info['lastupdate'])
 
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             if isRetry == True:
                 self.log.error("Error on getInfo retry, giving up:\n%s" % str(e))
                 return FriendInfo(playerName="NotFound")
@@ -114,7 +113,7 @@ class LastSeenDB:
 
             self.db.commit()
 
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             if isRetry == True:
                 self.log.error("Error on setInfo retry, giving up:\n" % str(e))
                 return
@@ -142,7 +141,7 @@ class LastSeenDB:
             cursor.execute("USE `%s`"%self.dbname)
             cursor.execute("show table status")
             return cursor.fetchallDict()
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             if isRetry == True:
                 self.log.error("Error on getTableStatus retry, giving up:\n" % str(e))
                 return None

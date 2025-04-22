@@ -4,7 +4,6 @@
 import sys
 import datetime
 import pymysql as MySQLdb
-import _mysql_exceptions
 
 from otp.switchboard.sbLog import sbLog
 import otp.switchboard.sbConfig as sbConfig
@@ -28,7 +27,7 @@ class sbMaildb:
                                       user=user,
                                       passwd=passwd,
                                       db=db)
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             self.log.warning("Failed to connect to MySQL at %s:%d.  sbMaildb is disabled."%(host,port))
             self.log.warning("Error detail: %s"%str(e))
             self.sqlAvailable = False
@@ -75,7 +74,7 @@ class sbMaildb:
             #self.log.debug("Select was successful in sbMaildb, returning %s" % str(res))
             return res
 
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             if isRetry == True:
                 self.log.error("Error on getMail retry, giving up:\n%s" % str(e))
                 return ()
@@ -110,7 +109,7 @@ class sbMaildb:
                            (recipientId,senderId,message))
             self.db.commit()
 
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             if isRetry == True:
                 self.log.error("Error on putMail retry, giving up:\n%s" % str(e))
                 return
@@ -141,7 +140,7 @@ class sbMaildb:
 
             self.db.commit()
 
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             if isRetry == True:
                 self.log.error("Error in deleteMail retry, giving up:\n%s" % str(e))
                 return

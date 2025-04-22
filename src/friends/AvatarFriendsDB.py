@@ -1,5 +1,4 @@
 import pymysql as MySQLdb
-import _mysql_exceptions
 import datetime
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from otp.distributed import OtpDoGlobals
@@ -29,7 +28,7 @@ class AvatarFriendsDB(DBInterface):
                                       port=port,
                                       user=user,
                                       passwd=passwd)
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             if __debug__:
                 self.notify.warning("Failed to connect to MySQL at %s:%d.  Avatar friends DB is disabled."%(host,port))
             self.sqlAvailable = 0
@@ -45,7 +44,7 @@ class AvatarFriendsDB(DBInterface):
             cursor.execute("CREATE DATABASE `%s`"%self.dbname)
             if __debug__:
                 self.notify.info("Database '%s' did not exist, created a new one!"%self.dbname)
-        except _mysql_exceptions.ProgrammingError as e:
+        except MySQLdb.ProgrammingError as e:
             pass
 
         cursor.execute("USE `%s`"%self.dbname)
@@ -65,7 +64,7 @@ class AvatarFriendsDB(DBInterface):
             """)
             if __debug__:
                 self.notify.info("Table avatarfriends did not exist, created a new one!")
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             pass
 
     def reconnect(self):
@@ -95,7 +94,7 @@ class AvatarFriendsDB(DBInterface):
         cursor = MySQLdb.cursors.DictCursor(self.db)
         try:
             cursor.execute("SELECT * FROM avatarfriends WHERE friendId1=%s OR friendId2=%s",(avatarId,avatarId))
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             if e[0] == SERVER_GONE_ERROR or e[0] == SERVER_LOST:
                 self.reconnect()
                 cursor = MySQLdb.cursors.DictCursor(self.db)
@@ -122,7 +121,7 @@ class AvatarFriendsDB(DBInterface):
                 cursor.execute("INSERT INTO avatarfriends (friendId1,friendId2,openChatYesNo) VALUES (%s,%s,%s)",(avatarId1,avatarId2,openChat))
             else:
                 cursor.execute("INSERT INTO avatarfriends (friendId1,friendId2,openChatYesNo) VALUES (%s,%s,%s)",(avatarId2,avatarId1,openChat))
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             if e[0] == SERVER_GONE_ERROR or e[0] == SERVER_LOST:
                 self.reconnect()
                 cursor = MySQLdb.cursors.DictCursor(self.db)
@@ -144,7 +143,7 @@ class AvatarFriendsDB(DBInterface):
                 cursor.execute("DELETE FROM avatarfriends where friendId1=%s AND friendId2=%s",(avatarId1,avatarId2))
             else:
                 cursor.execute("DELETE FROM avatarfriends where friendId1=%s AND friendId2=%s",(avatarId2,avatarId1))
-        except _mysql_exceptions.OperationalError as e:
+        except MySQLdb.OperationalError as e:
             if e[0] == SERVER_GONE_ERROR or e[0] == SERVER_LOST: # 'Lost connection to MySQL server during query'
                 self.reconnect()
                 cursor = MySQLdb.cursors.DictCursor(self.db)
