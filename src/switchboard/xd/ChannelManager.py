@@ -158,7 +158,7 @@ finally:
 # import Pyro.warning
 
 class ChannelManager:
-    def __init(self):
+    def __init__(self):
         pass
 
 class ChannelMessage:
