@@ -1471,9 +1471,9 @@ class AIRepository(ConnectionRepository):
         sys.exit()
 
     def handleDatagram(self, di):
-        #if self.notify.getDebug():
-            #print("AIRepository received datagram:")
-            #di.getDatagram().dumpHex(ostream)
+        if self.notify.getDebug():
+            print("AIRepository received datagram:")
+            di.getDatagram().dumpHex(Notify.out())
 
         channel=self.getMsgChannel()
         if channel in self.netMessenger.channels:
@@ -1881,3 +1881,6 @@ class AIRepository(ConnectionRepository):
             print('########## startReaderPollTask New ')
             self.stopReaderPollTask()
             self.accept(CConnectionRepository.getOverflowEventName(),self.handleReaderOverflow)
+
+    def getTrackClsends(self):
+        return ConfigVariableBool("track-clsends", True).getValue()

@@ -131,41 +131,41 @@ dclass TimeManager: DistributedObject {
   setDisconnectReason(uint8 disconnectCode) airecv clsend; //appears to be safe...
   // For DisconnectPythonError, we also send a string describing the
   // exception, for logging.
-  setExceptionInfo(string info) airecv clsend;     //appears safe. perhaps set a limit to the length of info
+  setExceptionInfo(string(0-1024) info) airecv clsend;     //appears safe. perhaps set a limit to the length of info
 
   // This is the "signature" value read from the xrc file, which
   // presumably indicates a particular xrc file in use.  The client
   // sets this at startup time.  It probably ought to be on the player
   // too, but then we have trouble sending it before the AI hears
   // about the player.
-  setSignature(string signature, blob(16) hash, blob(16) pyc) airecv clsend;
+  setSignature(string(0-1024) signature, blob(16) hash, blob(16) pyc) airecv clsend;
 
   // This is the average frame rate reported by the client, along with
   // some relevant machine and game statistics.
   setFrameRate(uint16 fps / 10, uint16 deviation / 1000, uint16 numAvs,
-               string locationCode, 
+               string(0-256) locationCode, 
                uint32 timeInLocation / 10, uint32 timeInGame / 10,
-               string gameOptionsCode,
+               string(0-256) gameOptionsCode,
                uint16 vendorId, uint16 deviceId, 
                uint32 processMemory / 10, uint32 pageFileUsage / 10,
                uint32 physicalMemory / 10, uint32 pageFaultCount,
                OSInfo osInfo, CPUSpeed cpuSpeed,
                uint16 num_cpu_cores, uint16 num_logical_cpus,
-               string apiName) airecv clsend;
+               string(0-256) apiName) airecv clsend;
 
   // This is sent at startup to provide verbose CPU information.
-  setCpuInfo(string info, string cacheStatus) airecv clsend;
+  setCpuInfo(string(0-1024) info, string cacheStatus) airecv clsend;
 
   // This message tells the dev AI to check for garbage leaks
   checkForGarbageLeaks(bool wantReply) airecv clsend;
   setNumAIGarbageLeaks(uint32 numLeaks);
   // for logging
-  setClientGarbageLeak(uint32 num, string leak) airecv clsend;
+  setClientGarbageLeak(uint32 num, string(0-1024) leak) airecv clsend;
 
   // Toontown specific:
   // This is message is sent by the client during gameplay.
-  checkAvOnDistrict(uint32, DoId) clsend airecv;
-  checkAvOnDistrictResult(uint32, DoId, bool);
+  checkAvOnDistrict(uint32 context, DoId) clsend airecv;
+  checkAvOnDistrictResult(uint32 context, DoId, bool);
 };
 
 // See Also:
@@ -302,25 +302,25 @@ struct  TalkModification
  
 dclass  TalkPath_owner
 {
-  setTalk(uint32 fromAV, uint32 fromAC, string avatarName, string chat, TalkModification mods[], uint8 flags ) broadcast ownsend; 
+  setTalk(uint32 fromAV, uint32 fromAC, string(0-256) avatarName, string(0-400) chat, TalkModification mods[], uint8 flags ) broadcast ownsend; 
 };
 
  
 dclass TalkPath_whisper
 {
-  setTalkWhisper(uint32 fromAV, uint32 fromAC,string avatarName, string chat, TalkModification mods[], uint8 flags ) ownrecv clsend;
+  setTalkWhisper(uint32 fromAV, uint32 fromAC,string(0-256) avatarName, string(0-400) chat, TalkModification mods[], uint8 flags ) ownrecv clsend;
 };
 
  
 dclass TalkPath_group
 {
-  setTalkGroup(uint32 fromAV, uint32 fromAC,string avatarName,string chat, TalkModification mods[], uint8 flags ) clsend airecv;
+  setTalkGroup(uint32 fromAV, uint32 fromAC,string(0-256) avatarName,string(0-400) chat, TalkModification mods[], uint8 flags ) clsend airecv;
 };
 
  
 dclass TalkPath_account
 {
-  setTalkAccount(uint32 toAc, uint32 fromAC, string fromName, string chat, TalkModification mods[], uint8 flags ) airecv clsend;
+  setTalkAccount(uint32 toAc, uint32 fromAC, string(0-256) fromName, string(0-400) chat, TalkModification mods[], uint8 flags ) airecv clsend;
 };
 
 
@@ -365,15 +365,15 @@ dclass DistributedPlayer: DistributedAvatar {
   // These whisper messages are sent from another client.  For now, we
   // have to put the fromId in the message, but eventually we need to
   // have a way to validate these.
-  setWhisperFrom(uint32 fromId, string, uint32 senderDISLid) ownrecv clsend; // safe: nice fromId check, string size limit will be nice
-  setWhisperWLFrom(uint32 fromId, string, uint32 senderDISLid) ownrecv clsend;
+  setWhisperFrom(uint32 fromId, string(0-256), uint32 senderDISLid) ownrecv clsend; // safe: nice fromId check, string size limit will be nice
+  setWhisperWLFrom(uint32 fromId, string(0-256), uint32 senderDISLid) ownrecv clsend;
   setWhisperSCFrom(uint32 fromId, uint16 msgIndex) ownrecv clsend;  //security breach: msgIndex need to be range checked...need help = DROSE
   setWhisperSCCustomFrom(uint32 fromId, uint16 msgIndex) ownrecv clsend;  //security breach: same as above...need help
   setWhisperSCEmoteFrom(uint32 fromId, uint16 emoteId) ownrecv clsend;  //security breach: emoteId needs range checking...need help = DROSE
   // setWhisperIgnored(uint32 fromId) airecv clsend; // fromId validated. appears safe
 
   // This is an onscreen message sent by the system.
-  setSystemMessage(uint32 aboutId, string) ownrecv;
+  setSystemMessage(uint32 aboutId, string(0-256)) ownrecv;
 
   setCommonChatFlags(uint8) broadcast ownrecv ram airecv;
 
@@ -410,14 +410,14 @@ dclass DistributedPlayer: DistributedAvatar {
 };
 
 //dclass DistributedPuppeteer : DistributedObject {
-//  requestPuppet(uint8) p2p clsend;
+//  requestPuppet(uint8 type) p2p clsend;
 //  requestExit() p2p clsend;
-//  rejectPuppet(uint8) p2p;
+//  rejectPuppet(uint8 type) p2p;
 //};
 
 dclass MagicWordManager: DistributedObject {
   setMagicWord(string, uint32 avId, uint32 zoneId,
-               string signature) airecv clsend;
+               string(0-256) signature) airecv clsend;
   setMagicWordResponse(string) airecv;
   setWho(uint32array avIds) airecv clsend;
 };
@@ -470,7 +470,7 @@ dclass OtpAvatarManager: DistributedObject {
   
   // In response to this message, expect one of
   // rejectRemoveAvatar() or removeAvatarResponse().
-  requestRemoveAvatar(uint32 senderId, uint32 avatarId, uint32 subId, string confirmPassword) airecv clsend;
+  requestRemoveAvatar(uint32 senderId, uint32 avatarId, uint32 subId, string(0-256) confirmPassword) airecv clsend;
 
   // result is an error code.
   rejectRemoveAvatar(uint32 result);
@@ -514,7 +514,7 @@ dclass DistributedChatManager: DistributedObject {
   chatEmote(uint16 emoteId) airecv clsend;
   chatEmoteTarget(uint32 doId) airecv clsend;
   chatIndex(uint16 msgIndex) airecv clsend;
-  chatString(string message) airecv clsend;
+  chatString(string(0-256) message) airecv clsend;
 
   chatToAvatarIndex:
     chatZoneId, chatIndex;
@@ -575,7 +575,7 @@ dclass FriendManager: DistributedObject {
   requestSecret() airecv clsend;   //safe, timing could be an issue...owner, please check
   requestSecretResponse(int8 result, string secret);
 
-  submitSecret(string secret) airecv clsend;       //possible security breach: secret might need sanity check...need help = ROGER/DROSE
+  submitSecret(string(0-256) secret) airecv clsend;       //possible security breach: secret might need sanity check...need help = ROGER/DROSE
   submitSecretResponse(int8 result, int32 avId);
 };
 
@@ -668,12 +668,12 @@ dclass GuildManager: DistributedObject, LeaderBoardReceiver, TalkPath_group {
   createGuild() airecv clsend;                   // CL -> UD
   acceptInvite() airecv clsend;                  // CL -> UD
   declineInvite() airecv clsend;                 // CL -> UD
-  setWantName(string newName) airecv clsend;     // CL -> UD
+  setWantName(string(0-256) newName) airecv clsend;     // CL -> UD
   removeMember(uint32 avatarId) airecv clsend;   // CL -> UD
   changeRank(uint32 avatarId, uint8 rank) airecv clsend;  // CL -> UD
   statusRequest() airecv clsend;                 // CL -> UD
   requestLeaderboardTopTen() airecv clsend;      // CL -> UD
-  guildStatusUpdate(uint32 guildId, string guildname, uint8 rank); // CL -> UD
+  guildStatusUpdate(uint32 guildId, string(0-256) guildname, uint8 rank); // CL -> UD
   guildNameReject(uint32 guildId);               // UD -> CL
   guildNameChange(string guildname, uint8 rank); // UD -> CL
   receiveMember(MemberInfo member);              // UD -> CL
@@ -686,8 +686,8 @@ dclass GuildManager: DistributedObject, LeaderBoardReceiver, TalkPath_group {
   recvAvatarOnline(uint32 avatarId, string avatarName, uint32 bandManagerId, uint32 bandId); // UD -> CL
   recvAvatarOffline(uint32 avatarId, string avatarName); // UD -> CL
 
-  sendChat(string msgText,uint8 chatFlags,uint32 DISLid) airecv clsend; 
-  sendWLChat(string msgText,uint8 chatFlags,uint32 DISLid) airecv clsend;
+  sendChat(string(0-256) msgText,uint8 chatFlags,uint32 DISLid) airecv clsend; 
+  sendWLChat(string(0-256) msgText,uint8 chatFlags,uint32 DISLid) airecv clsend;
   sendSC(uint16 msgIndex) airecv clsend;
   sendSCQuest(uint16 questInt, uint16 msgIndex, uint16 taskNum) airecv clsend;
 
@@ -699,10 +699,10 @@ dclass GuildManager: DistributedObject, LeaderBoardReceiver, TalkPath_group {
   sendTokenRequest() airecv clsend;
   recvTokenGenerated(string tokenString);
   recvTokenInviteValue(string tokenValue, int8 preExistPerm);
-  sendTokenForJoinRequest(string token, string name) airecv clsend;
+  sendTokenForJoinRequest(string(0-256) token, string(0-256) name) airecv clsend;
   recvTokenRedeemMessage(string guildName);
   recvTokenRedeemedByPlayerMessage(string redeemerName);
-  sendTokenRValue(string tokenString, int8 rValue) airecv clsend;
+  sendTokenRValue(string(0-256) tokenString, int8 rValue) airecv clsend;
   sendPermToken() airecv clsend;
   sendNonPermTokenCount() airecv clsend;
   recvPermToken(string token);
@@ -812,12 +812,12 @@ dclass SnapshotRenderer: DistributedObject {
 };
 
 dclass SpeedchatRelay : DistributedObject, TalkPath_account{
-  forwardSpeedchat(uint32 receiverDISLid, uint8 type, uint32 [] index, uint32 senderDISLId, string senderDISLName, uint8 flags)  clsend;
+  forwardSpeedchat(uint32 receiverDISLid, uint8 type, uint32 [] index, uint32 senderDISLId, string(0-256) senderDISLName, uint8 flags)  clsend;
 };
 
 
 dclass CentralLogger : DistributedObject {
-  sendMessage(string category, string text, uint32 targetDISLId, uint32 targetAvatarID) clsend;
+  sendMessage(string(0-256) category, string(0-1024) text, uint32 targetDISLId, uint32 targetAvatarID) clsend;
   logAIGarbage() airecv;
 };
 

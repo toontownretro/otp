@@ -1,4 +1,5 @@
 from otp.otpbase.OTPModules import *
+from panda3d.otp import CMover
 from direct.directnotify import DirectNotifyGlobal
 from otp.movement.PyVec3 import PyVec3
 

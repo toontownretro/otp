@@ -26,7 +26,7 @@ extern const char *configrc_settings_filename;
   #define EXPTP_OTP_SETTINGS EXPORT_TEMPL
 #else
   #define EXPCL_OTP_SETTINGS IMPORT_CLASS
-  #define EXPCL_OTP_SETTINGS IMPORT_CLASS
+  #define EXPTP_OTP_SETTINGS IMPORT_TEMPL
 #endif
 
 class EXPCL_OTP_SETTINGS Settings {

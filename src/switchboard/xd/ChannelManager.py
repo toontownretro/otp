@@ -193,7 +193,10 @@ class ChannelListener:
     def __init__(self,nodeName,chanMgr):
         self.nodeName = nodeName
         self.chanMgr = chanMgr
-    
+
+    def startChannelListen(self,channel):
+        pass
+
     # sbNode.py
     def broadcastMessage(self, channelMessage):
         pass

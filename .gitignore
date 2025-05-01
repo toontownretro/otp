@@ -11,6 +11,7 @@ built
 readlog.txt
 *.log
 *.bak
+*.pyd
 
 # Python 3
 **/__pycache__

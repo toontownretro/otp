@@ -1,6 +1,8 @@
 """DistributedPlayer module: contains the DistributedPlayer class"""
 
 from otp.otpbase.OTPModules import *
+from panda3d.otp import WhisperPopup
+from panda3d.otp import CFQuicktalker, CFPageButton, CFQuitButton, CFSpeech, CFThought, CFTimeout
 from otp.chat import ChatGarbler
 import string
 from direct.task import Task
@@ -17,6 +19,8 @@ from otp.distributed.TelemetryLimited import TelemetryLimited
 
 #hack, init for client-side outgoing chat filter
 if ConfigVariableBool('want-chatfilter-hacks',0).getValue():
+    # This assumes badwordpy.pyd
+    # is within otp/switchboard
     from otp.switchboard import badwordpy
     import os
     badwordpy.init(os.environ.get('OTP')+'\\src\\switchboard\\','')
@@ -82,6 +86,10 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
     def GetPlayerDeleteEvent():
         return 'DistributedPlayerDeleteEvent'
 
+    def networkDelete(self):
+        DistributedAvatar.DistributedAvatar.networkDelete(self)
+        messenger.send(self.GetPlayerNetworkDeleteEvent(), [self])
+
     ### managing ActiveAvatars ###
 
     def disable(self):
@@ -90,6 +98,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
         active duty and stored in a cache.
         """
         DistributedAvatar.DistributedAvatar.disable(self)
+        messenger.send(self.GetPlayerDeleteEvent(), [self])
 
     def delete(self):
         """
@@ -587,6 +596,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
                 # event will call the appropriate teleportResponse.
                 messenger.send('teleportQuery', [avatar, self])
                 return
+            teleportNotify.debug("teleport initiation failed")
 
             # Generate a whisper message that so-and-so wants to
             # teleport to us, but can't because we're busy.  But don't
@@ -595,7 +605,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
                 self.setSystemMessage(requesterId, OTPLocalizer.WhisperFailedVisit % (avatar.getName()))
 
 
-        teleportNotify.debug("teleport initiation failed")
+        teleportNotify.debug("sending try-again-later message")
         # Send back a try-again-later message.
         self.d_teleportResponse(self.doId, 0, 0, 0, 0, sendToId = requesterId)
 

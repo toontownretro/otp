@@ -1,6 +1,7 @@
 """LocalAvatar module: contains the LocalAvatar class"""
 
 from otp.otpbase.OTPModules import *
+from panda3d.otp import Nametag, WhisperPopup
 from direct.gui.DirectGui import *
 from direct.showbase.PythonUtil import *
 from direct.interval.IntervalGlobal import *

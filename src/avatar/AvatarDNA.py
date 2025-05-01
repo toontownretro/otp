@@ -40,7 +40,7 @@ class AvatarDNA:
     def printNetString(self):
         string = self.makeNetString()
         dg = PyDatagram(string)
-        dg.dumpHex(ostream)
+        dg.dumpHex(Notify.out())
 
     def makeFromNetString(self, string):
         notify.error("called makeFromNetString on avatarDNA parent class")

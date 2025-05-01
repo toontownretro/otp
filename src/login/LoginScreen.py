@@ -650,7 +650,7 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         self.notify.debug('handleLoginResponseMsg2')
         if self.notify.getDebug():
             dgram = di.getDatagram()
-            dgram.dumpHex(ostream)
+            dgram.dumpHex(Notify.out())
 
         now = time.time()
 
@@ -772,7 +772,7 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         self.notify.debug('handleLoginResponseMsg1')
         if self.notify.getDebug():
             dgram = di.getDatagram()
-            dgram.dumpHex(ostream)
+            dgram.dumpHex(Notify.out())
 
 
         # First, get the local time of day that we receive the message
@@ -903,9 +903,9 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         # from the server, so we can compare our clock to the server's
         # clock.
         self.notify.debug('handleLoginToontownResponse')
-        #if self.notify.getDebug():
-            #dgram = di.getDatagram()
-            #dgram.dumpHex(ostream)
+        if self.notify.getDebug():
+            dgram = di.getDatagram()
+            dgram.dumpHex(Notify.out())
 
         now = time.time()
 

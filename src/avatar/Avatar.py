@@ -1,6 +1,8 @@
 """Avatar Module: contains the avatar class"""
 
 from otp.otpbase.OTPModules import *
+from panda3d.otp import Nametag, NametagGroup
+from panda3d.otp import CFSpeech, CFThought, CFTimeout, CFPageButton, CFNoQuitButton, CFQuitButton
 from otp.otpbase import OTPGlobals
 from otp.otpbase import OTPLocalizer
 from direct.actor.Actor import Actor

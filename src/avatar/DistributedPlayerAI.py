@@ -3,14 +3,19 @@ from direct.showbase import GarbageReport
 from otp.ai.AIBaseGlobal import *
 from otp.avatar import DistributedAvatarAI
 from otp.avatar import PlayerBase
+from otp.distributed.ClsendTracker import ClsendTracker
 from otp.otpbase import OTPGlobals
 
 class DistributedPlayerAI(DistributedAvatarAI.DistributedAvatarAI,
-                          PlayerBase.PlayerBase):
+                          PlayerBase.PlayerBase,
+                          ClsendTracker):
     def __init__(self, air):
         DistributedAvatarAI.DistributedAvatarAI.__init__(self, air)
         PlayerBase.PlayerBase.__init__(self)
+        ClsendTracker.__init__(self)
         self.friendsList = []
+        self.DISLname = ""
+        self.DISLid = 0
 
     if __dev__:
         def generate(self):
@@ -19,6 +24,7 @@ class DistributedPlayerAI(DistributedAvatarAI.DistributedAvatarAI,
 
     def announceGenerate(self):
         DistributedAvatarAI.DistributedAvatarAI.announceGenerate(self)
+        ClsendTracker.announceGenerate(self)
         self._doPlayerEnter()
 
     def _announceArrival(self):
@@ -48,6 +54,7 @@ class DistributedPlayerAI(DistributedAvatarAI.DistributedAvatarAI,
             assert self._sentExitServerEvent
             del self._sentExitServerEvent
         self._doPlayerExit()
+        ClsendTracker.destroy(self)
         if __dev__:
             GarbageReport.checkForGarbageLeaks()
         DistributedAvatarAI.DistributedAvatarAI.delete(self)

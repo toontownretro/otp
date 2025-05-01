@@ -1389,7 +1389,7 @@ class OTPClientRepository(ClientRepositoryBase):
             assert (avatarTotal <= self.avatarLimit) and (avatarTotal >= 0)
             avList = []
 
-            #print(di.getDatagram().dumpHex(ostream))
+            #print(di.getDatagram().dumpHex(Notify.out()))
             for i in range(0, avatarTotal):
                 # Get the avatar id number
                 avNum = di.getUint32()
@@ -1439,7 +1439,7 @@ class OTPClientRepository(ClientRepositoryBase):
             assert (avatarTotal <= self.avatarLimit) and (avatarTotal >= 0)
             avList = []
 
-            #print(di.getDatagram().dumpHex(ostream))
+            #print(di.getDatagram().dumpHex(Notify.out()))
             for i in range(0, avatarTotal):
                 # Get the avatar id number
                 avNum = di.getUint32()
@@ -2669,14 +2669,14 @@ class OTPClientRepository(ClientRepositoryBase):
         currently up and running, and accepting avatars.
         """
         assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
-        list = []
+        activeShardsList = []
         for s in list(self.activeDistrictMap.values()):
             if s.available:
-                list.append(
+                activeShardsList.append(
                         (s.doId, s.name, s.avatarCount,
                         s.newAvatarCount))
 
-        return list
+        return activeShardsList
 
 
     ######### General senders and handlers #########
@@ -3077,7 +3077,7 @@ class OTPClientRepository(ClientRepositoryBase):
     def handleDatagram(self, di):
         if self.notify.getDebug():
             print("ClientRepository received datagram:")
-            di.getDatagram().dumpHex(ostream)
+            di.getDatagram().dumpHex(Notify.out())
 
 
         msgType = self.getMsgType()

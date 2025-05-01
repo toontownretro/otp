@@ -1,5 +1,4 @@
-import pymsql as MySQLdb
-import _mysql_exceptions
+import pymysql as MySQLdb
 import datetime
 #from otp.distributed import OtpDoGlobals
 #from direct.directnotify.DirectNotifyGlobal import directNotify
