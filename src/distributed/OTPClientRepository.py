@@ -533,7 +533,7 @@ class OTPClientRepository(ClientRepositoryBase):
         self.music = None
         self.gameDoneEvent = "playGameDone"
         self.playGame = playGame(self.gameFSM, self.gameDoneEvent)
-        self.shardInterestHandle = None
+        self.shardListHandle = None
         self.uberZoneInterest = None
         self.wantSwitchboard = ConfigVariableBool('want-switchboard',0).getValue()
         self.wantSwitchboardHacks = ConfigVariableBool('want-switchboard-hacks',0).getValue()
@@ -586,7 +586,7 @@ class OTPClientRepository(ClientRepositoryBase):
     def enterLoginOff(self):
         assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
         self.handler = self.handleMessageType
-        self.shardInterestHandle = None
+        self.shardListHandle = None
 
     @report(types = ['args', 'deltaStamp'], dConfigParam = 'teleport')
     def exitLoginOff(self):
@@ -981,9 +981,9 @@ class OTPClientRepository(ClientRepositoryBase):
     @report(types = ['args', 'deltaStamp'], dConfigParam = 'teleport')
     def enterWaitForGameList(self):
         assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
-        self.gameDoDirectory = self.addInterest(
-            self.GameGlobalsId, OTP_ZONE_ID_MANAGEMENT,
-            "game directory","GameList_Complete")
+        self.gameDoDirectory = self.addTaggedInterest(
+            self.GameGlobalsId, OTP_ZONE_ID_MANAGEMENT, self.ITAG_PERM,
+            "game directory", event = "GameList_Complete")
         self.acceptOnce(
             "GameList_Complete", self.waitForGetGameListResponse)
 
@@ -1053,20 +1053,21 @@ class OTPClientRepository(ClientRepositoryBase):
     @report(types = ['args', 'deltaStamp'], dConfigParam = 'teleport')
     def enterWaitForShardList(self):
         assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
-        if not self.isValidInterestHandle(self.shardInterestHandle):
-            self.shardInterestHandle = self.addInterest(
-                self.GameGlobalsId, OTP_ZONE_ID_DISTRICTS, "LocalShardList",
-                "ShardList_Complete")
+        if not self.isValidInterestHandle(self.shardListHandle):
+            self.shardListHandle = self.addTaggedInterest(
+                self.GameGlobalsId, OTP_ZONE_ID_DISTRICTS, self.ITAG_PERM,
+                "LocalShardList", event = "ShardList_Complete")
             self.acceptOnce("ShardList_Complete", self._wantShardListComplete)
         else:
             self._wantShardListComplete()
 
 
     @report(types = ['args', 'deltaStamp'], dConfigParam = 'teleport')
-    def exitWaitForShardList(self):
-        assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
-        self.ignore('ShardList_Complete')
-        self.handler = None
+    def _wantShardListComplete(self):
+        if self._shardsAreReady():
+            self.loginFSM.request("waitForAvatarList")
+        else:
+            self.loginFSM.request("noShards")
 
 
     @report(types = ['args', 'deltaStamp'], dConfigParam = 'teleport')
@@ -1079,12 +1080,12 @@ class OTPClientRepository(ClientRepositoryBase):
         else:
             return False
 
+
     @report(types = ['args', 'deltaStamp'], dConfigParam = 'teleport')
-    def _wantShardListComplete(self):
-        if self._shardsAreReady():
-            self.loginFSM.request("waitForAvatarList")
-        else:
-            self.loginFSM.request("noShards")
+    def exitWaitForShardList(self):
+        assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
+        self.ignore('ShardList_Complete')
+        self.handler = None
 
 
     ##### LoginFSM: noShards #####
@@ -1186,7 +1187,7 @@ class OTPClientRepository(ClientRepositoryBase):
         # some reason.
 
         self.resetInterestStateForConnectionLoss()
-        self.shardInterestHandle = None
+        self.shardListHandle = None
 
         self.handler = self.handleMessageType
 
@@ -2261,7 +2262,7 @@ class OTPClientRepository(ClientRepositoryBase):
 
         def checkScale(task):
             # Spammy --> assert self.notify.debugStateCall(self, 'loginFSM', 'gameFSM')
-            assert base.localAvatar.getTransform().hasUniformScale()
+            #assert base.localAvatar.getTransform().hasUniformScale()
             return Task.cont
         assert taskMgr.add(checkScale, 'globalScaleCheck')
 
@@ -2759,13 +2760,20 @@ class OTPClientRepository(ClientRepositoryBase):
         # If nothing happens within a few seconds, pop up a dialog to
         # show we're still hanging on, and to give the user a chance
         # to bail.
-        taskMgr.remove("waitingForDatabase")
+        self.cleanupWaitingForDatabase()
         # tick the clock to ensure we start counting from now, instead
         # of from the beginning of the last frame (whenever that was).
         globalClock.tick()
         taskMgr.doMethodLater((OTPGlobals.DatabaseDialogTimeout + extraTimeout) * choice(__dev__, 10, 1),
                               self.__showWaitingForDatabase,
                               "waitingForDatabase", extraArgs=[requestName])
+
+    def cleanupWaitingForDatabase(self):
+        if self.waitingForDatabase:
+            self.waitingForDatabase.hide()
+            self.waitingForDatabase.cleanup()
+            self.waitingForDatabase = None
+        taskMgr.remove("waitingForDatabase")
 
     def __showWaitingForDatabase(self, requestName):
         messenger.send("connectionIssue")

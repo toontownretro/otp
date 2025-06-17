@@ -177,16 +177,16 @@ class AIRepository(ConnectionRepository):
         self.connectionURL = None
 
     def _startPerformanceLogging(self, task=None):
-        period = self.config.GetFloat(
+        period = ConfigVariableDouble(
             'ai-performance-log-period',
-            self.config.GetFloat('server-performance-log-period',
+            ConfigVariableDouble('server-performance-log-period',
                                  choice(__dev__, 60. * 10., 60.)
                                  )
             )
         self._sampledMaxFrameDuration = 0.
         self._sampleMaxFrameDuration()
         self._numPyObjs = None
-        self._getNumObjCounterLimit = int(max(1, (60 * 60.) / period))
+        self._getNumObjCounterLimit = int(max(1, (60 * 60.) / period.getValue()))
         self._getNumObjCounter = 0
         taskMgr.doMethodLater(period, self._logPerformanceData, 'logPerformanceData')
         return Task.done
@@ -219,7 +219,7 @@ class AIRepository(ConnectionRepository):
     def startLeakDetector(self):
         if hasattr(self, 'leakDetector'):
             return False
-        firstCheckDelay = ConfigVariableDoubleFloat('leak-detector-first-check-delay', -1).getValue()
+        firstCheckDelay = ConfigVariableDouble('leak-detector-first-check-delay', -1).getValue()
         if firstCheckDelay == -1:
             firstCheckDelay = None
         self.leakDetector = ContainerLeakDetector(
@@ -1882,5 +1882,8 @@ class AIRepository(ConnectionRepository):
             self.stopReaderPollTask()
             self.accept(CConnectionRepository.getOverflowEventName(),self.handleReaderOverflow)
 
+
+    ###############################################################
+    # 
     def getTrackClsends(self):
         return ConfigVariableBool("track-clsends", True).getValue()

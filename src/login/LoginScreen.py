@@ -633,7 +633,8 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
             self.cr.whiteListChatEnabled = 0
 
         self.notify.info("End of DISL token parse")
-        self.notify.info("accountDetailRecord: %s" % accountDetailRecord)
+        if base.logPrivateInfo:
+            self.notify.info("accountDetailRecord: %s" % accountDetailRecord)
 
         self.cr.accountDetailRecord = accountDetailRecord
         self.__handleLoginSuccess()
@@ -648,9 +649,10 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         # from the server, so we can compare our clock to the server's
         # clock.
         self.notify.debug('handleLoginResponseMsg2')
-        if self.notify.getDebug():
-            dgram = di.getDatagram()
-            dgram.dumpHex(Notify.out())
+        if base.logPrivateInfo:
+            if self.notify.getDebug():
+                dgram = di.getDatagram()
+                dgram.dumpHex(Notify.out())
 
         now = time.time()
 
@@ -674,7 +676,8 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         # Chat:
         canChat = di.getUint8()
         self.cr.secretChatAllowed = canChat
-        self.notify.info("Chat from game server login: %s" % (canChat))
+        if base.logPrivateInfo:
+            self.notify.info("Chat from game server login: %s" % (canChat))
 
         # The current time of day at the server
         sec = di.getUint32()
@@ -695,7 +698,8 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         self.cr.setIsPaid(self.isPaid)
         if self.isPaid:
             launcher.setPaidUserLoggedIn()
-        self.notify.info("Paid from game server login: %s" % (self.isPaid))
+        if base.logPrivateInfo:
+            self.notify.info("Paid from game server login: %s" % (self.isPaid))
 
         # default
         self.cr.resetPeriodTimer(None)
@@ -703,16 +707,18 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
             # The amount of time remaining on the user's account for
             # this period, in minutes.
             minutesRemaining = di.getInt32()
-            self.notify.info("Minutes remaining from server %s" % (minutesRemaining))
+            if base.logPrivateInfo:
+                self.notify.info("Minutes remaining from server %s" % (minutesRemaining))
 
-            if (minutesRemaining >= 0):
-                self.notify.info("Spawning period timer")
-                self.cr.resetPeriodTimer(minutesRemaining * 60)
-            elif (self.isPaid):
-                self.notify.warning("Negative minutes remaining for paid user (?)")
-            else:
-                self.notify.warning("Not paid, but also negative minutes remaining (?)")
-        else:
+            if base.logPrivateInfo:
+                if (minutesRemaining >= 0):
+                    self.notify.info("Spawning period timer")
+                    self.cr.resetPeriodTimer(minutesRemaining * 60)
+                elif (self.isPaid):
+                    self.notify.warning("Negative minutes remaining for paid user (?)")
+                else:
+                    self.notify.warning("Not paid, but also negative minutes remaining (?)")
+        elif base.logPrivateInfo:
             self.notify.info("Minutes remaining not returned from server; not spawning period timer")
 
         familyStr = di.getString()
@@ -770,9 +776,10 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         # Configrc option.  This is normally used only in the
         # developmernt environment.
         self.notify.debug('handleLoginResponseMsg1')
-        if self.notify.getDebug():
-            dgram = di.getDatagram()
-            dgram.dumpHex(Notify.out())
+        if base.logPrivateInfo:
+            if self.notify.getDebug():
+                dgram = di.getDatagram()
+                dgram.dumpHex(Notify.out())
 
 
         # First, get the local time of day that we receive the message
@@ -903,9 +910,10 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         # from the server, so we can compare our clock to the server's
         # clock.
         self.notify.debug('handleLoginToontownResponse')
-        if self.notify.getDebug():
-            dgram = di.getDatagram()
-            dgram.dumpHex(Notify.out())
+        if 1:
+            if base.logPrivateInfo:
+                dgram = di.getDatagram()
+                dgram.dumpHex(Notify.out())
 
         now = time.time()
 
@@ -942,13 +950,15 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         createFriendsWithChat = di.getString()
         canChat = (createFriendsWithChat == 'YES') or (createFriendsWithChat=='CODE')
         self.cr.secretChatAllowed = canChat
-        self.notify.info("CREATE_FRIENDS_WITH_CHAT from game server login: %s %s" % (createFriendsWithChat, canChat))
+        if base.logPrivateInfo:
+            self.notify.info("CREATE_FRIENDS_WITH_CHAT from game server login: %s %s" % (createFriendsWithChat, canChat))
 
         # this controls if he can make a true friend code,
         # valid values are NO, PARENT and YES
         self.chatCodeCreationRule = di.getString()
         self.cr.chatChatCodeCreationRule = self.chatCodeCreationRule
-        self.notify.info("Chat code creation rule = %s" % (self.chatCodeCreationRule))
+        if base.logPrivateInfo:
+            self.notify.info("Chat code creation rule = %s" % (self.chatCodeCreationRule))
         # correct the default value from quick launcher
         self.cr.secretChatNeedsParentPassword = (self.chatCodeCreationRule == 'PARENT')
 
@@ -974,7 +984,8 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         self.cr.setIsPaid(self.isPaid)
         if self.isPaid:
             launcher.setPaidUserLoggedIn()
-        self.notify.info("Paid from game server login: %s" % (self.isPaid))
+        if base.logPrivateInfo:
+            self.notify.info("Paid from game server login: %s" % (self.isPaid))
 
 
         WhiteListResponse = di.getString()
@@ -1003,7 +1014,8 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
             # we really need one or the other,
             self.notify.error('unknown toon account type %s' % self.toonAccountType)
 
-        self.notify.info("toonAccountType=%s" % self.toonAccountType)
+        if base.logPrivateInfo:
+            self.notify.info("toonAccountType=%s" % self.toonAccountType)
         self.userName = di.getString()
         self.cr.userName = self.userName
 

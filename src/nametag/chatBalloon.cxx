@@ -108,7 +108,7 @@ generate(const string &text, TextFont *font, float wordwrap,
     button_space = 0.2f;
   }
 
-  int num_lines = max(text_node->get_num_rows(), 1);
+  int num_lines = std::max(text_node->get_num_rows(), 1);
   float line_height = text_node->get_line_height();
   _text_height = num_lines * line_height + button_space;
   float text_height_below = (num_lines - 1) * line_height + button_space;

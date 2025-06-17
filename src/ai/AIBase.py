@@ -28,7 +28,7 @@ class AIBase:
         __builtins__["__dev__"] = ConfigVariableBool('want-dev', 0).getValue()
         logStackDump = ConfigVariableBool('log-stack-dump', not __dev__).getValue() or \
                        ConfigVariableBool('ai-log-stack-dump', not __dev__).getValue()
-        uploadStackDump = self.config.GetBool('upload-stack-dump', 0)
+        uploadStackDump = ConfigVariableBool('upload-stack-dump', 0)
         if logStackDump or uploadStackDump:
             ExceptionVarDump.install(logStackDump, uploadStackDump)
 

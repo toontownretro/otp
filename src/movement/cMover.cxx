@@ -24,7 +24,7 @@ CMover(NodePath &objNodePath, float fwd_speed, float rot_speed) :
 CMover::
 ~CMover() {
   while (!_impulses.empty()) {
-    cerr << "removing C++ impulse: " << (*_impulses.begin()).first << std::endl;
+    std::cerr << "removing C++ impulse: " << (*_impulses.begin()).first << std::endl;
     remove_c_impulse((*_impulses.begin()).first);
   }
 }

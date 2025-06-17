@@ -619,7 +619,7 @@ set_nametag3d_flag(NametagGroup::Nametag3dFlag flag) {
 ////////////////////////////////////////////////////////////////////
 INLINE void NametagGroup::
 increment_nametag3d_flag(NametagGroup::Nametag3dFlag flag) {
-  _nametag3d_flag = max(_nametag3d_flag, flag);
+  _nametag3d_flag = std::max(_nametag3d_flag, flag);
 }
 
 ////////////////////////////////////////////////////////////////////

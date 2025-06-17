@@ -61,6 +61,6 @@ clear_mover(CMover &mover) {
     _mover = 0;
     _node_path.clear();
   } else {
-    cerr << "clear_mover: unknown CMover" << std::endl;
+    std::cerr << "clear_mover: unknown CMover" << std::endl;
   }
 }

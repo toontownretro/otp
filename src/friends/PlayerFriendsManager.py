@@ -1,6 +1,7 @@
 from direct.distributed.DistributedObjectGlobal import DistributedObjectGlobal
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from otp.otpbase import OTPGlobals
+from otp.avatar.Avatar import teleportNotify
 from otp.friends import FriendResponseCodes
 
 
@@ -283,8 +284,10 @@ class PlayerFriendsManager(DistributedObjectGlobal):
             
     def identifyFriend(self, avId):
         handle = None
+        teleportNotify.debug('identifyFriend(%s)' % avId)
         handle = base.cr.identifyFriend(avId)
         if not handle:
+            teleportNotify.debug('getAvHandleFromId(%s)' % avId)
             handle = self.getAvHandleFromId(avId)
         return handle
             

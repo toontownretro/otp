@@ -34,6 +34,7 @@ class OTPBase(ShowBase):
        self.fillShardsToIdealPop = ConfigVariableBool(
             'fill-shards-to-ideal-pop', 1).getValue()
 
+       # Log sensible information, this only gets enabled if __dev__ is set to 1
        self.logPrivateInfo = ConfigVariableBool(
             'log-private-info', __dev__).getValue()
 

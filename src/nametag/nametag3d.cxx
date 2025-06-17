@@ -514,7 +514,7 @@ adjust_to_camera(const NodePath &this_np, int bin_sort) {
 
   float distance = this_to_cam(3, 1);
 
-  float norm_distance = max(distance, 0.1f) / NametagGlobals::far_distance;
+  float norm_distance = std::max(distance, 0.1f) / NametagGlobals::far_distance;
   float scale = pow(norm_distance, NametagGlobals::scale_exponent) *
     NametagGlobals::far_scale * NametagGlobals::get_global_nametag_scale();
 

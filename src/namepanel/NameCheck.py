@@ -359,6 +359,9 @@ def checkName(name, otherCheckFuncs=[], font=None):
         repeatedChars,
         ] + otherCheckFuncs
 
+    if base.cr.productName in ['JP']:
+        checks.append(checkJapanese)
+
     # checks that should be run on the reversed name string
     symmetricChecks = [
         ]

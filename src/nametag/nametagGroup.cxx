@@ -381,7 +381,7 @@ set_chat(const string &chat, int chat_flags, int page_number) {
 
   if (((_chat_flags & CF_timeout) != 0) && (_chat_timeblock < now)) {
     // If we requested a timeout, determine when that will happen.
-    double keep_for = max(min((double)chat.length() * 0.5, 12.0), 4.0);
+    double keep_for = std::max(min((double)chat.length() * 0.5, 12.0), 4.0);
     _chat_timeout = now + keep_for;
   }
 

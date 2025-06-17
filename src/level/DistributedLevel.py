@@ -154,7 +154,7 @@ class DistributedLevel(DistributedObject.DistributedObject,
             # a full spec
             self.candidateSpec = levelSpec
             self.sendUpdate('requestCurrentLevelSpec',
-                            [hash(levelSpec),
+                            [levelSpec.stringHash(),
                              levelSpec.entTypeReg.getHashStr()])
         else:
             self.privGotSpec(levelSpec)
@@ -752,11 +752,10 @@ class DistributedLevel(DistributedObject.DistributedObject,
                                            self.titleColor[1],
                                            self.titleColor[2],
                                            self.titleColor[3]),
-                                      startColor = Vec4(self.titleColor[0],
-                                                        self.titleColor[1],
-                                                        self.titleColor[2],
-                                                        0.0),
-                                      )
+                    startColor = Vec4(self.titleColor[0],
+                                      self.titleColor[1],
+                                      self.titleColor[2],
+                                      0.0))
                     )
             smallTitleSeq = Sequence(Func(self.hideTitleText),
                                      Func(self.showSmallTitle))

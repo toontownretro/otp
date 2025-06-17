@@ -33,7 +33,7 @@ class LeaveToPayDialog:
         """
         # If the user paid through buying CD, then show parent password page
         if (self.paidUser):
-            if base.cr.productName in ['DisneyOnline-AP', 'DisneyOnline-UK', 'JP', 'FR']:
+            if base.cr.productName in ['DisneyOnline-AP', 'DisneyOnline-UK', 'JP', 'DE', 'FR']:
                 directFrameText = OTPLocalizer.LeaveToEnableChatUK
                 directButtonYesText = OTPLocalizer.LeaveToEnableChatUKYes
                 directButtonNoText = OTPLocalizer.LeaveToEnableChatUKNo

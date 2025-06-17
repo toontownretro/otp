@@ -29,6 +29,12 @@ esac
 case $LANGUAGE in
   castillian)
     LIVESUFFIX=_ES ;;
+  japanese)
+    LIVESUFFIX=_JP ;;
+  german)
+    LIVESUFFIX=_DE ;;
+  portuguese)
+    LIVESUFFIX=_BR ;;
   french)
     LIVESUFFIX=_FR ;;
 esac

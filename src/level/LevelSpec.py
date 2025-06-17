@@ -194,7 +194,15 @@ class LevelSpec:
 
         def setEntityTypeReg(self, entTypeReg):
             self.entTypeReg = entTypeReg
-            self.checkSpecIntegrity()
+            for entId in self.getAllEntIds():
+                spec = self.getEntitySpec(entId)
+                type = self.getEntityType(entId)
+                typeDesc = self.entTypeReg.getTypeDesc(type)
+                attribDescDict = typeDesc.getAttribDescDict()
+                for attribName, desc in attribDescDict.items():
+                    if attribName not in spec:
+                        spec[attribName] = desc.getDefaultValue()
+                self.checkSpecIntegrity()
 
         def hasEntityTypeReg(self):
             return hasattr(self, 'entTypeReg')
@@ -531,6 +539,11 @@ class LevelSpec:
                                 "entId %s (%s): missing attrib '%s'" % (
                                 entId, spec['type'], attribName))
 
+        def stringHash(self):
+            h = PM.HashVal()
+            h.hashString(repr(self))
+            return h.asHex()
+
         def __hash__(self):
             return hash(repr(self))
 
@@ -538,5 +551,5 @@ class LevelSpec:
             return 'LevelSpec'
 
         def __repr__(self):
-            return 'LevelSpec(%s, scenario=%s)' % (repr(self.specDict),
-                                                   self.scenario)
+            return 'LevelSpec(%s, scenario=%s)' % (repeatableRepr(self.specDict),
+                                                   repeatableRepr(self.scenario))
