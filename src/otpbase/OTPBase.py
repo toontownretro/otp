@@ -21,7 +21,9 @@ class OTPBase(ShowBase):
             self.errorAccumulatorBuffer = ''
             taskMgr.add(self.delayedErrorCheck, "delayedErrorCheck", priority = 10000)
 
-       self.dataUnused = NodePath("dataUnused")
+       self.idTags = ConfigVariableBool('want-id-tags', 0).getValue()
+       if not self.idTags:
+            del self.idTags
 
        # Turn nametags on and off for video capture
        self.wantNametags = ConfigVariableBool('want-nametags', 1).getValue()
@@ -65,10 +67,8 @@ class OTPBase(ShowBase):
 
        taskMgr.setupTaskChain('net')
 
-    def isMainWindowOpen(self):
-        if self.win != None:
-            return self.win.isValid()
-        return 0
+       # disableShowbaseMouse HACK
+       self.dataUnused = NodePath("dataUnused")
 
     def setTaskChainNetThreaded(self):
         """ If want-threaded-network is true, move the network tasks
@@ -424,3 +424,8 @@ class OTPBase(ShowBase):
             self.backgroundDrawable = self.win
             pass
         return result
+
+    def isMainWindowOpen(self):
+        if self.win != None:
+            return self.win.isValid()
+        return 0

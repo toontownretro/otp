@@ -286,7 +286,7 @@ class TimeManager(DistributedObject.DistributedObject):
             else:
                 data = dataLeft
                 dataLeft = None
-            self.sendUpdate('setStackDump', [index, data])
+            self.sendUpdate("setStackDump", [index, data])
             index += 1
             self.cr.flush()
 
@@ -318,7 +318,7 @@ class TimeManager(DistributedObject.DistributedObject):
         try:
             cacheStatus = preloadCache()
         except NameError:
-            cacheStatus = ''
+            cacheStatus = ""
 
         ooghz = 1.0e-009
         cpuSpeed = (di.getMaximumCpuFrequency() * ooghz,
@@ -438,7 +438,8 @@ class TimeManager(DistributedObject.DistributedObject):
             pageFaultCount, '%s.%d.%d.%d' % osInfo, '%0.03f,%0.03f' % cpuSpeed,
             '%d,%d' % (numCpuCores, numLogicalCpus),
             apiName)
-        print("frame rate: %s" % (info))
+        if ConfigVariableBoolBool('want-frame-rate-string', 1).getValue():
+            print("frame rate: %s" % (info))
 
         self.sendUpdate("setFrameRate", [
             fps, deviation, numAvs, locationCode,
@@ -469,8 +470,8 @@ class TimeManager(DistributedObject.DistributedObject):
                 s = "0 client and 0 AI garbage cycles found"
             localAvatar.setChatAbsolute(s, CFSpeech | CFTimeout)
 
-        def d_setClientGarbageLeak(self, num, description):
-            self.sendUpdate('setClientGarbageLeak', [num, description])
+    def d_setClientGarbageLeak(self, num, description):
+        self.sendUpdate('setClientGarbageLeak', [num, description])
 
     def getMacOsInfo(self, defaultOsInfo):
         """Return a tuple of os name, platormid, major ver, minor ver."""

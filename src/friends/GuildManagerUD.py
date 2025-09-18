@@ -1,4 +1,4 @@
-
+#from itertools import izip
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from otp.distributed import OtpDoGlobals
 from otp.ai import AIMsgTypes
@@ -22,6 +22,7 @@ from otp.otpbase.OTPModules import ConfigVariableString,ConfigVariableInt,Config
 ONLINE = 1
 OFFLINE = 0
 
+GUILDRANK_VETERAN = 4
 GUILDRANK_GM = 3
 GUILDRANK_OFFICER = 2
 GUILDRANK_MEMBER = 1
@@ -112,7 +113,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         funcs = list(self.funcTally.keys())
         funcs.sort()
         str = ["%s" % self.funcTally[f] for f in funcs]
-        str = string.join(str," ")
+        str = " ".join(str)
         self.notify.info("funcTally: %s" % str)
         return task.again
 
@@ -406,7 +407,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         isOnline = self.isAvatarOnline.get(avatarId, OFFLINE)
         bandManagerId, bandId = self.avatarId2BandId.get(avatarId, (0,0))
         self.sendUpdateToGuildChannel(guildId, 'recvMemberAdded',
-                                      [(avatarId, name, rank, isOnline, bandManagerId, bandId)])
+                                      [(avatarId, name, rank, isOnline, bandManagerId, bandId, inviterId, inviterName)])
 
     def removeMember(self, avatarId):
         self.tallyFunction("removeMember")
@@ -424,7 +425,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
                 self.air.writeServerEvent('removeGuildMember', avatarId, 'by %s from %s' % (senderId, victimGuild))
                 self.db.removeMember(avatarId, victimGuild, victimRank)
                 self.sendUpdateToGuildChannel(victimGuild, 'recvMemberRemoved',
-                                              [avatarId])
+                                              [avatarId, senderId, avatarName, senderName])
             # Someone's guild/rank is out of synch or we have a hacker
             else:
                 assert self.notify.warning("%d (guild %d rank %d) was incapable of removing %d (guild %d rank %d) from guild." % \
@@ -441,7 +442,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             senderRank = self._getGuildRank(senderId)
             victimGuild = self._getGuildId(avatarId)
 
-            if rank < GUILDRANK_MEMBER or rank > GUILDRANK_GM:
+            if rank < GUILDRANK_MEMBER or rank > GUILDRANK_VETERAN:
                 assert self.notify.warning("Invalid guild rank %d sent by avatar %d in changeRank request" % (rank,senderId))
                 return
 
@@ -456,8 +457,15 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             self.air.writeServerEvent('changeGuildRank', avatarId, '%s by %s' % (rank, senderId))
             # Change guild member rank
             self.db.changeRank(avatarId, rank)
-            self.sendUpdateToGuildChannel(victimGuild, 'recvMemberUpdateRank', [avatarId, rank])
+            self.sendUpdateToGuildChannel(victimGuild, 'recvMemberUpdateRank', [avatarId, senderId, avatarName, senderName, rank, promote])
             self._sendStatus(avatarId)
+
+    # Finish me!
+    def changeRankAvocate(self, avatarId):
+        self.tallyFunction("changeRankAvocate")
+        senderId = self.air.getAvatarIdFromSender()
+        # Set chosen user to guildmaster (3) and demote previous owner to officer (2)
+        return
 
     def _sendStatus(self,avatarId):
         self.tallyFunction("_sendStatus")
@@ -769,7 +777,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         isOnline = self.isAvatarOnline.get(avatarId, OFFLINE)
         bandManagerId, bandId = self.avatarId2BandId.get(avatarId, (0,0))
         self.sendUpdateToGuildChannel(guildId, 'recvMemberAdded',
-                                      [(avatarId, name, rank, isOnline, bandManagerId, bandId)])
+                                      [(avatarId, name, rank, isOnline, bandManagerId, bandId, inviterId, inviterName)])
 
         self.air.writeServerEvent('sendTokenForJoinRequest', self.redeemTokenRequestId2AvatarId[requestId], '%s|1' % (token))
         # Now, remove the timestamp from self.redeemTokenTimeStamps
@@ -958,4 +966,11 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         victimRank = self._getGuildRank(avatarId)
 
         self.db.removeMember(avatarId, victimGuild, victimRank)
-        self.sendUpdateToGuildChannel(victimGuild, 'recvMemberRemoved', [avatarId])
+        self.sendUpdateToGuildChannel(victimGuild, 'recvMemberRemoved', [avatarId, senderId, avatarName, senderName])
+
+    # Finish me!
+    def notifyGuildKicksMaxed(self):
+        self.tallyFunction("notifyGuildKicksMaxed")
+        # GUILDRANK_OFFICER can only kick up to 5 people each day
+        # perhaps also update def removeMember
+        return

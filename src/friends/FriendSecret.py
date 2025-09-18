@@ -697,7 +697,7 @@ class FriendSecret(DirectFrame, StateData.StateData):
             # NOTE: this uses generic text, if you want game-specific text, please inherit and override
             # (see $TOONTOWN/src/friends/ToontownFriendSecret.py for an example)
             self.nextText['text'] = OTPLocalizer.FriendSecretDetermineSecret
-            self.nextText.setPos(0, 0, 0.30)
+            self.nextText.setPos(0, 0, 0.3)
             self.nextText.show()
             self.avatarButton.show()
             self.accountButton.show()
@@ -724,7 +724,7 @@ class FriendSecret(DirectFrame, StateData.StateData):
         assert self.notify.debugCall()
         self.__cleanupFirstPage()
         self.nextText['text'] = OTPLocalizer.FriendSecretGettingSecret
-        self.nextText.setPos(0, 0, 0.30)
+        self.nextText.setPos(0, 0, 0.3)
         self.nextText.show()
         self.avatarButton.hide()
         self.accountButton.hide()
@@ -841,7 +841,7 @@ class FriendSecret(DirectFrame, StateData.StateData):
                     base.cr.playerFriendsManager.sendRequestUseUnlimitedSecret(secret)
 
         self.nextText['text'] = OTPLocalizer.FriendSecretTryingSecret
-        self.nextText.setPos(0, 0, 0.30)
+        self.nextText.setPos(0, 0, 0.3)
         self.nextText.show()
         self.ok1.hide()
         self.cancel.show()

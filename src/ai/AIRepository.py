@@ -176,6 +176,8 @@ class AIRepository(ConnectionRepository):
         self.connectionName = None
         self.connectionURL = None
 
+        self.trackClsends = ConfigVariableBool('track-clsends', True).getValue()
+
     def _startPerformanceLogging(self, task=None):
         period = ConfigVariableDouble(
             'ai-performance-log-period',
@@ -1884,6 +1886,6 @@ class AIRepository(ConnectionRepository):
 
 
     ###############################################################
-    # 
+    # This can be used to track how many clsends an avatar sends
     def getTrackClsends(self):
-        return ConfigVariableBool("track-clsends", True).getValue()
+        return self.trackClsends

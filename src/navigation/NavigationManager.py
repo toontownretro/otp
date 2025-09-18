@@ -1,5 +1,6 @@
 import string
-import md5
+#import md5
+import hashlib
 import subprocess
 import pickle as pickle
 import time
@@ -88,7 +89,7 @@ class NavigationManager(object):
 
         monsterData = string.join(monsterData, "")
 
-        hash = md5.new(monsterData)
+        hash = hashlib.md5(monsterData)
 
         return hash.digest()
 

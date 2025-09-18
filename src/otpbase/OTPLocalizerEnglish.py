@@ -834,7 +834,7 @@ GuildInviterFriendDemotedP = "%s have demoted %s to the rank of %s."
 GuildInviterFriendPromotedGM = "%s has named %s as the new %s"
 GuildInviterFriendPromotedGMP = "%s have named %s as the new %s"
 GuildInviterFriendDemotedGM = "%s has been named by %s as the new GuildMaster who became the rank of %s"
-GuildInviterFriendDemotedGMP = "%s have been named by %s as the new GuildMaster who beaome the rank of %s"
+GuildInviterFriendDemotedGMP = "%s have been named by %s as the new GuildMaster who became the rank of %s"
 
 # FriendInviter.py
 FriendOnline = "has come online."
@@ -960,14 +960,14 @@ EmoteWhispers = [
     "%s is delighted.",
     "%s is furious.",
     "%s is laughing.",
-    "is singing note G1",
-    "is singing note A",
-    "is singing note B",
-    "is singing note C",
-    "is singing note D",
-    "is singing note E",
-    "is singing note F",
-    "is singing note G2"
+    "%s is singing note G1",
+    "%s is singing note A",
+    "%s is singing note B",
+    "%s is singing note C",
+    "%s is singing note D",
+    "%s is singing note E",
+    "%s is singing note F",
+    "%s is singing note G2",
     ]
 
 # Reverse lookup:  get the index from the name.
@@ -1080,7 +1080,7 @@ SuitFaceoffTaunts = {
             "I've been told I'm very strong.",
             "Careful, I know your expiration date.",
             "Watch out, I'm a whiz at this game.",
-            "Beating you will be a brieeze.",
+            "Beating you will be a breeze.",
             ],
     'cr': ["RAID!",
            "You don't fit in my corporation.",
@@ -2492,7 +2492,7 @@ SpeedChatStaticTextToontown = {
     30113 : "Pluto is in Melodyland.",
     30114 : "Donald is sleepwalking at the Speedway.",
     30115 : "Goofy is in Dreamland.",
-    
+
     30120 : "Mickey is acting like Daisy!",
     30121 : "Daisy is acting like Mickey!",
     30122 : "Minnie is acting like Pluto!",
@@ -2500,7 +2500,7 @@ SpeedChatStaticTextToontown = {
     30124 : "Pluto is talking!",
     30125 : "Goofy is acting like Donald!",
     30126 : "Donald is dreaming he is Goofy!",
-    
+
     30130 : "Watch how far I can jump.",
     30131 : "Wow, you jumped really far!",
     30132 : "Hey, Doodles can talk!",
@@ -2552,7 +2552,7 @@ SpeedChatStaticTextToontown = {
     #30192 : "Don't be mean, give a bean!",
     #30193 : "Who wants jellybeans?",
     #30194 : "Dance for jellybeans!",
-    
+
     # Phrases for Jellybean Jam
     30180 : "I got double jellybeans on the Trolley!",
     30181 : "I got double jellybeans from fishing!",
@@ -2569,7 +2569,7 @@ SpeedChatStaticTextToontown = {
     30192 : "Don't be mean, give a bean!",
     30193 : "Who wants jellybeans?",
     30194 : "Dance for jellybeans!",
-    
+
     # Phrases for caroling
     30200 : "Deck the halls... ",
     30201 : "Load some pies...",
@@ -2577,7 +2577,7 @@ SpeedChatStaticTextToontown = {
     30203 : "Snowman heads...",
     30204 : "Toontown's merry...",
     30205 : "Lure good cheer...",
-    
+
     30220 : "Deck the halls with seltzer spray!\nHappy Winter Holiday!",
     30221 : "Load some pies into your sleigh!\nHappy Winter Holiday!",
     30222 : "Joyful toons bring Cogs dismay!\nHappy Winter Holiday!",
@@ -2593,8 +2593,8 @@ SpeedChatStaticTextToontown = {
     # Phrases for Christmas
     30275: "Happy holidays!",
     30276: "Season's greetings!",
-    30277: "Have a Wonderful Winter!",    
-    
+    30277: "Have a Wonderful Winter!",
+
     # Phrases for Silly Story
     30301 : "Have you seen the Silly Meter?",
     30302 : "The Silly Meter is in Toon Hall.",
@@ -2604,7 +2604,7 @@ SpeedChatStaticTextToontown = {
     30306 : "Have you been to Flippy's new office?",
     30307 : "I caused a Silly Surge in battle!",
     30308 : "Let's defeat some Cogs to make Toontown sillier!",
-    
+
     30309 : "The Silly Meter is bigger and crazier than ever!",
     30310 : "Lots of hydrants have come alive!",
     30311 : "I saw a mail box moving!",
@@ -2614,7 +2614,7 @@ SpeedChatStaticTextToontown = {
     30315 : "Something silly, I bet!",
     30316 : "Have you caused a Silly Surge yet?",
     30317 : "Let's defeat some Cogs to make Toontown sillier!",
-    
+
     30318 : "Cog Invasion!",
     30319 : "Incoming!",
     30320 : "Let\'s stop those Cogs!",
@@ -2625,20 +2625,20 @@ SpeedChatStaticTextToontown = {
     30325 : "My favorites are the fire hydrants!",
     30326 : "My favorites are the mailboxes!",
     30327 : "My favorites are the trash cans!",
-    
+
     30328 : "Hooray! We stopped the Cog invasions!",
     30329 : "A hydrant helped me in battle!",
     30330 : "A hydrant boosted my Squirt Gags!",
     30331 : "A trash can boosted my Toon-Up Gags!",
     30332 : "A mailbox helped my Throw Gags!",
-    
+
     # Phrases for Victory Parties (warning 30400 is in use)
     30350 : "Welcome to my Victory Party!",
     30351 : "This is a great Victory Party!",
     30352 : "We showed those Cogs who's boss!",
     30353 : "Good job helping end the Cog invasions!",
     30354 : "I bet this is driving the Cogs crazy!",
-    
+
     30355 : "Let's play Cog-O-War!",
     30356 : "My team won at Cog-O-War!",
     30357 : "It's nice to have fire hydrants, trash cans, and mailboxes here!",
@@ -2648,30 +2648,30 @@ SpeedChatStaticTextToontown = {
     30361 : "I jumped on a Cog's face!",
 
     # Phrases for Sellbot Field Offices
-    30400: "The Sellbots are invading!",
-    30401: "The V.P. was hopping mad about Operation: Storm Sellbot ...",
-    30402: "He's sending the Sellbots in to invade Toontown!",
-    30403: "Let's go fight some Sellbots!",
-    30404: "There's a new kind of building in Toontown!",
-    30405: "Have you seen the Mover & Shaker Field Offices?",
-    30406: "The V.P. created them as a reward for the Movers & Shakers.",
-    30407: "Let's go defeat a Field Office!",
-    30408: "I got an SOS Card for defeating a Field Office!",
-    30409: "Clear the map by exploring the maze.",
-    30410: "Destroy the Cogs by hitting them with water balloons!",
-    30411: "Movers & Shakers take two balloons to destroy.",
-    30412: "Look out for falling objects!",
-    30413: "Watch out for the Cogs!",
-    30414: "Collect Jokes to get a Toon-up at the end!",
-    30415: "When the room shakes, a Mover & Shaker is nearby.",
-    30416: "Defeat all four Mover & Shakers to open the exit!",
-    30417: "The exit is open!",
-    30418: "It's the Boss!",
+    30400 : "The Sellbots are invading!",
+    30401 : "The V.P. was hopping mad about Operation: Storm Sellbot ...",
+    30402 : "He's sending the Sellbots in to invade Toontown!",
+    30403 : "Let's go fight some Sellbots!",
+    30404 : "There's a new kind of building in Toontown!",
+    30405 : "Have you seen the Mover & Shaker Field Offices?",
+    30406 : "The V.P. created them as a reward for the Movers & Shakers.",
+    30407 : "Let's go defeat a Field Office!",
+    30408 : "I got an SOS Card for defeating a Field Office!",
+    30409 : "Clear the map by exploring the maze.",
+    30410 : "Destroy the Cogs by hitting them with water balloons!",
+    30411 : "Movers & Shakers take two balloons to destroy.",
+    30412 : "Look out for falling objects!",
+    30413 : "Watch out for the Cogs!",
+    30414 : "Collect Jokes to get a Toon-up at the end!",
+    30415 : "When the room shakes, a Mover & Shaker is nearby.",
+    30416 : "Defeat all four Mover & Shakers to open the exit!",
+    30417 : "The exit is open!",
+    30418 : "It's the Boss!",
 
     # Phrases for Ides Of March
-    30450: "It's easy to be green!",
-    30451: "Visit Green Bean Jeans and you can be green too!",
-    30452: "It's on Oak Street in Daisy Gardens.",
+    30450 : "It's easy to be green!",
+    30451 : "Visit Green Bean Jeans and you can be green too!",
+    30452 : "It's on Oak Street in Daisy Gardens.",
 
     # Phrases for Lawbot Nerf Event
     30460 : "Operation: Lawbots Lose is here!",
@@ -2700,7 +2700,7 @@ SpeedChatStaticTextToontown = {
     30483 : "When the Cogs get evidence in the scale, the CJ turns green!",
     30484 : "Something cool happens if we stun all the Cogs at once!",
     30485 : "Throw evidence at Toons to give them a Toon-up!",
-    
+
     # Phrases for Singing
 ##    9000 : 'Middle ' + 'G1',
 ##    9001 : 'Middle ' + 'A',
@@ -2822,11 +2822,11 @@ SpeedChatStaticTextPirates = {
     51510 : "Let's sail to Cutthroat.",
     51511 : "Let's sail to Rumrunner's Isle.",
     51512 : "Let's sail to Isla Cangrejos.",
-    
+
     # PLACES - LETS HEAD TO...
     51600 : "Let's head into town.",
     51601 : "Let's go to the docks.",
-    51602 : "Let's head to the tavern.",    
+    51602 : "Let's head to the tavern.",
 
     # PLACES - LETS HEAD TO... - PORT ROYAL
     51800 : "Let's go to Fort Charles.",
@@ -2868,7 +2868,7 @@ SpeedChatStaticTextPirates = {
     50305 : "Yer not so bad yerself!",
     50306 : "A fine plunder haul!",
 
-    # Adventures
+    # Grandfathered Adventures
     50500 : "Let's set sail!",
     50501 : "Get onboard! We're leaving port!",
     50502 : "Let's get to plunderin!",
@@ -2877,7 +2877,7 @@ SpeedChatStaticTextPirates = {
     50505 : "Let's use a Treasure Map!",
     50506 : "Let's head back to Port!",
 
-    # Ships
+    # Grandfathered Ships
     50600 : "Port side! (left)",
     50601 : "Starboard side! (right)",
     50602 : "Incoming!",
@@ -2958,7 +2958,7 @@ SpeedChatStaticTextPirates = {
     53166 : "I'll do it!",
     53167 : "Keep it up, this ship won't repair itself!",
     53168 : "Great job repairing the ship!",
-    
+
     # Invitations
     52100 : "Want to group up?",
     52101 : "Join me crew?",
@@ -3104,8 +3104,8 @@ SpeedChatStaticTextPirates = {
 
     65000 : "Yes",
     65001 : "No",
-    
-    65009 : "Check hand",
+
+    60909 : "Check Hand",
     }
 
 SpeedChatStaticText = SpeedChatStaticTextCommon
@@ -3133,6 +3133,8 @@ Emotes = (60505, 60506, 60509, 60510, 60511, 60516, 60519, 60520, 60521, 60522, 
           60517,
           # New Years Emote
           60678,
+          # Raven's Cove Check Hand Emote
+          60909,
           )
 
 # These indexes, defined above, will construct a submenu in the FACTORY menu
@@ -3541,6 +3543,8 @@ CustomSCStrings = {
     11018 : "Snow far, snow good!",
     11019 : "Yule be sorry!",
     11020 : "Have a Wonderful Winter!",
+    11021 : "The Holiday Party decorations are Toontastic!",
+    11022 : "Toon Troopers are hosting Holiday Parties!",
 
     # Valentines
     12000 : "Be mine!",
@@ -3805,13 +3809,13 @@ AprilToonsMenuSections = [
 ]
 
 SillyHolidayMenuSections = [
- -1,
- "WORLD",
- "BATTLE",
+-1,
+"WORLD",
+"BATTLE",
 ]
 
 CarolMenuSections = [
- -1,
+-1,
 ]
 
 VictoryPartiesMenuSections = [
@@ -3828,59 +3832,59 @@ GolfMenuSections = [
 ]
 
 BoardingMenuSections = [
- "GROUP",
- "Let's go to...",
- "We're going to...",
- -1,
+"GROUP",
+"Let's go to...",
+"We're going to...",
+-1,
 ]
 
 SellbotNerfMenuSections = [
- -1, 
- 'GROUPING', 
- 'SELLBOT TOWERS/VP',
+-1,
+"GROUPING",
+"SELLBOT TOWERS/VP",
 ]
 
 LawbotNerfMenuSections = [
- -1, 
- 'GROUPING',
- 'COURTHOUSE/CJ',
+-1,
+"GROUPING",
+"COURTHOUSE/CJ",
 ]
 
 JellybeanJamMenuSections = [
- 'GET JELLYBEANS', 
- 'SPEND JELLYBEANS',
-#'JELLYBEAN PARTIES',
+"GET JELLYBEANS",
+"SPEND JELLYBEANS",
+#"JELLYBEAN PARTIES",
 ]
 
 WinterMenuSections = [
- 'CAROLING', 
- -1,
+"CAROLING",
+-1,
 ]
- 
+
 HalloweenMenuSections = [
- -1
+-1
 ]
 
 SingingMenuSections = [
- -1
+-1
 ]
 
 WhiteListMenu = [
- -1,
- "WHITELIST"
+-1,
+"WHITELIST"
 ]
 
 SellbotInvasionMenuSections = [
- -1,
+-1,
 ]
 
 SellbotFieldOfficeMenuSections = [
- -1,
- 'STRATEGY',
+-1,
+"STRATEGY",
 ]
 
 IdesOfMarchMenuSections = [
- -1,
+-1,
 ]
 
 # TTAccount.py

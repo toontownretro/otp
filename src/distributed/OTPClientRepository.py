@@ -215,7 +215,8 @@ class OTPClientRepository(ClientRepositoryBase):
         else:
             self.notify.error("The required-login was not recognized.")
 
-        self.computeValidateDownload()
+        #self.computeValidateDownload()
+        self.validateDownload = ''
 
         # Has the user provided a password to enable magic words?
         self.wantMagicWords = ConfigVariableString('want-magic-words', '').getValue()
@@ -2062,7 +2063,7 @@ class OTPClientRepository(ClientRepositoryBase):
 
     @report(types = ['args', 'deltaStamp'], dConfigParam = 'teleport')
     def handleSetShardComplete(self):
-        self.cleanupWaitingForDatabase()
+        #self.cleanupWaitingForDatabase()
         # Eventually, this should do some error checking, for now I'll
         # assume that everything is AOK
         hoodId = self.handlerArgs["hoodId"]
@@ -2973,13 +2974,13 @@ class OTPClientRepository(ClientRepositoryBase):
                 currentGameStateName = currentGameState.getName()
             else:
                 currentGameStateName = "None"
-            ClientRepositoryBase.notify.warning(
-                "Ignoring unexpected message type: " +
-                str(msgType) +
-                " login state: " +
-                currentLoginStateName +
-                " game state: " +
-                currentGameStateName)
+            #ClientRepositoryBase.notify.warning(
+            #    "Ignoring unexpected message type: " +
+            #    str(msgType) +
+            #    " login state: " +
+            #    currentLoginStateName +
+            #    " game state: " +
+            #    currentGameStateName)
 
     def gotInterestDoneMessage(self, di):
         # We just received this message from the server; decide if we

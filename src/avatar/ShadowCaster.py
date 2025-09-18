@@ -192,14 +192,16 @@ class ShadowCaster:
 
     def hideShadow(self):
         assert self.notify.debugStateCall(self)
-        self.dropShadow.hide()
+        if self.dropShadow != None:
+            self.dropShadow.hide()
 
     def showShadow(self):
         assert self.notify.debugStateCall(self)
-        if not globalDropShadowFlag:
-            self.dropShadow.hide()
-        else:
-            self.dropShadow.show()
+        if self.dropShadow != None:
+            if not globalDropShadowFlag:
+                self.dropShadow.hide()
+            else:
+                self.dropShadow.show()
 
     def __globalDropShadowFlagChanged(self):
         if (self.dropShadow != None):

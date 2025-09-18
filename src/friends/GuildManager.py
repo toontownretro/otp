@@ -171,7 +171,7 @@ class GuildManager(DistributedObjectGlobal):
         Returns None if  avId is not in guild.
         """
         if self.isInGuild(avId):
-            myRank = localAvatar.getGuildRank()
+            myRank = self.id2Rank.get(localAvatar.doId, localAvatar.getGuildRank())
             hisRank = self.id2Rank[avId]
 
             canpromote = False
@@ -179,11 +179,12 @@ class GuildManager(DistributedObjectGlobal):
             cankick = False
 
             if myRank == GUILDRANK_GM:
-                if hisRank == GUILDRANK_OFFICER:
-                    candemote = True
-                elif hisRank == GUILDRANK_MEMBER:
-                    canpromote = True
+                canpromote = True
+                candemote = True
+                cankick = True
+
             if myRank > GUILDRANK_MEMBER and \
+               myRank != GUILDRANK_VETERAN and \
                hisRank <= GUILDRANK_MEMBER or \
                hisRank == GUILDRANK_VETERAN:
                 cankick = True

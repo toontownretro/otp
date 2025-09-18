@@ -2,3 +2,7 @@ from direct.distributed.DistributedObjectGlobalAI import DistributedObjectGlobal
 
 class CentralLoggerAI(DistributedObjectGlobalAI):
     pass
+
+    # ...?
+    def logAIGarbage(self):
+        pass

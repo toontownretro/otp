@@ -1,3 +1,8 @@
+"""
+Python implementation of clsend logging.
+For the C++ code refer to $DIRECT/src/distributed/cConnectionRepository
+"""
+
 from otp.otpbase.OTPModules import StringStream
 from direct.distributed.PyDatagram import PyDatagram
 import random

@@ -40,6 +40,9 @@ from otp.avatar import AvatarHandle
 typedef uint8 bool;
 
 typedef uint32 DoId;
+
+typedef uint32 ZoneId;
+
 typedef DoId [] DoIdList;
 
 // a pair of longs used to hold avatar id and delete time in DB
@@ -671,6 +674,7 @@ dclass GuildManager: DistributedObject, LeaderBoardReceiver, TalkPath_group {
   setWantName(string(0-256) newName) airecv clsend;     // CL -> UD
   removeMember(uint32 avatarId) airecv clsend;   // CL -> UD
   changeRank(uint32 avatarId, uint8 rank) airecv clsend;  // CL -> UD
+  changeRankAvocate(uint32 avatarId) airecv clsend;  // CL -> UD
   statusRequest() airecv clsend;                 // CL -> UD
   requestLeaderboardTopTen() airecv clsend;      // CL -> UD
   guildStatusUpdate(uint32 guildId, string(0-256) guildname, uint8 rank); // CL -> UD
@@ -715,11 +719,12 @@ dclass GuildManager: DistributedObject, LeaderBoardReceiver, TalkPath_group {
   // sendEmailNotificationPrefUpdate(int8 notify, string emailAddress) airecv clsend;
 
   sendAvatarBandId(uint32 avatarId, uint32 bandManagerId, uint32 bandId);
-  recvMemberAdded(MemberInfo info);
+  recvMemberAdded(MemberInfo info, uint32 inviterId, string inviterName);
   // (uint32 avatarId, string avatarName, uint8 rank, uint8 rank, uint32 bandManagerId, uint32 bandId);
-  recvMemberRemoved(uint32 avatarId);
+  notifyGuildKicksMaxed();
+  recvMemberRemoved(uint32 avatarId, uint32 senderId, string avatarName, string senderName);
   recvMemberUpdateName(uint32 avatarId, string name);
-  recvMemberUpdateRank(uint32 avatarId, uint8 rank);
+  recvMemberUpdateRank(uint32 avatarId, uint32 senderId, string avatarName, string senderName, uint8 rank, bool promote);
   recvMemberUpdateBandId(uint32 avatarId, uint32 bandManagerId, uint32 bandId);
 
   avatarOnline(uint32 avatarId, uint16 avatarType); // AvatarMgrUD to AvatarFriendMgrUD

@@ -30,6 +30,7 @@ DialogOK = lOK
 DialogCancel = lCancel
 DialogYes = lYes
 DialogNo = lNo
+DialogDoNotShowAgain = "Do Not\nShow Again"
 
 # DistributedAvatar.py
 WhisperNoLongerFriend = "%s ha abandonado tu lista de amigos."
@@ -42,6 +43,9 @@ WhisperIgnored = "¡%s no te está haciendo caso!"
 TeleportGreeting = "Hola, %s."
 WhisperFriendComingOnline = "¡%s se está conectando!"
 WhisperFriendLoggedOut = "%s ha cerrado la sesión."
+WhisperPlayerOnline = "%s logged into %s"
+WhisperPlayerOffline = "%s is offline."
+WhisperUnavailable = "That player is no longer available for whispers."
 
 DialogSpecial = "ooo"
 DialogExclamation = "!"
@@ -56,6 +60,9 @@ ChatInputWhisperLabel = "A %s"
 # ChatInputSpeedChat.py
 SCEmoteNoAccessMsg = "Todavía no tienes acceso\n a este emoticono."
 SCEmoteNoAccessOK = lOK
+
+ParentLogin = "Parent Login"
+ParentPassword = "Parent Account Password"
 
 # ChatGarbler.py
 ChatGarblerDefault = ["bla"]
@@ -72,18 +79,35 @@ UnpaidChatWarning = 'Cuando te hayas suscrito, podrás usar este botón para cha
 UnpaidChatWarningPay = "¡Suscríbete ya!"
 UnpaidChatWarningContinue = "Continuar prueba gratuita"
 PaidNoParentPasswordWarning = 'Una vez creada la contraseña parental, podrás activar este botón para charlar con tus amigos mediante el teclado. Hasta entonces, puedes usar la herramienta Charla rápida para conversar con los demás dibus.'
+UnpaidNoParentPasswordWarning = 'This is for SpeedChat Plus, which allows users to chat by typing words found in the Disney SpeedChat Plus dictionary. To activate this feature, exit Toontown and click on Membership. Select Manage Account and log in to edit your "Community Settings." If you are under 18, you need a Parent Account to manage these settings.'
 PaidNoParentPasswordWarningSet = "Crear la contraseña parental ahora"
 PaidNoParentPasswordWarningContinue = "Seguir jugando"
+PaidParentPasswordUKWarning = 'Once you have Enabled Chat, you can enable this button to chat with your friends using the keyboard. Until then, you should chat with other Toons using SpeedChat.'
+PaidParentPasswordUKWarningSet = "Enable Chat Now!"
+PaidParentPasswordUKWarningContinue = "Continue Playing Game"
 NoSecretChatWarningTitle = "Controles parentales"
 NoSecretChatWarning = 'Para que sea posible charlar con un amigo, la herramienta Amigos secretos debe estar activada. Para saber más cosas sobre la herramienta Amigos secretos y acceder a los controles parentales, diles a tus padres que abran la sesión con su contraseña parental.'
+RestrictedSecretChatWarning = 'To get or enter a True Friend Code, log in with the Parent Account. You can disable this prompt by changing your True Friends options.'
 NoSecretChatWarningOK = lOK
 NoSecretChatWarningCancel = lCancel
 NoSecretChatWarningWrongPassword = 'Esa contraseña no es correcta. Introduce la contraseña parental que se creó al adquirir esta cuenta. No se trata de la misma contraseña que se emplea para jugar al juego.'
 NoSecretChatAtAllTitle = "Charla de Amigos secretos"
 # not sure what this should do in the new world order
 NoSecretChatAtAll = 'Para charlar con un amigo, la herramienta Amigos secretos debe estar activada. La herramienta Amigos secretos permite a un miembro charlar con otro gracias al uso de un código secreto que se debe comunicar fuera del juego.\n\nPara activar esta herramienta sal de Toontown y actívala a través de Los Controles Parentales en Conecta Disney'
+NoSecretChatAtAllAndNoWhitelistTitle = "Chat button"
 # not sure what this should do in the new world order
+NoSecretChatAtAllAndNoWhitelist = 'You can use the blue Chat button to communicate with other Toons by using Speechat Plus or Open Chat with True Friends.\n\nSpeedchat Plus is a form of type chat that allows users to communicate by using the Disney SpeedChat Plus dictionary.\n\nOpen Chat with True Friends allows real-life friends to chat openly with each other by means of a True Friend Code that must be shared outside of the game.\n\nTo activate these features or to learn more, exit Toontown and then click on Membership and select Manage Account. Log in to edit your "Community Settings." If you are under 18, you need a Parent Account to manage these settings.'
 NoSecretChatAtAllOK = lOK
+ChangeSecretFriendsOptions = "Change True Friends Options"
+ChangeSecretFriendsOptionsWarning = '\nPlease enter the Parent Account Password to change your True Friends options.'
+ActivateChatTitle = "True Friends Options"
+
+WhisperToFormat = "To %s %s"
+WhisperToFormatName = "To %s"
+WhisperFromFormatName = "%s whispers"
+
+ThoughtOtherFormatName = "%s thinks"
+ThoughtSelfFormatName = "You think"
 
 from otp.otpbase.OTPModules import TextProperties
 from otp.otpbase.OTPModules import TextPropertiesManager
@@ -131,16 +155,358 @@ La herramienta Amigos secretos no está moderada ni supervisada. Si los padres p
 
 Al activar la herramienta Amigos secretos, los padres reconocen que existen ciertos riesgos inherentes a la posibilidad de charla de la herramienta y reconocen que han sido informados sobre dichos riesgos y están de acuerdo en aceptarlos."""
 
-ActivateChatYes = "Activar"
+#ActivateChatYes = "Activar"
+ActivateChatYes = "Update"
 ActivateChatNo = lCancel
 ActivateChatMoreInfo = "Más información"
 ActivateChatPrivacyPolicy = "Normas de confidencialidad"
 
-PrivacyPolicyText_1A = [""" """]
-PrivacyPolicyText_1K = [""" """]
-PrivacyPolicyText_2A = [""" """]
-PrivacyPolicyText_2K = [""" """]
-PrivacyPolicyText_Intro = [""" """]
+#ActivateChatPrivacyPolicy_Button1A = "Version 1 for non-children"
+#ActivateChatPrivacyPolicy_Button1K = "Version 1 for children"
+#ActivateChatPrivacyPolicy_Button2A = "Version 2 for non-children"
+#ActivateChatPrivacyPolicy_Button2K = "Version 2 for children"
+ActivateChatPrivacyPolicy_Button1A = "Version 1"
+ActivateChatPrivacyPolicy_Button1K = "Version 1"
+ActivateChatPrivacyPolicy_Button2A = "Version 2"
+ActivateChatPrivacyPolicy_Button2K = "Version 2"
+
+PrivacyPolicyText_1A = [
+"""
+Privacy Policy
+
+Q1 What types of information are WDIG sites collecting, and how are the sites collecting it?
+
+The majority of great products and services on our sites are offered without our collecting any personally identifiable information from you. You can surf WDIG's Web sites and view much of our terrific content anonymously. For instance, you can view news headlines at ABCNEWS.com without giving out any personally identifiable information.
+
+Information You Provide
+There are a few activities on our sites where the collection of personally identifiable information is necessary. Those activities include things like entering a contest or sweepstakes, making a purchase, or contacting us. When personally identifiable information is collected, you will know because you will have to fill out a form. For most activities, we collect only your name, e-mail address, birth date, gender, and zip code. When you make a purchase, we also collect your street and billing addresses, your phone number, and credit card information. Depending on what you purchase, we may also need to collect other personal information, like your clothing size.
+""","""
+Information Collected from You with Technology
+WDIG sites collect some information about you using technology, so it may not be readily apparent to you that it is being collected. For instance, when you come to our site your IP address is collected so that we know where to send information you are requesting. An IP address is often associated with the place from which you enter the Internet like your ISP (Internet service provider), your company, or your university. This information is not personally identifiable. WDIG sites use information collected through technology to make our sites more interesting and useful to you. This includes helping advertisers on our site design advertisements our Guests might like. We normally don't combine this type of information with personally identifiable information. However, we will combine this information with personally identifiable information to identify a visitor in order to enforce compliance with our house rules or terms of service or to protect our service, site, Guests, or others.
+
+What Are Cookies, and How Does WDIG Use Them?
+Cookies are pieces of information that a Web site sends to your computer while you are viewing the Web site. These pieces of information allow the Web site to remember important information that will make your use of that site more useful. WDIG and other Internet companies use cookies for a variety of purposes. For instance, DisneyStore.com uses cookies to remember and process the items in your shopping cart, and all WDIG sites use cookies to make sure kids don't enter unmoderated chat rooms.
+
+You can choose to have your computer warn you each time a cookie is being sent, or you can choose to turn off all cookies. You do this through your browser (like Netscape Navigator or Internet Explorer) settings. Each browser is a little different, so look at your browser Help menu to learn the correct way to modify your cookies. If you turn cookies off, you won't have access to many WDIG features that make your Web experience more efficient -- like the features mentioned above -- and some of our services will not function properly.
+""","""
+Q2 How does WDIG use the personally identifiable information that has been collected?
+
+WDIG uses personally identifiable information in a limited number of ways. We use the information to complete transactions. For instance, if you purchase a fantasy team on ESPN.com, we use your information to process your order, or if you contact us for help we will use the information to contact you. We use information collected to notify you if you've won a game or contest. Information we collect is used to send you e-mail updates and newsletters about our sites. We also use the information you provide to send you WDIG e-mail promotions and special offers from our third-party sponsors.
+""","""
+Q3 Does WDIG share information with companies or other organizations that are not part of the WDIG family of sites?
+
+One of the most valuable assets of our business is you. We aren't in the business of selling information about our Guests. However, if there is a value for our Guests, we will share your information or send you messages on behalf of another company as described below. We will also share information for security reasons.
+Companies That Are "Standing in the Shoes" of WDIG
+Sometimes we hire companies to help us deliver products or services, like a shipping company that delivers a package. In those instances, we need to share your information with them. These companies are basically "standing in the shoes" of WDIG, and they are allowed to use the information only to deliver the product or service.
+""","""
+Companies Offering Promotions, Products, or Services
+On occasion, we offer promotions -- like sweepstakes or free subscriptions -- in conjunction with a sponsor. We will share your information with the sponsors if they need it to send you a product, such as a magazine subscription. We may share your information with those sponsors so that they can send you other special promotions they offer, but only if you give us your permission to do so, and we will share it only with that specific sponsor. In addition, WDIG occasionally sends e-mail promotions out to our Guests on behalf of third-party sponsors. In this instance, we don't share your name with the third party -- we do the mailing for them. Again, we only send these promotions to you if you've given your permission.
+
+Content Partners
+On some of our sites, we provide content that is created by a third-party partner Web site. For instance, ESPN.com provides shopping opportunities with third parties. In some instances the third-party sites will collect information in order to facilitate the transaction or to make the use of their content more productive and efficient. In these circumstances the information collected is shared between WDIG and our third-party sponsors.
+
+Third-Party Advertisers and Network Advertisers
+To help increase privacy protections for our Guests, WDIG allows advertising on our sites from only those companies that have their own privacy policy. Once you've clicked on an advertisement and have left WDIG sites, our privacy policy no longer applies. You must read the privacy policy of the advertiser to see how your personal information will be handled on their site.
+""","""
+In addition, many business advertisements are managed and placed on our site by third-party companies. These companies are called "network advertisers." Network advertisers collect non-personally identifiable information when you click on or scan one of their banner advertisements. The information is collected using technology, so you may not realize it's being collected. The network advertisers collect this information so that they can show you ads that are more relevant and interesting to you. If you would like to read more about network advertisers or do not want network advertisers to collect this non-personally identifiable information about you, click here.
+
+Purchase or Sale of Businesses
+Online business is still in a very early stage and is changing and evolving rapidly. As WDIG continually looks for ways to improve our business, we may buy or sell a company. If we buy or sell a business, the names collected will likely be transferred as a part of the sale. Information about registrants will be used in the aggregate. However, if we buy a business, we will honor the requests that customers made of that business regarding e-mail communications. In the event that we sell a business, we will do everything in our power to ensure that the e-mail communications requests you made of us are honored.
+
+Organizations That Help Protect the Security and Safety of Our Guests and Our Sites
+We will give out personal information as required by law, for example, to comply with a court order or subpoena; to enforce our Terms of Service, or site or game rules; or to protect the safety and security of Guests and our sites.
+""","""
+Q4 What choices do I have about WDIG collecting, using, and sharing my information?
+
+It is possible for you to use much of our site without giving us any personally identifiable information. When you do register with us or give us personally identifiable information, you will have an opportunity at the time we collect your information -- to limit e-mail communications from WDIG and from our third-party partners. You can request at any time that WDIG not send future e-mail to you either by unsubscribing from the communication or by contacting us at memberservices@help.go.com. Also, as mentioned above, there are ways to limit the information collected through technology -- though some of our features won't work if you decide to do this.
+""","""
+Q5 What type of security does WDIG provide?
+
+The importance of security for all personally identifiable information associated with our Guests is of utmost concern to us. WDIG takes technical, contractual, administrative, and physical security steps to protect all visitors' information. When you provide credit card information, we use secure socket layer (SSL) encryption to protect it. There are some things that you can do to help protect the security of your information as well. For instance, never give out your Password, since this is what is used to access all of your account information. Also remember to sign out of your account and close your browser window when you finish surfing the Web, so that other people using the same computer won't have access to your information.
+""","""
+Q6 How can I access my account information?
+
+You can access the personally identifiable information you gave us during registration at our Account Options center available from (http://play.toontown.com). Log-in with your account name and parent password. There are instructions on the start page to help you recover your password if you've forgotten it.
+You can also contact us by clicking "Contact Us" in the footer on any WDIG page and selecting "Registration/Personalization" in the drop down box, or send an e-mail directly to memberservices@help.go.com. Please include information in the e-mail that will help us identify your account so we can assist you with your inquiry or request.
+""","""
+Q7 Whom do I contact with questions or concerns about this privacy policy?
+
+If you need further assistance, please send an e-mail with your questions or comments to memberservices@help.go.com
+write us at:
+
+Member Services
+Walt Disney Internet Group
+506 2nd Avenue
+Suite 2100
+Seattle, WA 98104
+
+Walt Disney Internet Group is a licensee of the TRUSTe Privacy Program. If you believe that WDIG has not responded to your inquiry or your inquiry has not been satisfactorily addressed, please contact TRUSTe http://www.truste.org/users/users_watchdog.html.
+*You must be 18 or have the permission of your parent or guardian to dial this number.
+""",
+]
+PrivacyPolicyText_1K = [
+"""
+Kids' Privacy Policy:
+We recognize the need to provide additional privacy protections for kids who visit our sites.
+
+Q1 What types of information are WDIG sites collecting about kids who are 12 and younger?
+
+Children can surf Disney.com or other WDIG sites, view content, and play some games without any personally identifiable information being collected. In addition, we occasionally do host some moderated chat rooms where no personally identifiable information is collected or posted. However, in some areas it is necessary to collect personally identifiable information from kids to allow participation in an activity (like entering a contest) or to communicate with our community (via e-mail or message boards).
+WDIG believes it is good policy not to collect more personally identifiable information from kids 12 and younger than is necessary for them to participate in our online activities. In addition, be aware that all sites that are targeted to children 12 and younger are prohibited by law from collecting more information than they need.
+
+The only personally identifiable information we collect from kids is first name, parent's e-mail address, and child's birth date. We collect birth date to validate a Guest's age. We may also collect personal information, like a pet's name, to help Guests remember their Log-in Name and Password if they forget them.
+
+We also allow parents to request at any time that the information collected about their child be removed from our database. If you would like to deactivate your child's account, please send an e-mail message to ms_support@help.go.com with your child's Log-in Name and Password requesting that the account be cancelled.
+""","""
+Q2 How does WDIG use and share the personally identifiable information that has been collected?
+
+No information collected from Guests 12 and younger is used for any marketing or promotional purposes whatsoever, either inside or outside Walt Disney Internet Group's family of sites.
+The information collected about kids 12 and younger is used only by WDIG Web sites to provide services (such as calendars) or to conduct some games or contests. Although Guests 12 and younger may be allowed to participate in some contests where information is collected, notification and prizes are sent to the parents' or guardians' e-mail address provided during the initial registration process. Publication of contest winners' full names, ages, or images for individuals 12 and younger require parental or guardian consent. Sometimes a nonidentifiable version of a child's name will be published. In those circumstances, parents may not be contacted again for permission.
+
+We do not allow kids 12 and younger to participate in unmoderated chat rooms.
+
+We will give out personal information about kids if required by law, for example, to comply with a court order or subpoena; to enforce our Terms of Service, or site or game rules; or to protect the safety and security of Guests and our sites.
+""","""
+Q3 Does WDIG notify parents about the collection of information on kids 12 and younger?
+
+Any time children 12 and younger register with us, we send an e-mail notification to their parent or guardian. In addition, we require parents to give express permission before we will allow their children to use e-mail, message boards, and other features where personally identifiable information can be made public to the Internet and shared with users of all ages.
+We also give parents 48 hours to refuse any registrations kids make in order to play games and contests. If we don't hear back, we assume it's ok for a child to be registered with us. Once a child has registered, he or she will be allowed to enter any future registration-based games and contests, and parents aren't notified again. In this instance, we use the information collected only to notify parents when a child has won a game or contest. We don't use this information for any other purpose.
+""","""
+Q4 How do parents access information about their kids?
+
+Here are three methods to review the information that has been collected about children who are 12 and younger.
+
+When parents give their children access to interactive features like message boards, they are required to establish a family account. Once a family account is established, the primary account holder can review the personally identifiable information of all family member accounts including a child's. You can access this information by logging in to your family account at the Your Account home page.
+
+If you are not already a member of any of the WDIG sites, you can review your child's personally identifiable information by logging in to your child's account at the Account Options Home Page. You will need to have your child's account name and password. There are instructions on the Your Account home page to help you recover your child's password if they've forgotten it.
+
+You can also contact Customer Service to view the information that has been collected from or about your child by sending an e-mail to ms_support@help.go.com. If you have not yet established a family account, you will need to have your child's user name and password. Please include information (child's account name, parent email address) in the email that will help us identify your child's account so we can assist you with your inquiry or request.
+""","""
+Q5 What type of security does WDIG provide?
+
+The importance of security for all personally identifiable information associated with our guests is of utmost concern to us. WDIG takes technical, contractual, administrative, and physical security steps to protect all visitors' information. When you provide credit card information, we use secure socket layer (SSL) encryption to protect it. There are some things that you can do to help protect the security of your information as well. For instance, never give out your Password, since this is what is used to access all of your account information. Also remember to sign out of your account and close your browser window when you finish surfing the Web so that other people using the same computer won't have access to your information.
+""","""
+Q6 How will WDIG notify parents if this privacy policy changes?
+
+If WDIG changes this privacy policy, we will notify parents via e-mail.
+
+Q7 Whom do I contact with questions or concerns about this privacy policy?
+
+If you need further assistance, please send an e-mail with your questions or comments to ms_support@help.go.com
+write us at:
+
+Member Services
+Walt Disney Internet Group
+506 2nd Avenue
+Suite 2100
+Seattle, WA 98104
+or call us at (509) 742-4698
+
+Walt Disney Internet Group is a licensee of the TRUSTe Privacy Program. If you believe that WDIG has not responded to your inquiry or your inquiry has not been satisfactorily addressed, please contact TRUSTe http://www.truste.org/users/users_watchdog.html.
+*You must be 18 or have the permission of your parent or guardian to dial this number.
+""",
+]
+PrivacyPolicyText_2A = [
+"""
+Updated: 11/06/2003
+
+When you registered with our site, we pledged to handle the personal information you provided safely and with great respect, including being clear about how we collect and use your personal information. As part of this commitment, we want to advise you of important changes we are making to our general privacy policy. These changes will apply to personal information you provided in the past as well as any personal information you may provide in the future. A separate FAQ page is available providing a summary of the key changes. We are also making changes in the form of our Kids' privacy policy. We encourage you to review the updated privacy policies in their entirety.
+
+You may accept, or "opt in" to, the terms of the updated general privacy policy in multiple ways: you may accept through an e-mail, at log-in, or through the privacy policy links, such as this, on one of our family of sites; alternatively, you may accept the updated privacy policy as part of a purchase on one of our family of sites. If you decide not to accept the updated general privacy policy, your data will continue to be handled under the previous privacy policy, your access to certain services within our sites will be limited, and you will continue to receive emails from us in accordance with your existing contact permissions.
+
+Please note that all guests who register after November 5, 2003, will automatically be covered by the updated privacy policy and no further action is required.
+
+
+If you are an existing member and wish to accept, or OPT IN to, the changes, please select the ACCEPT Button.
+""","""
+For over 75 years, The Walt Disney Company has taken great pride in the relationships that it has developed with its guests. In keeping with this tradition, we at the Walt Disney Internet Group are dedicated to protecting your privacy and handling any personal information we obtain from you with care and respect. This Privacy Policy is designed to answer your questions regarding our privacy policies and principles.
+
+Kids' Privacy Policy:
+
+We recognize the need to provide additional privacy protections for children who visit our sites. To read about our protections for kids who are under the age of 13, click here.
+
+
+Q1 What information does this Privacy Policy cover?
+Q2 What types of personally identifiable information do we collect about our guests?
+Q3 How is your personally identifiable information used and shared?
+Q4 What choices do you have about the collection, use, and sharing of your personally identifiable information?
+Q5 What kinds of security measures do we take to safeguard your personally identifiable information?
+Q6 How can you update your contact information and opt-out choices
+Q7 How can you ask questions, or send us comments, about this Privacy Policy?
+Q8 How will you know if we amend this Privacy Policy?
+""","""
+Q1 What information does this Privacy Policy cover?
+A1 Except as specifically described below in A2 and A6, this Privacy Policy applies only to personally identifiable information collected on the Web sites where this Privacy Policy is posted and does not apply to any other information collected by The Walt Disney Family of Companies through any other means. This Privacy Policy applies to use and sharing of personally identifiable information collected on and after the date that this Privacy Policy is posted. However, for guests who registered on our Web sites prior to the date that this Privacy Policy is posted, we will apply this Privacy Policy to personally identifiable information associated with that account only if the guest accepts the terms and conditions of this Privacy Policy. Once the guest has accepted these terms and conditions, this Privacy Policy will also apply to personally identifiable information collected from that guest prior to the date that this Privacy Policy is posted. In a similar fashion, we will apply this Privacy Policy to personally identifiable information collected in the course of Non-Registered Transactions (as defined in A3 below) that occurred prior to the date that this Privacy Policy is posted, but only if the guest accepts the terms and conditions of this Privacy Policy.
+""","""
+As used in this Privacy Policy, "The Walt Disney Family of Companies" includes The Walt Disney Company and all of its subsidiary and affiliated entities, including companies such as ABC and ESPN that generally do not offer their products and services under the "Disney" brand name, as well as companies that generally do offer their products and services under the "Disney" brand name. (At times, our Web sites refer to The Walt Disney Family of Companies as "The Walt Disney family of companies.") The Walt Disney Internet Group is a member of The Walt Disney Family of Companies, and is referred to in this Privacy Policy as "we," "us," "our," and "ourselves."
+""","""
+In keeping with the traditions of The Walt Disney Company, we refer to customers of The Walt Disney Family of Companies as "guests." When this Privacy Policy uses the term "personally identifiable information," we mean information that identifies a particular individual, such as the individual's name, postal address, e-mail address, and telephone number. When other information, such as, for example, consumer product preferences, or number of children, is directly associated with personally identifiable information, this other information also becomes personally identifiable information for purposes of this Privacy Policy. Personally identifiable information is sometimes referred to in this Privacy Policy as "personal information." Finally, the terms of this Privacy Policy are subject to all applicable laws.
+""","""
+Q2 What types of personally identifiable information do we collect about our guests?
+A2 We collect several types of personally identifiable information about our guests.
+
+Information You Provide to Us
+
+Much of the personally identifiable information we receive comes directly from guests who are interested in obtaining various products and services from us. Typically, this information includes the guest's name, postal address, e-mail address, and telephone number. We may also collect other types of information such as gender, age, number of children, and personal interests, which we may associate with personally identifiable information. If you purchase products or services from us, we'll note, for example, credit card information, the type of services or products ordered or purchased, and the date of the order or purchase. We collect personal information when you register on, log on, or visit our Web sites, including when you participate in activities on our Web sites, such as sweepstakes, contests, games and promotional offers.
+""","""
+Information Collected Through Technology
+
+We collect information through technology to make our sites more interesting and useful to you. For instance, when you come to one of our sites, we collect your IP address. An IP address is often associated with the portal through which you enter the Internet, like your ISP (Internet service provider), your company, or your university. Standing alone, your IP address is not personally identifiable. At times, we also use IP addresses to collect information regarding the frequency with which our guests visit various parts of our sites. We may combine this information with personally identifiable information.
+
+Our Web sites also use cookies. Cookies are pieces of information that a Web site sends to your computer while you are viewing the Web site. We and other companies use cookies for a variety of purposes. For instance, when you return to one of our sites after logging in, cookies provide information to the site so that the site will remember who you are. You can choose to have your computer warn you each time a cookie is being sent, or you can choose to turn off all cookies. You do this through your browser (like Netscape Navigator or Internet Explorer) settings. Each browser is a little different, so look at your browser Help menu to learn the correct way to modify your cookies. If you turn cookies off, you won't have access to many features that make your Web experience smoother, like the features mentioned above, and some of our services will not function properly.
+""","""
+Our Web sites use a variety of technical methods for tracking purposes, including Web beacons. Web beacons are small pieces of data that are embedded in images on the pages of Web sites. We also use these technical methods to analyze the traffic patterns on our Web sites, such as the frequency with which our users visit various parts of our Web sites. These technical methods may involve the transmission of information either directly to us or to another party authorized by us to collect information on our behalf. We also use these technical methods in HTML e-mails that we send our guests to determine whether our guests have opened those e-mails and/or clicked on links in those e-mails. The information from use of these technical methods may be collected in a form that is personally identifiable.
+
+Many advertisements are managed and placed on our Web sites by third parties. These companies are called "network advertisers." Network advertisers who place advertisements on our Web sites may also use cookies and Web beacons to collect non-personally identifiable information when you click on or move your cursor over one of their banner advertisements. You may not realize this information is being collected. In some cases, we may have access to information from Web beacons and cookies used by network advertisers on our sites and this information may permit us to identify other sites that you have visited that are also associated with the network advertiser. Finally, once you've clicked on an advertisement and have left our Web sites, our Privacy Policy no longer applies and you must read the privacy policy of the advertiser to see how your personal information will be handled on their site.
+""","""
+Information That We Collect from Others
+
+We may supplement personally identifiable information that we have collected directly from our guests with other information that we obtain from third parties and other members of The Walt Disney Family of Companies. In addition, we may obtain information about individuals who are not yet users of our Web sites or guests of The Walt Disney Family of Companies. In addition, When we associate information that we obtain from third parties or other members of The Walt Disney Family of Companies with personally identifiable information that we have collected under this Privacy Policy, we will treat the acquired information like the information that we collected ourselves and, except as permitted by this Privacy Policy, the information will not be shared with third parties.
+""","""
+Q3 How is your personally identifiable information used and shared?
+A3 As described in detail below, The Walt Disney Family of Companies may use your personally identifiable information in many ways, including sending you promotional materials, and sharing your information with third parties so that these third parties can send you promotional materials. (By "promotional materials," we mean communications that directly promote the use of our Web sites, or the purchase of products or services.) As outlined below in A4, you may "opt-out" of certain uses of your personal information.
+""","""
+Disney Family of Companies, Licensees and Co-Branding Participants
+
+Personally identifiable information collected under this Privacy Policy is shared among and used by The Walt Disney Family of Companies for many purposes. For example, The Walt Disney Family of Companies may use your personal information to send you promotional materials about goods and services (including special offers and promotions) either offered by The Walt Disney Family of Companies or offered by third parties. These promotional materials may be sent to you by postal mail, e-mail or other means. You may opt out of receiving these communications as provided in A4 below. Please keep in mind, however, that when you purchase or request products or services from The Walt Disney Family of Companies, promotional materials may accompany delivery of that product or service. We refer to sending you promotional materials in these circumstances as "Fulfillment Uses" of your personal information. Because these promotional materials accompany products or services that you have requested, your opt-outs for Individual Disney Companies and The Walt Disney Family of Companies under A4 below will not apply to any of these Fulfillment Uses.
+""","""
+The Walt Disney Family of Companies may also use your personal information for many purposes other than sending you promotional materials. (We refer to all of these types of uses of your personal information that do not involve the sending of promotional materials as "Operational Uses.") For example, we may use your information to complete transactions requested by you (such as your purchase of a product or service offered on our Web sites), or to send you administrative communications either about your account with us or about features of our Web sites, including any future changes to this Privacy Policy. As another example of Operational Uses, we may share your personal information with the Walt Disney World  Resort telephone reservations center so that the reservations center operators are able to respond immediately to your questions or requests when you call, rather than asking you to provide your information a second time. Because these uses of your personal information do not involve sending you promotional materials, your opt-outs for Individual Disney Companies and The Walt Disney Family of Companies under A4 below will not apply to any of these Operational Uses.
+""","""
+In addition to using your personal information within The Walt Disney Family of Companies, The Walt Disney Family of Companies may share your personal information with companies that offer products and/or services under brand names of The Walt Disney Family of Companies. These companies are called "licensees." For example, a company that publishes and sells books under the "Disney" brand would be such a licensee. The Walt Disney Family of Companies may also share your information with companies that offer products and/or services that are co-branded using brand names of The Walt Disney Family of Companies. These companies are called "co-branding participants." For example, the Disney's Visa Card is co-branded with the bank that issues that credit card. When The Walt Disney Family of Companies shares personal information with third parties acting as licensees and co-branding participants, these licensees and co-branding participants are restricted by contract from using the personal information for any marketing or promotional purpose that is not related to a licensed or co-branded product or service. Finally, to further protect your privacy, these licensees and co-branding participants' use of personal information shared with them under this Privacy Policy is subject to the same opt-out rights (and limitations upon those rights) that apply to use of personal information by members of The Walt Disney Family of Companies under A4 below.
+""","""
+You may engage in transactions (such as purchasing products or services) without registering and logging on our Web sites. These transactions may be either with us or with other members of The Walt Disney Family of Companies. (We refer to all of these transactions that you engage in without registering and logging on our Web sites as "Non-Registered Transactions.") An example of a Non-Registered Transaction would be when you purchase items from the DisneyStore.com without registering and logging on that Web site. When you engage in Non-Registered Transactions, the opt-out choices described in A4 below will not be available to you, but your information will not be shared with third parties, and will not be used by any member of The Walt Disney Family of Companies to send you promotional materials other than the member involved in your transaction, except as separately permitted by other provisions of this Privacy Policy.
+""","""
+Finally, The Walt Disney Family of Companies may take your personally identifiable information and make it non-personally identifiable, either by combining it with information about other individuals (aggregating your information with information about other individuals), or by removing characteristics (such as your name) that make the information personally identifiable to you (de-personalizing your information). Given the nature of this information, there are no restrictions under this Privacy Policy upon the right of The Walt Disney Family of Companies to aggregate or de-personalize your personal information, and The Walt Disney Family of Companies may use and/or share with third parties the resulting non-personally identifiable information in any way.
+""","""
+Third Parties Offering Promotions, Products, or Services
+
+Subject to your opt-out choices (see A4 below), The Walt Disney Family of Companies may share your personal information with selected third parties so that they can send you promotional materials about goods and services (including special offers and promotions) offered by them. (We call this type of sharing "promotional sharing" or sharing for "promotional purposes.") When sharing your information for promotional purposes, The Walt Disney Family of Companies attempts to select only reputable companies that offer high quality products and services. Moreover, The Walt Disney Family of Companies will not share your e-mail address with third parties for promotional purposes, except when you consent to such sharing in the course of your participation in a Sponsored Activity as described below. When The Walt Disney Family of Companies shares your personal information with a third party under any circumstance described in this "Third Parties Offering Promotions, Products, or Services" section, your personal information will become permanently subject to the information use and sharing practices of the third party, and the third party will not be restricted by this Privacy Policy with respect to its use and further sharing of your personal information.
+""","""
+In addition to the promotional sharing that is subject to your opt-out choices under A4 below, The Walt Disney Family of Companies may also share your information when you engage in certain activities on our sites that are sponsored by third parties, such as purchasing products or services offered by a third party, electing to receive information or communications from a third party, or electing to participate in contests, sweepstakes, games or other programs sponsored in whole or in part by a third party. The Walt Disney Family of Companies may also share your personal information when you respond to promotional materials from The Walt Disney Family of Companies and authorize a third party to use your personal information for purposes such as, for example, sending you additional promotional materials, providing you a product or service, or entering you in a contest, sweepstakes or game. (We refer to all of these activities and requests as "Sponsored Activities.") When you participate in Sponsored Activities, you will either be required or requested to agree that the sponsor or business associate may use your personal information (including, in some cases, your e-mail address) in accordance with the sponsor or business associate's privacy practices. Since you will have consented to this specific instance of sharing of your personal information, the opt-out choice for "Third Parties" described in A4 below will not apply.
+""","""
+Companies That Facilitate Communications and Transactions with You
+
+Sometimes The Walt Disney Family of Companies hires companies to help deliver products or services, like a shipping company that delivers a package or a company that helps fulfill prizes for a sweepstakes. In those instances, there is a need to share your information with these companies. Sometimes The Walt Disney Family of Companies also works with other companies who help either gather your information or communicate with you. Your opt-out choices under A4 below will not apply to sharing by The Walt Disney Family of Companies of your personal information with any of these companies. Nonetheless, except as separately permitted by other provisions of this Privacy Policy, these companies are allowed to gather, receive, and use your information only for the purposes described in this paragraph or as required by law.
+""","""
+Companies That You Previously Authorized to Obtain Your Information
+
+In certain circumstances, your dealings with a third party may have authorized that third party to obtain your personal information from The Walt Disney Family of Companies and to use that information in accordance with the third party's own privacy practices and policies. For example, in using an online shopping service (such as the shopping services offered by Internet portals that refer the portal's users to third-party merchants), you may have authorized that shopping service to obtain from the service's participating third-party merchants (including The Walt Disney Family of Companies) information about your purchases conducted through the shopping service. In such circumstances, your opt-out elections under A4 below will not apply to sharing of your personal information by The Walt Disney Family of Companies. Nonetheless, The Walt Disney Family of Companies will provide such companies only the information that you authorized (except as separately permitted under other provisions of this Privacy Policy). In the example given above, the shopping service would be provided only information concerning purchases you made from The Walt Disney Family of Companies through that shopping service, and would not be provided any other information concerning you, unless any additional sharing of your personal information were separately permitted under another provision of this Privacy Policy.
+""","""
+Purchase or Sale of Businesses
+
+From time to time, we may purchase a business or sell one or more of our businesses and your personally identifiable information may be transferred as a part of the purchase or sale. In the event that we purchase a business, the personally identifiable information received with that business would be treated in accordance with this Privacy Policy, if it is practicable and permissible to do so. In the event that we sell a business, we will include provisions in the selling contract requiring the purchaser to treat your personally identifiable information in the same manner required by this Privacy Policy (including any amendments to this Privacy Policy). In light of this protection, your opt-out choices under A4 will not affect our right to transfer your information to a purchaser in these circumstances. The provisions of this paragraph will also apply in the event that one or more businesses of any other member of The Walt Disney Family of Companies are sold and personal information subject to this Privacy Policy is transferred to a purchaser of those businesses.
+
+Disclosures Required By Law and Disclosures to Help Protect the Security and Safety of Our Web Sites, The Walt Disney Family of Companies and Others
+
+Regardless of any opt-out choices that you make under A4, The Walt Disney Family of Companies will disclose personal information when it believes in good faith that such disclosures (a) are required by law, including, for example, to comply with a court order or subpoena, or (b) will help to: enforce our Terms of Use; enforce contest, sweepstakes, promotions, and/or game rules; protect your safety or security, including the safety and security of property that belongs to you; and/or, protect the safety and security of our Web sites, The Walt Disney Family of Companies, and/or third parties, including the safety and security of property that belongs to The Walt Disney Family of Companies or third parties.
+""","""
+Q4 What choices do you have about the collection, use, and sharing of your personally identifiable information?
+A4 With regard to personal information that you have provided under this Privacy Policy, there are three separate opt-out choices available to you. These opt-out choices are the means by which you give us, or decline to give us, your consent to use your personal information for the purposes covered by these opt-out choices. Some of our Web sites may not present you all three opt-out choices described below. Please be assured, however, that if any one of these opt-out choices is not presented to you on a Web site, personal information collected from you on that site will not be used for the purposes covered by that opt-out choice. There are several methods by which you can exercise your opt-out choices: (a) during the registration process on our Web sites; (b) after registration, by logging on our Web sites, clicking on our Privacy Policy links, going to a site's Guest Services center (sometimes called a site's "Member Services" or "Preference" center), and following the opt-out directions; and (c) as described below in A6. Each of these opt-out choices is subject to the exceptions described further below in this A4.
+""","""
+Your three opt-out choices are:
+
+Third Parties: You may choose to opt-out of receiving promotional materials from third parties. If you do not choose this opt-out, The Walt Disney Family of Companies may share your personal information so that third parties can send you these promotional materials. Your opt-out choices for third parties are specific to the particular Web sites where you make these choices. Thus, if you want to opt out of all uses of your personal information covered by the "Third Parties" opt-out, you must consistently elect that opt-out at each of our Web sites where you either register, or log in and visit the Guest Services center. If you want to make a change in your "Third Parties" opt-out choices, you will need to make that change at each of our Web sites where you previously made a different choice. Please bear in mind that this opt-out choice for "Third Parties" will not apply to the licensees and co-branding participants described above in A3.
+""","""
+The Walt Disney Family of Companies: You may choose to opt-out of receiving promotional materials from members of The Walt Disney Family of Companies, including the licensees and co-branding participants described above in A3. This opt-out choice is found on each of our Web sites. For your convenience, when you make a choice regarding this "The Walt Disney Family of Companies" opt-out at any one of our Web sites, we will treat that choice as replacing any other choices regarding that opt-out that that you may previously have made. Thus, if you want to make a change in your "The Walt Disney Family of Companies" opt-out choice, you can make that change by visiting the Guest Services center at any one of our Web sites. Your election to choose this "The Walt Disney Family of Companies" opt-out will not, however, override your consent to receive promotional materials from a specific member of The Walt Disney Family of Companies. As described in the following paragraph, you provide this consent when you visit the Guest Services center of the Web site for a specific member of The Walt Disney Family of Companies and choose not to opt-out of receiving promotional materials from that specific member.
+""","""
+Individual Disney Companies: You may choose to opt-out of receiving promotional materials directly from a specific member of The Walt Disney Family of Companies. To do so, you must visit the Guest Services center of the Web site for this specific member and opt-out of receiving promotional materials from this member. However, if you do not also opt-out of receiving promotional materials from "The Walt Disney Family of Companies" as described in the preceding paragraph, you may still receive promotional materials from this specific member of The Walt Disney Family of Companies.
+""","""
+Please keep in mind that any opt-out choices you make will not apply in situations where (a) you either have made, simultaneously make, or later make a specific request for information from a member of The Walt Disney Family of Companies, (b) The Walt Disney Family of Companies uses your personal information for either "Operational Uses" or "Fulfillment Uses" (as described above in A3), (c) you either have engaged, simultaneously engage, or later engage in either Non-Registered Transactions or Sponsored Activities (as described above in A3), or (d) The Walt Disney Family of Companies shares your personal information under the provisions of A3 above with respect to "Companies That Facilitate Communications and Transactions With You," "Companies That You Previously Authorized to Obtain Your Information," "Third Party Advertisers and Network Advertisers," "Purchase or Sale of Businesses," or "Disclosures Required By Law and Disclosures to Help Protect the Security and Safety of Our Web Sites, The Walt Disney Family of Companies and Others."
+""","""
+Finally, if you do not exercise your opt-out choices upon registration or initial log-in at our Web sites, it may take up to ninety (90) days for your opt-out choices to be fully effective. Our systems require time to update, and promotional mailings using personal information shared before your opt-out may already be in process. Thus, you might continue to receive promotional materials from The Walt Disney Family of Companies based upon the personal information you have provided under this Privacy Policy for up to ninety (90) days. For similar reasons, your personal information might continue to be shared with third parties for promotional purposes for up to ninety (90) days.
+""","""
+Q5 What kinds of security measures do we take to safeguard your personally identifiable information?
+A5 The security and confidentiality of your information is extremely important to us. We have implemented technical, administrative, and physical security measures to protect guest information from unauthorized access and improper use. From time to time, we review our security procedures in order to consider appropriate new technology and methods. Please be aware though that, despite our best efforts, no security measures are perfect or impenetrable.
+""","""
+Q6 How can you update your contact information and opt out choices?
+A6 You can access and update the contact information you gave us during registration (that is, your postal address, e-mail address, or any other information that would directly enable us to contact you), or modify your opt-out choices, by going to our member services centers. Simply click on this link http://register.go.com/go/memberservices/home, or go to the Guest Services centers on our Web sites, and then log in with your member name and password. There are instructions on the start page of the link above to help you recover your password if you've forgotten it. If you need to recover your password, you can also contact us via e-mail at ms_support@help.go.com. Please include information in the e-mail that will help us identify your account so we can assist you with your request. We may also provide you an opportunity to update your contact information and/or modify your opt-out choices by sending you an e-mail or other communication that invites your response. Finally, you may unsubscribe from certain e-mail communications by clicking on unsubscribe links in those e-mails.
+""","""
+Q7 How can you ask questions, or send us comments, about this Privacy Policy?
+A7 If you have questions or wish to send us comments about this Privacy Policy, please send an e-mail with your questions or comments to ms_support@help.go.com or write us:
+
+  Member Services
+  WDIG
+  500 S. Buena Vista St.
+  Mail Code 7716
+  Burbank, CA 91521-7716, USA
+
+Please be assured that any personal information that you provide in communications to the above e-mail and postal mail addresses will not be used to send you promotional materials, unless you so request.
+""","""
+Q8 How will you know if we amend this Privacy Policy?
+A8 We may amend this Privacy Policy at any time. If we make any material changes in the way we collect, use, and/or share your personal information, we will notify you by sending you an e-mail at the last e-mail address that you provided us, and/or by prominently posting notice of the changes on the Web sites covered by this Privacy Policy. Any material changes to this Privacy Policy will be effective upon the earlier of thirty (30) calendar days following our dispatch of an e-mail notice to you or thirty (30) calendar days following our posting of notice of the changes on the Web sites covered by this Privacy Policy. Please note that, at all times, you are responsible for updating your personal information to provide us your current e-mail address. In the event that the last e-mail address that you have provided us is not valid, or for any other reason is not capable of delivering to you the notice described above, our dispatch of the e-mail containing such notice will nonetheless constitute effective notice of the changes described in the notice. In any event, changes to this Privacy Policy may affect our use of personal information that you provided us prior to our notification to you of the changes. If you do not wish to permit changes in our use of your information, you must notify us prior to the effective date of the changes that you wish to deactivate your account with us.
+
+The Walt Disney Internet Group is a licensee of the TRUSTe Privacy Program. If you believe that we have not responded to your inquiry or your inquiry has not been satisfactorily addressed, please contact TRUSTe at http://www.truste.org/users/users_watchdog.html.
+""",
+]
+PrivacyPolicyText_2K = [
+"""
+Updated: 11/06/2003
+
+For over than 75 years, The Walt Disney Company has taken great pride in the relationships that it has developed with its guests. In keeping with this tradition, we at the Walt Disney Internet Group are dedicated to protecting your privacy and handling any personal information we obtain from you with care and respect. This Kids' Privacy Policy is designed to answer your questions regarding our privacy policies and principles with respect to children under the age of 13.
+
+Building on our general Privacy Policy, we recognize the need to provide additional privacy protections when children visit the sites on which this Kids' Privacy Policy is posted. We explain those additional protections here in this Kids' Privacy Policy. For your convenience, this Kids' Privacy Policy uses terms that are defined in our general Privacy Policy.
+
+The Children's Online Privacy Protection Act ("COPPA") requires that we inform parents and legal guardians about how we collect, use, and disclose personal information from children under 13 years of age; and that we obtain the consent of parents and guardians in order for children under 13 years of age to use certain features of our Web sites. Below we explain how we do that for these "kids." Also, when we use the term "parent" below, we mean to include legal guardians.
+""","""
+Q1 What types of personal information do we collect about kids?
+Q2 How do we use and share the personal information that we have collected from kids?
+Q3 How do we notify and obtain consent from parents for the collection of personal information from their kids?
+Q4 How can parents access, change or delete personal information about their kids?
+Q5 How will we notify parents if our Kids' Privacy Policy changes?
+Q6 Who do guests contact with questions or concerns about our Kids' Privacy Policy?
+""","""
+Q1 What types of information do we collect about kids?
+A1 Kids can surf Disney.com and other WDIG sites, view content, and play many games without any personal information being collected. We do not collect personal information from kids unless they register on WDIG sites. Typically, kids will register in order to participate in sweepstakes or contests or to participate in a special activity. The only information we collect from kids during our registration process is a kid's first name, parent's e-mail address, kid's birth date, member name, and password. We collect birth dates to validate the ages of our guests, including kids. We do not collect any other personally identifiable information from kids during our registration process. We also will collect a kid's e-mail address from a parent for the purpose of sending the kid e-mail related to a subscription. For example, we would send Disney's Blast Gazette to a kid directly at the request of the kid's parent. Note that all sites that are directed to children under 13 are prohibited by law from conditioning a kid's participation in an online activity on the kid's providing more personal information than is reasonably necessary.
+""","""
+We may collect personal information from parents in order to allow kids to participate in certain features located on our Web sites and within our kids' subscription products, such as Disney's Blast and Disney's Toontown Online (see A3 below for details). These features may include instant message chatting (for example, Secret Friends in Disney's Toontown Online), sending e-mail, posting on message boards, interacting with pen-pals, and other similar activities. In the course of a kid's participation in these features, a kid may also provide us additional information about himself or herself, such as the contents of his or her chat or message board postings. If a parent allows us to collect personal information about their kid, we may link certain information collected through technology (see the "Information Collected Through Technology" section of A2 of our general Privacy Policy) to that personal information.
+""","""
+Q2 How do we use and share the personally identifiable information that we have collected about kids?
+A2 If a kid registers for a sweepstakes or contest, we use the parent's e-mail address to notify the parent of the kid's registration request (as described in detail below in A3). To personalize communications to a kid regarding a specific product (such as Disney's Blast), we may use the kid's first name combined with the parent's last name and a mailing address provided by the parent when signing up for that specific product. We may collect a kid's e-mail address from the parent in order to send the kid a newsletter, such as Disney's Blast Gazette. In addition, personal information regarding a kid may be disclosed in the course of a kid's participation in certain interactive features such as message boards and pen pal services.
+""","""
+We do not share any information about a kid with any other member of The Walt Disney Family of Companies or with any third parties unless the disclosure is reasonably necessary: to comply with law, including, for example, to comply with a court order or subpoena; to enforce our Terms of Service, or site or game rules; or to protect the safety and security of our Guests and our Web sites.
+""","""
+Q3 How do we notify and obtain consent from parents for the collection of information from their kids?
+A3 We send parents an e-mail when their kid registers and enters a sweepstakes or contest and we provide parents 48 hours to refuse their kid's registration and entry in the sweepstakes or contest. If the parent refuses to allow the kid's registration and entry, we delete the kid's information from our database. If we don't hear back from the parent, we assume it is acceptable for the kid to be registered and entered in the sweepstakes or contest. Once a parent permits a kid to register, the kid will be able to enter future registration-based sweepstakes or contests without any further notification to the parent. If a kid wins a sweepstakes or contest, we notify the parent at the parent's e-mail address provided to us during the registration process and request that the parent provide their postal address for purposes of delivering the prize. We may publish a winner's first name, first initial of last name, city, and state of residence on our Web sites.
+""","""
+Before allowing a kid to use a feature of our Web sites that might result in the disclosure of the kid's information to third parties on the Internet, we require a parent's name and credit card information to confirm that the parent has given permission for the kid's participation in such features. The credit card will be charged only if the parent is signing up for a subscription service and has authorized us to charge their credit card. Otherwise the credit card information is used for real-time verification purposes to confirm that an adult is authorizing the kid's participation. The credit card information is archived in a secure manner and retained by us as evidence that we received parental consent.
+""","""
+Q4 How can parents access, change or delete personally identifiable information about their kids?
+A4 At any time parents can refuse to permit us to collect further personal information from their kid and can request that any personal information we have collected be deleted from our records. We use two methods to allow parents to access, change, or delete the personally identifiable information that we have collected from their kids.
+""","""
+A parent can access, change, or delete his or her kid's personal information by logging on to the kid's account at the Member Services Home Page located at http://register.go.com/go/memberservices/home. The parent will need to have their kid's member name and password. There are instructions on the Your Account home page explaining how to recover a password if the kid has forgotten it.
+""","""
+A parent can contact our customer service department to access, change, or delete the personal information that we have collected from his or her kid by sending an e-mail to ms_support@help.go.com. Please include the kid's member name and the parent's e-mail address in the e-mail so that we can better assist you with your inquiry or request.
+""","""
+Q5 How will we notify parents if our Kids' Privacy Policy changes?
+A5 We may amend our Kids' Privacy Policy at any time. We will provide parents notice by e-mail of any material changes in the way we intend to collect, use, and/or share kids' personal information. Please note that, at all times, parents should update their personal information to provide us current e-mail addresses. We will apply material changes in our Kids' Privacy Policy only in conformance with applicable law, including any applicable provisions of COPPA that require parental consent.
+""","""
+Q6 Who do guests contact with questions or concerns about our Kids' Privacy Policy?
+A6 If you need further assistance, please send an e-mail with your questions or comments to ms_support@help.go.com or write us at:
+
+  Member Services
+  Walt Disney Internet Group
+  500 S. Buena Vista Street
+  Mail Code 7716
+  Burbank, CA 91521-7716, USA
+  You may also telephone us at 1-(877) 466-6669. (If you are not 18 years of age or older, you must have your parent or guardian's permission to call this number.)
+
+The Walt Disney Internet Group is a licensee of the TRUSTe Privacy Program. If you believe that we have not responded to your inquiry or your inquiry has not been satisfactorily addressed, please contact TRUSTe http://www.truste.org/users/users_watchdog.html.
+""",
+]
+
+PrivacyPolicyText_Intro = [
+"""
+There are four different Privacy Policies.
+
+The Privacy Policy that applies to each person will depend on when they agreed to the Privacy Policy and their age.
+
+Version 1 is for persons who agreed before 11/06/2003.
+Version 2 is for persons who agreed after that date.
+
+The \"for children\" versions are for children under the age of 13; while the \"for non-children\" version is for everyone else.
+"""
+]
+
 PrivacyPolicyClose = lClose
 
 # SecretFriendsInfoPanel.py
@@ -190,11 +556,15 @@ LeaveToSetParentPasswordYes = "Set Password"
 LeaveToSetParentPasswordNo = lCancel
 
 LeaveToEnableChatUK = """In order to enable chat, the game will exit to the Toontown website."""
+LeaveToEnableChatUKYes = "Enable Chat"
 LeaveToEnableChatUKNo = lCancel
 
 ChatMoreInfoOK = lOK
+SecretChatDeactivated = 'The "True Friends" feature has been disabled.'
+RestrictedSecretChatActivated = 'The "Restricted True Friends" feature has been enabled!'
 SecretChatActivated = '¡La herramienta "Amigos secretos" ha sido activada!\n\nSi más tarde cambias de opinión y decides desactivar esta herramienta, haz clic en "Opciones de cuenta" en la página web de Toontown.'
 SecretChatActivatedOK = lOK
+SecretChatActivatedChange = "Change Options"
 ProblemActivatingChat = '¡Vaya! No hemos podido activar la herramienta de charla "Amigos secretos".\n\n%s\n\nVuelve a intentarlo más tarde.'
 ProblemActivatingChatOK = lOK
 
@@ -228,7 +598,9 @@ CRConnecting = "Conectando..."
 # host, port
 CRNoConnectTryAgain = "Imposible conectar con %s:%s. ¿Quieres intentarlo de nuevo?"
 CRNoConnectProxyNoPort = "Imposible conectar con %s:%s.\n\nTe estás conectando al Internet a través de un proxy que no permite las conexiones al puerto %s.\n\nPara jugar a Toontown es necesario abrir este puerto o desactivar el proxy. Si el proxy ha sido suministrado por tu proveedor de Internet, debes ponerte en contacto con él para que abra este puerto."
+CRMissingGameRootObject = """Missing some root game objects. (May be a failed network connection).\n\nTry again?"""
 CRNoDistrictsTryAgain = "No hay distritos de Toontown disponibles. ¿Deseas intentarlo de nuevo?"
+CRRejectRemoveAvatar = "The avatar was not able to be deleted, try again another time."
 CRLostConnection = "Tu conexión de Internet a Toontown se ha interrumpido inesperadamente."
 CRBootedReasons = {
     1: "Se ha producido un problema inesperado. Se ha perdido la conexión, pero deberías poder conectarte de nuevo y volver al juego.",
@@ -335,11 +707,11 @@ SCMenuPlacesEstate               = "HACIENDA"
 SCMenuPlacesCogs                 = "BOTS"
 SCMenuPlacesWait                 = "WAIT"
 
-SCMenuFriendlyYou = "Eres..."
-SCMenuFriendlyILike = "me gusta..."
-SCMenuPlacesLetsGo  = "Vamos a..."
-SCMenuToontasksMyTasks = "Mis tareas"
-SCMenuToontasksYouShouldChoose = "Creo que deberias escoger..."
+SCMenuFriendlyYou                = "Eres..."
+SCMenuFriendlyILike              = "me gusta..."
+SCMenuPlacesLetsGo               = "Vamos a..."
+SCMenuToontasksMyTasks           = "Mis tareas"
+SCMenuToontasksYouShouldChoose   = "Creo que deberias escoger..."
 
 SCMenuToontasksINeedMore         = "I need more..."
 SCMenuBattleGags                 = "BROMAS"
@@ -349,6 +721,7 @@ SCMenuBoardingGroup              = "EMBARQUE"
 SCMenuParties                    = "FIESTAS"
 SCMenuAprilToons                 = "APRIL TOONS'"
 SCMenuSingingGroup               = "SINGING"
+SCMenuCarol                      = "CAROLING"
 SCMenuSillyHoliday                   = "SILLY METER"
 SCMenuVictoryParties             = "VICTORY PARTIES"
 SCMenuSellbotNerf                = "STORM SELLBOT"
@@ -372,45 +745,126 @@ FriendSecretIntro = "Si estás jugando a Disney's Toontown Online con alguien qu
 FriendSecretGetSecret = "Obtener Secreto"
 FriendSecretEnterSecret = "Si tienes un Secreto de alguien que conozcas, escríbelo aquí."
 FriendSecretOK = lOK
+FriendSecretEnter = "Enter True Friend Code"
 FriendSecretCancel = lCancel
 FriendSecretGettingSecret = "Obteniendo Secreto. . ."
 FriendSecretGotSecret = "Aquí tienes tu nuevo Secreto. ¡No te olvides de anotarlo!\n\nPuedes dar este Secreto solamente a una persona. Cuando alguien escriba tu Secreto, éste no valdrá ya para nadie más. Si deseas dar un Secreto a alguien más, tienes que pedir otro.\n\nEl Secreto sólo valdrá durante los dos días siguientes. Tu amigo tendrá que escribirlo antes de que desaparezca, o de lo contrario el proceso no funcionará.\n\nTu Secreto es:"
 FriendSecretTooMany = "Lo siento, no puedes tener más Secretos hoy. ¡Ya has tenido más que suficientes!\n\nPrueba de nuevo mañana."
 FriendSecretTryingSecret = "Probando Secreto. . ."
 FriendSecretEnteredSecretSuccess = "¡Ya eres amigo secreto de %s!"
+FriendSecretTimeOut = "Sorry, secrets are not working right now."
 FriendSecretEnteredSecretUnknown = "Ése no es el Secreto de nadie. ¿Seguro que lo has escrito bien?\n\nSi lo has escrito correctamente, tal vez haya caducado. Pídele a tu amigo que te obtenga un Secreto nuevo (o consigue tú uno y dáselo a tu amigo)."
 FriendSecretEnteredSecretFull = "No puedes ser amigo de %s porque uno de los dos tiene demasiados amigos en la lista."
 FriendSecretEnteredSecretFullNoName = "No pueden ser amigos porque uno de los dos tiene demasiados amigos en la lista."
 FriendSecretEnteredSecretSelf = "¡Acabas de escribir tu propio Secreto! Ahora, nadie más puede usar ese Secreto."
+FriendSecretEnteredSecretWrongProduct = "You have entered the wrong type of True Friend Code.\nThis game uses codes that begin with '%s'."
 FriendSecretNowFriends = "¡Ya eres amigo secreto de %s!"
 FriendSecretNowFriendsNoName = "¡Ya sois amigos secretos!"
+FriendSecretDetermineSecret = "What type of True Friend would you like to make?"
+FriendSecretDetermineSecretAvatar = "Avatar"
+FriendSecretDetermineSecretAvatarRollover = "A friend only in this game"
+FriendSecretDetermineSecretAccount = "Account"
+FriendSecretDetermineSecretAccountRollover = "A friend across the Disney.com network"
+
+# GuildMember.py
+GuildMemberTitle = "Member Options"
+GuildMemberPromote = "Make Officer"
+GuildMemberPromoteInvite = "Make Veteran"
+GuildMemberDemoteInvite = "Demote to Veteran"
+GuildMemberGM = "Make Guildmaster"
+GuildMemberGMConfirm = "Confirm"
+GuildMemberDemote = "Demote to Member"
+GuildMemberKick = "Remove Member"
+GuildMemberCancel = lCancel
+GuildMemberOnline = "has come online."
+GuildMemberOffline = "has gone offline."
+GuildPrefix = "(G):"
+GuildNewMember = "New Guild Member"
+GuildMemberUnknown = "Unknown"
+GuildMemberGMMessage = "Warning! Would you like to give up leadership of your guild and make %s your guild master?\n\nYou will become an officer"
+
+# GuildInvitee.py
+GuildInviteeOK = lOK
+GuildInviteeNo = lNo
+GuildInviteeInvitation = "%s is inviting you to join %s."
+
+GuildRedeemErrorInvalidToken = "Sorry, that code is invalid. Please try again."
+GuildRedeemErrorGuildFull = "Sorry, this guild has too many members already."
 
 # FriendInvitee.py
 FriendInviteeTooManyFriends = "%s desea ser tu amigo, pero ya tienes demasiados amigos en tu lista."
 FriendInviteeInvitation = "A %s le gustaría ser tu amigo."
+FriendInviteeInvitationPlayer = "%s\'s player would like to be your friend."
+FriendNotifictation = "%s is now your friend."
 FriendInviteeOK = lOK
 FriendInviteeNo = lNo
+GuildInviterWentAway = "%s is no longer present."
+GuildInviterAlready = "%s is already in a guild."
+GuildInviterBusy = "%s is busy right now."
+GuildInviterNotYet = "Invite %s to join your guild?"
+GuildInviterCheckAvailability = "Inviting %s to join your guild."
+GuildInviterOK = lOK
+GuildInviterNo = lNo
+GuildInviterCancel = lCancel
+GuildInviterYes = lYes
+GuildInviterTooFull = "Guild has reached maximum size."
+GuildInviterNo = lNo
+GuildInviterClickToon = "Click on the pirate you would like to invite."
+GuildInviterTooMany = "This is a bug"
+GuildInviterNotAvailable = "%s is busy right now; try again later."
+GuildInviterGuildSaidNo = "%s has declined your guild invitation."
+GuildInviterAlreadyInvited = "%s has already been invited."
+GuildInviterEndGuildship = "Remove %s from the guild?"
+GuildInviterFriendsNoMore = "%s has left the guild."
+GuildInviterSelf = "You are already in the guild!"
+GuildInviterIgnored = "%s is ignoring you."
+GuildInviterAsking = "Asking %s to join the guild."
+GuildInviterGuildSaidYes = "%s has joined the guild!"
+GuildInviterFriendKickedOut = "%s has kicked out %s from the Guild."
+GuildInviterFriendKickedOutP = "%s have kicked out %s from the Guild."
+GuildInviterFriendInvited = "%s has invited %s to the Guild."
+GuildInviterFriendInvitedP = "%s have invited %s to the Guild."
+GuildInviterFriendPromoted = "%s has promoted %s to the rank of %s."
+GuildInviterFriendPromotedP = "%s have promoted %s to the rank of %s."
+GuildInviterFriendDemoted = "%s has demoted %s to the rank of %s."
+GuildInviterFriendDemotedP = "%s have demoted %s to the rank of %s."
+GuildInviterFriendPromotedGM = "%s has named %s as the new %s"
+GuildInviterFriendPromotedGMP = "%s have named %s as the new %s"
+GuildInviterFriendDemotedGM = "%s has been named by %s as the new GuildMaster who became the rank of %s"
+GuildInviterFriendDemotedGMP = "%s have been named by %s as the new GuildMaster who beaome the rank of %s"
 
 # FriendInviter.py
+FriendOnline = "has come online."
+FriendOffline = "has gone offline."
 FriendInviterOK = lOK
 FriendInviterCancel = lCancel
 FriendInviterStopBeingFriends = "Dejar de ser amigo"
+FriendInviterConfirmRemove = "Remove"
 FriendInviterYes = lYes
 FriendInviterNo = lNo
 FriendInviterClickToon = "Haz clic en el dibu del que deseas ser amigo."
 FriendInviterTooMany = "No puedes añadir más amigos a tu lista porque ya tienes demasiados. Si quieres ser amigo de %s, tendrás que quitar algunos amigos de tu lista."
+FriendInviterToonTooMany = "You have too many toon friends on your list to add another one now. You will have to remove some toon friends if you want to make friends with %s."
+FriendInviterPlayerTooMany = "You have too many player friends on your list to add another one now. You will have to remove some player friends if you want to make friends with %s."
 FriendInviterNotYet = "¿Quieres ser amigo de %s?"
 FriendInviterCheckAvailability = "Comprobando si %s está disponible."
 FriendInviterNotAvailable = "%s está ocupado ahora mismo. Inténtalo más tarde."
+FriendInviterCantSee = "This only works if you can see %s."
+FriendInviterNotOnline = "This only works if %s is online"
+FriendInviterNotOpen = "%s does not have open chat, use secrets to make friends"
 FriendInviterWentAway = "%s se ha marchado."
 FriendInviterAlready = "%s ya es tu amigo."
+FriendInviterAlreadyInvited = "%s has already been invited."
 FriendInviterAskingCog = "Preguntando a %s si quiere ser tu amigo."
+FriendInviterAskingPet = "%s jumps around, runs in circles and licks your face."
+FriendInviterAskingMyPet = "%s is already your BEST friend."
 FriendInviterEndFriendship = "¿Seguro que quieres dejar de ser amigo de %s?"
 FriendInviterFriendsNoMore = "%s ya no es tu amigo."
 FriendInviterSelf = "¡ Ya eres tu propio amigo!"
 FriendInviterIgnored = "%s no te está haciendo caso."
 FriendInviterAsking = "Preguntando a %s si quiere ser tu amigo."
 FriendInviterFriendSaidYes = "¡%s ha dicho que sí!"
+FriendInviterPlayerFriendSaidYes = "You are now friends with %s's player, %s!"
 FriendInviterFriendSaidNo = "%s ha dicho que no, gracias."
 FriendInviterFriendSaidNoNewFriends = "%s no quiere tener amigos nuevos ahora mismo."
 FriendInviterOtherTooMany = "¡%s ya tiene demasiados amigos!"
@@ -503,7 +957,14 @@ EmoteWhispers = [
     "%s is delighted.",
     "%s is furious.",
     "%s is laughing.",
-    "is singing note G1"
+    "%s is singing note G1",
+    "%s is singing note A",
+    "%s is singing note B",
+    "%s is singing note C",
+    "%s is singing note D",
+    "%s is singing note E",
+    "%s is singing note F",
+    "%s is singing note G2",
     ]
 
 # Reverse lookup:  get the index from the name.
@@ -1057,7 +1518,7 @@ SpeedChatStaticTextToontown = {
     816 : "I can't get on the elevator now.",
     817 : "Sorry, I'm busy golfing!",
     818 : "Sorry, my Friends List is full.",
-    
+
     # Stinky
     900 : "¡Eh!",
     901 : "¡Vete de aquí!",
@@ -1119,6 +1580,7 @@ SpeedChatStaticTextToontown = {
     1127 : "Let's go to Bossbot HQ!",
     1128 : "Let's go fight the CEO!",
     1129 : "Let's go in the Cog Golf Courses!",
+    #1130 : "Let's go take over a Cogdominium!",    
     1130 : "Let's go take over a Field Office!",
 
     # Toontasks
@@ -1358,7 +1820,7 @@ SpeedChatStaticTextToontown = {
     2220 : "I have a bonus weight of 9.",
     2221 : "I have a bonus weight of 10.",
     2222 : "I have a bonus weight of 11.",
-    2223 : "I have a bonus weight of 12.",    
+    2223 : "I have a bonus weight of 12.",
 
     # CEO battle
     2300 : "You feed the Cogs on the left.",
@@ -1379,8 +1841,8 @@ SpeedChatStaticTextToontown = {
     2315 : "Hurry, your cog is hungry!",
     2316 : "Please save the snacks for sadder toons.",
     2317 : "Take the snacks before they fall.",
-    
-    
+
+
     #Kart Racing Phrases
     #IMPORTANT: if you change numbers or add/subtract lines here than be
     # sure to adjust the kart racing menu guid dict below
@@ -1511,7 +1973,7 @@ SpeedChatStaticTextToontown = {
     5004 : "Leave your Boarding Group.",
     5005 : "We are boarding now.",
     5006 : "Where are we going?",
-    5007 : "Are we ready?",    
+    5007 : "Are we ready?",
     5008 : "Let's Go!",
     5009 : "Don't leave this area or you will leave the Boarding Group.",
 
@@ -1522,7 +1984,7 @@ SpeedChatStaticTextToontown = {
     5103 : "Let's go to the C.E.O. Battle.",
     5104 : "Let's go to the Senior V.P Battle.",
     5105 : "Let's go to the Front Entrance.",
-    5106 : "Let's go to the Side Entrance.",    
+    5106 : "Let's go to the Side Entrance.",
     5107 : "Let's go to the Coin Mint.",
     5108 : "Let's go to the Dollar Mint.",
     5109 : "Let's go to the Bullion Mint.",
@@ -1540,7 +2002,7 @@ SpeedChatStaticTextToontown = {
     5203 : "We're going to the C.E.O. Battle.",
     5204 : "We're going to the Senior V.P Battle.",
     5205 : "We're going to the Front Entrance.",
-    5206 : "We're going to the Side Entrance.",    
+    5206 : "We're going to the Side Entrance.",
     5207 : "We're going to the Coin Mint.",
     5208 : "We're going to the Dollar Mint.",
     5209 : "We're going to the Bullion Mint.",
@@ -1571,12 +2033,12 @@ SpeedChatStaticTextToontown = {
     5315 : "Let's play Catch!",
     5316 : "Let's dance!",
     5317 : "To the dance floor!",
-    5318 : "Let's play Tug of War!",    
+    5318 : "Let's play Tug of War!",
     5319 : "Start the fireworks!",
     5320 : "These fireworks are beautiful!",
     5321 : "Nice decorations.",
-    5322 : "I wish I could eat this cake!",    
-        
+    5322 : "I wish I could eat this cake!",
+
     # Promotional Considerations
     10000 : "The choice is yours!",
     10001 : "Who are you voting for?",
@@ -2020,13 +2482,14 @@ SpeedChatStaticTextToontown = {
     # Phrases for April Toon's week
     30100 : "Happy April Toons' Week!",
     30101 : "Welcome to my April Toons' Week party!",
+    30102 : "The Silly Meter is back in Toon Hall!",
     30110 : "Mickey is in Daisy Gardens.",
     30111 : "Daisy is in Toontown Central.",
     30112 : "Minnie is in The Brrrgh.",
     30113 : "Pluto is in Melodyland.",
     30114 : "Donald is sleepwalking at the Speedway.",
     30115 : "Goofy is in Dreamland.",
-    
+
     30120 : "Mickey is acting like Daisy!",
     30121 : "Daisy is acting like Mickey!",
     30122 : "Minnie is acting like Pluto!",
@@ -2034,7 +2497,7 @@ SpeedChatStaticTextToontown = {
     30124 : "Pluto is talking!",
     30125 : "Goofy is acting like Donald!",
     30126 : "Donald is dreaming he is Goofy!",
-    
+
     30130 : "Watch how far I can jump.",
     30131 : "Wow, you jumped really far!",
     30132 : "Hey, Doodles can talk!",
@@ -2101,7 +2564,9 @@ SpeedChatStaticTextToontown = {
     30190 : "I'm gonna buy a whole new wardrobe!",
     30191 : "Jellybeans, please!",
     30192 : "Don't be mean, give a bean!",
-    
+    30193 : "Who wants jellybeans?",
+    30194 : "Dance for jellybeans!",
+
     # Phrases for caroling
     30200 : "Deck the halls... ",
     30201 : "Load some pies...",
@@ -2109,7 +2574,7 @@ SpeedChatStaticTextToontown = {
     30203 : "Snowman heads...",
     30204 : "Toontown's merry...",
     30205 : "Lure good cheer...",
-    
+
     30220 : "Deck the halls with seltzer spray!\nHappy Winter Holiday!",
     30221 : "Load some pies into your sleigh!\nHappy Winter Holiday!",
     30222 : "Joyful toons bring Cogs dismay!\nHappy Winter Holiday!",
@@ -2125,8 +2590,8 @@ SpeedChatStaticTextToontown = {
     # Phrases for Christmas
     30275: "Happy holidays!",
     30276: "Season's greetings!",
-    30277: "Have a Wonderful Winter!",    
-    
+    30277: "Have a Wonderful Winter!",
+
     # Phrases for Silly Story
     30301 : "Have you seen the Silly Meter?",
     30302 : "The Silly Meter is in Toon Hall.",
@@ -2136,7 +2601,7 @@ SpeedChatStaticTextToontown = {
     30306 : "Have you been to Flippy's new office?",
     30307 : "I caused a Silly Surge in battle!",
     30308 : "Let's defeat some Cogs to make Toontown sillier!",
-    
+
     30309 : "The Silly Meter is bigger and crazier than ever!",
     30310 : "Lots of hydrants have come alive!",
     30311 : "I saw a mail box moving!",
@@ -2146,7 +2611,7 @@ SpeedChatStaticTextToontown = {
     30315 : "Something silly, I bet!",
     30316 : "Have you caused a Silly Surge yet?",
     30317 : "Let's defeat some Cogs to make Toontown sillier!",
-    
+
     30318 : "Cog Invasion!",
     30319 : "Incoming!",
     30320 : "Let\'s stop those Cogs!",
@@ -2157,27 +2622,27 @@ SpeedChatStaticTextToontown = {
     30325 : "My favorites are the fire hydrants!",
     30326 : "My favorites are the mailboxes!",
     30327 : "My favorites are the trash cans!",
-    
+
     30328 : "Hooray! We stopped the Cog invasions!",
     30329 : "A hydrant helped me in battle!",
     30330 : "A hydrant boosted my Squirt Gags!",
     30331 : "A trash can boosted my Toon-Up Gags!",
     30332 : "A mailbox helped my Throw Gags!",
-    
-    # Phrases for Victory Parties (warning 60400 is in use)
-    30350: "Welcome to my Victory Party!",
-    30351: "This is a great Victory Party!",
-    30352: "We showed those Cogs who's boss!",
-    30353: "Good job helping end the Cog invasions!",
-    30354: "I bet this is driving the Cogs crazy!",
-    
-    30355: "Let's play Cog-O-War!",
-    30356: "My team won at Cog-O-War!",
-    30357: "It's nice to have fire hydrants, trash cans, and mailboxes here!",
-    30358: "I like the balloon of the Doodle biting the Cog!",
-    30359: "I like the balloon of the Cog covered in ice cream!",
-    30360: "I like the wavy Cog that flaps his arms!",
-    30361: "I jumped on a Cog's face!",
+
+    # Phrases for Victory Parties (warning 30400 is in use)
+    30350 : "Welcome to my Victory Party!",
+    30351 : "This is a great Victory Party!",
+    30352 : "We showed those Cogs who's boss!",
+    30353 : "Good job helping end the Cog invasions!",
+    30354 : "I bet this is driving the Cogs crazy!",
+
+    30355 : "Let's play Cog-O-War!",
+    30356 : "My team won at Cog-O-War!",
+    30357 : "It's nice to have fire hydrants, trash cans, and mailboxes here!",
+    30358 : "I like the balloon of the Doodle biting the Cog!",
+    30359 : "I like the balloon of the Cog covered in ice cream!",
+    30360 : "I like the wavy Cog that flaps his arms!",
+    30361 : "I jumped on a Cog's face!",
 
     # Phrases for Sellbot Field Offices
     30400 : "The Sellbots are invading!",
@@ -2196,7 +2661,7 @@ SpeedChatStaticTextToontown = {
     30413 : "Watch out for the Cogs!",
     30414 : "Collect Jokes to get a Toon-up at the end!",
     30415 : "When the room shakes, a Mover & Shaker is nearby.",
-    30416 : "Defeat all four Movers & Shakers to open the exit!",
+    30416 : "Defeat all four Mover & Shakers to open the exit!",
     30417 : "The exit is open!",
     30418 : "It's the Boss!",
 
@@ -2232,7 +2697,7 @@ SpeedChatStaticTextToontown = {
     30483 : "When the Cogs get evidence in the scale, the CJ turns green!",
     30484 : "Something cool happens if we stun all the Cogs at once!",
     30485 : "Throw evidence at Toons to give them a Toon-up!",
-    
+
     # Phrases for Singing
 ##    9000 : 'Middle ' + 'G1',
 ##    9001 : 'Middle ' + 'A',
@@ -2242,7 +2707,6 @@ SpeedChatStaticTextToontown = {
 ##    9005 : 'Middle ' + 'E',
 ##    9006 : 'Middle ' + 'F',
 ##    9007 : 'Middle ' + 'G2'
-
     }
 
 SpeedChatStaticTextPirates = {
@@ -2258,12 +2722,17 @@ SpeedChatStaticTextPirates = {
     50101 : "Blimey!",
     50102 : "Well blow me down!",
     50103 : "Walk the plank!",
-    50104 : "Dead men tell no tales....",
+    50104 : "Dead men tell no tales...",
     50105 : "Shiver me timbers!",
     50106 : "Salty as a Kraken's kiss.",
     50107 : "Treasure be the measure of our pleasure!",
     50108 : "I don't fear death - I attune it.",
-    
+    50109 : "Ah well, some days you win, some days you swim.",
+    50110 : "Shooting like that, ye may as well have two eye-patches on!",
+    50111 : "A finer bunch of Scoundrels yarrr eyes have never seen!",
+    50112 : "Fool me once, shame on me. Fool me twice, good luck in Davy Jones' Locker.",
+    50113 : "Ready your bravery, hoist the sails, a Caribbean Pirate never fails!",
+
 
     # EXPRESSIONS - GREETINGS
     50700 : "Ahoy!",
@@ -2350,11 +2819,11 @@ SpeedChatStaticTextPirates = {
     51510 : "Let's sail to Cutthroat.",
     51511 : "Let's sail to Rumrunner's Isle.",
     51512 : "Let's sail to Isla Cangrejos.",
-    
+
     # PLACES - LETS HEAD TO...
     51600 : "Let's head into town.",
     51601 : "Let's go to the docks.",
-    51602 : "Let's head to the tavern.",    
+    51602 : "Let's head to the tavern.",
 
     # PLACES - LETS HEAD TO... - PORT ROYAL
     51800 : "Let's go to Fort Charles.",
@@ -2395,6 +2864,38 @@ SpeedChatStaticTextPirates = {
     50304 : "We showed them!",
     50305 : "Yer not so bad yerself!",
     50306 : "A fine plunder haul!",
+
+    # Grandfathered Adventures
+    50500 : "Let's set sail!",
+    50501 : "Get onboard! We're leaving port!",
+    50502 : "Let's get to plunderin!",
+    50503 : "Let's sail to Bilgewater!",
+    50504 : "Let's sail to Port Royale!",
+    50505 : "Let's use a Treasure Map!",
+    50506 : "Let's head back to Port!",
+
+    # Grandfathered Ships
+    50600 : "Port side! (left)",
+    50601 : "Starboard side! (right)",
+    50602 : "Incoming!",
+    50603 : "Broadside! Take cover!",
+    50604 : "Arm your cannons!",
+    50605 : "Open fire!",
+    50606 : "Hold your fire!",
+    50607 : "Aim for the masts!",
+    50608 : "Aim for the hull!",
+    50609 : "Prepare to board!",
+    50610 : "She's comin' about!",
+    50611 : "Fire a broadside!",
+    50612 : "Ramming speed!",
+    50613 : "Arrr! We're going in!",
+    50614 : "We've got her on the run!",
+    50615 : "We're taking on water!",
+    50616 : "We can't take anymore!",
+    50617 : "We need to repair!",
+    50618 : "Retreat!",
+    50619 : "Man overboard!",
+    50620 : "Avast! A dirty Navy Clipper!",
 
     # Card Games
     52400  : "May luck be my lady.",
@@ -2454,7 +2955,7 @@ SpeedChatStaticTextPirates = {
     53166 : "I'll do it!",
     53167 : "Keep it up, this ship won't repair itself!",
     53168 : "Great job repairing the ship!",
-    
+
     # Invitations
     52100 : "Want to group up?",
     52101 : "Join me crew?",
@@ -2545,7 +3046,7 @@ SpeedChatStaticTextPirates = {
     60501 : "Let's go to the Gateway Store.",
     60502 : "Let's go to the Disco Hall.",
     60503 : "Let's go to Toontown.",
-    60504 : "Let's go to Pirates of the Carribean.",
+    60504 : "Let's go to Pirates of the Caribbean.",
 
     # Animated Emotes
     60505 : "Flip coin",
@@ -2600,9 +3101,8 @@ SpeedChatStaticTextPirates = {
 
     65000 : "Yes",
     65001 : "No",
-    
+
     60909 : "Check Hand",
-    
     }
 
 SpeedChatStaticText = SpeedChatStaticTextCommon
@@ -2614,7 +3114,7 @@ Emotes_General = "General"
 Emotes_Music = "Music"
 Emotes_Expressions = "Emotions"
 Emote_ShipDenied = "Cannot emote while sailing."
-Emote_MoveDenied = "Cannot emote while moving." 
+Emote_MoveDenied = "Cannot emote while moving."
 Emote_CombatDenied = "Cannot emote while in combat."
 Emote_CannonDenied = "Cannot emote while using a cannon."
 Emote_SwimDenied = "Cannot emote while swimming."
@@ -2630,6 +3130,8 @@ Emotes = (60505, 60506, 60509, 60510, 60511, 60516, 60519, 60520, 60521, 60522, 
           60517,
           # New Years Emote
           60678,
+          # Raven's Cove Check Hand Emote
+          60909,
           )
 
 # These indexes, defined above, will construct a submenu in the FACTORY menu
@@ -2900,7 +3402,7 @@ CustomSCStrings = {
     4020 : "Toons of the world unite!",
     4030 : "Howdy, partner!",
     4040 : "Much obliged.",
-    4050 : "Get along, little dogie.",
+    4050 : "Get along, little doggie.",
     4060 : "I'm going to hit the hay.",
     4070 : "I'm chomping at the bit!",
     4080 : "This town isn't big enough for the two of us!",
@@ -3038,6 +3540,8 @@ CustomSCStrings = {
     11018 : "¡Nevando voy, nevando vengo!",
     11019 : "¡Te vas a arrepentir, tronco!",
     11020 : "Have a Wonderful Winter!",
+    11021 : "The Holiday Party decorations are Toontastic!",
+    11022 : "Toon Troopers are hosting Holiday Parties!",
 
     # Valentines
     12000 : "Si el mundo fuera un pañuelo…, serías mi moco preferido.",
@@ -3132,6 +3636,58 @@ SCMenuCustomCogIndices = {
     'sd' : (20341, 20350),
     }
 
+
+# Pirates Speedchat
+PSCMenuExpressions  = "EXPRESSIONS"
+PSCMenuGreetings = "GREETINGS"
+PSCMenuGoodbyes = "GOODBYES"
+PSCMenuFriendly = "FRIENDLY"
+PSCMenuHappy = "HAPPY"
+PSCMenuSad = "SAD"
+PSCMenuSorry = "SORRY"
+PSCMenuCombat = "COMBAT"
+PSCMenuSeaCombat     = "SEA COMBAT"
+PSCMenuPlaces     = "PLACES"
+PSCMenuLetsSail = "LET\'S SAIL..."
+PSCMenuLetsHeadTo = "LET\'S HEAD TO..."
+PSCMenuHeadToPortRoyal = "PORT ROYAL"
+PSCMenuWhereIs = "WHERE IS ..?"
+PSCMenuWhereIsPortRoyal = "PORT ROYAL"
+PSCMenuWhereIsTortuga = "TORTUGA"
+PSCMenuWhereIsPadresDelFuego = "PADRES DEL FUEGO"
+PSCMenuWhereIsLasPulgas = "LAS PULGAS"
+PSCMenuWhereIsLosPadres = "LOS PADRES"
+PSCMenuDirections = "DIRECTIONS"
+PSCMenuInsults    = "INSULTS"
+PSCMenuCompliments = "COMPLIMENTS"
+PSCMenuCardGames  = "CARD GAMES"
+PSCMenuPoker = "POKER"
+PSCMenuBlackjack = "BLACKJACK"
+PSCMenuMinigames = "MINIGAMES"
+PSCMenuFishing = "FISHING"
+PSCMenuCannonDefense = "CANNON DEFENSE"
+PSCMenuPotions = "POTION BREWING"
+PSCMenuRepair = "REPAIR"
+PSCMenuInvitations = "INVITATIONS"
+PSCMenuVersusPlayer = "VERSUS"
+PSCMenuHunting = "HUNTING"
+PSCMenuQuests = "QUESTS"
+PSCMenuGM = "GM"
+
+
+
+# Grandfathered Speedchat Headers
+PSCMenuShips      = "SHIPS"
+PSCMenuAdventures = "ADVENTURE"
+
+
+# Gateway Speedchat
+GWSCMenuHello     = "GREETINGS"
+GWSCMenuBye       = "GOODBYES"
+GWSCMenuHappy     = "HAPPY"
+GWSCMenuSad       = "SAD"
+GWSCMenuPlaces     = "PLACES"
+
 # NamePanel.py - PickAName/TypeAName
 RandomButton = "Al azar"
 TypeANameButton = "Escribe un nombre"
@@ -3210,6 +3766,8 @@ AvatarPanelSecrets = "Secretos"
 AvatarPanelGoTo = "Ir a"
 AvatarPanelIgnore = "Ignorar"
 AvatarPanelStopIgnoring = "Dejar de ignorar"
+AvatarPanelEndIgnore = "End Ignore"
+AvatarPanelTrade = "Trade"
 #AvatarPanelCogDetail = "Dept: %s\nNivel: %s\n"
 AvatarPanelCogLevel = "Nivel: %s"
 AvatarPanelCogDetailClose = lClose
@@ -3291,11 +3849,12 @@ LawbotNerfMenuSections = [
 JellybeanJamMenuSections = [
 "GET JELLYBEANS",
 "SPEND JELLYBEANS",
+#"JELLYBEAN PARTIES",
 ]
 
 WinterMenuSections = [
 "CAROLING",
--1
+-1,
 ]
 
 HalloweenMenuSections = [
@@ -3308,20 +3867,20 @@ SingingMenuSections = [
 
 WhiteListMenu = [
 -1,
-"LISTEBLANCHE"
+"WHITELIST"
 ]
 
 SellbotInvasionMenuSections = [
--1
+-1,
 ]
 
 SellbotFieldOfficeMenuSections = [
 -1,
-"STRATEGY"
+"STRATEGY",
 ]
 
 IdesOfMarchMenuSections = [
--1
+-1,
 ]
 
 # TTAccount.py
@@ -3330,3 +3889,24 @@ TTAccountCallCustomerService = "Para ponerte en contacto con el Servicio de aten
 # Fill in %s with phone number from account server
 TTAccountCustomerServiceHelp = "\n\nSi necesitas ayuda, ponte en contacto con el Servicio de atención al cliente, en el número %s."
 TTAccountIntractibleError = "Se produjo un error."
+
+
+def timeElapsedString(timeDelta):
+    timeDelta = abs(timeDelta)
+    if timeDelta.days > 0:
+        if timeDelta.days == 1:
+            return "1 day ago"
+        else:
+            return "%s days ago" % timeDelta.days
+
+    elif timeDelta.seconds / 3600 > 0:
+        if timeDelta.seconds / 3600 == 1:
+            return "1 hour ago"
+        else:
+            return "%s hours ago" % (timeDelta.seconds / 3600)
+
+    else:
+        if timeDelta.seconds / 60 < 2:
+            return "1 minute ago"
+        else:
+            return "%s minutes ago" % (timeDelta.seconds / 60)
