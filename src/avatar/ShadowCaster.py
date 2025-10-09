@@ -45,7 +45,6 @@ class ShadowCaster:
         self.shadowPlacer = None
         self.activeShadow = 0
         self.wantsActive = 1
-        self.internalShadow = False
         self.storedActiveState = 0
 
         # Only create these hooks if we're running a game that cares
@@ -84,14 +83,7 @@ class ShadowCaster:
         #self.getGeomNode().setZ(0.025)
 
         # load and prep the drop shadow
-        if not self.find('**/dropShadow').isEmpty():
-            dropShadow = self.find('**/dropShadow')
-            # Unstash the drop shadow if it was previously.
-            if dropShadow.isStashed():
-                dropShadow.unstash()
-            self.internalShadow = True
-        else:
-            dropShadow = loader.loadModel(self.shadowFileName)
+        dropShadow = loader.loadModel(self.shadowFileName)
             
         assert not dropShadow.isEmpty()
             
@@ -106,8 +98,7 @@ class ShadowCaster:
         if not globalDropShadowFlag:
             self.dropShadow.hide()
         if self.getShadowJoint():
-            if not self.internalShadow:
-                dropShadow.reparentTo(self.getShadowJoint())
+            dropShadow.reparentTo(self.getShadowJoint())
         else:
             self.dropShadow.hide()
 
@@ -134,14 +125,8 @@ class ShadowCaster:
             self.shadowPlacer = None
 
         if self.dropShadow:
-            if self.internalShadow:
-                self.dropShadow.setPos(0, 0, 0)
-                self.dropShadow.setHpr(0, 0, 0)
-                self.dropShadow.stash()
-            else:
-                self.dropShadow.removeNode()
+            self.dropShadow.removeNode()
             self.dropShadow = None
-            self.internalShadow = False
 
     def setActiveShadow(self, isActive=1):
         """

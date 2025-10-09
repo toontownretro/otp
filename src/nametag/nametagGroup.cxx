@@ -95,14 +95,11 @@ NametagGroup::
 ~NametagGroup() {
   // Tell all our child nametags that they're no longer associated
   // with a NametagGroup.
-  //Nametags::iterator ti;
-  //for (ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
-  JobSystem *jsys = JobSystem::get_global_ptr();
-  jsys->parallel_process(_nametags.size(), [&] (size_t i) {
-    Nametag *tag = _nametags[i]; //(*ti);
+  for (size_t i = 0; i < _nametags.size(); ++i) {
+    Nametag *tag = _nametags[i];
     tag->_group = (NametagGroup *)NULL;
     tag->update_contents();
-  });
+  }
   
   if (_update_task != nullptr) {
     _update_task->remove();
@@ -261,12 +258,14 @@ get_name_wordwrap() const {
   if (_name_wordwrap > 0.0f) {
     return _name_wordwrap;
   }
-  if (_color_code == CC_toon_building || _color_code == CC_suit_building) {
-    return NametagGlobals::building_name_wordwrap;
-  } else if (_color_code == CC_house_building) {
-    return NametagGlobals::house_name_wordwrap;
-  } else {
-    return NametagGlobals::name_wordwrap;
+  switch (_color_code) {
+    case CC_toon_building:
+    case CC_suit_building:
+      return NametagGlobals::building_name_wordwrap;
+    case CC_house_building:
+      return NametagGlobals::house_name_wordwrap;
+    default:
+      return NametagGlobals::name_wordwrap;
   }
 }
 
@@ -624,9 +623,12 @@ update_task(GenericAsyncTask *task, void *data) {
 #endif
   
   NametagGroup *group = ((NametagGroup *)data);
-  for (Nametags::iterator ti = group->_nametags.begin(); ti != group->_nametags.end(); ++ti) {
-    Nametag *tag = (*ti);
-    if (!tag->is_group_managed()) { continue; }
+  // If our group isn't managed. Then we'll skip the update task.
+  if (!group->is_managed()) { return AsyncTask::DS_cont; }
+  
+  for (size_t i = 0; i < group->_nametags.size(); ++i) {
+    PT(Nametag) tag = group->_nametags[i];
+    if (!tag->has_group()) { continue; }
     tag->app_callback();
   }
   return AsyncTask::DS_cont;
