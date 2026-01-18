@@ -438,7 +438,7 @@ class TimeManager(DistributedObject.DistributedObject):
             pageFaultCount, '%s.%d.%d.%d' % osInfo, '%0.03f,%0.03f' % cpuSpeed,
             '%d,%d' % (numCpuCores, numLogicalCpus),
             apiName)
-        if ConfigVariableBoolBool('want-frame-rate-string', 1).getValue():
+        if ConfigVariableBool('want-frame-rate-string', 1).getValue():
             print("frame rate: %s" % (info))
 
         self.sendUpdate("setFrameRate", [

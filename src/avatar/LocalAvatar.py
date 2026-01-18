@@ -933,7 +933,7 @@ class LocalAvatar(DistributedAvatar.DistributedAvatar,
         print('Point3(%0.2f, %0.2f, %0.2f),' % (cp[2][0],cp[2][1],cp[2][2]))
         print('Point3(%0.2f, %0.2f, %0.2f),' % (cp[3][0],cp[3][1],cp[3][2]))
         print('%d,' % cp[4])
-        print(')', end=' ')
+        print(')',)
 
     def posCamera(self, lerp, time):
         """posCamera(self, boolean, float)

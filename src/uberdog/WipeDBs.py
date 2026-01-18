@@ -4,8 +4,8 @@ from otp.otpbase.OTPModules import *
 
 config = getConfigShowbase()
 
-username = ConfigVariableString("mysql-user")
-password = ConfigVariableString("mysql-passwd")
+username = ConfigVariableString("mysql-user").getValue()
+password = ConfigVariableString("mysql-passwd").getValue()
 dbSalt = ConfigVariableString("dev-branch-flavor","").getValue()
 if dbSalt:
     dbSalt = dbSalt + '_'
