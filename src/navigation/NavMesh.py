@@ -34,8 +34,6 @@ from otp.otpbase.OTPModules import CollisionTraverser
 
 from otp.otpbase import OTPGlobals
 
-from direct.directnotify.DirectNotifyGlobal import directNotify
-
 class NavMesh(object):
 
     notify = directNotify.newCategory("NavMesh")

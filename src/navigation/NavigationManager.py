@@ -87,9 +87,9 @@ class NavigationManager(object):
 
                     monsterData.append( str(s) )
 
-        monsterData = string.join(monsterData, "")
+        monsterData = "".join(monsterData)
 
-        hash = hashlib.md5(monsterData)
+        hash = hashlib.md5(monsterData.encode("utf-8"))
 
         return hash.digest()
 
