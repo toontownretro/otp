@@ -15,7 +15,7 @@ class DBInterface:
         return dbString
 
     def getErrorCode(self, exception):
-        # returns error code from MySQL exception
+        # returns error code from the SQL exception
         errStr = str(exception)
         commaIndex = errStr.index(',')
         codeStr = errStr[1:commaIndex]

@@ -2,8 +2,8 @@ import pymysql as MySQLdb
 
 from direct.distributed.DistributedObjectGlobalUD import DistributedObjectGlobalUD
 from direct.directnotify.DirectNotifyGlobal import directNotify
-from otp.uberdog.DBKeepAlive import DBKeepAlive
-from otp.uberdog.DBInterface import DBInterface
+from otp.sql.DBKeepAlive import DBKeepAlive
+from otp.sql.DBInterface import DBInterface
 
 from otp.otpbase.OTPModules import ConfigVariableString
 

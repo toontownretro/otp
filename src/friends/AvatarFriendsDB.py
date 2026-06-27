@@ -2,7 +2,7 @@ import pymysql as MySQLdb
 import datetime
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from otp.distributed import OtpDoGlobals
-from otp.uberdog.DBInterface import DBInterface
+from otp.sql.DBInterface import DBInterface
 
 SERVER_GONE_ERROR = MySQLdb.constants.CR.CR_SERVER_GONE_ERROR
 SERVER_LOST = MySQLdb.constants.CR.CR_SERVER_LOST

@@ -540,8 +540,8 @@ update_regions() {
 #ifdef DO_PSTATS
   PStatTimer timer(_update_regions_pcollector);
 #endif
-
-  //for (Nametags::iterator ti = _nametags.begin(); ti != _nametags.end(); ++ti) {
+  
+  //for (size_t i = 0; i < _nametags.size(); ++i) {
   JobSystem *jsys = JobSystem::get_global_ptr();
   jsys->parallel_process(_nametags.size(), [&] (size_t i) {
     Nametag *tag = _nametags[i]; //(*ti);

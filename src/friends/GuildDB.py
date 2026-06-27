@@ -3,7 +3,7 @@ import time
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.task import Task
 from otp.distributed import OtpDoGlobals
-from otp.uberdog.DBInterface import DBInterface
+from otp.sql.DBInterface import DBInterface
 import random, string
 
 NOACTION_FLAG=0

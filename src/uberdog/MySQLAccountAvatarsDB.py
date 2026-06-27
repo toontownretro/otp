@@ -1,7 +1,7 @@
 import pymysql as MySQLdb
 
 from direct.directnotify.DirectNotifyGlobal import directNotify
-from otp.uberdog.DBInterface import DBInterface
+from otp.sql.DBInterface import DBInterface
 notify = directNotify.newCategory('SubscriptionToAvatars')
 
 
