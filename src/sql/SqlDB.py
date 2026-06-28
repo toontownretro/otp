@@ -25,61 +25,49 @@ class TryAgainLater(Exception):
     def __str__(self):
         return 'Problem using SQL DB at %s, try again later (%s)' % (self._address, self._exception)
         
-class SqlDBCursorBase:
+class SqlDBCursor(mariadb.cursors.Cursor):
     notify = directNotify.newCategory('SqlDBConnection')
     
     ConnectionProblems = set([ServerShuttingDown, ServerGoneAway])
     
-    def __init__(self):
+    def __init__(self, connection, **kwargs):
+        mariadb.cursors.Cursor.__init__(self, connection, **kwargs)
         self._manager = None
     
     def setManager(self, manager):
         self._manager = manager
+        
+    def execute(self, *args, **kArgs):
+        self._doExecute(*args, **kArgs)
 
-    def _doExecute(self, cursorBase, *args, **kArgs):
+    def _doExecute(self, *args, **kArgs):
         if self.notify.getDebug():
             self.notify.debug('execute:\n%s' % (args[0]))
         try:
-            cursorBase.execute(self, *args, **kArgs)
+            mariadb.cursors.Cursor.execute(self, *args, **kArgs)
         except OperationalError as e:
-            if e.errno in SqlDBCursorBase.ConnectionProblems:
-                # force a reconnect
-                self._manager._db = None
-                raise TryAgainLater(e, '%s:%s' % (self._manager._host, self._manager._port))
-            else:
+            if not e.errno in SqlDBCursor.ConnectionProblems:
                 raise
                 
-class SqlDBCursor(mariadb.cursors.Cursor, SqlDBCursorBase):
-    notify = directNotify.newCategory('SqlDBConnection')
-    
-    def __init__(self, connection, **kwargs):
-        mariadb.cursors.Cursor.__init__(self, connection, **kwargs)
-        SqlDBCursorBase.__init__(self)
-
-    def execute(self, *args, **kArgs):
-        self._doExecute(mariadb.cursors.Cursor, *args, **kArgs)
+            # Force a reconnect
+            self._manager._db = None
+            raise TryAgainLater(e, '%s:%s' % (self._manager._host, self._manager._port))
+        except:
+            raise
         
-class SqlDBBinaryCursor(mariadb.cursors.Cursor, SqlDBCursorBase):
+class SqlDBBinaryCursor(SqlDBCursor):
     notify = directNotify.newCategory('SqlDBConnection')
     
     def __init__(self, connection, **kwargs):
         kwargs["binary"] = True
-        mariadb.cursors.Cursor.__init__(self, connection, **kwargs)
-        SqlDBCursorBase.__init__(self)
-
-    def execute(self, *args, **kArgs):
-        self._doExecute(mariadb.cursors.Cursor, *args, **kArgs)
+        SqlDBCursor.__init__(self, connection, **kwargs)
         
-class SqlDBDictCursor(mariadb.cursors.Cursor, SqlDBCursorBase):
+class SqlDBDictCursor(SqlDBCursor):
     notify = directNotify.newCategory('SqlDBConnection')
     
     def __init__(self, connection, **kwargs):
         kwargs["dictionary"] = True
-        mariadb.cursors.Cursor.__init__(self, connection, **kwargs)
-        SqlDBCursorBase.__init__(self)
-
-    def execute(self, *args, **kArgs):
-        self._doExecute(mariadb.cursors.Cursor, *args, **kArgs)
+        SqlDBCursor.__init__(self, connection, **kwargs)
         
 class SqlDBConnection(DBInterface):
     notify = directNotify.newCategory('SqlDBConnection')
@@ -231,28 +219,34 @@ class SqlDBConnection(DBInterface):
                 raise
         except mariadb.Error as e:
             raise
+        finally:
+            cursor.close()
                 
     def enterInitializing(self):
         self.notify.error("enterInitializing - UNIMPLEMENTED. Please implement in a derived class.")
         
     def enterLocking(self):
+        if not self.WantTableLocking:
+            self.request(self.Connected)
+            return
+        
+        cursor = self.getCursor()
         try:
-            if not self.WantTableLocking:
-                return
-
             if len(self._tableLocks):
                 cmd = 'LOCK TABLES '
                 for table, lock in list(self._tableLocks.items()):
                     cmd += '%s %s, ' % (table, lock)
                 cmd = cmd[:-2] + ';'
-                self.getCursor().execute(cmd)
+                cursor.execute(cmd)
         except TryAgainLater as e:
             self.notify.warning('Failed to acquire table lock(s), Retrying in %s seconds' % (self.TableLockRetryPeriod))
             self.request(self.WaitForRetryLocking)
-        else:
-            # spammy
-            #self.notify.info("tables locked")
-            self.request(self.Connected)
+        finally:
+            cursor.close()
+
+        # spammy
+        #self.notify.info("tables locked")
+        self.request(self.Connected)
             
     def enterConnected(self):
         messenger.send(self.getConnectedEvent())
