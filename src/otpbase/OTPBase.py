@@ -20,6 +20,10 @@ class OTPBase(ShowBase):
             self.errorAccumulatorBuffer = ''
             taskMgr.add(self.delayedErrorCheck, "delayedErrorCheck", priority = 10000)
 
+       self.idTags = config.GetBool('want-id-tags', 0)
+
+       if not self.idTags:
+            del self.idTags
 
        # Turn nametags on and off for video capture
        self.wantNametags = self.config.GetBool('want-nametags', 1)
@@ -31,6 +35,9 @@ class OTPBase(ShowBase):
 
        self.fillShardsToIdealPop = self.config.GetBool(
             'fill-shards-to-ideal-pop', 1)
+       
+       self.logPrivateInfo = self.config.GetBool(
+            'log-private-info', __dev__)
 
        # By default, we want to use dynamic shadows.  ToonBase.py
        # turns this off.

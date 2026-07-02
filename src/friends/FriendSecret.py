@@ -276,14 +276,6 @@ class FriendSecretNeedsParentLogin(StateData.StateData):
         base.cr.parentUsername = username
         base.cr.parentPassword = password        
         tt = base.cr.loginInterface
-        try:
-            DISLIdFromLogin = base.cr.DISLIdFromLogin
-        except:
-            DISLIdFromLogin = 0
-        if DISLIdFromLogin and ( DISLIdFromLogin != localAvatar.DISLid):
-            # we only expect to have 1 DISLId per player, we're screwed if this happens
-            self.notify.error("Mismatched DISLIds, fromLogin=%s, localAvatar.dislId=%s" %
-                              ( DISLIdFromLogin, localAvatar.DISLid))
         okflag, message = tt.authenticateParentUsernameAndPassword(localAvatar.DISLid,
                                                                    base.cr.password,
                                                                    username,

@@ -109,6 +109,7 @@ CEInvisible = 11
 CEPumpkin = 12
 CEBigWhite = 13
 CESnowMan = 14
+CEGreenToon = 15
 # This one is not really a cheesy effect, but it is implemented by the
 # cheesy effect system.  It's a string rather than a number to ensure
 # that no one cheats and asks for this via the cheesy effect
@@ -291,10 +292,12 @@ STRAFE_RIGHT_INDEX = 5
 
 ToonStandableGround = 0.707 # if ToonStandableGround > angle: toon is on ground.
 
-ToonForwardSpeed = 16.0 # feet per second
+ToonSpeedFactor = 1.25
+
+ToonForwardSpeed = 16.0 * ToonSpeedFactor # feet per second
 ToonJumpForce = 24.0 # feet per second
-ToonReverseSpeed = 8.0 # feet per second
-ToonRotateSpeed = 80.0
+ToonReverseSpeed = 8.0 * ToonSpeedFactor # feet per second
+ToonRotateSpeed = 80.0 * ToonSpeedFactor
 
 # When you are "dead"
 ToonForwardSlowSpeed = 6.0
@@ -320,6 +323,8 @@ QuestsHotkeyOn = "end"
 QuestsHotkeyOff = "end-up"
 InventoryHotkeyOn = "home"
 InventoryHotkeyOff = "home-up"
+MapHotkeyOn = "delete"
+MapHotkeyOff = "delete-up"
 DetectGarbageHotkey = 'shift-f11'
 PrintCamPosHotkey = "f12"   # just for dbging
 

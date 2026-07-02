@@ -108,6 +108,9 @@ AIMsgName2Id = {
 AIMsgId2Names = invertDictLossless(AIMsgName2Id)
 
 # put msg names in module scope, assigned to msg value
+if not isClient():
+    print "EXECWARNING AIMsgTypes: %s"%AIMsgName2Id
+    printStack()
 for name, value in AIMsgName2Id.items():
     exec '%s = %s' % (name, value)
 del name, value

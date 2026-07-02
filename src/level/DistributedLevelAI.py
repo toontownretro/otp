@@ -1,5 +1,6 @@
 """DistributedLevelAI.py: contains the DistributedLevelAI class"""
 
+from pandac import PandaModules as PM
 from otp.ai.AIBaseGlobal import *
 from direct.distributed.ClockDelta import *
 from direct.distributed import DistributedObjectAI
@@ -117,6 +118,9 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
         if not self.presentAvIds:
             self.allToonsGone([])
 
+    def _levelControlsRequestDelete(self):
+        return True
+
     def allToonsGone(self, toonsThatCleared):
         DistributedLevelAI.notify.info('allToonsGone')
         if hasattr(self, 'allToonsGoneBarrier'):
@@ -124,7 +128,8 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
             del self.allToonsGoneBarrier
         for avId in self.avIdList:
             self.ignore(self.air.getAvatarExitEvent(avId))
-        self.requestDelete()
+        if self._levelControlsRequestDelete():
+            self.requestDelete()
 
     def createEntityCreator(self):
         """Create the object that will be used to create Entities.
@@ -172,10 +177,10 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
             return
 
         # now compare the hashes of the client and server specs
-        if hash(self.levelSpec) != specHash:
+        if self.levelSpec.stringHash() != specHash:
             self.notify.info('spec hashes do not match, sending our spec')
             spec = self.levelSpec
-            useDisk=simbase.config.GetBool('spec-by-disk', 1)
+            useDisk=simbase.air._specByDisk
         else:
             self.notify.info('spec hashes match, sending null spec')
             spec = None

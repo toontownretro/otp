@@ -1,6 +1,7 @@
 from direct.distributed.DistributedObjectGlobal import DistributedObjectGlobal
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from otp.otpbase import OTPGlobals
+from otp.avatar.Avatar import teleportNotify
 from otp.friends import FriendResponseCodes
 
 
@@ -55,11 +56,11 @@ class PlayerFriendsManager(DistributedObjectGlobal):
 
     def sendRequestUseUnlimitedSecret(self,secret):
         assert self.notify.debugCall()
-        self.sendUpdate("requestUseUnlimitedSecret", [0,secret])
+        #self.sendUpdate("requestUseUnlimitedSecret", [0,secret])
 
     def sendRequestUseLimitedSecret(self,secret,username,password):
         assert self.notify.debugCall()
-        self.sendUpdate("requestUseLimitedSecret", [0,secret,username,password])
+        #self.sendUpdate("requestUseLimitedSecret", [0,secret,username,password])
 
 
     def sendSCWhisper(self,recipientId,msgId):
@@ -281,8 +282,10 @@ class PlayerFriendsManager(DistributedObjectGlobal):
             
     def identifyFriend(self, avId):
         handle = None
+        teleportNotify.debug('identifyFriend(%s)' % avId)
         handle = base.cr.identifyFriend(avId)
         if not handle:
+            teleportNotify.debug('getAvHandleFromId(%s)' % avId)
             handle = self.getAvHandleFromId(avId)
         return handle
             

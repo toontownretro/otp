@@ -6,6 +6,7 @@ from otp.otpbase import OTPGlobals
 from otp.avatar.AvatarHandle import AvatarHandle
 from otp.ai import AIInterestHandles
 
+GUILDRANK_VETERAN = 4
 GUILDRANK_GM = 3
 GUILDRANK_OFFICER = 2
 GUILDRANK_MEMBER = 1
@@ -102,6 +103,9 @@ class GuildManager(DistributedObjectGlobal):
     def changeRank(self, avatarId, rank):
         self.sendUpdate("changeRank", [avatarId, rank])
 
+    def changeRankAvocate(self, avatarId):
+        self.sendUpdate("changeRankAvocate", [avatarId])
+
     def statusRequest(self):
         self.sendUpdate("statusRequest", [])
 
@@ -166,7 +170,8 @@ class GuildManager(DistributedObjectGlobal):
         Returns None if  avId is not in guild.
         """
         if self.isInGuild(avId):
-            myRank = localAvatar.getGuildRank()
+            myRank = self.id2Rank.get(localAvatar.doId, localAvatar.getGuildRank())
+
             hisRank = self.id2Rank[avId]
 
             canpromote = False 
@@ -174,12 +179,13 @@ class GuildManager(DistributedObjectGlobal):
             cankick = False
 
             if myRank == GUILDRANK_GM:
-                if hisRank == GUILDRANK_OFFICER:
-                    candemote = True
-                elif hisRank == GUILDRANK_MEMBER:
-                    canpromote = True
+                canpromote = True
+                candemote = True
+                cankick = True
             if myRank > GUILDRANK_MEMBER and \
-               hisRank <= GUILDRANK_MEMBER:
+               myRank != GUILDRANK_VETERAN and \
+               (hisRank <= GUILDRANK_MEMBER or
+                hisRank == GUILDRANK_VETERAN):
                 cankick = True
 
             return (canpromote, candemote, cankick)
@@ -360,7 +366,7 @@ class GuildManager(DistributedObjectGlobal):
         # Send message so guild guis can pick up the update
         messenger.send("guildMemberOnlineStatus", [avatarId, 0])
 
-    def recvMemberAdded(self, memberInfo):
+    def recvMemberAdded(self, memberInfo, inviterId, inviterName):
         avatarId, avatarName, rank, isOnline, bandManagerId, bandId = memberInfo
         self.id2Name[avatarId] = avatarName
         self.id2Rank[avatarId] = rank
@@ -370,7 +376,7 @@ class GuildManager(DistributedObjectGlobal):
             base.localAvatar.guiMgr.guildPage.addMember(memberInfo)
         messenger.send('guildMemberUpdated', sentArgs = [avatarId])
         
-    def recvMemberRemoved(self, avatarId):
+    def recvMemberRemoved(self, avatarId, senderId, avatarName, senderName):
         if avatarId == localAvatar.doId:
             self.clearMembers()
         else:
@@ -382,7 +388,7 @@ class GuildManager(DistributedObjectGlobal):
                 base.localAvatar.guiMgr.guildPage.removeMember(avatarId)
         messenger.send('guildMemberUpdated', sentArgs = [avatarId])
         
-    def recvMemberUpdateRank(self, avatarId, rank):
+    def recvMemberUpdateRank(self, avatarId, senderId, avatarName, senderName, rank, promote):
         self.id2Rank[avatarId] = rank
         if hasattr(base, 'localAvatar') and base.localAvatar.guiMgr:
             base.localAvatar.guiMgr.guildPage.updateGuildMemberRank(avatarId, rank)

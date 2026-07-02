@@ -3,6 +3,7 @@ from direct.showbase import GarbageReport, ContainerReport, MessengerLeakDetecto
 from direct.distributed import DistributedObject
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase.InputStateGlobal import inputState
+from direct.showbase.ObjectCount import ObjectCount
 from direct.task import Task
 from direct.task.TaskProfiler import TaskProfiler
 from otp.avatar import Avatar
@@ -439,6 +440,11 @@ class MagicWordManager(DistributedObject.DistributedObject):
 
             self.setMagicWordResponse('objects logged')
 
+        elif wordIs('~objectcount'):
+            def handleObjectCountDone(objectCount):
+                self.setMagicWordResponse('object count logged')
+            oc = ObjectCount('~objectcount', doneCallback=handleObjectCountDone)
+
         elif wordIs('~objecthg'):
             import gc
             objs = gc.get_objects()
@@ -584,7 +590,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
             response = 'flushed AI task profiles%s' % choice(name, ' for %s' % name, '')
             self.setMagicWordResponse(response)
 
-        elif wordIs('~objectcount'):
+        elif wordIs('~dobjectcount'):
             base.cr.printObjectCount()
             self.setMagicWordResponse('logging client distributed object count...')
 
@@ -761,6 +767,13 @@ class MagicWordManager(DistributedObject.DistributedObject):
                 self.notify.info("Simulating client crash: exit error = %s" % (errorCode))
                 base.exitShow(errorCode)
             
+            if magicWord.count("~exception"):
+                self.notify.error("~exception: simulating a client exception...")
+                s = ""
+                while 1:
+                    s += "INVALIDNAME"
+                    eval(s)
+
             self.setMagicWord(magicWord, avId, zoneId)
 
 
@@ -770,6 +783,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
         The AI might send a formatted string response to certain magic
         words.
         """
+        self.notify.info(response)
         base.localAvatar.setChatAbsolute(response, CFSpeech | CFTimeout)
         base.talkAssistant.receiveDeveloperMessage(response)
 

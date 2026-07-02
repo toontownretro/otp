@@ -1,5 +1,6 @@
 """LevelSpec module: contains the LevelSpec class"""
 
+from pandac import PandaModules as PM
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase.PythonUtil import list2dict, uniqueElements
 import string
@@ -124,6 +125,9 @@ class LevelSpec:
         # return a copy of the spec, making sure that none of the attributes
         # are shared between the original and the copy (i.e. Point3's)
         specCopy = {}
+        if not isClient():
+            print "EXECWARNING LevelSpec exec: %s"%self.getSpecImportsModuleName()
+            printStack()
         exec 'from %s import *' % self.getSpecImportsModuleName()
         for key in spec.keys():
             specCopy[key] = eval(repr(spec[key]))
@@ -190,6 +194,15 @@ class LevelSpec:
 
         def setEntityTypeReg(self, entTypeReg):
             self.entTypeReg = entTypeReg
+
+            for entId in self.getAllEntIds():
+                spec = self.getEntitySpec(entId)
+                type = self.getEntityType(entId)
+                typeDesc = self.entTypeReg.getTypeDesc(type)
+                attribDescDict = typeDesc.getAttribDescDict()
+                for attribName, desc in attribDescDict.iteritems():
+                    if attribName not in spec:
+                        spec[attribName] = desc.getDefaultValue()
             self.checkSpecIntegrity()
 
         def hasEntityTypeReg(self):
@@ -478,6 +491,9 @@ class LevelSpec:
             # execute the pretty output in our local scope                    
             if prettyString is None:
                 prettyString=self.getPrettyString()
+            if not isClient():
+                print "EXECWARNING LevelSpec exec 2: %s"%prettyString
+                printStack()
             exec(prettyString)
             if self._recurKeyTest(levelSpec, self.specDict):
                 return 1
@@ -524,6 +540,11 @@ class LevelSpec:
                                 "entId %s (%s): missing attrib '%s'" % (
                                 entId, spec['type'], attribName))
 
+        def stringHash(self):
+            h = PM.HashVal()
+            h.hashString(repr(self))
+            return h.asHex()
+
         def __hash__(self):
             return hash(repr(self))
 
@@ -531,5 +552,6 @@ class LevelSpec:
             return 'LevelSpec'
 
         def __repr__(self):
-            return 'LevelSpec(%s, scenario=%s)' % (repr(self.specDict),
-                                                   self.scenario)
+
+            return 'LevelSpec(%s, scenario=%s)' % (repeatableRepr(self.specDict),
+                                                   repeatableRepr(self.scenario))
