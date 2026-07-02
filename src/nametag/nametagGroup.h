@@ -10,6 +10,8 @@
 #include "nametag.h"
 #include "chatFlags.h"
 
+#include "callbackData.h"
+#include "callbackObject.h"
 #include "textFont.h"
 #include "pointerTo.h"
 #include "updateSeq.h"
@@ -20,6 +22,7 @@
 class MarginManager;
 class Nametag2d;
 class Nametag3d;
+class NametagGroup;
 
 ////////////////////////////////////////////////////////////////////
 //       Class : NametagGroup
@@ -28,7 +31,19 @@ class Nametag3d;
 //               all the nametags is through this Group object.
 ////////////////////////////////////////////////////////////////////
 class EXPCL_OTP_NAMETAG NametagGroup {
-PUBLISHED:
+  class EXPCL_OTP_NAMETAG ChatCallbackData : public CallbackData {
+    PUBLISHED:
+      INLINE string get_chat();
+      INLINE int get_id();
+      
+    protected:
+      int _id;
+      string _chat;
+      
+    friend NametagGroup;
+  };
+
+  PUBLISHED:
   enum ColorCode {
     CC_normal,
     CC_no_chat,
@@ -92,6 +107,10 @@ PUBLISHED:
   INLINE string get_stomp_text() const;
   INLINE const string &get_chat(int page_number) const;
   INLINE int get_chat_flags() const;
+
+  INLINE void do_chat_callback(const std::string &chat);
+  INLINE void set_chat_callback(CallbackObject *object);
+  INLINE void set_chat_callback_id(int id);
 
   void set_page_number(int page_number);
   INLINE int get_page_number() const;
@@ -201,6 +220,9 @@ private:
 
   static int _unique_index;
 
+  int _callback_id;
+  
+  static PT(CallbackObject) _chat_callback;
 };
 
 #include "nametagGroup.I"

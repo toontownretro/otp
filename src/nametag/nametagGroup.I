@@ -312,6 +312,29 @@ get_chat_flags() const {
   return _chat_flags;
 }
 
+INLINE void NametagGroup::
+do_chat_callback(const std::string &chat) {
+  if (_chat_callback && _callback_id) {
+    ChatCallbackData chat_callback_data;
+    chat_callback_data._id = _callback_id;
+    chat_callback_data._chat = chat;
+    
+    _chat_callback->do_callback(&chat_callback_data);
+  }
+}
+
+INLINE void NametagGroup::
+set_chat_callback(CallbackObject *object) {
+  if (_chat_callback != object) {
+    _chat_callback = object;
+  }
+}
+
+INLINE void NametagGroup::
+set_chat_callback_id(int id) {
+  _callback_id = id;
+}
+
 ////////////////////////////////////////////////////////////////////
 //     Function: NametagGroup::get_page_number
 //       Access: Published
@@ -636,4 +659,14 @@ get_nametag3d_flag() const {
 INLINE UpdateSeq NametagGroup::
 get_region_seq() const {
   return _region_seq;
+}
+
+INLINE string NametagGroup::ChatCallbackData::
+get_chat() {
+  return _chat;
+}
+
+INLINE int NametagGroup::ChatCallbackData::
+get_id() {
+  return _id;
 }
