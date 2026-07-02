@@ -1,0 +1,27 @@
+/__init__.py
+Makefile
+pp.dep
+built
+**/Opt*-*
+**/*-Opt*-*
+*.o
+*.obj
+*.lib
+*.pdb
+readlog.txt
+*.log
+*.bak
+*.pyd
+
+# Python 3
+**/__pycache__
+
+# MSBuild related files
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.user
+**/x64
+**/Win32
+**/.vs
