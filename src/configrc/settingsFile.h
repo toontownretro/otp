@@ -12,37 +12,37 @@
 extern const char *configrc_settings_filename;
 
 #define CONFIGRC_MAJOR_VERSION 1
-#define CONFIGRC_MINOR_VERSION 7
+#define CONFIGRC_MINOR_VERSION 8
 
 // this is awful.  We can't include toontownbase.h because it will cause
 // a build circularity.  So we have to define EXPCL_TOONTOWN on our own.
 
-#if defined(WIN32_VC) && !defined(CPPPARSER)
+#ifdef BUILDING_OTP
+  #define BUILDING_OTP_SETTINGS
+#endif
 
-#define EXPCL_TOONTOWN __declspec(dllexport)
-#define EXPTP_TOONTOWN
+#ifdef BUILDING_OTP_SETTINGS
+  #define EXPCL_OTP_SETTINGS EXPORT_CLASS
+  #define EXPTP_OTP_SETTINGS EXPORT_TEMPL
+#else
+  #define EXPCL_OTP_SETTINGS IMPORT_CLASS
+  #define EXPTP_OTP_SETTINGS IMPORT_TEMPL
+#endif
 
-#else   /* !WIN32_VC */
-
-#define EXPCL_TOONTOWN
-#define EXPTP_TOONTOWN
-
-#endif  /* PENV_WIN32 */
-
-class Settings {
+class EXPCL_OTP_SETTINGS Settings {
 PUBLISHED:
   // The DisplayDriver option is written to the useropt file by value.
   // Don't reorder or remove items from this list, and add all new
   // options to the end, unless you are prepared to remap the old
   // options to the new options based on the useropt file version
   // number.
-  enum DisplayDriver { 
-    GL, 
+  enum DisplayDriver {
+    GL,
     DX7,        // We don't support DX7 any more.  This maps to DX8.
     D_DEFAULT,  // Formerly DX8
-    DX9, 
+    DX9,
     D_NONE,
-    DX8, 
+    DX8,
   };
   enum ServerType { PRODUCTION, DEVELOPMENT, DEBUG, S_NONE };
 
@@ -67,6 +67,7 @@ PUBLISHED:
   static INLINE ServerType server_type(void);
   static INLINE bool get_accepting_new_friends(void);
   static INLINE bool get_embedded_mode(void);
+  static INLINE bool get_accepting_non_friend_whispers(void);
 
   static INLINE void set_sfx(bool);
   static INLINE void set_toon_chat_sounds(bool);
@@ -83,13 +84,14 @@ PUBLISHED:
   static INLINE void set_server_type(ServerType);
   static INLINE void set_accepting_new_friends(bool);
   static INLINE void set_embedded_mode(bool);
+  static INLINE void set_accepting_non_friend_whispers(bool);
 
   static INLINE void set_show_fpsmeter(bool);
   static INLINE bool doSavedSettingsExist(void);  // does the saved settings file exist?
   static INLINE void write_settings(void);
   static INLINE void read_settings(void);
 public:
-  static string get_config_path(void);
+  static std::string get_config_path(void);
   static void   get_resolution_sizes(Resolution r, unsigned int &xsize,unsigned int &ysize);
 private:
   Settings(void);
@@ -112,6 +114,7 @@ private:
   INLINE ServerType ns_server_type(void);
   INLINE bool ns_get_accepting_new_friends(void);
   INLINE bool ns_get_embedded_mode(void);
+  INLINE bool ns_get_accepting_non_friend_whispers(void);
 
   INLINE void ns_set_show_fpsmeter(bool);
   INLINE void ns_set_sfx(bool);
@@ -128,6 +131,7 @@ private:
   INLINE void ns_set_server_type(ServerType);
   INLINE void ns_set_accepting_new_friends(bool);
   INLINE void ns_set_embedded_mode(bool);
+  INLINE void ns_set_accepting_non_friend_whispers(bool);
   void ns_write_settings(void);
   void ns_read_settings(void);
   void read_file(Filename);
@@ -147,6 +151,7 @@ private:
   bool _bShowFpsMeter;
   bool _accepting_new_friends;
   bool _embedded_mode;
+  bool _accepting_non_friend_whispers;
   float _sfx_vol;
   float _music_vol;
   DisplayDriver _driver;

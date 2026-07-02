@@ -15,6 +15,7 @@
 #include "pvector.h"
 #include "vector_int.h"
 #include "nodePath.h"
+#include "genericAsyncTask.h"
 
 ////////////////////////////////////////////////////////////////////
 //       Class : MarginManager
@@ -23,7 +24,7 @@
 //               parenting them and setting their initial transforms
 //               to place them properly margin.
 ////////////////////////////////////////////////////////////////////
-class EXPCL_OTP MarginManager : public PandaNode {
+class EXPCL_OTP_NAMETAG MarginManager : public PandaNode {
 PUBLISHED:
   MarginManager();
   virtual ~MarginManager();
@@ -31,7 +32,12 @@ PUBLISHED:
   int add_grid_cell(float x, float y,
                      float screen_left, float screen_right,
                      float screen_bottom, float screen_top);
+  int add_grid_cell(float x, float y,
+                     float screen_left, float screen_right,
+                     float screen_bottom, float screen_top,
+                     NodePath &parent);
   int add_cell(float left, float right, float bottom, float top);
+  int add_cell(float left, float right, float bottom, float top, NodePath &parent);
 
   void set_cell_available(int cell_index, bool available);
   bool get_cell_available(int cell_index) const;
@@ -41,16 +47,14 @@ PUBLISHED:
   void hide_cells();
 #endif
 
-public:
-  void manage_popup(MarginPopup *popup);
-  void unmanage_popup(MarginPopup *popup);
   void update();
 
 public:
-  // From base class PandaNode.
-  virtual bool cull_callback(CullTraverser *trav, CullTraverserData &data);
-  virtual bool is_renderable() const;
+  void manage_popup(MarginPopup *popup);
+  void unmanage_popup(MarginPopup *popup);
 
+public:
+  // From base class PandaNode.
   virtual void write(ostream &out, int indent_level) const;
 
 private:
@@ -60,6 +64,8 @@ private:
 
   void show(MarginPopup *popup, int cell_index);
   void hide(int cell_index);
+
+  static AsyncTask::DoneStatus update_task(GenericAsyncTask *task, void *data);
 
 private:
   class PopupInfo {
@@ -86,6 +92,9 @@ private:
 
     // If the cell is vacant, _np is empty; otherwise, it is non-empty.
     NodePath _np;
+    
+    // This is can be used to parent cells to regions and more.
+    NodePath _parent = NodePath();
 
     // The popup pointer serves to indicate both the current popup in
     // the cell, if the cell is occupied, and the last popup to occupy
@@ -105,6 +114,8 @@ private:
 #ifndef NDEBUG
   NodePath _show_cells;
 #endif
+
+  PT(GenericAsyncTask) _update_task;
 
   // This STL function object is used to sort a vector of Popups
   // iterators in descending order by the score, for placing just the

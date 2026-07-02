@@ -5,19 +5,24 @@
 // under Windows).
 
 #define DIR_TYPE metalib
+
+#if $[BUILD_COMPONENTS]
+#define BUILDING_DLL BUILDING_OTP_STUB
+#else
 #define BUILDING_DLL BUILDING_OTP
+#endif
 
 #define COMPONENT_LIBS \
    otpbase settings nametag movement secure navigation
 
-#define OTHER_LIBS direct panda pandaexpress dtoolconfig dtool \
-    express:c prc:c event:c pgraph:c pgraphnodes:c linmath:c gobj:c lerp:c \
-    char:c putil:c mathutil:c downloader:c mathutil:c  chan:c \
-    pandabase:c recorder:c grutil:c chan:c  collide:c device:c \
+#define OTHER_LIBS direct:m panda:m pandaexpress:m dtool:m \
+    express:c prc event:c pgraph:c pgraphnodes:c linmath:c gobj:c \
+    anim:c putil:c mathutil:c downloader:c mathutil:c \
+    recorder:c grutil:c collide:c device:c \
     dgraph:c display:c gsgbase:c parametrics:c text:c pnmimage:c \
-    dtoolutil:c interrogatedb:c interval:c dtoolbase:c \
-    dconfig:c pipeline:c pstatclient:c cull:c pnmimagetypes:c \
-    tform:c audio:c pgui:c directbase:c dcparser:c showbase:c \
+    dtoolutil:c interrogatedb interval:c dtoolbase:c \
+    pipeline:c pstatclient:c cull:c pnmimagetypes:c \
+    tform:c audio:c pgui:c dcparser:c showbase:c \
     deadrec:c distributed:c motiontrail:c movies:c \
     $[if $[HAVE_NET],net:c] $[if $[WANT_NATIVE_NET],nativenet:c]
 
@@ -26,8 +31,7 @@
   #endif
 
 #begin metalib_target
-  #define TARGET otp 
+  #define TARGET otp
 
   #define SOURCES otp.cxx
 #end metalib_target
-

@@ -63,6 +63,10 @@ INLINE bool Settings::get_embedded_mode(void) {
   return get_ptr()->ns_get_embedded_mode();
 }
 
+INLINE bool Settings::get_accepting_non_friend_whispers(void) {
+  return get_ptr()->ns_get_accepting_non_friend_whispers();
+}
+
 INLINE void Settings::set_sfx(bool active) {
   get_ptr()->ns_set_sfx(active);
 }
@@ -121,6 +125,10 @@ INLINE void Settings::set_accepting_new_friends(bool afr) {
 
 INLINE void Settings::set_embedded_mode(bool afr) {
   get_ptr()->ns_set_embedded_mode(afr);
+}
+
+INLINE void Settings::set_accepting_non_friend_whispers(bool afr) {
+  get_ptr()->ns_set_accepting_non_friend_whispers(afr);
 }
 
 INLINE void Settings::write_settings(void) {
@@ -206,6 +214,10 @@ INLINE bool Settings::ns_get_embedded_mode(void) {
   return _embedded_mode;
 }
 
+INLINE bool Settings::ns_get_accepting_non_friend_whispers(void) {
+  return _accepting_non_friend_whispers;
+}
+
 INLINE void Settings::ns_set_sfx(bool active) {
   _sfx = active;
 }
@@ -264,4 +276,8 @@ INLINE void Settings::ns_set_accepting_new_friends(bool afr) {
 
 INLINE void Settings::ns_set_embedded_mode(bool afr) {
   _embedded_mode = afr;
+}
+
+INLINE void Settings::ns_set_accepting_non_friend_whispers(bool afr) {
+  _accepting_non_friend_whispers = afr;
 }

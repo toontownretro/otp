@@ -1,10 +1,16 @@
-#begin lib_target
+#begin interface_target
   #define TARGET otpbase
-  
+
+  #define BUILDING_DLL BUILDING_OTP_OTPBASE
+
+  #define OTHER_LIBS dtoolbase:c dtool:m
+
+  #define USE_PACKAGES eigen sleef
+
   #define SOURCES \
-    otpbase.cxx otpbase.h otpsymbols.h \
+    otpbase.h otpsymbols.h \
 
   #define INSTALL_HEADERS \
     otpbase.h otpsymbols.h
 
-#end lib_target
+#end interface_target

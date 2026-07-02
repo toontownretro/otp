@@ -8,6 +8,7 @@
 
 #begin lib_target
   #define TARGET settings
+  #define BUILDING_DLL BUILDING_OTP_SETTINGS
   #define SOURCES settingsFile.h settingsFile.cxx
   #define IGATESCAN settingsFile.h
 #end lib_target
@@ -33,7 +34,9 @@
 
 #begin bin_target
 
-  #define OTHER_LIBS $[OTHER_LIBS] pystub
+// Don't build this disaster.
+#define BUILD_TARGET
+
 
 #if $[or $[eq $[PLATFORM], Cygwin], $[eq $[PLATFORM],Win32]]
 // UPX writes 'UPX' in the exe, but it's better than nothing until I can find a better encrypter

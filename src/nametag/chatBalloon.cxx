@@ -60,7 +60,7 @@ ChatBalloon::
 ////////////////////////////////////////////////////////////////////
 PT(PandaNode) ChatBalloon::
 generate(const string &text, TextFont *font, float wordwrap,
-         const Colorf &text_color, const Colorf &balloon_color,
+         const LColorf &text_color, const LColorf &balloon_color,
          bool for_3d, bool has_draw_order, int draw_order,
          const NodePath &page_button, bool space_for_button,
          bool reversed, NodePath &new_button) {
@@ -180,7 +180,6 @@ generate(const string &text, TextFont *font, float wordwrap,
       text_parent_node = find_geom_node(root);
     }
     nassertr(text_parent_node != (PandaNode *)NULL, root);
-    text_parent_node->set_effect(DecalEffect::make());
 
   } else {
     text_parent_node = root;
@@ -192,12 +191,13 @@ generate(const string &text, TextFont *font, float wordwrap,
   nassertr(text_parent_node != (PandaNode *)NULL, root);
   NodePath text_parent(text_parent_node);
   NodePath text_geom = text_parent.attach_new_node(text_geom_node);
-
+  
   text_geom.set_pos(text_trans);
   text_geom.set_color(text_color);
   if (text_color[3] != 1.0f) {
     text_geom.set_transparency(TransparencyAttrib::M_alpha);
   }
+  text_geom.set_depth_offset(1);  
 
   if (!page_button.is_empty()) {
     // Put the page button, if we have one, with the text.

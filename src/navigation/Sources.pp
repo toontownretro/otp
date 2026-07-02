@@ -1,25 +1,29 @@
 #define LOCAL_LIBS otpbase
-#define OTHER_LIBS interrogatedb:c dconfig:c dtoolconfig:m \
-                   dtoolutil:c dtoolbase:c dtool:m prc:c \
+#define OTHER_LIBS interrogatedb \
+                   dtoolutil:c dtoolbase:c dtool:m prc \
                    display:c text:c pgraph:c gobj:c linmath:c putil:c panda:m pandaexpress:m
 
-#define USE_PACKAGES 
+#define USE_PACKAGES
 
 #begin lib_target
   #define TARGET navigation
-    
-  #define COMBINED_SOURCES $[TARGET]_composite1.cxx 
+
+#define BUILDING_DLL BUILDING_OTP_NAVIGATION
 
   #define SOURCES \
-    pathTable.h pathTable.I
-    
-  #define INCLUDED_SOURCES \
-    pathTable.cxx
+    config_navigation.h
+
+  #define COMPOSITE_SOURCES \
+    config_navigation.cxx
 
   #define INSTALL_HEADERS \
-    pathTable.h pathTable.I
+    pathTable.h pathTable.I \
+    config_navigation.h
 
   #define IGATESCAN all
+  #define IGATEEXT \
+    pathTable.cxx \
+    pathTable.h \
+    pathTable.I
 
 #end lib_target
-

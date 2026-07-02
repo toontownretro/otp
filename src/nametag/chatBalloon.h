@@ -31,12 +31,12 @@ class NodePath;
 //               These nodes will be sized and translated
 //               appropriately to frame the text as generated.
 ////////////////////////////////////////////////////////////////////
-class EXPCL_OTP ChatBalloon : public ReferenceCount {
+class EXPCL_OTP_NAMETAG ChatBalloon : public ReferenceCount {
 PUBLISHED:
   ChatBalloon(PandaNode *root_node);
   ~ChatBalloon();
   PT(PandaNode) generate(const string &text, TextFont *font, float wordwrap,
-                         const Colorf &text_color, const Colorf &balloon_color,
+                         const LColorf &text_color, const LColorf &balloon_color,
                          bool for_3d, bool has_draw_order, int draw_order,
                          const NodePath &page_button, bool space_for_button,
                          bool reversed, NodePath &new_button);

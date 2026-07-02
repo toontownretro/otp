@@ -12,8 +12,10 @@
 #include "clockObject.h"
 #include "omniBoundingVolume.h"
 #include "indent.h"
+#include "asyncTaskManager.h"
 
 #include <algorithm>
+#include <random>
 
 TypeHandle MarginManager::_type_handle;
 
@@ -24,8 +26,6 @@ TypeHandle MarginManager::_type_handle;
 ////////////////////////////////////////////////////////////////////
 MarginManager::
 MarginManager() : PandaNode("popups") {
-  set_cull_callback();
-
   _num_available_cells = 0;
 
   // A MarginManager has an infinite bounding volume, so it never gets
@@ -33,6 +33,13 @@ MarginManager() : PandaNode("popups") {
   OmniBoundingVolume volume;
   set_bounds(&volume);
   set_final(true);
+
+  // Spawn a task to automatically update the MarginManager each frame.
+  _update_task = new GenericAsyncTask("MarginManagerUpdate", &MarginManager::update_task, this);
+  // Make sure the tasks runs right before we render.
+  _update_task->set_sort(49);
+  AsyncTaskManager *task_mgr = AsyncTaskManager::get_global_ptr();
+  task_mgr->add(_update_task);
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -42,6 +49,21 @@ MarginManager() : PandaNode("popups") {
 ////////////////////////////////////////////////////////////////////
 MarginManager::
 ~MarginManager() {
+  if (_update_task != nullptr) {
+    _update_task->remove();
+  }
+}
+
+////////////////////////////////////////////////////////////////////
+//     Function: MarginManager::update_task
+//       Access: Private
+//  Description: This is the task callback to update the MarginManager
+//               each frame.
+////////////////////////////////////////////////////////////////////
+AsyncTask::DoneStatus MarginManager::
+update_task(GenericAsyncTask *task, void *data) {
+  ((MarginManager *)data)->update();
+  return AsyncTask::DS_cont;
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -79,6 +101,45 @@ add_grid_cell(float x, float y,
 
   return add_cell(left + horz_margin, right - horz_margin,
                   bottom + vert_margin, top - vert_margin);
+}
+
+////////////////////////////////////////////////////////////////////
+//     Function: MarginManager::add_grid_cell
+//       Access: Published
+//  Description: This variant on add_cell() adds a new cell based on
+//               its coordinates within an imaginary grid, where (0,
+//               0) is the bottom left corner and
+//               (NametagGlobals::grid_count_horizontal - 1,
+//               NametagGlobals::grid_count_vertical - 1) is the upper
+//               right corner.  The dimensions of the entire screen
+//               are given.
+//
+//               The return value is the index number associated with
+//               this cell, which may be passed to get_cell_available()
+//               or set_cell_available().
+////////////////////////////////////////////////////////////////////
+int MarginManager::
+add_grid_cell(float x, float y,
+              float screen_left, float screen_right,
+              float screen_bottom, float screen_top,
+              NodePath &parent) {
+  float screen_width = (screen_right - screen_left);
+  float screen_height = (screen_top - screen_bottom);
+
+  float cell_width = screen_width / NametagGlobals::grid_count_horizontal;
+  float cell_height = screen_height / NametagGlobals::grid_count_vertical;
+
+  float left = screen_left + x * cell_width;
+  float right = left + cell_width;
+  float bottom = screen_bottom + y * cell_height;
+  float top = bottom + cell_height;
+
+  float horz_margin = NametagGlobals::grid_spacing_horizontal * 0.5f;
+  float vert_margin = NametagGlobals::grid_spacing_vertical * 0.5f;
+
+  return add_cell(left + horz_margin, right - horz_margin,
+                  bottom + vert_margin, top - vert_margin,
+                  parent);
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -122,6 +183,57 @@ add_cell(float left, float right, float bottom, float top) {
   cell._popup_code = 0;
   cell._np = NodePath();
   cell._hide_time = 0.0f;
+
+  _num_available_cells++;
+
+  return cell_index;
+}
+
+////////////////////////////////////////////////////////////////////
+//     Function: MarginManager::add_cell
+//       Access: Published
+//  Description: Adds a new cell to the list of available cells for
+//               popups.  The coordinates given define the rectangular
+//               region that defines the cell; the cell will be set up
+//               in a coordinate space that maps -1 .. 1 in the y
+//               dimension and -width .. width in the x dimension to
+//               the rectangle defined.
+//
+//               The return value is the index number associated with
+//               this cell, which may be passed to get_cell_available()
+//               or set_cell_available().
+////////////////////////////////////////////////////////////////////
+int MarginManager::
+add_cell(float left, float right, float bottom, float top, NodePath &parent) {
+  // We choose the appropriate scale such that -1 .. 1 maps to the top
+  // and bottom of the rectangle, and the appropriate translation such
+  // that (0, 0) is in the center of the rectangle.
+  float vert_scale = (top - bottom) * 0.5f;
+  LVecBase3f scale(vert_scale, vert_scale, vert_scale);
+  LVecBase3f hpr(0.0f, 0.0f, 0.0f);
+  LVecBase3f trans((left + right) * 0.5f,
+                   0.0f,
+                   (bottom + top) * 0.5f);
+
+  int cell_index = _cells.size();
+  _cells.push_back(Cell());
+  Cell &cell = _cells.back();
+  cell._is_available = true;
+  compose_matrix(cell._mat, scale, hpr, trans);
+
+  // Now we compute the width such that -width .. width represents the
+  // left-to-right extents of the rectangle.
+  float horz_scale = (right - left) * 0.5f;
+  cell._width = horz_scale / vert_scale;
+
+  cell._popup = (MarginPopup *)NULL;
+  cell._popup_code = 0;
+  cell._np = NodePath();
+  cell._hide_time = 0.0f;
+  // If we have a parent specified, Set our cells parent.
+  if (!parent.is_empty()) {
+    cell._parent = parent;
+  }
 
   _num_available_cells++;
 
@@ -365,7 +477,7 @@ update() {
       // If the popup wants to hide itself, we can oblige it right
       // away.
       hide(info._cell_index);
-      
+
     } else if (info._wants_visible && !popup->is_visible()) {
       // This popup wants to reveal itself; we'll have to defer that
       // request for a bit until we've looked at all the popups.
@@ -402,58 +514,9 @@ update() {
 }
 
 ////////////////////////////////////////////////////////////////////
-//     Function: MarginManager::cull_callback
-//       Access: Public, Virtual
-//  Description: This function will be called during the cull
-//               traversal to perform any additional operations that
-//               should be performed at cull time.  This may include
-//               additional manipulation of render state or additional
-//               visible/invisible decisions, or any other arbitrary
-//               operation.
-//
-//               Note that this function will *not* be called unless
-//               set_cull_callback() is called in the constructor of
-//               the derived class.  It is necessary to call
-//               set_cull_callback() to indicated that we require
-//               cull_callback() to be called.
-//
-//               By the time this function is called, the node has
-//               already passed the bounding-volume test for the
-//               viewing frustum, and the node's transform and state
-//               have already been applied to the indicated
-//               CullTraverserData object.
-//
-//               The return value is true if this node should be
-//               visible, or false if it should be culled.
-////////////////////////////////////////////////////////////////////
-bool MarginManager::
-cull_callback(CullTraverser *, CullTraverserData &) {
-  update();
-  return true;
-}
-
-////////////////////////////////////////////////////////////////////
-//     Function: MarginManager::is_renderable
-//       Access: Public, Virtual
-//  Description: Returns true if there is some value to visiting this
-//               particular node during the cull traversal for any
-//               camera, false otherwise.  This will be used to
-//               optimize the result of get_net_draw_show_mask(), so
-//               that any subtrees that contain only nodes for which
-//               is_renderable() is false need not be visited.
-////////////////////////////////////////////////////////////////////
-bool MarginManager::
-is_renderable() const {
-  // We flag the MarginManager as renderable, even though it
-  // technically doesn't have anything to render, but we do need the
-  // traverser to visit it every frame.
-  return true;
-}
-
-////////////////////////////////////////////////////////////////////
 //     Function: MarginManager::write
 //       Access: Published, Virtual
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
 write(ostream &out, int indent_level) const {
@@ -499,7 +562,8 @@ show_visible_no_conflict() {
   }
 
   // Randomize the list, so we'll pull the cells out in random order.
-  random_shuffle(empty_cells.begin(), empty_cells.end());
+  auto random = std::default_random_engine(std::random_device()());
+  std::shuffle(std::begin(empty_cells), std::end(empty_cells), random);
 
   // Now find a home for each popup that needs one.
   Popups::iterator pi;
@@ -569,8 +633,8 @@ show_visible_resolve_conflict() {
   }
 
   // Randomize the list, so we'll pull the cells out in random order.
-  random_shuffle(empty_cells.begin(), empty_cells.end());
-
+  auto random = std::default_random_engine(std::random_device()());
+  std::shuffle(std::begin(empty_cells), std::end(empty_cells), random);
 
   // And place all the cells from the head of the wants-visible list.
   // There should be an empty cell available for each of them.
@@ -655,6 +719,9 @@ show(MarginPopup *popup, int cell_index) {
 
   const LMatrix4f &mat = _cells[cell_index]._mat;
   _cells[cell_index]._np.set_mat(mat);
+  if (!_cells[cell_index]._parent.is_empty()) {
+    _cells[cell_index]._np.reparent_to(_cells[cell_index]._parent);
+  }
 
   _popups[popup]._cell_index = cell_index;
   popup->_cell_width = _cells[cell_index]._width;
