@@ -1,10 +1,4 @@
-// This is the toplevel directory for a package.
+// This is a group directory: a directory level above a number of
+// source subdirectories.
 
-#define DIR_TYPE toplevel
-
-#define REQUIRED_TREES dtool panda direct
-
-#define EXTRA_DIST \
-    Sources.pp Config.pp Package.pp
-
-#define PYTHON_PACKAGE 1
+#define DIR_TYPE group
