@@ -197,7 +197,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
         name from within setWhisper and expect the derived function to
         override it.
         """
-        print "Whisper type %s from %s: %s" % (whisperType, fromId, chatString)
+        print("Whisper type %s from %s: %s" % (whisperType, fromId, chatString))
         
         
     def displayWhisperPlayer(self, playerId, chatString, whisperType):
@@ -207,7 +207,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
         name from within setWhisper and expect the derived function to
         override it.
         """
-        print "WhisperPlayer type %s from %s: %s" % (whisperType, playerId, chatString)
+        print("WhisperPlayer type %s from %s: %s" % (whisperType, playerId, chatString))
 
     ### setWhisperSC ###
 
@@ -391,7 +391,7 @@ class DistributedPlayer(DistributedAvatar.DistributedAvatar,
         name from within setWhisper and expect the derived function to
         override it.
         """
-        print "TalkWhisper from %s: %s" % (fromId, chatString)
+        print("TalkWhisper from %s: %s" % (fromId, chatString))
         
     def scrubTalk(self, chat, mods):
         """

@@ -4,9 +4,9 @@ from pandac import PandaModules as PM
 from otp.ai.AIBaseGlobal import *
 from direct.distributed.ClockDelta import *
 from direct.distributed import DistributedObjectAI
-import Level
+from . import Level
 from direct.directnotify import DirectNotifyGlobal
-import EntityCreatorAI
+from . import EntityCreatorAI
 from direct.showbase.PythonUtil import Functor, weightedChoice
 
 class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
@@ -88,8 +88,8 @@ class DistributedLevelAI(DistributedObjectAI.DistributedObjectAI,
 
         # choose a scenario
         # make list of lists: [(weight, scenarioIndex), ...]
-        lol = zip([1] * levelSpec.getNumScenarios(),
-                  range(levelSpec.getNumScenarios()))
+        lol = list(zip([1] * levelSpec.getNumScenarios(),
+                  list(range(levelSpec.getNumScenarios()))))
         scenarioIndex = weightedChoice(lol)
 
         Level.Level.initializeLevel(self, self.doId, levelSpec, scenarioIndex)

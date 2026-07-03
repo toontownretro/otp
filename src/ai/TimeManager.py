@@ -334,7 +334,7 @@ class TimeManager(DistributedObject.DistributedObject):
             '%0.03f,%0.03f' % cpuSpeed,
             '%d,%d' % (numCpuCores, numLogicalCpus))
         
-        print "cpu info: %s" % (info)
+        print("cpu info: %s" % (info))
         self.sendUpdate("setCpuInfo", [info, cacheStatus])
             
     
@@ -439,7 +439,7 @@ class TimeManager(DistributedObject.DistributedObject):
             pageFaultCount, '%s.%d.%d.%d' % osInfo, '%0.03f,%0.03f' % cpuSpeed,
             '%d,%d' % (numCpuCores, numLogicalCpus),
             apiName)
-        print "frame rate: %s" % (info)
+        print("frame rate: %s" % (info))
 
         self.sendUpdate("setFrameRate", [
             fps, deviation, numAvs, locationCode,
@@ -499,7 +499,7 @@ class TimeManager(DistributedObject.DistributedObject):
                               bugfix, # what do we put for platform id?
                               major,
                               minor)
-                except Exception, e:
+                except Exception as e:
                     self.notify.debug("getMacOsInfo %s" % str(e))
         self.notify.debug('getMacOsInfo returning %s' % str(result))
         return result

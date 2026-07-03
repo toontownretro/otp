@@ -136,14 +136,14 @@ class ChatInputNormal(DirectObject.DirectObject):
         if not ChatInputNormal.ExecNamespace:
             # Import some useful variables into the ExecNamespace initially.
             ChatInputNormal.ExecNamespace = { }
-            exec 'from pandac.PandaModules import *' in globals(), self.ExecNamespace
+            exec('from pandac.PandaModules import *', globals(), self.ExecNamespace)
             self.importExecNamespace()
 
         # Now try to evaluate the expression using ChatInputNormal.ExecNamespace as
         # the local namespace.
         try:
             if not isClient():
-                print "EXECWARNING ChatInputNormal eval: %s"%message
+                print("EXECWARNING ChatInputNormal eval: %s"%message)
                 printStack()
             return str(eval(message, globals(), ChatInputNormal.ExecNamespace))
 
@@ -153,9 +153,9 @@ class ChatInputNormal(DirectObject.DirectObject):
             # fails, but they can be exec'ed.
             try:
                 if not isClient():
-                    print "EXECWARNING ChatInputNormal exec: %s"%message
+                    print("EXECWARNING ChatInputNormal exec: %s"%message)
                     printStack()
-                exec message in globals(), ChatInputNormal.ExecNamespace
+                exec(message, globals(), ChatInputNormal.ExecNamespace)
                 return 'ok'
             except:
                 exception = sys.exc_info()[0]

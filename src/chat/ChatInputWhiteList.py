@@ -309,14 +309,14 @@ class ChatInputWhiteList(FSM.FSM, DirectEntry):
         if not ChatInputTyped.ExecNamespace:
             # Import some useful variables into the ExecNamespace initially.
             ChatInputTyped.ExecNamespace = { }
-            exec 'from pandac.PandaModules import *' in globals(), self.ExecNamespace
+            exec('from pandac.PandaModules import *', globals(), self.ExecNamespace)
             self.importExecNamespace()
 
         # Now try to evaluate the expression using ChatInputTyped.ExecNamespace as
         # the local namespace.
         try:
             if not isClient():
-                print "EXECWARNING ChatInputWhiteList eval: %s"%message
+                print("EXECWARNING ChatInputWhiteList eval: %s"%message)
                 printStack()
             return str(eval(message, globals(), ChatInputTyped.ExecNamespace))
 
@@ -326,9 +326,9 @@ class ChatInputWhiteList(FSM.FSM, DirectEntry):
             # fails, but they can be exec'ed.
             try:
                 if not isClient():
-                    print "EXECWARNING ChatInputWhiteList exec: %s"%message
+                    print("EXECWARNING ChatInputWhiteList exec: %s"%message)
                     printStack()
-                exec message in globals(), ChatInputTyped.ExecNamespace
+                exec(message, globals(), ChatInputTyped.ExecNamespace)
                 return 'ok'
             except:
                 exception = sys.exc_info()[0]

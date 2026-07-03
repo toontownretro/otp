@@ -4,8 +4,9 @@ from pandac import PandaModules as PM
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase.PythonUtil import list2dict, uniqueElements
 import string
-import LevelConstants
+from . import LevelConstants
 import types
+import importlib
 if __dev__:
     import os
 
@@ -26,11 +27,11 @@ class LevelSpec:
         if type(spec) is types.ModuleType:
             if __dev__:
                 # reload the spec module to pick up changes
-                reload(spec)
+                importlib.reload(spec)
             self.specDict = spec.levelSpec
             if __dev__:
                 self.setFilename(spec.__file__)
-        elif type(spec) is types.DictType:
+        elif type(spec) is dict:
             # we need this for repr/eval-ing LevelSpecs
             self.specDict = spec
         elif spec is None:
@@ -60,8 +61,8 @@ class LevelSpec:
         if __dev__:
             if newSpec:
                 # add basic required entities
-                import EntityTypes
-                import EntityTypeRegistry
+                from . import EntityTypes
+                from . import EntityTypeRegistry
                 etr = EntityTypeRegistry.EntityTypeRegistry(EntityTypes)
                 self.setEntityTypeReg(etr)
 
@@ -98,12 +99,12 @@ class LevelSpec:
         return self.scenario
 
     def getGlobalEntIds(self):
-        return self.privGetGlobalEntityDict().keys()
+        return list(self.privGetGlobalEntityDict().keys())
 
     def getScenarioEntIds(self, scenario=None):
         if scenario is None:
             scenario = self.scenario
-        return self.privGetScenarioEntityDict(scenario).keys()
+        return list(self.privGetScenarioEntityDict(scenario).keys())
 
     def getAllEntIds(self):
         """this returns all of the entIds involved in the current scenario"""
@@ -112,7 +113,7 @@ class LevelSpec:
     def getAllEntIdsFromAllScenarios(self):
         """this returns all of the entIds involved in all scenarios"""
         entIds = self.getGlobalEntIds()
-        for scenario in xrange(self.getNumScenarios()):
+        for scenario in range(self.getNumScenarios()):
             entIds.extend(self.getScenarioEntIds(scenario))
         return entIds
 
@@ -126,10 +127,10 @@ class LevelSpec:
         # are shared between the original and the copy (i.e. Point3's)
         specCopy = {}
         if not isClient():
-            print "EXECWARNING LevelSpec exec: %s"%self.getSpecImportsModuleName()
+            print("EXECWARNING LevelSpec exec: %s"%self.getSpecImportsModuleName())
             printStack()
-        exec 'from %s import *' % self.getSpecImportsModuleName()
-        for key in spec.keys():
+        exec('from %s import *' % self.getSpecImportsModuleName())
+        for key in list(spec.keys()):
             specCopy[key] = eval(repr(spec[key]))
         return specCopy
 
@@ -183,7 +184,7 @@ class LevelSpec:
         zoneIds.sort()
         for zoneNum in zoneIds:
             spec = self.getEntitySpec(zoneNum)
-            print 'zone %s: %s' % (zoneNum, spec['name'])
+            print('zone %s: %s' % (zoneNum, spec['name']))
 
     if __dev__:
         def setLevel(self, level):
@@ -200,7 +201,7 @@ class LevelSpec:
                 type = self.getEntityType(entId)
                 typeDesc = self.entTypeReg.getTypeDesc(type)
                 attribDescDict = typeDesc.getAttribDescDict()
-                for attribName, desc in attribDescDict.iteritems():
+                for attribName, desc in attribDescDict.items():
                     if attribName not in spec:
                         spec[attribName] = desc.getDefaultValue()
             self.checkSpecIntegrity()
@@ -215,7 +216,7 @@ class LevelSpec:
             """ do the dirty work of changing an attrib value """
             assert entId in self.entId2specDict
             specDict = self.entId2specDict[entId]
-            assert specDict[entId].has_key(attrib)
+            assert attrib in specDict[entId]
             specDict[entId][attrib] = value
 
         def setAttribChange(self, entId, attrib, value, username):
@@ -240,7 +241,7 @@ class LevelSpec:
             spec = globalEnts[entId]
             attribDescs = self.entTypeReg.getTypeDesc(entType
                                                       ).getAttribDescDict()
-            for name, desc in attribDescs.items():
+            for name, desc in list(attribDescs.items()):
                 spec[name] = desc.getDefaultValue()
             spec['type'] = entType
             if parentEntId != 'unspecified':
@@ -329,7 +330,7 @@ class LevelSpec:
                     backupFilename = self.privGetBackupFilename(filename)
                     self.privRemoveFile(backupFilename)
                     os.rename(filename, backupFilename)
-                except OSError, e:
+                except OSError as e:
                     LevelSpec.notify.warning(
                         'error during backup: %s' % str(e))
 
@@ -402,10 +403,10 @@ class LevelSpec:
                                 )
                 str = t(0)+'%s = {\n' % name
                 # get list of types
-                entIds = dict.keys()
+                entIds = list(dict.keys())
                 entType2ids = self.getEntType2ids(entIds)
                 # put types in order
-                types = sortList(entType2ids.keys(), firstTypes)
+                types = sortList(list(entType2ids.keys()), firstTypes)
                 for type in types:
                     str += t(1)+'# %s\n' % string.upper(type)
                     entIds = entType2ids[type]
@@ -413,7 +414,7 @@ class LevelSpec:
                     for entId in entIds:
                         str += t(1)+'%s: {\n' % entId
                         spec = dict[entId]
-                        attribs = sortList(spec.keys(), firstAttribs)
+                        attribs = sortList(list(spec.keys()), firstAttribs)
                         for attrib in attribs:
                             str += t(2)+"'%s': %s,\n" % (attrib,
                                                          repr(spec[attrib]))
@@ -480,7 +481,7 @@ class LevelSpec:
                         #if the strings don't match print an error
                         s += '\nBAD VALUE(%s): %s != %s\n' % (key, strd1, strd2)
                         errorCount += 1 #we could just bail here but instead we accumulate the errors
-            print s
+            print(s)
             #import pdb;pdb.set_trace
             if errorCount == 0:
                 return 1
@@ -492,7 +493,7 @@ class LevelSpec:
             if prettyString is None:
                 prettyString=self.getPrettyString()
             if not isClient():
-                print "EXECWARNING LevelSpec exec 2: %s"%prettyString
+                print("EXECWARNING LevelSpec exec 2: %s"%prettyString)
                 printStack()
             exec(prettyString)
             if self._recurKeyTest(levelSpec, self.specDict):
@@ -510,7 +511,7 @@ class LevelSpec:
             entIds = list2dict(entIds)
             for i in range(self.getNumScenarios()):
                 for id in self.getScenarioEntIds(i):
-                    assert not entIds.has_key(id)
+                    assert id not in entIds
                     entIds[id] = None
 
             if self.entTypeReg is not None:
@@ -519,14 +520,14 @@ class LevelSpec:
                 for entId in allEntIds:
                     spec = self.getEntitySpec(entId)
 
-                    assert spec.has_key('type')
+                    assert 'type' in spec
                     entType = spec['type']
                     typeDesc = self.entTypeReg.getTypeDesc(entType)
                     attribNames = typeDesc.getAttribNames()
                     attribDescs = typeDesc.getAttribDescDict()
 
                     # are there any unknown attribs in the spec?
-                    for attrib in spec.keys():
+                    for attrib in list(spec.keys()):
                         if attrib not in attribNames:
                             LevelSpec.notify.warning(
                                 "entId %s (%s): unknown attrib '%s', omitting"
@@ -535,7 +536,7 @@ class LevelSpec:
 
                     # does the spec have all of its attributes?
                     for attribName in attribNames:
-                        if not spec.has_key(attribName):
+                        if attribName not in spec:
                             LevelSpec.notify.warning(
                                 "entId %s (%s): missing attrib '%s'" % (
                                 entId, spec['type'], attribName))
