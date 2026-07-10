@@ -1,6 +1,6 @@
 """LevelSpec module: contains the LevelSpec class"""
 
-from pandac import PandaModules as PM
+from otp.otpbase import OTPModules as PM
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase.PythonUtil import list2dict, uniqueElements
 import string

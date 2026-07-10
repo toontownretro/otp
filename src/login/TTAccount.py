@@ -1,7 +1,7 @@
 """TTAccount.py is for communicating with account servers"""
 
-from pandac.PandaModules import *
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase import PythonUtil
 from otp.otpbase import OTPLocalizer

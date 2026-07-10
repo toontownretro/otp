@@ -4,7 +4,7 @@ import os
 import time
 from datetime import datetime
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 
 from direct.distributed.MsgTypes import *
 from direct.gui.DirectGui import *

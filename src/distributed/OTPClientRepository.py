@@ -7,8 +7,8 @@ import gc
 import os
 
 
-from pandac.PandaModules import *
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import *
 from direct.gui.DirectGui import *
 from otp.distributed.OtpDoGlobals import *
 

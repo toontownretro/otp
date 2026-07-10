@@ -1,6 +1,6 @@
 """LoginTTAccount: Login using an Account Manager server"""
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.directnotify import DirectNotifyGlobal
 from . import LoginTTAccount
 

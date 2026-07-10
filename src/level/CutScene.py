@@ -5,8 +5,8 @@ from direct.showbase import DirectObject
 from direct.directnotify import DirectNotifyGlobal
 from . import BasicEntities
 
-from pandac.PandaModules import *
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import *
 from direct.interval.IntervalGlobal import *
 from direct.distributed.ClockDelta import *
 

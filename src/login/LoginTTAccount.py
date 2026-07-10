@@ -1,6 +1,6 @@
 """LoginTTAccount: Login using the Toontown Account Manager server"""
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.distributed.MsgTypes import *
 from direct.directnotify import DirectNotifyGlobal
 from . import LoginBase

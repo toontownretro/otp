@@ -4,7 +4,7 @@ multipart actors with a simple class
 """
 
 #import whrandom
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.directnotify.DirectNotifyGlobal import *
 import random
 from direct.distributed.PyDatagram import PyDatagram

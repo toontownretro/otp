@@ -5,13 +5,13 @@ from otp.otpbase import OTPLocalizer
 from direct.directnotify import DirectNotifyGlobal
 from otp.otpbase import OTPGlobals
 from otp.speedchat import SCDecoders
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from otp.chat.TalkMessage import TalkMessage
 from otp.chat.TalkHandle import TalkHandle
 import time
 from otp.chat.TalkGlobals import *
 from otp.chat.ChatGlobals import *
-from libotp import CFSpeech, CFTimeout, CFThought
+from panda3d.otp import CFSpeech, CFTimeout, CFThought
 
 
 """
@@ -363,7 +363,7 @@ class TalkAssistant(DirectObject.DirectObject):
         if not TalkAssistant.ExecNamespace:
             # Import some useful variables into the ExecNamespace initially.
             TalkAssistant.ExecNamespace = { }
-            exec('from pandac.PandaModules import *', globals(), self.ExecNamespace)
+            exec('from otp.otpbase.OTPModules import *', globals(), self.ExecNamespace)
             self.importExecNamespace()
 
         # Now try to evaluate the expression using ChatInputTyped.ExecNamespace as

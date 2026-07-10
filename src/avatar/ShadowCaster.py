@@ -1,6 +1,6 @@
 
-from pandac.PandaModules import *
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
+from otp.otpbase.OTPModules import *
 from direct.directnotify import DirectNotifyGlobal
 from direct.showbase.ShadowPlacer import ShadowPlacer
 from otp.otpbase import OTPGlobals

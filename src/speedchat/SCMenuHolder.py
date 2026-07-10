@@ -1,6 +1,6 @@
 """SCMenuHolder.py: contains the SCMenuHolder class"""
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.gui.DirectGui import *
 from .SCObject import SCObject
 from .SCElement import SCElement

@@ -24,7 +24,7 @@ def nothing(*args):
     """For entities that don't exist on the client at all"""
     return 'nothing'
 
-def nonlocal(*args):
+def nonlocalEnt(*args):
     """For entities that don't need to be created by the client and will
     show up independently (they're distributed and created by the AI)"""
     return 'nonlocal'

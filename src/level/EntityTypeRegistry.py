@@ -1,6 +1,6 @@
 """EntityTypeRegistry module: contains the EntityTypeRegistry class"""
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.directnotify import DirectNotifyGlobal
 import types
 from . import AttribDesc

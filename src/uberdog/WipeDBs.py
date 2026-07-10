@@ -1,6 +1,6 @@
 import MySQLdb
 import direct
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 
 config = getConfigShowbase()
 

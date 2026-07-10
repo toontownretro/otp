@@ -10,7 +10,7 @@ import os
 import time
 import string
 import builtins
-from pandac.libpandaexpressModules import *
+from otp.otpbase.OTPModules import *
 # Import DIRECT files
 from direct.showbase.MessengerGlobal import *
 from direct.showbase.DirectObject import DirectObject

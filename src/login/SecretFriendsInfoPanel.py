@@ -1,4 +1,4 @@
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from otp.otpbase.OTPGlobals import *
 from direct.gui.DirectGui import *
 from .MultiPageTextFrame import *

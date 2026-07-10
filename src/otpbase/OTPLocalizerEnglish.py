@@ -108,8 +108,8 @@ WhisperFromFormatName = "%s whispers"
 ThoughtOtherFormatName = "%s thinks"
 ThoughtSelfFormatName = "You think"
 
-from pandac.PandaModules import TextProperties
-from pandac.PandaModules import TextPropertiesManager
+from otp.otpbase.OTPModules import TextProperties
+from otp.otpbase.OTPModules import TextPropertiesManager
 
 shadow = TextProperties()
 shadow.setShadow(-0.025, -0.025)

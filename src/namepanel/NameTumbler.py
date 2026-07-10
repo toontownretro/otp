@@ -3,7 +3,7 @@
 # Creates a GUI Object which displays a List of Names for Selection
 ##################################################################
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.showbase import DirectObject
 #import whrandom
 import random

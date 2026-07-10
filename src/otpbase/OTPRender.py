@@ -1,5 +1,5 @@
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 
 # global bitmasks for cameras
 MainCameraBitmask = BitMask32.bit(0)

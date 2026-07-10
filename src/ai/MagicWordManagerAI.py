@@ -1,5 +1,5 @@
 from .AIBaseGlobal import *
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.distributed import DistributedObjectAI
 from direct.directnotify import DirectNotifyGlobal
 from otp.otpbase import OTPGlobals
@@ -522,7 +522,7 @@ class MagicWordManagerAI(DistributedObjectAI.DistributedObjectAI):
     def __execMessage(self, message):
         if not self.ExecNamespace:
             # Import some useful variables into the ExecNamespace initially.
-            exec('from pandac.PandaModules import *', globals(), self.ExecNamespace)
+            exec('from otp.otpbase.OTPModules import *', globals(), self.ExecNamespace)
             #self.importExecNamespace()
 
         # Now try to evaluate the expression using ChatInputNormal.ExecNamespace as

@@ -1,5 +1,5 @@
 import direct
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 
 class SimpleRenderBuffer:
 

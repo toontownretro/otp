@@ -1,4 +1,4 @@
-from pandac.PandaModules import StringStream
+from otp.otpbase.OTPModules import StringStream
 from direct.distributed.PyDatagram import PyDatagram
 
 import random

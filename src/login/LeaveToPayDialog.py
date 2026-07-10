@@ -7,7 +7,7 @@ from otp.otpbase import OTPGlobals
 from otp.otpbase import OTPLauncherGlobals
 from otp.otpbase import OTPLocalizer
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 import os
 
 class LeaveToPayDialog:

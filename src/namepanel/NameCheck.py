@@ -3,8 +3,8 @@
 import string
 from otp.otpbase import OTPLocalizer
 from direct.directnotify import DirectNotifyGlobal
-from pandac.PandaModules import NSError
-from pandac.PandaModules import TextEncoder, TextNode
+from otp.otpbase.OTPModules import NSError
+from otp.otpbase.OTPModules import TextEncoder, TextNode
 
 notify = DirectNotifyGlobal.directNotify.newCategory('NameCheck')
 
@@ -67,7 +67,7 @@ def checkName(name, otherCheckFuncs=[], font=None):
                 notify.info('name contains non-printable char #%s' % ord(char))
                 return OTPLocalizer.NCGeneric
 
-    validAsciiChars = set(".,'-" + string.letters + string.whitespace)
+    validAsciiChars = set(".,'-" + string.ascii_letters + string.whitespace)
     def _validCharacter(c, validAsciiChars=validAsciiChars, font=font):
         if c in validAsciiChars:
             return True
@@ -118,7 +118,7 @@ def checkName(name, otherCheckFuncs=[], font=None):
                 if ord(char) >= 0x80:
                     return None
                 
-            letters = filterString(word, string.letters)
+            letters = filterString(word, string.ascii_letters)
             # things like 'MD' are ok without periods
             if len(letters) > 2:
                 vowels = filterString(letters, 'aeiouyAEIOUY')
@@ -140,7 +140,7 @@ def checkName(name, otherCheckFuncs=[], font=None):
                 # make case-insensitive
                 letters = TextEncoder().decodeText(
                     TextEncoder.lower(
-                    TextEncoder().encodeWtext(letters)))
+                    TextEncoder().encodeWtext(letters).decode('utf-8')).encode('utf-8'))
                 filtered = filterString(letters, letters[0])
                 if filtered == letters:
                     notify.info('word "%s" uses only one letter' % TextEncoder().encodeWtext(word))
@@ -252,7 +252,7 @@ def checkName(name, otherCheckFuncs=[], font=None):
         if len(letters) > 2:
             upperLetters = TextEncoder().decodeText(
                 TextEncoder.upper(
-                TextEncoder().encodeWtext(letters)))
+                TextEncoder().encodeWtext(letters).decode('utf-8')).encode('utf-8'))
             # some unicode characters can't be capitalized
             for i in range(len(upperLetters)):
                 if not upperLetters[0].isupper():
@@ -362,7 +362,10 @@ def checkName(name, otherCheckFuncs=[], font=None):
         ]
 
     # make sure we are working with a wide-character version of the string
-    name = TextEncoder().decodeText(name)
+    if isinstance(name, bytes) # Custom if check
+        name = TextEncoder().decodeText(name.encode('utf-8'))
+    else:
+        name
     notify.info('checking name "%s"...' % TextEncoder().encodeWtext(name))
 
     # run through all the checks

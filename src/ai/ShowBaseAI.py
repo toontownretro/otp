@@ -1,4 +1,4 @@
-from pandac.PandaModules import WindowProperties
+from otp.otpbase.OTPModules import WindowProperties
 from direct.showbase import ShowBase
 
 class ShowBaseAI(ShowBase.ShowBase):

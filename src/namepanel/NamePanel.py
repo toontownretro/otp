@@ -3,7 +3,7 @@
 # Creates the Panel for PickAName and TypeAName 
 ##################################################################
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 
 from otp.avatar import Avatar
 from direct.fsm import ClassicFSM

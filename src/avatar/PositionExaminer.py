@@ -1,5 +1,5 @@
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.showbase.DirectObject import DirectObject
 from otp.otpbase import OTPGlobals
 

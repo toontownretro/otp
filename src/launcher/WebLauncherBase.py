@@ -1,5 +1,5 @@
 import direct
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.showbase.DirectObject import DirectObject
 from direct.showbase.MessengerGlobal import messenger
 from direct.p3d.PackageInstaller import PackageInstaller

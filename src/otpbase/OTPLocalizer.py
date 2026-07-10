@@ -7,7 +7,7 @@ to use in the game.
 
 # Do not import panda modules because it is not downloaded until Phase 3
 # This file is in phase 2
-from pandac.libpandaexpressModules import *
+from otp.otpbase.OTPModules import *
 import string
 import types
 
@@ -28,7 +28,7 @@ def getLanguage():
     
 print ("OTPLocalizer: Running in language: %s" % (language))
 if language == "english":
-    _languageModule = "otp.otpbase.OTPLocalizer" + string.capitalize(language)
+    _languageModule = "otp.otpbase.OTPLocalizer" + language.capitalize()
 else:
     checkLanguage = 1
     _languageModule = "otp.otpbase.OTPLocalizer_" + language

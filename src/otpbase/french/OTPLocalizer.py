@@ -105,8 +105,8 @@ WhisperToFormat = "To %s %s"
 WhisperToFormatName = "To %s"
 WhisperFromFormatName = "%sからのひそひそ話"
 
-from pandac.PandaModules import TextProperties
-from pandac.PandaModules import TextPropertiesManager
+from otp.otpbase.OTPModules import TextProperties
+from otp.otpbase.OTPModules import TextPropertiesManager
 
 shadow = TextProperties()
 shadow.setShadow(-0.025, -0.025)

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.showbase.DirectObject import *
 from direct.distributed.ClockDelta import *
 from direct.task import Task

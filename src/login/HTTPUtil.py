@@ -1,6 +1,6 @@
 """HTTPUtil.py: contains HTTP transaction utility functions"""
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 
 class HTTPUtilException(Exception):
     def __init__(self, what): Exception.__init__(self, what)

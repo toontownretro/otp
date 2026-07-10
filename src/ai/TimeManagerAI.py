@@ -1,5 +1,5 @@
 from .AIBaseGlobal import *
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.distributed.ClockDelta import *
 from direct.task import Task
 from direct.distributed import DistributedObjectAI

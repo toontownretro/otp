@@ -1,4 +1,4 @@
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from . import Impulse
 
 class ImpFriction(Impulse.Impulse):

@@ -1,4 +1,4 @@
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.directnotify.DirectNotifyGlobal import *
 from direct.showbase.MessengerGlobal import *
 from direct.showbase.BulletinBoardGlobal import *

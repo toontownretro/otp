@@ -2,7 +2,7 @@
 from direct.task import Task
 from otp.otpbase import OTPLocalizer
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.showbase.DirectObject import DirectObject
 
 class DownloadWatcher(DirectObject):

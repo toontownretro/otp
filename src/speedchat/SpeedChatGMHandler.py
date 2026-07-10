@@ -1,7 +1,7 @@
 """SpeedChatGMHandler.py: Handles the GM menu for speed chats"""
 
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.showbase import DirectObject
 from otp.otpbase import OTPLocalizer
 

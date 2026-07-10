@@ -1,4 +1,4 @@
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.gui.DirectGui import *
 from direct.showbase import DirectObject
 from . import Avatar

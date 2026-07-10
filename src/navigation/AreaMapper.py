@@ -1,12 +1,12 @@
 import math
 import direct
 
-from pandac.PandaModules import BitMask32
-from pandac.PandaModules import CollisionSphere
-from pandac.PandaModules import CollisionRay
-from pandac.PandaModules import CollisionNode
-from pandac.PandaModules import CollisionHandlerQueue
-from pandac.PandaModules import CollisionTraverser
+from otp.otpbase.OTPModules import BitMask32
+from otp.otpbase.OTPModules import CollisionSphere
+from otp.otpbase.OTPModules import CollisionRay
+from otp.otpbase.OTPModules import CollisionNode
+from otp.otpbase.OTPModules import CollisionHandlerQueue
+from otp.otpbase.OTPModules import CollisionTraverser
 
 from otp.otpbase import OTPGlobals
 

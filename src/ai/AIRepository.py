@@ -1,4 +1,4 @@
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from otp.otpbase import OTPGlobals
 from .AIMsgTypes import *
 from direct.showbase.PythonUtil import Functor

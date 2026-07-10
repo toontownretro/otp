@@ -4,7 +4,7 @@ from direct.showbase import DirectObject
 from otp.otpbase import OTPGlobals
 import sys
 from direct.gui.DirectGui import *
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from otp.otpbase import OTPLocalizer
 
 class ChatInputNormal(DirectObject.DirectObject):
@@ -136,7 +136,7 @@ class ChatInputNormal(DirectObject.DirectObject):
         if not ChatInputNormal.ExecNamespace:
             # Import some useful variables into the ExecNamespace initially.
             ChatInputNormal.ExecNamespace = { }
-            exec('from pandac.PandaModules import *', globals(), self.ExecNamespace)
+            exec('from otp.otpbase.OTPModules import *', globals(), self.ExecNamespace)
             self.importExecNamespace()
 
         # Now try to evaluate the expression using ChatInputNormal.ExecNamespace as

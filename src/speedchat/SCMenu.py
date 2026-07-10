@@ -1,6 +1,5 @@
 """SCMenu.py: contains the SCMenu class"""
-
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.gui.DirectGui import *
 from direct.task import Task
 from .SCConstants import *
@@ -214,8 +213,8 @@ class SCMenu(SCObject, NodePath):
                     terminal = SCGMTextTerminal(child)
                     menu.append(terminal)
                 else:
-                    raise 'error parsing speedchat structure. '
-                           'invalid child: %s'
+                    raise('error parsing speedchat structure. '
+                          'invalid child: %s')
 
         addChildren(self, structure)
         # clean up memory leak

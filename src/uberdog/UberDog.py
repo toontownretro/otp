@@ -10,7 +10,7 @@ from otp.distributed import OtpDoGlobals
 from otp.distributed.OtpDoGlobals import *
 from otp.ai.AIRepository import AIRepository
 from otp.ai import TimeManagerAI
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from otp.uberdog.AccountDetailRecord import AccountDetailRecord, SubDetailRecord
 
 from otp.ai.AIMsgTypes import *

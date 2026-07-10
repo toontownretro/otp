@@ -1,6 +1,6 @@
 """GuiScreen"""
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from otp.otpbase import OTPGlobals
 from direct.gui.DirectGui import *
 from otp.otpgui import OTPDialog

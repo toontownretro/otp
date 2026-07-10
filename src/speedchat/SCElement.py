@@ -1,6 +1,6 @@
 """SCElement.py: contains the SCElement class"""
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from direct.gui.DirectGui import *
 from direct.task import Task
 from .SCConstants import *

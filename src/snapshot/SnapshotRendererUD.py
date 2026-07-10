@@ -8,7 +8,7 @@ from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.task import Task
 import queue
 from direct.distributed.AsyncRequest import AsyncRequest
-from pandac.PandaModules import Thread
+from otp.otpbase.OTPModules import Thread
 
 notify = directNotify.newCategory('SnapshotRendererUD')
 

@@ -1,6 +1,6 @@
 """AccountServerConstants.py: contains the AccountServerConstants class """
 
-from pandac.PandaModules import *
+from otp.otpbase.OTPModules import *
 from .RemoteValueSet import *
 from direct.directnotify import DirectNotifyGlobal
 from . import TTAccount

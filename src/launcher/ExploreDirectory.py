@@ -3,7 +3,7 @@ import sys
 import webbrowser
 import string
 import direct
-from pandac.PandaModules import Filename
+from otp.otpbase.OTPModules import Filename
 
 def __do_explore(dirname):
     if not os.path.isdir(dirname):

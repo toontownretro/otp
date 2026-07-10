@@ -1,6 +1,6 @@
 """DistributedLevelAI.py: contains the DistributedLevelAI class"""
 
-from pandac import PandaModules as PM
+from otp.otpbase import OTPModules as PM
 from otp.ai.AIBaseGlobal import *
 from direct.distributed.ClockDelta import *
 from direct.distributed import DistributedObjectAI

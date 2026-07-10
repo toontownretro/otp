@@ -1,8 +1,8 @@
 """DistributedPlayer module: contains the DistributedPlayer class"""
 
-from pandac.PandaModules import *
-from libotp import WhisperPopup
-from libotp import CFQuicktalker, CFPageButton, CFQuitButton, CFSpeech, CFThought, CFTimeout
+from otp.otpbase.OTPModules import *
+from panda3d.otp import WhisperPopup
+from panda3d.otp import CFQuicktalker, CFPageButton, CFQuitButton, CFSpeech, CFThought, CFTimeout
 from otp.chat import ChatGarbler
 import string
 from direct.task import Task
