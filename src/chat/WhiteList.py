@@ -12,7 +12,7 @@ class WhiteList:
         self.words = []
 
         for line in wordlist:
-            self.words.append(line.strip("\n\r").lower())
+            self.words.append(line.strip(b"\n\r").lower())
 
         self.words.sort()
 

@@ -19,3 +19,11 @@ def getConfigExpress():
 
 def getConfigShowbase():
     return DConfig
+
+# Copied from Sunrise Mewtwo/Pirates
+# Workaround instead of changing
+# self.parent to self._parent etc
+from panda3d.core import NodePath
+
+for dtool in ('children', 'parent', 'name'):
+    del NodePath.DtoolClassDict[dtool]
