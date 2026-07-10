@@ -8,6 +8,8 @@ from otp.otpbase.OTPModules import *
 
 from direct.distributed.MsgTypes import *
 from direct.gui.DirectGui import *
+# Custom: Modern Panda import change
+from direct.gui import DirectGuiGlobals as DGG
 from direct.fsm import StateData
 from direct.fsm import ClassicFSM
 from direct.fsm import State
@@ -200,7 +202,7 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
             message = "",
             style = OTPDialog.Acknowledge,
             # make sure this dialog shows up over the email panel
-            sortOrder = NO_FADE_SORT_INDEX + 100,
+            sortOrder = DGG.NO_FADE_SORT_INDEX + 100,
             )
         self.dialog.hide()
 
@@ -214,7 +216,7 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
             text_pos = (0.0, 0.3),
             text_wordwrap = 15,
             # make this panel modal-able
-            sortOrder = NO_FADE_SORT_INDEX,
+            sortOrder = DGG.NO_FADE_SORT_INDEX,
             )
         linePos = -.05
         self.failTryAgainButton = DirectButton(
@@ -253,7 +255,7 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
             message = "",
             style = OTPDialog.Acknowledge,
             # make sure this dialog shows up over the email panel
-            sortOrder = NO_FADE_SORT_INDEX + 100,
+            sortOrder = DGG.NO_FADE_SORT_INDEX + 100,
             )
         self.connectionProblemDialog.hide()
 
@@ -588,7 +590,7 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         if base.logPrivateInfo:
             if self.notify.getDebug():
                 dgram = di.getDatagram()
-                dgram.dumpHex(ostream)
+                dgram.dumpHex(Notify.out())
             
         now = time.time()
 
@@ -716,7 +718,7 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         if base.logPrivateInfo:
             if self.notify.getDebug():
                 dgram = di.getDatagram()
-                dgram.dumpHex(ostream)
+                dgram.dumpHex(Notify.out())
 
 
         # First, get the local time of day that we receive the message
@@ -850,7 +852,7 @@ class LoginScreen(StateData.StateData, GuiScreen.GuiScreen):
         if 1: #self.notify.getDebug():
             if base.logPrivateInfo:
                 dgram = di.getDatagram()
-                dgram.dumpHex(ostream)
+                dgram.dumpHex(Notify.out())
             
         now = time.time()
 

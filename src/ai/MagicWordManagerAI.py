@@ -6,7 +6,7 @@ from otp.otpbase import OTPGlobals
 from direct.showbase import PythonUtil, GarbageReport, ContainerReport, MessengerLeakDetector
 from direct.showbase import ContainerLeakDetector
 from direct.showbase.PythonUtil import Functor, DelayedCall, formatTimeCompact
-import fpformat
+#import fpformat # Custom: Removed in Python 3
 import string
 import time
 import re

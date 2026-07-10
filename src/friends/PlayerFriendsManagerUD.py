@@ -7,7 +7,7 @@ from otp.uberdog.RejectCode import RejectCode
 from direct.directnotify.DirectNotifyGlobal import directNotify
 
 from otp.friends.FriendInfo import FriendInfo
-from otp.switchboard.sbWedge import sbWedge
+#from otp.switchboard.sbWedge import sbWedge
 
 from otp.otpbase import OTPLocalizerEnglish as localizer
 
@@ -17,7 +17,7 @@ import random
 #--------------------------------------------------
 
 
-class PlayerFriendsManagerUD(DistributedObjectGlobalUD,sbWedge):
+class PlayerFriendsManagerUD(DistributedObjectGlobalUD):#,sbWedge):
     """
     The Player Friends Manager is a global object.
     This object handles client requests on player-level (as opposed to avatar-level) friends.

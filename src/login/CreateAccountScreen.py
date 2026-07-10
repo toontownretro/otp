@@ -2,6 +2,8 @@
 
 from otp.otpbase.OTPModules import *
 from direct.gui.DirectGui import *
+# Custom: Modern Panda import change
+from direct.gui import DirectGuiGlobals as DGG
 from otp.otpbase.OTPModules import *
 from direct.fsm import StateData
 from otp.otpgui import OTPDialog
@@ -196,7 +198,7 @@ class CreateAccountScreen(StateData.StateData, GuiScreen.GuiScreen):
             message = "",
             style = OTPDialog.Acknowledge,
             # make sure this dialog shows up over other things
-            sortOrder = NO_FADE_SORT_INDEX + 100,
+            sortOrder = DGG.NO_FADE_SORT_INDEX + 100,
             )
         self.dialog.hide()
 

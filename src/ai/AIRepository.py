@@ -1016,7 +1016,7 @@ class AIRepository(ConnectionRepository):
         datagram.addChannel(CONTROL_MESSAGE)
         datagram.addUint16(CONTROL_ADD_POST_REMOVE)
 
-        datagram.addString(themessage.getMessage())
+        datagram.addString(str(themessage.getMessage()))
         self.send(datagram)
 
     def addPostSocketCloseUD(self, dclassName, fieldName, doId, args):
@@ -1499,7 +1499,7 @@ class AIRepository(ConnectionRepository):
     def handleDatagram(self, di):
         if self.notify.getDebug():
             print("AIRepository received datagram:")
-            di.getDatagram().dumpHex(ostream)
+            di.getDatagram().dumpHex(Notify.out())
 
         channel=self.getMsgChannel()
         if channel in self.netMessenger.channels:
