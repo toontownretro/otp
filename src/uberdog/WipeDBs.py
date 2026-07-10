@@ -1,4 +1,6 @@
-import MySQLdb
+# Custom: MySQLdb does not support Python 3
+# import MySQLdb
+import pymysql as MySQLdb
 import direct
 from otp.otpbase.OTPModules import *
 

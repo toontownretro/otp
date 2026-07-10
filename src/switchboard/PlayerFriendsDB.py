@@ -1,5 +1,8 @@
-import MySQLdb
-import _mysql_exceptions
+# Custom: MySQLdb does not support Python 3
+# import MySQLdb
+# import _mysql_exceptions
+import pymysql as MySQLdb
+import pymysql.err as _mysql_exceptions
 import datetime
 #from otp.distributed import OtpDoGlobals
 #from direct.directnotify.DirectNotifyGlobal import directNotify

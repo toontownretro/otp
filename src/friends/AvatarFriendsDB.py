@@ -1,25 +1,30 @@
-import MySQLdb
-import MySQLdb.constants.CR
-import _mysql_exceptions
+# Custom: MySQLdb does not support Python 3
+# import MySQLdb
+# import MySQLdb.constants.CR
+# import _mysql_exceptions
+import pymysql as MySQLdb
+import pymysql.err as _mysql_exceptions
 import datetime
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from otp.distributed import OtpDoGlobals
 from otp.uberdog.DBInterface import DBInterface
 
-SERVER_GONE_ERROR = MySQLdb.constants.CR.SERVER_GONE_ERROR
-SERVER_LOST = MySQLdb.constants.CR.SERVER_LOST
+# Custom: "CR_" for pymysql
+SERVER_GONE_ERROR = MySQLdb.constants.CR.CR_SERVER_GONE_ERROR
+SERVER_LOST = MySQLdb.constants.CR.CR_SERVER_LOST
 
 class AvatarFriendsDB(DBInterface):
     """
     DB wrapper class for avatar friends!  All SQL code for avatar friends should be in here.
     """
     notify = directNotify.newCategory('AvatarFriendsDB')
-        
+    notify.setDebug(True)
+
     def __init__(self,host,port,user,passwd,dbname):
         self.sqlAvailable = uber.sqlAvailable
         if not self.sqlAvailable:
             return
-        
+
         self.host = host
         self.port = port
         self.user = user
@@ -52,7 +57,7 @@ class AvatarFriendsDB(DBInterface):
         cursor.execute("USE `%s`"%self.dbname)
         if __debug__:
             self.notify.debug("Using database '%s'"%self.dbname)
-        
+
         try:
             cursor.execute("""
             CREATE TABLE `avatarfriends` (
@@ -92,12 +97,12 @@ class AvatarFriendsDB(DBInterface):
     def getFriends(self,avatarId):
         if not self.sqlAvailable:
             return []
-        
+
         cursor = MySQLdb.cursors.DictCursor(self.db)
         try:
             cursor.execute("SELECT * FROM avatarfriends WHERE friendId1=%s OR friendId2=%s",(avatarId,avatarId))
         except _mysql_exceptions.OperationalError as e:
-            if e[0] == SERVER_GONE_ERROR or e[0] == SERVER_LOST:
+            if e.args[0] == SERVER_GONE_ERROR or e.args[0] == SERVER_LOST:
                 self.reconnect()
                 cursor = MySQLdb.cursors.DictCursor(self.db)
                 cursor.execute("SELECT * FROM avatarfriends WHERE friendId1=%s OR friendId2=%s",(avatarId,avatarId))
@@ -124,7 +129,7 @@ class AvatarFriendsDB(DBInterface):
             else:
                 cursor.execute("INSERT INTO avatarfriends (friendId1,friendId2,openChatYesNo) VALUES (%s,%s,%s)",(avatarId2,avatarId1,openChat))
         except _mysql_exceptions.OperationalError as e:
-            if e[0] == SERVER_GONE_ERROR or e[0] == SERVER_LOST:
+            if e.args[0] == SERVER_GONE_ERROR or e.args[0] == SERVER_LOST:
                 self.reconnect()
                 cursor = MySQLdb.cursors.DictCursor(self.db)
                 if avatarId1 < avatarId2:
@@ -146,7 +151,7 @@ class AvatarFriendsDB(DBInterface):
             else:
                 cursor.execute("DELETE FROM avatarfriends where friendId1=%s AND friendId2=%s",(avatarId2,avatarId1))
         except _mysql_exceptions.OperationalError as e:
-            if e[0] == SERVER_GONE_ERROR or e[0] == SERVER_LOST: # 'Lost connection to MySQL server during query'
+            if e.args[0] == SERVER_GONE_ERROR or e[0] == SERVER_LOST: # 'Lost connection to MySQL server during query'
                 self.reconnect()
                 cursor = MySQLdb.cursors.DictCursor(self.db)
                 if avatarId1 < avatarId2:
@@ -155,7 +160,7 @@ class AvatarFriendsDB(DBInterface):
                     cursor.execute("DELETE FROM avatarfriends where friendId1=%s AND friendId2=%s",(avatarId2,avatarId1))
             else:
                 raise e
-            
+
         self.db.commit()
 
     #for debugging only
@@ -171,5 +176,3 @@ class AvatarFriendsDB(DBInterface):
         cursor = MySQLdb.cursors.DictCursor(self.db)
         cursor.execute("TRUNCATE TABLE avatarfriends")
         self.db.commit()
-
- 

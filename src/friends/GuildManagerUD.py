@@ -20,11 +20,17 @@ import string
 ONLINE = 1
 OFFLINE = 0
 
+GUILDRANK_VETERAN = 4
 GUILDRANK_GM = 3
 GUILDRANK_OFFICER = 2
 GUILDRANK_MEMBER = 1
 
 MAX_MEMBERS = 500
+
+# How many players an officer can kick from a guild
+OFFICER_DAILY_MAX_REMOVES = 5
+
+# ADD: def changeRankAvocate(self, avatarId):
 
 class GuildManagerUD(DistributedObjectGlobalUD):
     """
@@ -44,7 +50,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         assert self.notify.debugCall()
         DistributedObjectGlobalUD.__init__(self, air)
         self.debugAvId = 0
-        
+
         self.DBuser = uber.config.GetString("mysql-user","ud_rw")
         self.DBpasswd = uber.config.GetString("mysql-passwd","r3adwr1te")
 
@@ -65,7 +71,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         self.isAvatarOnline = {}
         self.avatarName = {}
         self.pendingSends = {}
-        
+
         self.avatarId2Guild = {}
         self.avatarId2Rank = {}
 
@@ -82,7 +88,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
 
         self.nextRedeemTokenRequestId = 0
         self.redeemTokenRequestId2AvatarId = {}
-        
+
         # This next one is to hold the time stamp of an avatar's last
         # token redeem request. Format is {avatarId : time)
         # Where time is the epoch; stored in 1 second precision
@@ -93,6 +99,9 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         self.accept("avatarOffline", self.avatarOffline)
 
         self.funcTally = {}
+
+        # Maintain information for potential kick abusing
+        self.officerKickCount = {}
 
         taskMgr.doMethodLater(60.0, self.logFuncTally, "logFuncTally")
 
@@ -110,11 +119,11 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         funcs = list(self.funcTally.keys())
         funcs.sort()
         str = ["%s" % self.funcTally[f] for f in funcs]
-        str = string.join(str," ")
+        str = " ".join(str)
         self.notify.info("funcTally: %s" % str)
         return task.again
 
-    
+
     def announceGenerate(self):
         assert self.notify.debugCall()
         DistributedObjectGlobalUD.announceGenerate(self)
@@ -137,24 +146,24 @@ class GuildManagerUD(DistributedObjectGlobalUD):
                                      field,
                                      parameters)
 
-            
+
     def sendUpdateToGuildChannelWithSender(self, guildId, field, parameters):
         messageSender = self.air.getMsgSender()
         if guildId:
             channelId = (self.doId<<32)+guildId
             self.air.sendUpdateToChannelFrom(self, channelId, field, messageSender, parameters)
-            
+
 
     # Functions called by the client
     def acceptInvite(self):
         self.tallyFunction("acceptInvite")
         avatarId = self.air.getAvatarIdFromSender()
         if avatarId:
-            
+
             guildId,inviterId = self.avatarId2Invite.pop(avatarId,(0,0))
 
             if guildId > 0:
-                self._addMember(guildId, avatarId)
+                self._addMember(guildId, avatarId, inviterId)
                 self.air.writeServerEvent('acceptGuildInvite', avatarId, '%s|%s' % (inviterId, guildId))
                 self.sendUpdateToAvatarId(
                     inviterId, 'guildAcceptInvite', [avatarId])
@@ -163,7 +172,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         self.tallyFunction("declineInvite")
         avatarId = self.air.getAvatarIdFromSender()
         if avatarId:
-            
+
             guildId,inviterId = self.avatarId2Invite.pop(avatarId,(0,0))
 
             if guildId > 0:
@@ -175,7 +184,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         self.tallyFunction("createGuild")
         avatarId = self.air.getAvatarIdFromSender()
         if avatarId:
-            
+
             self.air.writeServerEvent('createGuild', avatarId, '')
             # Add a new guild to the database
             self.db.createGuild(avatarId)
@@ -193,7 +202,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         if guildInfo:
             if 0:
                 # alternate coolness
-                guildmates, haveData = zip(*guildInfo)
+                guildmates, haveData = list(zip(*guildInfo))
             else:
                 guildmates = [x[0] for x in guildInfo]
                 haveData = [x[1] for x in guildInfo]
@@ -204,7 +213,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             if self.debugAvId == player:
                 assert self.notify.warning('packaging info...')
             packagedInfo = []
-            for guildId,avid,rank in guildmates: 
+            for guildId,avid,rank in guildmates:
                 # Bundle up all the info into send format
                 bandId = self.avatarId2BandId.get(avid)
                 if not bandId:
@@ -224,7 +233,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             for member in packagedInfo:
                 self.sendUpdateToAvatarId(player,"receiveMember",[member])
             self.sendUpdateToAvatarId(player,"receiveMembersDone",[])
-                
+
     def _sendFinishedLists(self, arrivingPlayer):
         """
         Upon receiving a player's data, look to see if anyone
@@ -233,7 +242,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         that list.
         """
         finishedLists = []
-        for player,guildInfo in self.pendingSends.items():
+        for player,guildInfo in list(self.pendingSends.items()):
             send = True
             for infoItem in guildInfo:
                 [(guildId,avId,rank), haveData] = infoItem
@@ -251,7 +260,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         for player in finishedLists:
             self._sendFinishedList(player)
 
-        
+
     def memberInfo(self, avatarId, context, info):
         """
         We have received our data request from the avatar state
@@ -266,7 +275,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         name = info['setName'][0]
         bandId = info['setBandId']
         self.avatarName[avatarId] = name
-        self.avatarId2BandId[avatarId] = bandId 
+        self.avatarId2BandId[avatarId] = bandId
         # Initialize this person in isAvatarOnline array
         if not self.isAvatarOnline.setdefault(avatarId, OFFLINE) == OFFLINE:
             # They're online, this must have been the initial name request
@@ -328,7 +337,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
                     if not haveData:
                         avId = guildmate[1]
                         self.requestMemberInfo(avId)
-                        
+
     def requestMemberInfo(self, avId):
         self.tallyFunction("requestMemberInfo")
         context=self.air.allocateContext()
@@ -353,17 +362,17 @@ class GuildManagerUD(DistributedObjectGlobalUD):
                 if (resultmsg == 2):
                     # Send a message to the creator that it was denied
                     self.sendUpdateToAvatarId(avatarId,"guildNameReject",[guildId])
-            
+
     def avatarOnline(self, avatarId, avatarType):
         self.tallyFunction("avatarOnline")
         if avatarId:
             # Change status of this avatarId to show they are online
             self.isAvatarOnline[avatarId] = ONLINE
-            
+
             # Also request a name for this avatar for use later
             self.requestMemberInfo(avatarId)
-            
-            self._sendStatus(avatarId)            
+
+            self._sendStatus(avatarId)
 
     @report(types = ['args'], dConfigParam = 'orphanedavatar')
     def avatarOffline(self, avatarId):
@@ -377,23 +386,23 @@ class GuildManagerUD(DistributedObjectGlobalUD):
 
         # Unregister the client from the guild channel
         self.air.removeInterestFromConnection(avatarId,AIInterestHandles.PIRATES_GUILD)
-        
+
         gId = self._getGuildId(avatarId)
         self.sendUpdateToGuildChannel(gId, "recvAvatarOffline",
                                       [avatarId,self.avatarName.get(avatarId,"Unknown")])
-        
+
     def updateRep(self, avatarId, rep):
         if avatarId in self.avatarName:
             self.updateLeaderboardRep(avatarId, self.avatarName.get(avatarId, 'Unknown'), rep)
 
-    def _addMember(self, guildId, avatarId):
+    def _addMember(self, guildId, avatarId, inviterId):
         self.tallyFunction("_addMember")
         self.air.writeServerEvent('addGuildMember', avatarId, '%s' % (guildId))
 
         # Add a new normal member to guild
         self.db.addMember(guildId, avatarId, 1)
 
-    
+
         self._sendStatus(avatarId)
         name = self.avatarName.get(avatarId)
         if not name:
@@ -403,8 +412,9 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             rank = 1
         isOnline = self.isAvatarOnline.get(avatarId, OFFLINE)
         bandManagerId, bandId = self.avatarId2BandId.get(avatarId, (0,0))
+        inviterName = self.avatarName.get(inviterId)
         self.sendUpdateToGuildChannel(guildId, 'recvMemberAdded',
-                                      [(avatarId, name, rank, isOnline, bandManagerId, bandId)])
+                                      [(avatarId, name, rank, isOnline, bandManagerId, bandId), inviterId, inviterName])
 
     def removeMember(self, avatarId):
         self.tallyFunction("removeMember")
@@ -416,13 +426,26 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             senderRank = self._getGuildRank(senderId)
             victimRank = self._getGuildRank(avatarId)
 
+            # Check if an Officer has kicked more than the allowed amount
+            # if senderRank == GUILDRANK_OFFICER:
+            #    if self.officerKickCount(senderId) >= OFFICER_DAILY_MAX_REMOVES:
+            #        self.sendUpdateToAvatarId(senderId, "notifyGuildKicksMaxed", [])
+            #        return
+
             # Removing self from guild
             if senderId == avatarId or \
                (senderGuild == victimGuild) and senderRank > victimRank:
                 self.air.writeServerEvent('removeGuildMember', avatarId, 'by %s from %s' % (senderId, victimGuild))
                 self.db.removeMember(avatarId, victimGuild, victimRank)
+                avatarName = self.avatarName.get(avatarId)
+                senderName = self.avatarName.get(senderId)
+
+                # Increase the count by 1 with each kick
+                # if senderRank == GUILDRANK_OFFICER:
+                #    self.increaseOfficerKickCount(senderId)
+
                 self.sendUpdateToGuildChannel(victimGuild, 'recvMemberRemoved',
-                                              [avatarId])
+                                              [avatarId, senderId, avatarName, senderName])
             # Someone's guild/rank is out of synch or we have a hacker
             else:
                 assert self.notify.warning("%d (guild %d rank %d) was incapable of removing %d (guild %d rank %d) from guild." % \
@@ -438,8 +461,10 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             senderGuild = self._getGuildId(senderId)
             senderRank = self._getGuildRank(senderId)
             victimGuild = self._getGuildId(avatarId)
+            avatarName = self.avatarName.get(avatarId)
+            senderName = self.avatarName.get(senderId)
 
-            if rank < GUILDRANK_MEMBER or rank > GUILDRANK_GM:
+            if rank < GUILDRANK_MEMBER or rank > GUILDRANK_VETERAN:
                 assert self.notify.warning("Invalid guild rank %d sent by avatar %d in changeRank request" % (rank,senderId))
                 return
 
@@ -451,11 +476,63 @@ class GuildManagerUD(DistributedObjectGlobalUD):
                 assert self.notify.warning("%d tried to changeRank but wasn't allowed (rank=%d)!" % (senderId,senderRank))
                 return
 
+            # There has to be a better way to do it...
+            currentRank = self._getGuildRank(avatarId)
+            # If their rank gets increased...
+            if (currentRank == GUILDRANK_MEMBER and rank in (GUILDRANK_VETERAN, GUILDRANK_OFFICER, GUILDRANK_GM)) or \
+               (currentRank == GUILDRANK_VETERAN and rank in (GUILDRANK_OFFICER, GUILDRANK_GM)) or \
+               (currentRank == GUILDRANK_OFFICER and rank == GUILDRANK_GM):
+                # It's a promotion
+                promote = True
+            # If their rank gets decreased...
+            elif (currentRank == GUILDRANK_GM and rank in (GUILDRANK_OFFICER, GUILDRANK_VETERAN, GUILDRANK_MEMBER)) or \
+                 (currentRank == GUILDRANK_OFFICER and rank in (GUILDRANK_VETERAN, GUILDRANK_MEMBER)) or \
+                 (currentRank == GUILDRANK_VETERAN and rank == GUILDRANK_MEMBER):
+                # It's a demotion
+                promote = False
+            else:
+                assert self.notify.warning("Unable to determine rank change status (rank=%d)!" % (currentRank))
+                return
+
             self.air.writeServerEvent('changeGuildRank', avatarId, '%s by %s' % (rank, senderId))
             # Change guild member rank
             self.db.changeRank(avatarId, rank)
-            self.sendUpdateToGuildChannel(victimGuild, 'recvMemberUpdateRank', [avatarId, rank])
+            self.sendUpdateToGuildChannel(victimGuild, 'recvMemberUpdateRank', [avatarId, senderId, avatarName, senderName, rank, promote])
             self._sendStatus(avatarId)
+
+    def changeRankAvocate(self, avatarId):
+        self.tallyFunction("changeRankAvocate")
+        senderId = self.air.getAvatarIdFromSender()
+        if not senderId:
+            return
+
+        senderGuild = self._getGuildId(senderId)
+        senderRank = self._getGuildRank(senderId)
+        victimGuild = self._getGuildId(avatarId)
+        avatarName = self.avatarName.get(avatarId)
+        senderName = self.avatarName.get(senderId)
+
+        # This shouldn't be possible to do
+        if senderId == avatarId:
+            assert self.notify.warning("Guild leader %d tried to avocate themself" % (senderId))
+            return
+
+        if senderGuild != victimGuild:
+            assert self.notify.warning("Guild mismatch in changeRankAvocate request from %d for %d." % (senderId,avatarId))
+            return
+
+        if senderRank != GUILDRANK_GM:
+            assert self.notify.warning("%d tried to changeRankAvocate but wasn't allowed (rank=%d)!" % (senderId,senderRank))
+            return
+
+        self.air.writeServerEvent('changeGuildRankGM', avatarId, '%s to %s' % (senderId,avatarId))
+        # Change guild member rank
+        self.db.changeRank(senderId, GUILDRANK_OFFICER)
+        self.db.changeRank(avatarId, GUILDRANK_GM)
+        self.sendUpdateToGuildChannel(senderGuild, 'recvMemberUpdateRank', [senderId, senderId, senderName, senderName, GUILDRANK_OFFICER, False])
+        self.sendUpdateToGuildChannel(senderGuild, 'recvMemberUpdateRank', [avatarId, senderId, avatarName, senderName, GUILDRANK_GM, True])
+        self._sendStatus(senderId)
+        self._sendStatus(avatarId)
 
     def _sendStatus(self,avatarId):
         self.tallyFunction("_sendStatus")
@@ -473,11 +550,11 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             # If the guild's name has been approved or denied, notify
             # the GM that his "want name" has been processed
             self.checkForNameUpdate(avatarId, guildId, name, rank, change)
-            
+
             # Subscribe or unsubscribe the player from guild chat
             self.updateGuildChatInterest(avatarId, guildId, guildId != 0)
 
-            
+
     def getStatus(self, avatarId):
         self.tallyFunction("getStatus")
         # Request a guild status update for given avatar
@@ -515,13 +592,13 @@ class GuildManagerUD(DistributedObjectGlobalUD):
                                              guildId)
         else:
             self.air.removeInterestFromConnection(avatarId,AIInterestHandles.PIRATES_GUILD)
-            
+
     def statusRequest(self):
         self.tallyFunction("statusRequest")
         # Request a guild status update for the sending avatar
         self._sendStatus(self.air.getAvatarIdFromSender())
         assert False
-        
+
     def requestInvite(self, otherAvatarId):
         self.tallyFunction("requestInvite")
         avatarId = self.air.getAvatarIdFromSender()
@@ -606,7 +683,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         # This should automatically get called in response by the dclass object
         # No additional catch/subscribe required
         self.sendUpdateToAvatarId(self.sendToId,"leaderboardTopTen", [stuff])
-        
+
 
     def setTalkGroup(self,fromAV, fromAC, avatarName, chat, mods, flags):
         self.tallyFunction("setTalkGroup")
@@ -614,9 +691,9 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         #print("Guild Manager - sendTalkGroup")
         avatarId = self.air.getAvatarIdFromSender()
         if avatarId:
-    
+
             #self.air.writeServerEvent('sendChat', avatarId, '%s' % (chat))
-    
+
             gId = self._getGuildId(avatarId)
             #self.sendUpdateToGuildChannel(gId, "recvChat",[avatarId,msgText,chatFlags,senderDISLid])
             self.sendUpdateToGuildChannelWithSender(gId, "setTalkGroup", [fromAV, fromAC, avatarName, chat, mods, flags])
@@ -627,7 +704,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         if avatarId:
 
             self.air.writeServerEvent('sendWLChat', avatarId, '%s' % (msgText))
-            
+
             gId = self._getGuildId(avatarId)
             self.sendUpdateToGuildChannel(gId, "recvWLChat", [avatarId,msgText,chatFlags,senderDISLid])
 
@@ -638,7 +715,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         if avatarId:
 
             self.air.writeServerEvent('sendSC', avatarId, '%d' % (msgIndex))
-            
+
             gId = self._getGuildId(avatarId)
             self.sendUpdateToGuildChannel(gId, "recvSC", [avatarId,msgIndex])
 
@@ -650,14 +727,14 @@ class GuildManagerUD(DistributedObjectGlobalUD):
 
             gId = self._getGuildId(avatarId)
             self.sendUpdateToGuildChannel(gId, "recvSCQuest", [avatarId,questInt,msgType,taskNum])
-        
+
     def _getGuildId(self,avatarId):
         if avatarId in self.avatarId2Guild:
             return self.avatarId2Guild[avatarId]
         else:
             guildId, name, rank, change = self.getStatus(avatarId)
             return guildId
-            
+
     def _getGuildRank(self,avatarId):
         if avatarId in self.avatarId2Rank:
             return self.avatarId2Rank[avatarId]
@@ -678,7 +755,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             # OK, now that we have the token, lets send it back to the client
             self.recvTokenGenerated(requestId, token)
             self.air.writeServerEvent('sendTokenRequest', self.requestId2AvatarId[requestId], '%s|%d|%d' % (token, guildId, rank))
-    
+
     def recvTokenGenerated(self,requestId, tokenValue):
         # Before responding, let also figure out if the avatar has a
         # existing perm code
@@ -703,7 +780,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         requestId = self.nextRedeemTokenRequestId + 1
         self.nextRedeemTokenRequestId += 1
         self.redeemTokenRequestId2AvatarId[requestId] = avatarId
-        
+
         # Security check. Lets keep track of how quickly users are trying to
         # redeem guild tokens. If someone tries to redeem (repeatedly) without
         # success, (more than two requests, during a two second time span);
@@ -712,7 +789,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             # They have an entry, take the value (epoch) from the dict
             lastTry = self.redeemTokenTimeStamps[self.redeemTokenRequestId2AvatarId[requestId]]
             if lastTry >= int(time.time()) - 2:
-                
+
                 # They are trying to redeem too fast
                 # update their time stamp in self.redeemTokenTimeStamps
                 # and then return
@@ -725,7 +802,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
 
         # If redeem is sucessful, we'll remove the stamp entry
         # in redeemTokenTimeStamps
-        
+
         try:
             results = self.db.redeemToken(token, avatarId)
         except Exception as e:
@@ -747,7 +824,7 @@ class GuildManagerUD(DistributedObjectGlobalUD):
                 return
             else:
                 raise e
-        
+
         guildId = results[0]
         creatorAvId = results[1]
         guildName = str(self.db.getName(guildId))
@@ -766,8 +843,20 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             rank = 1
         isOnline = self.isAvatarOnline.get(avatarId, OFFLINE)
         bandManagerId, bandId = self.avatarId2BandId.get(avatarId, (0,0))
+        # This whole thing is a temp aid to bypass UberDog crashing
+        # if the code creator is online their name will be available, if not
+        # it falls back to "New Guild Member", but the server is supposed to know it
+        # even if the code creator is offline
+        # TODO: find a proper way to retrieve info about the person who created the invite code (online + offline)
+        # TODO2: This might also cause the game to remove the code creator from the guild when used if they're offline
+        inviterId = creatorAvId                                                               # |
+        inviterName = self.avatarName.get(inviterId)                                          # |
+        if not inviterName:                                                                   # |
+            inviterName = OTPLocalizer.GuildNewMember                                         # |
+        self.notify.warning("avatarId = %d | name = %s | inviterId = %d | inviterName = %s" % # |
+                            (avatarId, name, inviterId, inviterName))                         # V
         self.sendUpdateToGuildChannel(guildId, 'recvMemberAdded',
-                                      [(avatarId, name, rank, isOnline, bandManagerId, bandId)])
+                                      [(avatarId, name, rank, isOnline, bandManagerId, bandId), inviterId, inviterName])
 
         self.air.writeServerEvent('sendTokenForJoinRequest', self.redeemTokenRequestId2AvatarId[requestId], '%s|1' % (token))
         # Now, remove the timestamp from self.redeemTokenTimeStamps
@@ -949,11 +1038,24 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             self.avatarName[avatarId] = avatarName
             self._sendStatus(avatarId)
 
-    def avatarDeleted(self, avatarId):
+    def avatarDeleted(self, avatarId, senderId):
         self.tallyFunction("avatarDeleted")
 
         victimGuild = self._getGuildId(avatarId)
         victimRank = self._getGuildRank(avatarId)
+        avatarName = self.avatarName.get(avatarId)
+        senderName = self.avatarName.get(senderId)
 
         self.db.removeMember(avatarId, victimGuild, victimRank)
-        self.sendUpdateToGuildChannel(victimGuild, 'recvMemberRemoved', [avatarId])
+        self.sendUpdateToGuildChannel(victimGuild, 'recvMemberRemoved', [avatarId, senderId, avatarName, senderName])
+
+    # Potential save ideas
+    # * Reset the count at 12 AM server time
+    # * Reset the count exactly 24 hours after the final kick
+    # * Reset the count at 12 AM UTC
+
+    def getOfficerKickCount(self):
+        pass
+
+    def increaseOfficerKickCount(self, avatarId):
+        pass

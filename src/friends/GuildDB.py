@@ -1,5 +1,8 @@
-import MySQLdb
-import _mysql_exceptions
+# Custom: MySQLdb does not support Python 3
+# import MySQLdb
+# import _mysql_exceptions
+import pymysql as MySQLdb
+import pymysql.err as _mysql_exceptions
 import time
 from direct.directnotify.DirectNotifyGlobal import directNotify
 from direct.task import Task
@@ -12,6 +15,8 @@ REVIEW_FLAG=1
 DENY_FLAG=2
 APPROVE_FLAG=3
 ALLDONE_FLAG=4
+
+# ADD: def changeRankAvocate(self, avId):
 
 # During off-line guild token generation, we'll use the badwordpy module to
 # check our alpha strings.
@@ -33,7 +38,7 @@ class GuildDB(DBInterface):
     DB wrapper class for guilds!  All SQL code for guilds should be in here.
     """
     notify = directNotify.newCategory('GuildDB')
-        
+
     def __init__(self,host,port,user,passwd,dbname):
         self.sqlAvailable = uber.sqlAvailable
         if not self.sqlAvailable:
@@ -41,7 +46,7 @@ class GuildDB(DBInterface):
 
         # Now set the bwDictPath. Used during token generation to make sure
         # we're not giving out any strings that contain bad words
-        
+
         self.bwDictPath = uber.bwDictPath
 
         # If Path string is empty, flag the dict as being offline
@@ -92,7 +97,7 @@ class GuildDB(DBInterface):
         cursor.execute("USE `%s`" % self.dbname)
         if __debug__:
             self.notify.debug("Using database '%s'" % self.dbname)
-        
+
         try:
             cursor.execute("CREATE TABLE `guildinfo` (`gid` INT(32) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT, `name` VARCHAR(21), `wantname` VARCHAR(21), `namestatus` INT(8), `create_date` DATETIME)")
             if __debug__:
@@ -150,7 +155,7 @@ class GuildDB(DBInterface):
     def createGuild(self, avId, isRetry=False):
         if not self.sqlAvailable:
             return
-        
+
         # Enter a new Guild into the guildinfo table, and a new member into the member table
         try:
             # By giving a guild Id of 0, it will auto-increment to the desired id
@@ -183,7 +188,7 @@ class GuildDB(DBInterface):
 
         try:
             cursor = self.db.cursor()
-            cursor.execute("SELECT * FROM `member` where `gid` = %s" , guildId)
+            cursor.execute("SELECT * FROM `member` where `gid` = %s" , (guildId,))
             stuff = cursor.fetchall()
             return len(stuff)
         except _mysql_exceptions.OperationalError as e:
@@ -200,7 +205,7 @@ class GuildDB(DBInterface):
 
         try:
             cursor = self.db.cursor()
-            cursor.execute("SELECT * FROM `guildinfo` where `gid` = %s" , guildId)
+            cursor.execute("SELECT * FROM `guildinfo` where `gid` = %s" , (guildId,))
             stuff = cursor.fetchall()
             if (len(stuff)):
                 return True
@@ -214,12 +219,12 @@ class GuildDB(DBInterface):
     def queryStatus(self, avatarId):
         if not self.sqlAvailable:
             print("Guild DB Unavailable")
-            return 0, "DB Unavailable", 0
+            return 0, "DB Unavailable", 0, 0
 
         try:
             # Return guildid, name, and rank for the avatarid in question
             cursor = self.db.cursor()
-            cursor.execute("SELECT * FROM `member` where `avid` = %s" , avatarId)
+            cursor.execute("SELECT * FROM `member` where `avid` = %s" , (avatarId,))
             # This will return a single row of gid, avid, rank
             stuff = cursor.fetchall()
             if (len(stuff) == 0):
@@ -232,7 +237,7 @@ class GuildDB(DBInterface):
                 guildId = stuff[0][0]
                 rank = stuff[0][2]
 
-                cursor.execute("SELECT * FROM `guildinfo` where `gid` = %s" , guildId)
+                cursor.execute("SELECT * FROM `guildinfo` where `gid` = %s" , (guildId,))
                 # This will be a single row with gid, name, wantname
                 stuff = cursor.fetchall()
                 name = stuff[0][1]
@@ -248,7 +253,7 @@ class GuildDB(DBInterface):
             return self.queryStatus(avatarId)
 
         return guildId, name, rank, change
-        
+
 
     def getName(self, guildId):
         if not self.sqlAvailable:
@@ -256,7 +261,7 @@ class GuildDB(DBInterface):
 
         cursor = self.db.cursor()
         try:
-            cursor.execute("SELECT * FROM `guildinfo` where `gid` = %s" , guildId)
+            cursor.execute("SELECT * FROM `guildinfo` where `gid` = %s" , (guildId,))
             stuff = cursor.fetchall()
             return stuff[0][1]
         except _mysql_exceptions.OperationalError as e:
@@ -270,16 +275,16 @@ class GuildDB(DBInterface):
 
         cursor = self.db.cursor()
         try:
-            cursor.execute("SELECT * FROM `guildinfo` where `wantname` = %s" , wantname)
+            cursor.execute("SELECT * FROM `guildinfo` where `wantname` = %s" , (wantname,))
             stuff = cursor.fetchall()
             count = len(stuff)
-            cursor.execute("SELECT * FROM `guildinfo` where `name` = %s" , wantname)
+            cursor.execute("SELECT * FROM `guildinfo` where `name` = %s" , (wantname,))
             stuff = cursor.fetchall()
             count += len(stuff)
         except:
             self.reconnect()
             self.setWantName(guildId, wantname)
-        
+
     def setWantName(self, guildId, wantname):
         if not self.sqlAvailable:
             return 0
@@ -287,10 +292,10 @@ class GuildDB(DBInterface):
         # Insert name into want name field for this guild
         cursor = self.db.cursor()
         try:
-            cursor.execute("SELECT * FROM `guildinfo` where `wantname` = %s" , wantname)
+            cursor.execute("SELECT * FROM `guildinfo` where `wantname` = %s" , (wantname,))
             stuff = cursor.fetchall()
             count = len(stuff)
-            cursor.execute("SELECT * FROM `guildinfo` where `name` = %s" , wantname)
+            cursor.execute("SELECT * FROM `guildinfo` where `name` = %s" , (wantname,))
             stuff = cursor.fetchall()
             count += len(stuff)
             if (count == 0):
@@ -315,13 +320,13 @@ class GuildDB(DBInterface):
         # Get currently selected want-name for this guild
         cursor = self.db.cursor()
         try:
-            cursor.execute("SELECT * FROM `guildinfo` where `gid` = %s" , guildId)
+            cursor.execute("SELECT * FROM `guildinfo` where `gid` = %s" , (guildId,))
             stuff = cursor.fetchall()
             return stuff[0][2]
         except _mysql_exceptions.OperationalError as e:
             self.reconnect()
             self.getWantName(guildId)
-    
+
     def approveName(self, guildId):
         if not self.sqlAvailable:
             return "Guild DB Unavailable"
@@ -370,7 +375,7 @@ class GuildDB(DBInterface):
         except _mysql_exceptions.OperationalError as e:
             self.reconnect()
             self.nameProcessed(guildId, newval)
-        
+
     def addMember(self, guildId, avId, rank):
         if not self.sqlAvailable:
             return "Guild DB Unavailable"
@@ -402,8 +407,8 @@ class GuildDB(DBInterface):
         # Remove member from guild
         try:
             cursor = self.db.cursor()
-            cursor.execute("DELETE FROM `guildtokens` WHERE `avid` = %s", avId)
-            cursor.execute("DELETE FROM `member` WHERE `avId` = %s" , avId)
+            cursor.execute("DELETE FROM `guildtokens` WHERE `avid` = %s", (avId,))
+            cursor.execute("DELETE FROM `member` WHERE `avId` = %s" , (avId,))
             if (guildRank == 3):
                 # Removing guild leader, remove all pending name requests as well
                 cursor.execute("UPDATE `guildinfo` SET `wantname` = %s WHERE `gid` = %s" , (0, guildId))
@@ -421,8 +426,8 @@ class GuildDB(DBInterface):
     def removeGuild(self, guildId):
         try:
             cursor = self.db.cursor()
-            cursor.execute("DELETE FROM `guildtokens` WHERE `gid` = %s" , guildId)
-            cursor.execute("DELETE FROM `guildinfo` WHERE `gid` = %s", guildId)
+            cursor.execute("DELETE FROM `guildtokens` WHERE `gid` = %s" , (guildId,))
+            cursor.execute("DELETE FROM `guildinfo` WHERE `gid` = %s", (guildId,))
             self.db.commit()
         except _mysql_exceptions.OperationalError as e:
             self.reconnect()
@@ -441,20 +446,37 @@ class GuildDB(DBInterface):
         except _mysql_exceptions.OperationalError as e:
             self.reconnect()
             self.changeRank(avId, rank)
-    
-        
+
+    def changeRankAvocate(self, avId):
+        if not self.sqlAvailable:
+            return "Guild DB Unavailable"
+
+        # Change rank of existing guild member
+        cursor = self.db.cursor()
+        try:
+            cursor.execute("SELECT `guildId` FROM `member` WHERE `avId` = %s" , (avId,))
+            result = cursor.fetchone()
+            guildId = result[0]
+            # Should the rank Id be hardcoded?
+            cursor.execute("UPDATE `member` SET `rank` = 2 WHERE `guildId` = %s AND `rank` = 3" , (guildId,))
+            cursor.execute("UPDATE `member` SET `rank` = 3 WHERE `avId` = %s" , (avId,))
+            self.db.commit()
+        except _mysql_exceptions.OperationalError as e:
+            self.reconnect()
+            self.changeRankAvocate(avId)
+
     def getMembers(self, guildId):
         if not self.sqlAvailable:
             return []
 
         # cursor = MySQLdb.cursors.DictCursor(self.db)
         cursor = self.db.cursor()
-        
+
         try:
-            cursor.execute("SELECT * FROM `member` where `gid` = %s" , guildId)
+            cursor.execute("SELECT * FROM `member` where `gid` = %s" , (guildId,))
             members = cursor.fetchall()
             return members
-        except _mysql_exceptions.OperationalError as e:            
+        except _mysql_exceptions.OperationalError as e:
             self.reconnect()
             print("DEBUG - Operational Error")
             return self.getMembers(guildId)
@@ -480,13 +502,13 @@ class GuildDB(DBInterface):
 
         cursor = self.db.cursor()
         try:
-            cursor.execute("SELECT * FROM `guildtokens` where `tokenid` = %s" , token)
+            cursor.execute("SELECT * FROM `guildtokens` where `tokenid` = %s" , (token,))
             entries = cursor.fetchall()
             if len(entries) == 0:
                 return 1
             else:
                 return 0
-        except _mysql_exceptions.OperationalError as e:            
+        except _mysql_exceptions.OperationalError as e:
             self.reconnect()
             print("DEBUG - Operational Error")
             return self.isTokenUnique(token)
@@ -499,15 +521,15 @@ class GuildDB(DBInterface):
         # Lets first check to make sure the entry is in the guildtokens table
         cursor = self.db.cursor()
         try:
-            # print 'Executing Query for %s' % token
-            cursor.execute("SELECT * FROM `guildtokens` where `tokenid` = %s", token)
+            # print('Executing Query for %s' % token)
+            cursor.execute("SELECT * FROM `guildtokens` where `tokenid` = %s", (token,))
             entries = cursor.fetchall()
-            # print len(entries)
+            # print(len(entries))
             if len(entries) == 1:
                 pass
             else:
                 raise Exception("INVALID_TOKEN")
-        except _mysql_exceptions.OperationalError as e:            
+        except _mysql_exceptions.OperationalError as e:
             self.reconnect()
             print("DEBUG - Operational Error")
             return self.redeemToken(token, avId)
@@ -520,7 +542,7 @@ class GuildDB(DBInterface):
         # rCount indicates the code type / redeeem rules, i.e. onetime use,
         # multi-use, unlimited use.
         rCount = entries[0][5]
-        # print guildToken, gNameId
+        # print(guildToken, gNameId)
         rank = 1
 
         # Make sure we don't have too many members in the guild
@@ -545,14 +567,14 @@ class GuildDB(DBInterface):
         # Return the Guild Name
 
         return [gNameId, creatorAvId]
-        
+
     def deleteFriendToken(self, token):
         if not self.sqlAvailable:
             return "Guild DB Unavailable"
 
         try:
             cursor = self.db.cursor()
-            cursor.execute("DELETE FROM `guildtokens` WHERE `tokenid` = %s" , token)
+            cursor.execute("DELETE FROM `guildtokens` WHERE `tokenid` = %s" , (token,))
             self.db.commit()
         except _mysql_exceptions.OperationalError as e:
             self.reconnect()
@@ -573,14 +595,14 @@ class GuildDB(DBInterface):
 
         try:
             cursor = self.db.cursor()
-            cursor.execute("SELECT * FROM `guildtokens` WHERE `avid` = %s", avId)
+            cursor.execute("SELECT * FROM `guildtokens` WHERE `avid` = %s", (avId,))
             entries = cursor.fetchall()
             if len(entries) >= 20:
                 return True
             else:
                 return False
 
-        except _mysql_exceptions.OperationalError as e:            
+        except _mysql_exceptions.OperationalError as e:
             self.reconnect()
             print("DEBUG - Operational Error - Checking for Too Many Tokens from AVID")
             return self.checkForTooManyTokens(avId)
@@ -616,7 +638,7 @@ class GuildDB(DBInterface):
         # Step One:
 
         ourToken = self.genToken()
-        # print 'Token Generated %s.' % ourToken
+        # print('Token Generated %s.' % ourToken)
         # Step Two:
 
         if self.bwDictPath:
@@ -672,7 +694,7 @@ class GuildDB(DBInterface):
         except _mysql_exceptions.OperationalError as e:
             self.reconnect()
             self.decRCountInDB(token, avId, newRCount)
-        
+
 
     def startCleanUpExpiredTokens(self):
         taskMgr.remove('cleanUpTokensTask')
@@ -706,7 +728,7 @@ class GuildDB(DBInterface):
 
         cursor = self.db.cursor()
         try:
-            cursor.execute("SELECT `tokenid` FROM `guildtokens` WHERE avid = %s AND `rcount` = -1", (avId))
+            cursor.execute("SELECT `tokenid` FROM `guildtokens` WHERE avid = %s AND `rcount` = -1", (avId,))
             entries = cursor.fetchall()
             if len(entries) == 0:
                 return None
@@ -729,7 +751,7 @@ class GuildDB(DBInterface):
 
         cursor = self.db.cursor()
         try:
-            cursor.execute("SELECT `tokenid` FROM `guildtokens` WHERE avid = %s AND (`rcount` != -1 OR `rcount` IS NULL)", (avId))
+            cursor.execute("SELECT `tokenid` FROM `guildtokens` WHERE avid = %s AND (`rcount` != -1 OR `rcount` IS NULL)", (avId,))
             entries = cursor.fetchall()
             recCount = len(entries)
             return recCount
@@ -746,7 +768,7 @@ class GuildDB(DBInterface):
 
         cursor = self.db.cursor()
         try:
-            cursor.execute("DELETE FROM `guildtokens` WHERE `avid` = %s AND (`rcount` != -1 OR `rcount` IS NULL)", (avId))
+            cursor.execute("DELETE FROM `guildtokens` WHERE `avid` = %s AND (`rcount` != -1 OR `rcount` IS NULL)", (avId,))
             self.db.commit()
         except _mysql_exceptions.OperationalError as e:
             self.reconnect()
@@ -762,7 +784,7 @@ class GuildDB(DBInterface):
 
         cursor = self.db.cursor()
         try:
-            cursor.execute("DELETE FROM `guildtokens` WHERE `avid` = %s AND `rcount` = -1", (avId))
+            cursor.execute("DELETE FROM `guildtokens` WHERE `avid` = %s AND `rcount` = -1", (avId,))
             self.db.commit()
         except _mysql_exceptions.OperationalError as e:
             self.reconnect()
@@ -818,14 +840,14 @@ class GuildDB(DBInterface):
 
 ##         cursor = self.db.cursor()
 ##         try:
-##             cursor.execute("SELECT notify, emailaddress FROM `email_notify` WHERE `avid` = %s" , avId)
+##             cursor.execute("SELECT notify, emailaddress FROM `email_notify` WHERE `avid` = %s" , (avId,))
 ##             entry = cursor.fetchall()
 ##             if len(entry) == 1:
 ##                 return [entry[0][0], entry[0][1]]
 ##             else:
 ##                 self.setEmailNotificationPref(avId, 0, None)
 ##                 return [0, None]
-            
+
 ##         except _mysql_exceptions.OperationalError,e:
 ##             self.reconnect()
 ##             return getEmailNotificationPref(avId)
@@ -844,11 +866,11 @@ class GuildDB(DBInterface):
 ##             self.db.commit()
 ##         except _mysql_exceptions.OperationalError,e:
 ##             self.reconnect()
-##             print "GuildDB::setEmailNotificationPref - reconnect"
+##             print("GuildDB::setEmailNotificationPref - reconnect")
 ##             self.setEmailNotificationPref(avId, notify, emailAddress)
 ##             return
 ##         except _mysql_exceptions.IntegrityError,e:
-##             print "DEBUG - error is ", e
+##             print("DEBUG - error is ", e)
 
 ##     def updateNotificationPref(self, avId, notify, emailAddress):
 ##         # Update the notification rec in the DB
@@ -857,7 +879,7 @@ class GuildDB(DBInterface):
 ##             cursor = self.db.cursor()
 ##             cursor.execute("UPDATE email_notify SET notify = %s,  emailaddress = %s WHERE avid = %s", (notify, emailAddress, avId))
 ##             self.db.commit()
-##         except  _mysql_exceptions.OperationalError,e:
+##         except  MySQLdb.OperationalError,e:
 ##             self.reconnect()
 ##             self.updateNotificationPref(avId, notify, emailAddress)
 
@@ -875,4 +897,4 @@ class GuildDB(DBInterface):
         cursor.execute("TRUNCATE TABLE guilds")
         self.db.commit()
 
- 
+

@@ -3,16 +3,20 @@
 #import Pyro.errors
 import sys
 import datetime
-import MySQLdb
-import MySQLdb.constants.CR
-import _mysql_exceptions
+# Custom: MySQLdb does not support Python 3
+# import MySQLdb
+# import MySQLdb.constants.CR
+# import _mysql_exceptions
+import pymysql as MySQLdb
+import pymysql.err as _mysql_exceptions
 
 from otp.switchboard.sbLog import sbLog
 import otp.switchboard.sbConfig as sbConfig
 import otp.switchboard.sbSQL as sbSQL
 
-SERVER_GONE_ERROR = MySQLdb.constants.CR.SERVER_GONE_ERROR
-SERVER_LOST = MySQLdb.constants.CR.SERVER_LOST
+# Custom: "CR_" for pymysql
+SERVER_GONE_ERROR = MySQLdb.constants.CR.CR_SERVER_GONE_ERROR
+SERVER_LOST = MySQLdb.constants.CR.CR_SERVER_LOST
 
 class sbMaildb:
     def __init__(self,log,host,port,user,passwd,db):
