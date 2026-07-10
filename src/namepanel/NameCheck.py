@@ -362,8 +362,8 @@ def checkName(name, otherCheckFuncs=[], font=None):
         ]
 
     # make sure we are working with a wide-character version of the string
-    if isinstance(name, bytes) # Custom if check
-        name = TextEncoder().decodeText(name.encode('utf-8'))
+    if isinstance(name, bytes): # Custom if check
+        name = name.decode('utf-8') # TextEncoder().decodeText(name)
     else:
         name
     notify.info('checking name "%s"...' % TextEncoder().encodeWtext(name))
