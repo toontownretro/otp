@@ -12,19 +12,19 @@ if __debug__:
     from direct.directnotify.DirectNotifyGlobal import directNotify
     notify = directNotify.newCategory('ChatManagerUD')
 
-if uber.wantSwitchboard:
-    from otp.switchboard.sbWedge import sbWedge
-    from direct.task import Task
-
-    class udWedge(sbWedge):
-        def __init__(self,wedgeName,dcmUD):
-            sbWedge.__init__(self,wedgeName)
-            self.dcmUD = dcmUD
-        def recvWhisper(self,recipientId,senderId,msgText):
-            self.log("**Whisper from %d received for %d: %s"%(senderId,recipientId,msgText))
-            if uber.GEMdemoWhisperRecipientDoid == 0:
-                self.log.error("SB demo enabled but no recipient DOID specified!")
-            self.dcmUD.sendWhisperFrom(uber.GEMdemoWhisperRecipientDoid,uber.GEMdemoWhisperRecipientDoid,msgText)
+#if uber.wantSwitchboard:
+#    from otp.switchboard.sbWedge import sbWedge
+#    from direct.task import Task
+#
+#    class udWedge(sbWedge):
+#        def __init__(self,wedgeName,dcmUD):
+#            sbWedge.__init__(self,wedgeName)
+#            self.dcmUD = dcmUD
+#        def recvWhisper(self,recipientId,senderId,msgText):
+#            self.log("**Whisper from %d received for %d: %s"%(senderId,recipientId,msgText))
+#            if uber.GEMdemoWhisperRecipientDoid == 0:
+#                self.log.error("SB demo enabled but no recipient DOID specified!")
+#            self.dcmUD.sendWhisperFrom(uber.GEMdemoWhisperRecipientDoid,uber.GEMdemoWhisperRecipientDoid,msgText)
 
 #-----------------------------------------------------------------------------
 
