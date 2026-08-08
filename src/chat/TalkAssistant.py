@@ -314,7 +314,7 @@ class TalkAssistant(DirectObject.DirectObject):
         elif (len(message) == 0):
             # empty string cannot be a thought
             return 0
-        elif (string.find(message, ThoughtPrefix, 0,
+        elif (message.find(ThoughtPrefix, 0,
                           len(ThoughtPrefix)) >= 0):
             return 1
         else:

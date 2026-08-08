@@ -13,7 +13,7 @@ portnum = int(sys.argv[2])
 
 ids = sys.stdin.readlines()
 
-ids = list(map(string.strip,ids))
+ids = list(map(str.strip,ids))
 
 opener = urllib.request.FancyURLopener({})
 

@@ -318,7 +318,7 @@ class LauncherBase(DirectObject):
 
         # server is a semicolon-delimited list of URL's.
         self.downloadServerList = []
-        for name in string.split(downloadServerString, ';'):
+        for name in downloadServerString.split(';'):
             url = URLSpec(name, 1)
             self.downloadServerList.append(url)
 
@@ -1456,7 +1456,7 @@ class LauncherBase(DirectObject):
                 nameSizeTuple = self.linesInProgress[i].split()
                 # get rid of the L from the number
                 numSize = nameSizeTuple[1].split('L')
-                sum += string.atoi(numSize[0])
+                sum += int(numSize[0])
         return sum
 
     def readProgressFile(self):

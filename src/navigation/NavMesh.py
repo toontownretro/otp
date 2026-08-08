@@ -675,7 +675,7 @@ class NavMesh(object):
 
                 assert len(stringsRow[-1]) == 3
 
-            rowString = string.join(stringsRow,"")
+            rowString = stringsRow.join("")
 
             self.pathData.append(rowString)
 

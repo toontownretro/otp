@@ -188,7 +188,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
             self.setMagicWordResponse(str(localAvatar.doId))
 
         elif wordIs("~doId"):
-            name = string.strip(word[6:])
+            name = word[6:].strip()
 
             objs = self.identifyDistributedObjects(name)
             if (len(objs) == 0):
@@ -261,7 +261,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
                 self.setMagicWordResponse(response)
             else:
                 tm.extraSkew = 0.0
-                skew = string.strip(word[5:])
+                skew = word[5:].strip()
                 if skew != "":
                     tm.extraSkew = float(skew)
                 globalClockDelta.clear()
@@ -272,7 +272,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
             # of seconds, or with no parameter, report the number of
             # seconds remaining.
             
-            timeout = string.strip(word[7:])
+            timeout = word[7:].strip()
             if timeout != "":
                 seconds = int(timeout)
                 self.cr.stopPeriodTimer()
@@ -810,7 +810,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
                 return
 
         nextWord = word[b+1:]
-        name = string.strip(word[5:b])
+        name = word[5:b].strip()
 
         id = self.identifyAvatar(name)
         if (id == None):
@@ -827,7 +827,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
         # with the given name.  Returns a list of (name, obj) pairs.
 
         result = []
-        lowerName = string.lower(name)
+        lowerName = name.lower()
 
         for obj in list(self.cr.doId2do.values()):
             className = obj.__class__.__name__
@@ -836,9 +836,9 @@ class MagicWordManager(DistributedObject.DistributedObject):
             except:
                 name = className
 
-            if string.lower(name) == lowerName or \
-               string.lower(className) == lowerName or \
-               string.lower(className) == "distributed" + lowerName:
+            if name.lower() == lowerName or \
+               className.lower() == lowerName or \
+               className.lower() == "distributed" + lowerName:
                 result.append((name, obj))
 
         return result
@@ -880,7 +880,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
         # Decompose the string into keywords, and return the
         # corresponding collision bitmask, suitable for passing to
         # NodePath.showCS() or hideCS().
-        words = string.lower(str).split()
+        words = str.lower().split()
         if len(words) == 0:
             return None
 
@@ -938,7 +938,7 @@ class MagicWordManager(DistributedObject.DistributedObject):
             return None
 
     def showfont(self, fontname):
-        fontname = string.strip(string.lower(fontname))
+        fontname = fontname.lower().strip()
         font = self.getFontByName(fontname)
         if font == None:
             self.setMagicWordResponse("Unknown font: %s" % (fontname))
@@ -1096,10 +1096,10 @@ class MagicWordManager(DistributedObject.DistributedObject):
                 return av.doId
 
         # No good; try a case-insensitive match.
-        lowerName = string.lower(name)
+        lowerName = name.lower()
         for av in Avatar.Avatar.ActiveAvatars:
             if isinstance(av, self.GameAvatarClass) and \
-               string.strip(string.lower(av.getName())) == lowerName:
+               av.getName().lower().strip() == lowerName:
                 return av.doId
 
         # Is it a doId anyway?

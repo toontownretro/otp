@@ -13,7 +13,7 @@ def __do_explore(dirname):
 
     if sys.platform == 'win32':
         url = dirname.replace('\\', '/')
-        if len(url) > 1 and url[0] in string.letters and url[1] == ':':
+        if len(url) > 1 and url[0] in string.ascii_letters and url[1] == ':':
             url = '/' + url
     else:
         url = dirname
