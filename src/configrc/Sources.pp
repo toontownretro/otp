@@ -3,7 +3,9 @@
 #define OTHER_LIBS \
     dtoolutil:c dtoolbase:c dtool:m
 
-#define WIN_SYS_LIBS advapi32.lib user32.lib gdi32.lib
+#define WIN_SYS_LIBS advapi32.lib user32.lib gdi32.lib \
+    // Custom for 64bit? Otherwise would have link errors
+    ws2_32.lib crypt32.lib
 #define USE_PACKAGES openssl
 
 #begin lib_target
@@ -32,11 +34,11 @@
 // FIX early evaluation flaw with DTOOLS
 #defer ODIR Opt$[OPTIMIZE]-$[PLATFORM]$[ODIR_SUFFIX]
 
+// Custom seems to be needed for Configrc to compile
+// due to it also using settingsFile
+#define EXTRA_CDEFS $[EXTRA_CDEFS] BUILDING_OTP_SETTINGS
+
 #begin bin_target
-
-// Don't build this disaster.
-#define BUILD_TARGET
-
 
 #if $[or $[eq $[PLATFORM], Cygwin], $[eq $[PLATFORM],Win32]]
 // UPX writes 'UPX' in the exe, but it's better than nothing until I can find a better encrypter

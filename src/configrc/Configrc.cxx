@@ -8,6 +8,7 @@
 #include "key_src.cxx"
 #ifdef _WIN32
 #include <windows.h>
+#include <intrin.h>
 #endif
 
 #include "openssl/ssl.h"
@@ -229,7 +230,6 @@ static void UninstallActiveX(const char *control_name,const char *control_GUID)
 
 // fTestInterval is in seconds
 static DWORD FindCPUMhz(float fTestInterval) {
- volatile DWORD Freq, EAX_tmp, EDX_tmp;
  int mSecs=(int)(fTestInterval*1000);
  if(mSecs<1)
    return 0;
@@ -238,22 +238,14 @@ static DWORD FindCPUMhz(float fTestInterval) {
  // SetThreadPriority could be temporarily used to ensure we're not swapped out
  // seems to work ok without it for now
 
-__asm {
-     RDTSC
-     mov  EAX_tmp, eax
-     mov  EDX_tmp, edx
- }
+ unsigned __int64 tsc_start = __rdtsc();
 
  Sleep(mSecs);
 
- __asm {
-     RDTSC
-     mov  ecx, uSecs
-     sub  eax, EAX_tmp
-     sbb  edx, EDX_tmp
-     div  ecx
-     mov  Freq, eax        // Freq gets the frequency in MHz
- }
+ unsigned __int64 tsc_end = __rdtsc();
+
+ // Freq gets the frequency in MHz
+ DWORD Freq = (DWORD)((tsc_end - tsc_start) / uSecs);
 
   return Freq;
 }
@@ -500,6 +492,12 @@ static void write_const(std::ostream& os) {
 
   // This should now be on by default
   // os << "want-new-toonhall 1" << std::endl;
+
+  //
+  os << "street-sign-url http://cdn.toontown.disney.go.com/toontown/en/street-signs/img/" << std::endl;
+
+  //
+  os << "want-cogdominiums 1" << std::endl;
 
   // need to specify audio library to use, such as Miles or FMOD etc
   os << "audio-library-name miles_audio" << std::endl;
