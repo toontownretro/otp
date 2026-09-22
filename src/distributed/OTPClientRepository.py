@@ -2557,14 +2557,14 @@ class OTPClientRepository(ClientRepositoryBase):
         welcomeValleyPopulation) for all the shards believed to be
         currently up and running, and accepting avatars.
         """
-        list = []
+        activeShards = []
         for s in list(self.activeDistrictMap.values()):
             if s.available:
-                list.append(
+                activeShards.append(
                         (s.doId, s.name, s.avatarCount,
                         s.newAvatarCount))
                 
-        return list
+        return activeShards
 
 
     ######### General senders and handlers #########

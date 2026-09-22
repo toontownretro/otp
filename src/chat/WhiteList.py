@@ -21,7 +21,7 @@ class WhiteList:
 
     def cleanText(self,text):
         text = text.strip(".,?!")
-        text = text.lower()
+        text = text.lower().encode('utf-8')
         return text
 
     def isWord(self,text):
