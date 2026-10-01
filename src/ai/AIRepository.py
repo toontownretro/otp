@@ -182,6 +182,10 @@ class AIRepository(ConnectionRepository):
         self.connectionName = None
         self.connectionURL = None
 
+        # This code was not featured in Anesidora, it could have also been
+        # part of ToontownAIRepository.py
+        self.setTrackClsends(config.GetBool('track-clsends', 1))
+
     def _startPerformanceLogging(self, task=None):
         period = self.config.GetFloat(
             'ai-performance-log-period',
