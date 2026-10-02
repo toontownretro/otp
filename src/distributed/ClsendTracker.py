@@ -48,7 +48,7 @@ class ClsendTracker:
 
     def _logClsend(self, senderId, dataStr):
         msgStream = StringStream()
-        simbase.air.describeMessage(msgStream, '', dataStr)
+        simbase.air.describeMessage(msgStream, '', PyDatagram(dataStr))
         readableStr = msgStream.getData()
 
         sstream = StringStream()

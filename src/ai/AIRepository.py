@@ -182,6 +182,8 @@ class AIRepository(ConnectionRepository):
         self.connectionName = None
         self.connectionURL = None
 
+        self._specByDisk = simbase.config.GetBool('spec-by-disk', 1)
+
         # This code was not featured in Anesidora, it could have also been
         # part of ToontownAIRepository.py
         self.setTrackClsends(config.GetBool('track-clsends', 1))

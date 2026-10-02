@@ -90,7 +90,6 @@ class LastSeenDB:
             if isRetry == True:
                 self.log.error("Error on getInfo retry, giving up:\n%s" % str(e))
                 return FriendInfo(playerName="NotFound")
-            # CHANGED: e[0] -> e.args[0] - exceptions not subscriptable in Python 3
             elif e.args[0] == SERVER_GONE_ERROR or e.args[0] == SERVER_LOST:
                 self.reconnect()
                 return self.getInfo(playerId,True)
@@ -124,7 +123,6 @@ class LastSeenDB:
             if isRetry == True:
                 self.log.error("Error on setInfo retry, giving up:\n" % str(e))
                 return
-            # CHANGED: e[0] -> e.args[0]
             elif e.args[0] == SERVER_GONE_ERROR or e.args[0] == SERVER_LOST:
                 self.reconnect()
                 self.setInfo(playerId,info,True)
@@ -148,14 +146,11 @@ class LastSeenDB:
         try:
             cursor.execute("USE `%s`"%self.dbname)
             cursor.execute("show table status")
-            # CHANGED: fetchallDict() -> fetchall()
-            # pymysql DictCursor.fetchall() returns list of dicts, same result
-            return cursor.fetchall()
+            return cursor.fetchallDict()
         except _mysql_exceptions.OperationalError as e:
             if isRetry == True:
                 self.log.error("Error on getTableStatus retry, giving up:\n" % str(e))
                 return None
-            # CHANGED: e[0] -> e.args[0]
             elif e.args[0] == SERVER_GONE_ERROR or e.args[0] == SERVER_LOST:
                 self.reconnect()
                 return self.getTableStatus(True)
