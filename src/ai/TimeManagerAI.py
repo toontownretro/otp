@@ -135,6 +135,25 @@ class TimeManagerAI(DistributedObjectAI.DistributedObjectAI):
         self.notify.info('client-fps %s|%s' % (requesterId, info))
         self.air.writeServerEvent('client-fps', requesterId, info)
 
+    # This whole method is guessed as TimeManagerAI never leaked
+    def checkAvOnDistrict(self, context, avId):
+        """checkAvOnDistrict(uint32 context, DoId avId)
+
+        This method is called by the client shortly after loading in,
+        and sends a request to the server asking if a player around
+        them is still alive, and then asks again every 60 seconds.
+        """
+        requesterId = self.air.getAvatarIdFromSender()
+
+        av = self.air.doId2do.get(avId)
+
+        if (av is not None) and (av.parentId == self.air.districtId):
+            present = 1
+        else:
+            present = 0
+
+        self.sendUpdateToAvatarId(requesterId, 'checkAvOnDistrictResult', [context, avId, present])
+
     if __dev__:
         def checkForGarbageLeaks(self, wantReply):
             senderId = self.air.getAvatarIdFromSender()
