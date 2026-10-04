@@ -23,6 +23,9 @@ from otp.otpbase.OTPModules import GeomNode
 from otp.navigation.NavUtil import PriQueue
 from otp.navigation.NavUtil import FIFOCache
 
+# Custom: libotp for old Panda
+from panda3d.otp import PathTable
+
 # Node locator collision stuff
 from otp.otpbase.OTPModules import BitMask32
 from otp.otpbase.OTPModules import CollisionSphere
@@ -671,11 +674,13 @@ class NavMesh(object):
                 assert item[0] < 65536
                 assert item[1] < 256
 
-                stringsRow.append(chr(item[0]/256) + chr(item[0]%256) + chr(item[1]))
+                # Custom // in Python 3
+                stringsRow.append(chr(item[0]//256) + chr(item[0]%256) + chr(item[1]))
 
                 assert len(stringsRow[-1]) == 3
 
-            rowString = stringsRow.join("")
+            # Custom: rowString = string.join(stringsRow,"") in Python 2
+            rowString = "".join(stringsRow)
 
             self.pathData.append(rowString)
 

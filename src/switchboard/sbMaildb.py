@@ -84,7 +84,7 @@ class sbMaildb:
             if isRetry == True:
                 self.log.error("Error on getMail retry, giving up:\n%s" % str(e))
                 return ()
-            elif e[0] == SERVER_GONE_ERROR or e[0] == SERVER_LOST:
+            elif e.args[0] == SERVER_GONE_ERROR or e.args[0] == SERVER_LOST:
                 self.reconnect()
                 return self.getMail(recipientId,True)
             else:
@@ -119,7 +119,7 @@ class sbMaildb:
             if isRetry == True:
                 self.log.error("Error on putMail retry, giving up:\n%s" % str(e))
                 return
-            elif e[0] == SERVER_GONE_ERROR or e[0] == SERVER_LOST:
+            elif e.args[0] == SERVER_GONE_ERROR or e.args[0] == SERVER_LOST:
                 self.reconnect()
                 self.putMail(recipientId,senderId,message,True)
             else:
@@ -150,7 +150,7 @@ class sbMaildb:
             if isRetry == True:
                 self.log.error("Error in deleteMail retry, giving up:\n%s" % str(e))
                 return
-            elif e[0] == SERVER_GONE_ERROR or e[0] == SERVER_LOST:
+            elif e.args[0] == SERVER_GONE_ERROR or e.args[0] == SERVER_LOST:
                 self.reconnect()
                 self.deleteMail(accountId,messageId,True)
             else:

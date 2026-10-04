@@ -11,7 +11,8 @@ class QuadTree(object):
         self.empty = True
         self.width = width
 
-        offset = width / 2
+        # Custom: // in Python 3
+        offset = width // 2
 
 
     def fill(self,x,y):
@@ -30,7 +31,8 @@ class QuadTree(object):
             self.full = True
             return
 
-        offset = self.width / 2
+        # Custom: // in Python 3
+        offset = self.width // 2
 
         if self.width == 2:
             if x >= 0:
@@ -44,7 +46,8 @@ class QuadTree(object):
                 else:
                     self.LL.fill(0,0)
         else:
-            moveAmt = offset / 2
+            # Custom: // in Python 3
+            moveAmt = offset // 2
             if x >= 0:
                 if y >= 0:
                     self.UR.fill(x-moveAmt,y-moveAmt)
@@ -60,7 +63,8 @@ class QuadTree(object):
             self.full = True
 
     def squarify(self):
-        offset = self.width / 2
+        # Custom: // in Python 3
+        offset = self.width // 2
         if self.empty:
             return []
         
@@ -90,7 +94,8 @@ class QuadTree(object):
                     res.append((-1,-1,-1,-1))
 
             else:
-                moveAmt = offset / 2
+                # Custom: // in Python 3
+                moveAmt = offset // 2
                 for s in ur:
                     res.append((s[0]+moveAmt,s[1]+moveAmt,s[2]+moveAmt,s[3]+moveAmt))
                 for s in ul:

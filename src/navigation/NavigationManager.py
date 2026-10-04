@@ -1,5 +1,5 @@
 import string
-#import md5
+import md5
 import hashlib
 import subprocess
 import pickle as pickle
@@ -11,8 +11,6 @@ from otp.navigation.NavMesh import NavMesh
 from otp.otpbase import OTPGlobals
 from otp.otpbase.OTPModules import BitMask32
 from direct.directnotify import DirectNotifyGlobal
-
-from otp.otpbase.OTPModules import ConfigVariableBool, ConfigVariableString
 
 
 class NavigationManager(object):
@@ -87,8 +85,10 @@ class NavigationManager(object):
 
                     monsterData.append( str(s) )
 
+        # Custom: string.join(monsterData, "") in Python 2
         monsterData = "".join(monsterData)
 
+        # Custom: .encode("utf-8") for Python 3
         hash = hashlib.md5(monsterData.encode("utf-8"))
 
         return hash.digest()
@@ -148,7 +148,7 @@ class NavigationManager(object):
 
             t1 = time.time()
 
-            if ConfigVariableBool("want-parallel-pathgen", False).getValue():
+            if config.GetBool("want-parallel-pathgen", False):
 
                 numProcs = 8
                 rowsPerProc = newMesh.numNodes / numProcs
@@ -218,7 +218,7 @@ def gogogo():
     from otp.otpbase.OTPModules import Filename
     from pirates.world.LocationConstants import LocationIds
 
-    navpath = os.path.expandvars(ConfigVariableString("navdata-path","$OTP/src/navigation/").getValue())
+    navpath = os.path.expandvars("navdata-path","$OTP/src/navigation/")
 
     simbase.nm = NavigationManager(navpath,
                                    {LocationIds.PORT_ROYAL_ISLAND:'port_royal'})

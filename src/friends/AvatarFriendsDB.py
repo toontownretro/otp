@@ -151,7 +151,7 @@ class AvatarFriendsDB(DBInterface):
             else:
                 cursor.execute("DELETE FROM avatarfriends where friendId1=%s AND friendId2=%s",(avatarId2,avatarId1))
         except _mysql_exceptions.OperationalError as e:
-            if e.args[0] == SERVER_GONE_ERROR or e[0] == SERVER_LOST: # 'Lost connection to MySQL server during query'
+            if e.args[0] == SERVER_GONE_ERROR or e.args[0] == SERVER_LOST: # 'Lost connection to MySQL server during query'
                 self.reconnect()
                 cursor = MySQLdb.cursors.DictCursor(self.db)
                 if avatarId1 < avatarId2:

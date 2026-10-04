@@ -3,7 +3,8 @@ from otp.navigation.NavMesh import NavMesh
 import sys
 
 
-args = sys.stdin.read()
+# Custom: buffer in Python 3
+args = sys.stdin.buffer.read()
 
 filepath,filename,startRow,endRow = pickle.loads(args)
 
