@@ -274,7 +274,8 @@ class OTPClientRepository(ClientRepositoryBase):
         if __debug__:
             # In the dev environment, the default value comes from the
             # username.
-            default = 'dev-%s' % (os.getenv("USER"))
+            # Custom: Need os.getenv("USERNAME") for Windows or else they return "None"
+            default = 'dev-%s' % (os.getenv("USER") or os.getenv("USERNAME"))
             self.userSignature = base.config.GetString('signature', default);
 
         else:
