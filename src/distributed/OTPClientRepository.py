@@ -3020,7 +3020,8 @@ class OTPClientRepository(ClientRepositoryBase):
     def handleGenerateWithRequired(self, di):
         parentId = di.getUint32()
         zoneId = di.getUint32()
-        assert parentId == self.GameGlobalsId or parentId in self.doId2do
+        # Custom: Assert not compatible with OTPGo
+        #assert parentId == self.GameGlobalsId or parentId in self.doId2do
         # Get the class Id
         classId = di.getUint16()
         # Get the DO Id
