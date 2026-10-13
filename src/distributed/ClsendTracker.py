@@ -49,11 +49,11 @@ class ClsendTracker:
     def _logClsend(self, senderId, dataStr):
         msgStream = StringStream()
         simbase.air.describeMessage(msgStream, '', PyDatagram(dataStr))
-        readableStr = msgStream.getData()
+        readableStr = msgStream.getData().decode("utf-8", "replace")
 
         sstream = StringStream()
         PyDatagram(dataStr).dumpHex(sstream)
-        hexDump = sstream.getData()
+        hexDump = sstream.getData().decode("latin-1")
 
         self.clsendNotify.info('%s [%s]: %s%s' % (self.doId, self._clsendCounter, readableStr, hexDump))
 
