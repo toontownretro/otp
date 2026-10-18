@@ -663,6 +663,7 @@ dclass GuildManager: DistributedObject, LeaderBoardReceiver, TalkPath_group {
   setWantName(string(0-256) newName) airecv clsend;     // CL -> UD
   removeMember(uint32 avatarId) airecv clsend;   // CL -> UD
   changeRank(uint32 avatarId, uint8 rank) airecv clsend;  // CL -> UD
+  changeRankAvocate(uint32 avatarId) airecv clsend;  // CL -> UD
   statusRequest() airecv clsend;                 // CL -> UD
   requestLeaderboardTopTen() airecv clsend;      // CL -> UD
   guildStatusUpdate(uint32 guildId, string(0-256) guildname, uint8 rank); // CL -> UD
