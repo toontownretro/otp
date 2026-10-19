@@ -137,8 +137,8 @@ dclass TimeManager: DistributedObject {
   // sets this at startup time.  It probably ought to be on the player
   // too, but then we have trouble sending it before the AI hears
   // about the player.
-  // Custom: char hash[16], char pyc[16] in Python 2
-  setSignature(string(0-1024) signature, blob(16) hash, blob(16) pyc) airecv clsend;
+  // Custom: string(0-1024) signature, char hash[16], char pyc[16] in Python 2
+  setSignature(blob(0-1024) signature, blob(16) hash, blob(16) pyc) airecv clsend;
 
   // This is the average frame rate reported by the client, along with
   // some relevant machine and game statistics.
@@ -154,7 +154,8 @@ dclass TimeManager: DistributedObject {
                string(0-256) apiName) airecv clsend;
 
   // This is sent at startup to provide verbose CPU information.
-  setCpuInfo(string(0-1024) info, string cacheStatus) airecv clsend;
+  // Custom: string(0-1024) info in Python 2
+  setCpuInfo(blob(0-1024) info, string cacheStatus) airecv clsend;
 
   // This message tells the dev AI to check for garbage leaks
   checkForGarbageLeaks(bool wantReply) airecv clsend;

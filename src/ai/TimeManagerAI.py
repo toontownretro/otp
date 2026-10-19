@@ -75,7 +75,8 @@ class TimeManagerAI(DistributedObjectAI.DistributedObjectAI):
             requesterId = self.air.getAvatarIdFromSender()
             prcHash = HashVal()
             prcHash.setFromBin(hash)
-            info = '%s|%s' % (signature, prcHash.asHex())
+            # Custom: .decode() in Python 3
+            info = '%s|%s' % (signature.decode(), prcHash.asHex())
             self.notify.info('Client %s signature: %s' % (requesterId, info))
             self.air.writeServerEvent('client-signature', requesterId, info)
 
@@ -92,6 +93,10 @@ class TimeManagerAI(DistributedObjectAI.DistributedObjectAI):
         the detailed CPU information to the server for logging.
         """
         requesterId = self.air.getAvatarIdFromSender()
+
+        # Custom: Bytes guard for Python 3 and corrupt CPU data
+        if isinstance(info, bytes):
+            info = info.decode("utf-8", "ignore")
         
         self.notify.info('client-cpu %s|%s' % (requesterId, info))
         self.air.writeServerEvent('client-cpu', requesterId, info)
