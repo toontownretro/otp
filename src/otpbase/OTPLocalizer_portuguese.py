@@ -2606,7 +2606,7 @@ SpeedChatStaticText = SpeedChatStaticTextCommon
 
 
 SpeedChatStaticText = SpeedChatStaticTextToontown.copy()
-for key in SpeedChatStaticTextCommon.iterkeys():
+for key in SpeedChatStaticTextCommon.keys():
     SpeedChatStaticText[key] = SpeedChatStaticTextCommon[key]
 
 
