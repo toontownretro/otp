@@ -4,7 +4,7 @@ numbers together and writes a handful of .csv files, suitable for
 importing into Excel. """
 
 import time
-import pickle
+import pickle as cPickle
 
 class Sample:
     def __init__(self, line, columns):
@@ -251,12 +251,13 @@ class Analyzer:
         
         assert filename.endswith('.pkl')
         file = open(filename, 'wb')
-        pickle.dump(self, file, pickle.HIGHEST_PROTOCOL)
+        # Custom: cPickle.HIGHEST_PROTOCOL was 2 in Python 2, 3+ in Python 3
+        cPickle.dump(self, file, 2)
 
     def readPickle(self, filename):
         assert filename.endswith('.pkl')
         file = open(filename, 'rb')
-        obj = pickle.load(file)
+        obj = cPickle.load(file)
         assert obj.__class__ == self.__class__
         self.__dict__ = obj.__dict__
     
