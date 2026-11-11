@@ -29,8 +29,7 @@ MAX_MEMBERS = 500
 
 # How many players an officer can kick from a guild
 OFFICER_DAILY_MAX_REMOVES = 5
-
-# ADD: def changeRankAvocate(self, avatarId):
+OFFICER_KICK_COOLDOWN = 24 * 60 * 60
 
 class GuildManagerUD(DistributedObjectGlobalUD):
     """
@@ -426,23 +425,21 @@ class GuildManagerUD(DistributedObjectGlobalUD):
             senderRank = self._getGuildRank(senderId)
             victimRank = self._getGuildRank(avatarId)
 
-            # Check if an Officer has kicked more than the allowed amount
-            # if senderRank == GUILDRANK_OFFICER:
-            #    if self.officerKickCount(senderId) >= OFFICER_DAILY_MAX_REMOVES:
-            #        self.sendUpdateToAvatarId(senderId, "notifyGuildKicksMaxed", [])
-            #        return
-
             # Removing self from guild
             if senderId == avatarId or \
                (senderGuild == victimGuild) and senderRank > victimRank:
+                # Check if an Officer has kicked more than the allowed amount
+                if (senderId != avatarId) and (senderRank == GUILDRANK_OFFICER):
+                    kickCount = self.getOfficerKickCount(senderId)
+                    if kickCount >= OFFICER_DAILY_MAX_REMOVES:
+                        self.sendUpdateToAvatarId(senderId, "notifyGuildKicksMaxed", [])
+                        return
                 self.air.writeServerEvent('removeGuildMember', avatarId, 'by %s from %s' % (senderId, victimGuild))
                 self.db.removeMember(avatarId, victimGuild, victimRank)
+                if (senderId != avatarId) and (senderRank == GUILDRANK_OFFICER):
+                    self.increaseOfficerKickCount(senderId)
                 avatarName = self.avatarName.get(avatarId)
                 senderName = self.avatarName.get(senderId)
-
-                # Increase the count by 1 with each kick
-                # if senderRank == GUILDRANK_OFFICER:
-                #    self.increaseOfficerKickCount(senderId)
 
                 self.sendUpdateToGuildChannel(victimGuild, 'recvMemberRemoved',
                                               [avatarId, senderId, avatarName, senderName])
@@ -1049,13 +1046,39 @@ class GuildManagerUD(DistributedObjectGlobalUD):
         self.db.removeMember(avatarId, victimGuild, victimRank)
         self.sendUpdateToGuildChannel(victimGuild, 'recvMemberRemoved', [avatarId, senderId, avatarName, senderName])
 
-    # Potential save ideas
-    # * Reset the count at 12 AM server time
-    # * Reset the count exactly 24 hours after the final kick
-    # * Reset the count at 12 AM UTC
+    # Marking this as a TODO since this may not be completely accurate
 
-    def getOfficerKickCount(self):
-        pass
+    # This tracks kicks from each officer of a guild individually.
+    # The 24 hour cooldown starts on the first kick.
+    # Any kick attempt after the 5th kick will be blocked.
+
+    def getOfficerKickCount(self, avatarId):
+        self.tallyFunction("getOfficerKickCount")
+
+        now = int(time.time())
+
+        kickCount = self.officerKickCount.get(avatarId)
+
+        if not kickCount:
+            return 0
+
+        count, firstKickTime = kickCount
+
+        if now >= firstKickTime + OFFICER_KICK_COOLDOWN:
+            self.officerKickCount.pop(avatarId, None)
+            return 0
+
+        return count
 
     def increaseOfficerKickCount(self, avatarId):
-        pass
+        self.tallyFunction("increaseOfficerKickCount")
+
+        now = int(time.time())
+
+        count = self.getOfficerKickCount(avatarId)
+
+        if avatarId not in self.officerKickCount:
+            self.officerKickCount[avatarId] = (1, now)
+        else:
+            count, firstKickTime = self.officerKickCount[avatarId]
+            self.officerKickCount[avatarId] = (count + 1, firstKickTime)
