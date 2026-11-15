@@ -557,8 +557,8 @@ class Freezer:
                 'pythonLpath' : pythonLpath,
                 'pythonLib' : PythonLib,
                 }
-	else:
-	    pythonIpath = Filename(ExecutionEnvironment.expandString(PythonIpath)).toOsSpecific()
+        else:
+            pythonIpath = Filename(ExecutionEnvironment.expandString(PythonIpath)).toOsSpecific()
             pythonLpath = Filename(ExecutionEnvironment.expandString(PythonLpath)).toOsSpecific()
             compileList = []
             objList = []
@@ -626,7 +626,7 @@ class Freezer:
                 'objList' : ' '.join(objList),
                 'basename' : basename,
                 }
-	else:
+        else:
             pythonIpath = Filename(ExecutionEnvironment.expandString(PythonIpath)).toOsSpecific()
             compileList = []
             objList = []
@@ -641,8 +641,8 @@ class Freezer:
             link = linuxLinkDll % {
                 'objList' : ' '.join(objList),
                 'basename' : basename,
-		'pythonLpath':  PythonLpath,
-		'pythonLib' : PythonLib,
+        'pythonLpath':  PythonLpath,
+        'pythonLib' : PythonLib,
                 }
 
 
